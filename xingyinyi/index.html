@@ -1,0 +1,2070 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#e6ece4" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#131c17" media="(prefers-color-scheme: dark)">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="形音义">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="description" content="Flashcards à trois faces (caractère, pinyin, français) avec phrases d’exemple, pour le HSK.">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="preload" href="fonts/wenkai.woff2" as="font" type="font/woff2" crossorigin>
+<title>形音义</title>
+<style>
+@font-face{font-family:"WK";font-style:normal;font-weight:400;font-display:swap;src:url("fonts/wenkai.woff2") format("woff2");unicode-range:U+D7,U+201C-201D,U+2026,U+221A,U+2460-2468,U+3001-3002,U+300A-300B,U+4E00-4E01,U+4E03,U+4E07-4E0B,U+4E0D-4E0E,U+4E10-4E11,U+4E13-4E14,U+4E16,U+4E18-4E1D,U+4E22,U+4E24-4E25,U+4E27,U+4E2A-4E2B,U+4E2D,U+4E30,U+4E32,U+4E34,U+4E38-4E3B,U+4E3D-4E3E,U+4E43,U+4E45,U+4E48-4E49,U+4E4B-4E4C,U+4E4E-4E50,U+4E52-4E54,U+4E56,U+4E58-4E59,U+4E5D-4E61,U+4E66,U+4E70-4E71,U+4E73,U+4E86,U+4E88-4E89,U+4E8B-4E8C,U+4E8E-4E8F,U+4E91-4E92,U+4E94-4E95,U+4E9A-4E9B,U+4EA1,U+4EA4,U+4EA6-4EA7,U+4EA9,U+4EAB-4EAE,U+4EB2,U+4EBA,U+4EBF-4EC1,U+4EC5-4EC7,U+4ECA-4ECB,U+4ECD-4ECE,U+4ED3-4ED4,U+4ED6-4ED9,U+4EE3-4EE5,U+4EEA,U+4EEC,U+4EF0,U+4EF2,U+4EF6-4EF7,U+4EFB,U+4EFD,U+4EFF,U+4F01,U+4F0A,U+4F0D,U+4F0F-4F11,U+4F17-4F1A,U+4F1E-4F20,U+4F24,U+4F26,U+4F2A,U+4F2F-4F30,U+4F34,U+4F36,U+4F38,U+4F3A,U+4F3C,U+4F46,U+4F4D-4F51,U+4F53,U+4F55,U+4F59,U+4F5B-4F5C,U+4F60,U+4F63,U+4F69,U+4F73,U+4F7F,U+4F83-4F84,U+4F88,U+4F8B,U+4F8D,U+4F9B,U+4F9D,U+4FA0,U+4FA3,U+4FA5-4FA8,U+4FAE,U+4FB5,U+4FBF,U+4FC3-4FC4,U+4FCA,U+4FCF-4FD0,U+4FD7-4FD8,U+4FDD,U+4FE1,U+4FE9,U+4FED-4FEF,U+4FF1,U+500D,U+5012,U+5014,U+5018-501A,U+501F,U+5021,U+5026,U+503A,U+503C,U+503E,U+5047,U+504F,U+505A,U+505C,U+5065,U+5076-5077,U+507F,U+5085,U+508D,U+50A8,U+50AC,U+50B2,U+50BB,U+50CF,U+50DA,U+50E7,U+50F5,U+50FB,U+5112,U+513F,U+5141,U+5143-5146,U+5148-5149,U+514B,U+514D,U+5151,U+5154,U+515A,U+515C,U+5162,U+5165,U+5168,U+516B-516D,U+5170-5171,U+5173-5179,U+517B-517D,U+5185,U+5188,U+518C-518D,U+5192,U+5197,U+5199,U+519B-519C,U+51A0,U+51A4,U+51AC,U+51B0,U+51B2-51B3,U+51B5-51B7,U+51BB,U+51C0,U+51C4,U+51C6,U+51C9,U+51CC,U+51CF,U+51D1,U+51DD,U+51E0-51E1,U+51E4,U+51ED,U+51EF-51F0,U+51F3,U+51F6,U+51F8-51FB,U+51FD,U+51FF-5201,U+5206-5207,U+520A,U+5211-5212,U+5217,U+5219-521B,U+521D,U+5220,U+5224,U+5228-5229,U+522B,U+522E,U+5230,U+5236-523B,U+5242-5243,U+524A,U+524D,U+5251,U+5254,U+5256,U+5265,U+5267,U+5269-526A,U+526F,U+5272,U+5288,U+529B,U+529D-52A1,U+52A3,U+52A8-52AB,U+52B1-52B3,U+52BF,U+52C3,U+52C7,U+52C9,U+52CB,U+52D2,U+52D8,U+52DF,U+52E4,U+52FA,U+52FE-5300,U+5305-5306,U+5316-5317,U+5319,U+5320,U+532A,U+5339-533B,U+533F,U+5341,U+5343,U+5347-534A,U+534E-534F,U+5351-5353,U+5355-5357,U+535A,U+535C,U+5360-5361,U+5364,U+5366-5367,U+536B,U+5370-5371,U+5373-5375,U+5377-5378,U+5382,U+5384-5386,U+5389,U+538B-538C,U+5395,U+5398,U+539A,U+539F,U+53A2,U+53A6,U+53A8,U+53BB,U+53BF,U+53C2,U+53C8-53CD,U+53D1,U+53D4,U+53D6-53D9,U+53DB,U+53E0,U+53E3-53E6,U+53E8,U+53EA-53F0,U+53F2-53F3,U+53F6-53F9,U+53FC,U+5401,U+5403-5404,U+5408-540A,U+540C-5411,U+5413,U+5417,U+541B,U+541D-541F,U+5426-5429,U+542B-542D,U+542F,U+5435,U+5438-5439,U+543B-543C,U+5440,U+5446,U+5448,U+544A,U+5450,U+5455,U+5458,U+545B-545C,U+5462,U+5468,U+5473,U+5475,U+547B-547D,U+5480,U+548B-548C,U+548F-5490,U+5496,U+5499,U+54A7-54A8,U+54AC,U+54B1,U+54B3,U+54B8,U+54BD,U+54C0-54C1,U+54C4,U+54C6-54C8,U+54CD-54CE,U+54D1,U+54D7,U+54E5-54E6,U+54E8,U+54EA,U+54ED,U+54F2,U+54FA,U+54FC,U+5506-5507,U+5509,U+5510,U+5520,U+5524,U+552C,U+552E-552F,U+5531,U+553E,U+5543,U+5546,U+554A,U+5561,U+5564-5566,U+556C,U+5570,U+5578,U+5582,U+5584,U+5587,U+5589-558A,U+5598,U+559C-559D,U+55A7,U+55B7,U+55BB,U+55C5,U+55D3,U+55DC,U+55E6,U+55E8,U+55EF,U+55FD,U+5608-5609,U+561B,U+5631-5632,U+5634,U+563F,U+5668,U+566A,U+568F,U+56B7,U+56BC,U+56CA,U+56DA-56DB,U+56DE,U+56E0,U+56E2,U+56ED,U+56F0-56F1,U+56F4,U+56FA,U+56FD-56FE,U+5706,U+5708,U+571F,U+5723,U+5728,U+5730,U+573A,U+573E,U+5740,U+5747,U+574F-5751,U+5757,U+575A-575B,U+575D,U+575F-5761,U+5766,U+576A,U+5782-5784,U+578B,U+5792,U+57A6,U+57AB,U+57AE,U+57CB,U+57CE,U+57DF,U+57F9-57FA,U+5802,U+5806,U+5815,U+5821,U+5824,U+582A,U+5835,U+584C,U+5851,U+5854,U+5858,U+585E,U+586B,U+5883,U+5885,U+5893,U+5899,U+589E-589F,U+58A8,U+58C1,U+58E4,U+58EB,U+58EE,U+58F0,U+58F3,U+58F6,U+5904,U+5907,U+590D,U+590F,U+5915-5916,U+591A,U+591C,U+591F,U+5927,U+5929-592B,U+592E,U+5931,U+5934,U+5937-593A,U+5947-5949,U+594B,U+594F,U+5951,U+5954,U+5956-5957,U+5960,U+5962,U+5965,U+5973-5974,U+5976,U+5978-5979,U+597D,U+5982,U+5984,U+5986-5988,U+5992,U+5996,U+5999,U+59A5,U+59A8,U+59B9,U+59BB,U+59C6,U+59CB,U+59D0-59D1,U+59D3-59D4,U+59DC,U+59E5,U+59E8,U+59FB,U+59FF,U+5A01,U+5A03,U+5A07,U+5A18,U+5A25,U+5A31,U+5A36,U+5A46,U+5A49,U+5A5A,U+5A6A,U+5A74,U+5A7F,U+5A92,U+5A9A,U+5AB2-5AB3,U+5AC1-5AC2,U+5AC9,U+5ACC,U+5AE6,U+5AE9,U+5B09,U+5B50,U+5B54-5B55,U+5B57-5B59,U+5B5D,U+5B63-5B64,U+5B66,U+5B69-5B6A,U+5B75,U+5B81,U+5B83,U+5B85,U+5B87-5B89,U+5B8C,U+5B8F,U+5B97-5B9A,U+5B9C-5B9E,U+5BA0-5BA4,U+5BAA-5BAB,U+5BB0,U+5BB3-5BB6,U+5BB9,U+5BBD-5BBF,U+5BC2,U+5BC4,U+5BC6,U+5BCC,U+5BD2-5BD3,U+5BDD-5BDF,U+5BE1,U+5BE5,U+5BE8,U+5BF8-5BFC,U+5BFF,U+5C01,U+5C04,U+5C06,U+5C0A,U+5C0F,U+5C11,U+5C14,U+5C16,U+5C18,U+5C1A,U+5C1D,U+5C24,U+5C2C,U+5C31,U+5C34,U+5C38,U+5C3A,U+5C3C-5C42,U+5C45,U+5C48-5C4B,U+5C4F,U+5C51,U+5C55,U+5C5E,U+5C60-5C61,U+5C65,U+5C6F,U+5C71,U+5C79,U+5C7F,U+5C81-5C82,U+5C94,U+5C97,U+5C9B,U+5CA9,U+5CAD,U+5CB3,U+5CB8,U+5CD9,U+5CE1,U+5CED,U+5CF0,U+5CFB,U+5D07,U+5D16,U+5D1B,U+5D29,U+5D2D,U+5D4C,U+5DC5,U+5DDD-5DDE,U+5DE1-5DE2,U+5DE5-5DE9,U+5DEB,U+5DEE,U+5DF1-5DF2,U+5DF4,U+5DF7,U+5DFE,U+5E01-5E03,U+5E05-5E06,U+5E08,U+5E0C,U+5E10,U+5E15-5E16,U+5E18,U+5E1C-5E1D,U+5E26,U+5E2D-5E2E,U+5E38,U+5E3D,U+5E45,U+5E55,U+5E62,U+5E72-5E74,U+5E76,U+5E78,U+5E7B-5E7D,U+5E7F,U+5E84,U+5E86-5E87,U+5E8A,U+5E8F,U+5E93-5E95,U+5E97,U+5E99,U+5E9C,U+5E9E-5E9F,U+5EA6-5EA7,U+5EAD,U+5EB7-5EB8,U+5EC9-5ECA,U+5ED3,U+5EF6-5EF7,U+5EFA,U+5F00,U+5F02-5F04,U+5F08,U+5F0A,U+5F0F,U+5F13,U+5F15,U+5F18,U+5F1B,U+5F1F-5F20,U+5F25-5F27,U+5F2F,U+5F31,U+5F39-5F3A,U+5F52-5F53,U+5F55,U+5F62,U+5F69,U+5F6C,U+5F70-5F71,U+5F79,U+5F7B-5F7C,U+5F80-5F81,U+5F84-5F85,U+5F88,U+5F8A-5F8B,U+5F90,U+5F92,U+5F97-5F99,U+5FA1,U+5FAA,U+5FAE,U+5FB7,U+5FBD,U+5FC3,U+5FC5-5FC6,U+5FCC-5FCD,U+5FD7-5FD9,U+5FE0,U+5FE7,U+5FEB,U+5FF5,U+5FFD,U+6000-6001,U+600E,U+6012,U+6015-6016,U+601C-601D,U+6020-6021,U+6025,U+6027-6028,U+602A,U+602F,U+603B,U+604B,U+604D,U+6050,U+6052,U+6055,U+6062,U+6064,U+6068-6069,U+606D,U+606F-6070,U+6073,U+6076,U+607C,U+6084,U+6089,U+6094,U+609F-60A0,U+60A3,U+60A6,U+60A8,U+60AC,U+60B2,U+60BC,U+60C5,U+60CA-60CB,U+60D1,U+60D5,U+60DC,U+60E0,U+60E6-60E9,U+60EB,U+60ED-60F0,U+60F3,U+60F9,U+6101,U+6108-6109,U+610F,U+611A,U+611F,U+6123-6124,U+6127,U+613F,U+6148,U+614C,U+614E,U+6151,U+6155,U+6162,U+6167-6168,U+6170,U+6177,U+618B,U+61BE,U+61C2,U+61C8,U+61D2,U+6208,U+620F-6212,U+6216,U+6218,U+621A,U+622A,U+6233-6234,U+6237,U+623F-6241,U+6247,U+624B,U+624D-624E,U+6251-6254,U+6258,U+625B,U+6263,U+6267,U+6269,U+626B-6270,U+6273,U+6276,U+6279,U+627E-6280,U+6284,U+628A,U+6291-6293,U+6295-6298,U+629A-629B,U+62A0-62A2,U+62A4-62A5,U+62A8,U+62AB-62AC,U+62B1,U+62B5,U+62B9,U+62BC-62BD,U+62C4-62C6,U+62C9,U+62CC-62CE,U+62D0,U+62D2-62D4,U+62D6,U+62D8-62D9,U+62DB-62DC,U+62DF,U+62E2-62E3,U+62E5-62E9,U+62EC,U+62EF,U+62F1,U+62F3-62F4,U+62FC-62FF,U+6301-6302,U+6307,U+6309,U+630E,U+6311,U+6316,U+631A,U+631F-6321,U+6323-6325,U+6328,U+632A-632B,U+632F,U+633A,U+633D,U+6342,U+6345-6346,U+6349,U+634D-6350,U+6355,U+635E-635F,U+6361-6363,U+6367,U+636E,U+6376-6377,U+6380,U+6388-6389,U+638C,U+638F-6390,U+6392,U+6398,U+63A0,U+63A2,U+63A5,U+63A7-63AA,U+63B0,U+63B7,U+63BA,U+63C9,U+63CD,U+63CF-63D0,U+63D2,U+63E1,U+63E3,U+63EA,U+63ED,U+63F4,U+63FD,U+6400-6402,U+6405,U+640F,U+6413,U+641C,U+641E,U+642C-642D,U+643A,U+6444,U+6446-6447,U+644A,U+6454,U+6458,U+6467,U+6469,U+6478,U+6487,U+6491-6492,U+6495,U+649E,U+64A4,U+64AC-64AD,U+64B0,U+64BC,U+64C5,U+64CD-64CE,U+64E6,U+6500,U+6512,U+6518,U+652F,U+6536,U+6539,U+653B,U+653E-653F,U+6545,U+6548,U+654C,U+654F,U+6551,U+6559,U+655B,U+655E,U+6562-6563,U+6566,U+656C,U+6570,U+6572,U+6574,U+6577,U+6587,U+6591,U+6597,U+6599,U+659C,U+659F,U+65A4-65A5,U+65A7,U+65A9,U+65AD,U+65AF-65B0,U+65B9,U+65BD,U+65C1,U+65C5,U+65CB,U+65CF,U+65D7,U+65E0,U+65E2,U+65E5-65E9,U+65EC-65ED,U+65F1,U+65F6-65F7,U+65FA,U+6602,U+6606,U+660C,U+660E-660F,U+6613-6614,U+661F-6620,U+6625,U+6627-6628,U+662F,U+663C,U+663E,U+6643,U+664B,U+6652-6653,U+6655,U+665A,U+6664,U+6668,U+666E-6670,U+6674,U+6676,U+667A,U+667E,U+6682,U+6684,U+6691,U+6696-6697,U+66A7,U+66AE,U+66B4,U+66D9,U+66DD,U+66F0,U+66F2,U+66F4,U+66FE-6700,U+6708-6709,U+670B,U+670D,U+6717,U+671B,U+671D,U+671F,U+6726,U+6728,U+672A-672C,U+672F,U+6731,U+6734-6735,U+673A,U+673D,U+6740,U+6742-6743,U+6746,U+674E,U+6750-6751,U+6756,U+675C,U+675F-6761,U+6765,U+6768,U+676F-6770,U+677E-677F,U+6781,U+6784,U+6789,U+6790,U+6795,U+6797,U+679A,U+679C-679D,U+67A2-67A3,U+67AA,U+67AF,U+67B6,U+67C4,U+67CF-67D0,U+67D3-67D4,U+67DC,U+67E5,U+67EC,U+67F1,U+67F3-67F4,U+67FF,U+6807,U+680B,U+680F,U+6811,U+6813,U+6816,U+6821,U+682A,U+6837-6839,U+683C-683D,U+6842-6843,U+6846,U+6848,U+684C,U+6851,U+6854,U+6863,U+6865,U+6868-6869,U+6876,U+6881,U+6885,U+68A2,U+68A6,U+68A8,U+68AF-68B0,U+68B3,U+68C0,U+68C9,U+68CB,U+68CD,U+68D2,U+68D5,U+68D8,U+68DA,U+68EE,U+68F1,U+68F5,U+68FA,U+6905,U+690D-690E,U+6912,U+692D,U+6930,U+695A,U+6977,U+697C,U+6982,U+699C,U+69A8,U+69D0,U+69DB,U+69FD,U+6A21,U+6A2A,U+6A58-6A59,U+6A61,U+6A71,U+6B20-6B23,U+6B27,U+6B32,U+6B3A,U+6B3E,U+6B47,U+6B49,U+6B4C,U+6B62-6B67,U+6B6A,U+6B79,U+6B7B-6B7C,U+6B83,U+6B8A-6B8B,U+6B96,U+6BB4-6BB5,U+6BB7,U+6BBF,U+6BC1,U+6BC5,U+6BCD,U+6BCF,U+6BD2,U+6BD4-6BD5,U+6BD9,U+6BDB,U+6BEB,U+6BEF,U+6C0F,U+6C11,U+6C13-6C14,U+6C1B,U+6C27,U+6C34,U+6C38,U+6C41-6C42,U+6C47,U+6C49,U+6C57,U+6C5B,U+6C5F-6C61,U+6C64,U+6C6A,U+6C70,U+6C79,U+6C7D,U+6C83,U+6C89,U+6C8F-6C90,U+6C99,U+6C9B,U+6C9F,U+6CA1,U+6CA7,U+6CAB,U+6CAE,U+6CB3,U+6CB8-6CB9,U+6CBB-6CBF,U+6CC4,U+6CC9-6CCA,U+6CCC,U+6CD5,U+6CDB,U+6CE1-6CE3,U+6CE5,U+6CE8,U+6CEA,U+6CF0,U+6CF3,U+6CFB-6CFD,U+6D01,U+6D0B,U+6D12,U+6D17,U+6D1E,U+6D25,U+6D2A,U+6D32,U+6D3B,U+6D3D-6D3E,U+6D41,U+6D45-6D47,U+6D4A-6D4B,U+6D4E-6D4F,U+6D51,U+6D53,U+6D69-6D6A,U+6D6E,U+6D74,U+6D77-6D78,U+6D82,U+6D88-6D89,U+6D8C,U+6D95,U+6D9B,U+6D9D,U+6DA1,U+6DA4,U+6DA6,U+6DA8-6DA9,U+6DAE-6DAF,U+6DB2,U+6DB5,U+6DC0,U+6DC6,U+6DCB-6DCC,U+6DD8,U+6DE1,U+6DF1,U+6DF7,U+6DF9,U+6DFB,U+6E05,U+6E0A,U+6E10,U+6E14,U+6E17,U+6E20-6E21,U+6E23,U+6E29,U+6E2F,U+6E34,U+6E38,U+6E3A,U+6E56,U+6E7E-6E7F,U+6E83,U+6E85,U+6E89,U+6E90,U+6E9C,U+6EA2,U+6EAA,U+6EAF,U+6EB6,U+6ECB,U+6ED1,U+6ED4,U+6EDA,U+6EDE,U+6EE1,U+6EE4-6EE5,U+6EE8-6EE9,U+6EF4,U+6F02,U+6F06,U+6F0F,U+6F14,U+6F20,U+6F2B,U+6F3E,U+6F47,U+6F5C,U+6F66,U+6F6D-6F6E,U+6F84,U+6F88,U+6F9C,U+6FA1,U+6FC0,U+6FD2,U+7011,U+704C,U+706B,U+706D,U+706F-7070,U+7075-7076,U+7078,U+707C,U+707E-707F,U+7089-708A,U+708E,U+7092,U+7096,U+70AB-70AE,U+70B8-70B9,U+70BC,U+70C1-70C2,U+70C8,U+70D8,U+70DB,U+70DF,U+70E4,U+70E6-70E7,U+70EB,U+70ED,U+70F9,U+710A,U+7115,U+711A,U+7126,U+7130,U+7136,U+714C,U+714E,U+7164,U+7167,U+716E,U+7172,U+717D,U+7184,U+718A,U+718F,U+7199,U+719F,U+71A8,U+71AC,U+71C3,U+71D5,U+71E5,U+7206,U+722A,U+722C,U+7231,U+7235-7239,U+723D,U+7247-7248,U+724C,U+7259,U+725B,U+7261-7262,U+7267,U+7269,U+7272,U+7275,U+7279-727A,U+72AC,U+72AF,U+72B6,U+72B9,U+72C2,U+72C8,U+72D7,U+72E0-72E1,U+72EC-72EE,U+72F1,U+72FC,U+730E,U+7316,U+731B-731C,U+7329-732B,U+732E,U+7334,U+733E,U+7384,U+7387,U+7389,U+738B,U+73A9,U+73AB,U+73AF-73B0,U+73BB,U+73CD,U+73E0,U+73ED,U+7403,U+7406,U+7422,U+7434,U+745E,U+7470,U+7483,U+74DC,U+74E3,U+74E6,U+74F6-74F7,U+7518,U+751A,U+751C,U+751F,U+7528-7529,U+752D,U+7530-7533,U+7535,U+7537-7538,U+753B,U+7545,U+754C,U+754F,U+7554,U+7559,U+755C,U+7565,U+756A,U+7574,U+7578,U+7586,U+758F,U+7591,U+7597,U+7599,U+75A4,U+75AB,U+75AF,U+75B2,U+75BC,U+75BE,U+75C5,U+75C7,U+75D2,U+75D5,U+75DB,U+75EA,U+75F0,U+75F4,U+75F9,U+761F,U+7624,U+7626,U+7629,U+762B,U+7638,U+763E,U+764C,U+767B,U+767D-767E,U+7682,U+7684,U+7686-7687,U+76AE,U+76B1,U+76C6,U+76C8,U+76CA,U+76CF-76D2,U+76D6-76D8,U+76DB,U+76DF,U+76EE-76EF,U+76F2,U+76F4,U+76F8-76F9,U+76FC,U+76FE,U+7701,U+7709,U+770B,U+771F-7720,U+7728,U+772F,U+7736,U+773C,U+7740-7741,U+775B,U+7761,U+7763,U+7766,U+776C,U+7779,U+7784-7785,U+778E,U+7792,U+77A7,U+77A9-77AA,U+77AC,U+77BB,U+77DB,U+77E2-77E3,U+77E5,U+77E9,U+77EB,U+77ED-77EE,U+77F3,U+77FF,U+7801-7802,U+780C-780D,U+7814,U+7816,U+7834,U+7838,U+7840,U+7855,U+786C,U+786E,U+788C-788E,U+7891,U+7897,U+789F,U+78A7,U+78B0,U+78B3,U+78C1,U+78C5,U+78CA-78CB,U+78D5,U+78E8,U+7901,U+793A,U+793C,U+793E,U+7940,U+7948,U+7956,U+795D-795E,U+7965,U+7968,U+796D,U+7977-7978,U+7981,U+7985,U+798F,U+79BB,U+79BD-79BE,U+79C0-79C1,U+79C3,U+79C9,U+79CB,U+79CD,U+79D1-79D2,U+79D8,U+79DF,U+79E4,U+79E7,U+79E9,U+79EF-79F0,U+79FB,U+79FD,U+7A00,U+7A0B,U+7A0D-7A0E,U+7A1A,U+7A20,U+7A33,U+7A3B-7A3D,U+7A3F,U+7A46,U+7A74,U+7A76-7A77,U+7A7A,U+7A7F,U+7A81,U+7A83-7A84,U+7A8D,U+7A91-7A92,U+7A97-7A98,U+7A9C-7A9D,U+7A9F,U+7AA5,U+7ABF,U+7ACB,U+7AD6,U+7AD9,U+7ADE-7AE0,U+7AE3,U+7AE5,U+7AED,U+7AEF,U+7AF9,U+7AFF,U+7B11,U+7B14,U+7B1B,U+7B26,U+7B28,U+7B2C,U+7B3C,U+7B49,U+7B4B,U+7B50-7B52,U+7B54,U+7B56,U+7B5B,U+7B5D,U+7B77,U+7B79,U+7B7E,U+7B80,U+7B97,U+7BA1,U+7BAD,U+7BB1,U+7BC7,U+7BEE,U+7BF7,U+7C07,U+7C38,U+7C4D,U+7C73,U+7C7B,U+7C89,U+7C92,U+7C97-7C98,U+7CA5,U+7CAA,U+7CAE,U+7CB9,U+7CBD-7CBE,U+7CCA,U+7CD5-7CD6,U+7CD9,U+7CDF,U+7CFB,U+7D0A,U+7D20,U+7D22,U+7D27,U+7D2B,U+7D2F,U+7D6E,U+7E41,U+7EA0,U+7EA2,U+7EA4,U+7EA6-7EA7,U+7EAA,U+7EAC,U+7EAF,U+7EB1-7EB3,U+7EB5,U+7EB7-7EBA,U+7EBD,U+7EBF,U+7EC3-7EC8,U+7ECD-7ECF,U+7ED1-7ED3,U+7ED5,U+7ED8-7ED9,U+7EDC-7EDF,U+7EE3,U+7EE7,U+7EE9-7EEA,U+7EED,U+7EEF-7EF0,U+7EF3-7EF5,U+7EF7-7EF8,U+7EFC-7EFD,U+7EFF-7F00,U+7F05-7F06,U+7F09,U+7F13-7F16,U+7F18,U+7F1A,U+7F1D,U+7F20,U+7F24,U+7F29,U+7F34,U+7F38,U+7F3A,U+7F50-7F51,U+7F55,U+7F57,U+7F5A,U+7F62,U+7F69-7F6A,U+7F6E,U+7F72,U+7F8A,U+7F8E,U+7F9E,U+7FA1,U+7FA4,U+7FBD,U+7FC1,U+7FC5,U+7FD4,U+7FD8,U+7FE0,U+7FFB-7FFC,U+8000-8001,U+8003,U+8005,U+800C-800D,U+8010,U+8015,U+8017,U+8033,U+8038,U+803B,U+803D,U+803F,U+804A-804C,U+8054,U+8058,U+805A,U+806A,U+8083,U+8086-8087,U+8089,U+808C,U+8096,U+809A,U+809D,U+80A0-80A2,U+80A4-80A5,U+80A9-80AA,U+80AF,U+80B2,U+80B4,U+80BA,U+80BE-80C1,U+80C3,U+80C6,U+80CC,U+80CE,U+80D6,U+80DA,U+80DC,U+80DE,U+80E1,U+80E7,U+80F3,U+80F6,U+80F8,U+80FD,U+8102,U+8106,U+8109-810A,U+810F,U+8111,U+8116,U+811A,U+8131,U+8138,U+813E,U+814A,U+8150,U+8154-8155,U+8165,U+8170,U+8179-817B,U+817E-8180,U+818A,U+818F,U+819B-819D,U+81A8,U+81B3,U+81C2,U+81CA,U+81E3,U+81EA,U+81ED,U+81F3-81F4,U+8205-8206,U+820C-820D,U+8212,U+8214,U+821E-821F,U+822A,U+822C,U+8230-8231,U+8235-8236,U+8239,U+8247,U+8258,U+826F-8270,U+8272-8273,U+827A,U+827E,U+8282,U+8292,U+829D,U+82A6,U+82AC-82AD,U+82AF,U+82B1,U+82B3,U+82BD,U+82CD,U+82CF,U+82D7,U+82DB,U+82DF,U+82E5-82E6,U+82F1,U+82F9,U+8302-8305,U+830E,U+832B,U+8336,U+8346,U+8349,U+8350,U+8352,U+8361,U+8363-8364,U+8367,U+836B,U+836F,U+8377,U+83AB,U+83B2,U+83B7,U+83B9,U+83BD,U+83C7,U+83CA,U+83CC,U+83DC,U+83E9,U+8404,U+840C-840E,U+841D,U+8425,U+8427-8428,U+843D,U+8457,U+8461,U+8463,U+846C,U+8471,U+8482,U+8499,U+849C,U+84B8,U+84C4,U+84DD,U+84EC,U+8511,U+8513,U+851A,U+852C,U+853C-853D,U+8549,U+8574,U+857E,U+8584,U+85AA,U+85AF,U+85CF-85D0,U+85E4,U+85FB,U+8611,U+8638,U+864E-8651,U+8654,U+865A,U+866B,U+8679,U+867D-867E,U+8680-8682,U+868A,U+86C7,U+86CB,U+86D9,U+86EE,U+8702,U+871C,U+8721,U+8747,U+8774,U+8776,U+878D,U+87BA,U+8822,U+8840,U+8845,U+884C-884D,U+8854,U+8857,U+8861,U+8863,U+8865,U+8868,U+886B-886C,U+8870,U+8877,U+888B,U+888D,U+8896,U+889C,U+88AB,U+88AD,U+88B1,U+88C1-88C2,U+88C5,U+88D4-88D5,U+88D9,U+88E4,U+88F3,U+88F8-88F9,U+897F,U+8981,U+8986,U+89C1-89C2,U+89C4-89C6,U+89C8-89C9,U+89D2,U+89E3,U+89E6,U+8A00,U+8A89,U+8A93,U+8B66,U+8B6C,U+8BA1-8BA2,U+8BA4-8BA5,U+8BA8-8BA9,U+8BAD-8BB0,U+8BB2-8BB3,U+8BB6,U+8BB8-8BBA,U+8BBC-8BC1,U+8BC4,U+8BC6,U+8BC8-8BCA,U+8BCD,U+8BD1,U+8BD5,U+8BD7,U+8BDA,U+8BDD-8BDE,U+8BE2,U+8BE5-8BE7,U+8BEB-8BED,U+8BEF,U+8BF1,U+8BF4-8BF5,U+8BF7-8BF8,U+8BFA-8BFB,U+8BFD-8BFE,U+8C01,U+8C03,U+8C05,U+8C08,U+8C0A-8C0B,U+8C0D-8C0E,U+8C10,U+8C13,U+8C1C,U+8C22-8C24,U+8C26,U+8C28,U+8C2C,U+8C31,U+8C34,U+8C37,U+8C41,U+8C46,U+8C48,U+8C61,U+8C6A-8C6B,U+8C79,U+8C8C,U+8D1D-8D1F,U+8D21-8D2F,U+8D31,U+8D34-8D35,U+8D37-8D3A,U+8D3C,U+8D3E-8D3F,U+8D41-8D44,U+8D4B-8D4C,U+8D4E-8D50,U+8D54,U+8D56,U+8D5A-8D5B,U+8D5E,U+8D60-8D62,U+8D64,U+8D6B,U+8D70,U+8D74,U+8D76-8D77,U+8D81,U+8D85,U+8D8A-8D8B,U+8D9F,U+8DA3,U+8DB3-8DB4,U+8DC3,U+8DCC,U+8DD1,U+8DDD,U+8DDF,U+8DE4,U+8DE8,U+8DEA,U+8DEF,U+8DF3,U+8DF5,U+8E0A,U+8E0F,U+8E22,U+8E29-8E2A,U+8E39,U+8E48,U+8E4B,U+8E66,U+8E6C-8E6D,U+8E72,U+8E81,U+8EAB-8EAC,U+8EAF,U+8EB2,U+8EBA,U+8F66,U+8F68,U+8F6C,U+8F6E-8F70,U+8F74,U+8F7B,U+8F7D,U+8F7F,U+8F83,U+8F85-8F86,U+8F88-8F89,U+8F90-8F91,U+8F93,U+8F95-8F96,U+8F99,U+8F9B-8F9C,U+8F9E-8F9F,U+8FA3,U+8FA8-8FA9,U+8FAB,U+8FB0-8FB1,U+8FB9,U+8FBD-8FBE,U+8FC1,U+8FC4-8FC5,U+8FC7-8FC8,U+8FCE,U+8FD0-8FD1,U+8FD4,U+8FD8-8FD9,U+8FDB-8FDF,U+8FEA-8FEB,U+8FED,U+8FF0,U+8FF7-8FF9,U+8FFD,U+9000-9003,U+9006,U+9009-900A,U+900F-9010,U+9012,U+9014,U+9017,U+901A-901B,U+901D-9020,U+9022,U+902E,U+9038,U+903B-903C,U+903E,U+9042,U+9047,U+904D,U+904F,U+9053,U+9057,U+905B,U+9063,U+9065,U+906D-906E,U+9075,U+907F-9080,U+90A3,U+90A6,U+90AA,U+90AE,U+90BB,U+90C1,U+90CA,U+90CE,U+90D1,U+90E8,U+90FD,U+9119,U+914C-914D,U+9152,U+9157,U+915D,U+9163,U+9165,U+916C,U+9171,U+9175,U+9177-9178,U+917F,U+9187,U+9189,U+918B,U+9192,U+91C7,U+91CA,U+91CC-91CF,U+91D1,U+9274,U+9488-9489,U+9493,U+9499,U+949D-949F,U+94A2,U+94A5-94A7,U+94A9,U+94B1,U+94B3,U+94BB,U+94C1,U+94C3,U+94C5,U+94DC-94DD,U+94ED,U+94F2,U+94F6,U+94F8,U+94FA,U+94FE,U+9500-9501,U+9505,U+9508,U+950B,U+9510,U+9519,U+9521,U+9524,U+9526,U+952E-952F,U+9532,U+953B,U+9547,U+9551,U+955C,U+9576,U+957F,U+95E8,U+95EA,U+95ED-95EF,U+95F2,U+95F4,U+95F7-95FB,U+9600-9602,U+9605,U+960E,U+9610,U+9614,U+961F,U+9631-9636,U+963B,U+963F,U+9644-9646,U+9648,U+964B-964D,U+9650,U+9661-9662,U+9664,U+9668-966A,U+9675-9677,U+9686,U+968F-9690,U+9694,U+9698-9699,U+969C,U+96A7,U+96B6,U+96BE,U+96C0-96C1,U+96C4-96C7,U+96CC,U+96D5,U+96E8,U+96EA,U+96F6-96F7,U+96F9,U+96FE,U+9700,U+9707,U+9709,U+970D,U+971C,U+971E,U+9732,U+9738,U+9752,U+9759,U+975E,U+9760,U+9762,U+9769,U+9774,U+9776,U+978B,U+97A0,U+97AD,U+97E7,U+97F3,U+97F5,U+9875-9877,U+9879-987B,U+987D-987F,U+9881-9882,U+9884,U+9886-9888,U+988A,U+9891,U+9893,U+9896-9898,U+989C-989D,U+98A0,U+98A4,U+98CE,U+98D8-98D9,U+98DE-98DF,U+9910,U+9965,U+996A,U+996D-996E,U+9970-9972,U+9975-9976,U+997A,U+997C,U+997F,U+9981,U+9985-9986,U+9988,U+998B,U+9992,U+9996,U+9999,U+99A8,U+9A6C-9A71,U+9A73,U+9A76,U+9A7B,U+9A7E,U+9A82,U+9A84,U+9A87,U+9A8C,U+9A8F,U+9A91,U+9A97,U+9A9A,U+9AA4,U+9AA8,U+9AD3,U+9AD8,U+9AE6,U+9B3C,U+9B41-9B42,U+9B44-9B45,U+9B54,U+9C7C,U+9C81,U+9C9C,U+9CA8,U+9CC4,U+9E1F,U+9E21,U+9E23,U+9E26,U+9E2D,U+9E3D,U+9E45,U+9E4F,U+9E64,U+9E70,U+9E7F,U+9EA6,U+9EBB,U+9EC4,U+9ECE-9ECF,U+9ED1,U+9ED8,U+9F0E,U+9F13,U+9F20,U+9F3B,U+9F50,U+9F7F,U+9F84,U+9F99,U+9F9F,U+9FFF,U+FF01,U+FF08-FF09,U+FF0C,U+FF1A-FF1B,U+FF1F,U+FF5E}
+@font-face{font-family:"AndikaX";font-style:normal;font-weight:400;font-display:swap;src:url("fonts/andika-400-ext.woff2") format("woff2");unicode-range:U+20,U+A0,U+100-130,U+132-148,U+14A-151,U+154-17F,U+1CD-1DC,U+2020}
+@font-face{font-family:"AndikaX";font-style:normal;font-weight:400;font-display:swap;src:url("fonts/andika-400-latin.woff2") format("woff2");unicode-range:U+20-7E,U+A0-FF,U+131,U+152-153,U+2013-2014,U+2018-201A,U+201C-201E,U+2022,U+2026,U+2032-2033,U+2039-203A,U+2212}
+@font-face{font-family:"AndikaX";font-style:normal;font-weight:700;font-display:swap;src:url("fonts/andika-700-ext.woff2") format("woff2");unicode-range:U+20,U+A0,U+100-130,U+132-148,U+14A-151,U+154-17F,U+1CD-1DC,U+2020}
+@font-face{font-family:"AndikaX";font-style:normal;font-weight:700;font-display:swap;src:url("fonts/andika-700-latin.woff2") format("woff2");unicode-range:U+20-7E,U+A0-FF,U+131,U+152-153,U+2013-2014,U+2018-201A,U+201C-201E,U+2022,U+2026,U+2032-2033,U+2039-203A,U+2212}
+
+/* Layout: one-screen study app. Counts header, a 3D triangular prism card whose three faces
+   borrow Chinese school stationery (形 copybook grid, 音 pinyin staff, 义 dictionary entry),
+   an example slip (例) that stays under a masking strip until the card is turned,
+   teacher's red-pen grading, bottom tabs. Light = exercise book, dark = blackboard. */
+:root{
+  --bg:#e6ece4;        /* desk under the exercise book */
+  --page:#f8faf4;      /* exercise-book paper */
+  --ink:#1d2a22;       /* pen ink */
+  --pencil:#4f5f55;    /* secondary text */
+  --faint:#5f6d64;     /* captions */
+  --rule:#cbd6cb;      /* hairlines */
+  --grid:#4f9a6b;      /* 田字格 and 四线三格 green */
+  --grid-soft:#9fc8ab; /* dashed guides */
+  --pen:#c8372c;       /* teacher's red pen */
+  --accent:#2a7650;    /* active state */
+  --on-accent:#f8faf4;
+  --t1:#c62f2f; --t2:#a35300; --t3:#2453c4; --t4:#7a3db3; --t5:#5f6b64;
+  --shadow:rgba(29,42,34,.20);
+  --veil:rgba(29,42,34,.40);
+  --zh:"WK","Kaiti SC","STKaiti","KaiTi","BiauKai","Songti SC","PingFang SC","Noto Serif SC",serif;
+  --zh-sys:"Kaiti SC","STKaiti","KaiTi","Songti SC","PingFang SC","Noto Serif SC","Noto Sans SC",serif;
+  --ui:"AndikaX",ui-rounded,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#131c17; --page:#1b271f; --ink:#e3eae1; --pencil:#a9b8ae; --faint:#8b9b90; --rule:#2f4036;
+    --grid:#7ab58f; --grid-soft:#3d6550; --pen:#f28c7d; --accent:#8fd0a6; --on-accent:#10201a;
+    --t1:#ff8f86; --t2:#ffb35c; --t3:#97b6ff; --t4:#caa3ff; --t5:#9ba8a0;
+    --shadow:rgba(0,0,0,.55); --veil:rgba(0,0,0,.6);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#131c17; --page:#1b271f; --ink:#e3eae1; --pencil:#a9b8ae; --faint:#8b9b90; --rule:#2f4036;
+  --grid:#7ab58f; --grid-soft:#3d6550; --pen:#f28c7d; --accent:#8fd0a6; --on-accent:#10201a;
+  --t1:#ff8f86; --t2:#ffb35c; --t3:#97b6ff; --t4:#caa3ff; --t5:#9ba8a0;
+  --shadow:rgba(0,0,0,.55); --veil:rgba(0,0,0,.6);
+  color-scheme:dark;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--ui);font-size:16px;line-height:1.45;
+  -webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent;overscroll-behavior:none}
+[hidden]{display:none!important}
+button,input,textarea,select{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.zh{font-family:var(--zh);font-weight:400}
+.sysfont{font-family:var(--zh-sys)}
+.num{font-variant-numeric:tabular-nums}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- shell ---------- */
+.app{position:fixed;inset:0;display:flex;flex-direction:column;padding-top:env(safe-area-inset-top,0px)}
+.top{flex:none;display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:10px 16px 6px;max-width:560px;width:100%;margin:0 auto}
+.brand{font-family:var(--zh);font-size:26px;line-height:1;letter-spacing:.06em;margin:0;font-weight:400}
+.counts{display:flex;gap:6px}
+.count{display:flex;align-items:baseline;gap:5px;padding:4px 10px;border:1px solid var(--rule);border-radius:999px;
+  background:var(--page);font-size:13px;color:var(--pencil);white-space:nowrap}
+.count b{font-size:16px;color:var(--ink);font-weight:700;font-variant-numeric:tabular-nums}
+.count.free{border-style:dashed}
+main{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.view{max-width:560px;margin:0 auto;padding:6px 16px 24px}
+.tabs{flex:none;display:grid;grid-template-columns:repeat(4,minmax(0,140px));justify-content:center;background:var(--page);border-top:1px solid var(--rule);
+  padding-bottom:env(safe-area-inset-bottom,0px)}
+.tab{appearance:none;border:0;background:none;color:var(--faint);padding:8px 0 7px;display:flex;flex-direction:column;
+  align-items:center;gap:2px;font-size:12px;position:relative}
+.tab svg{width:24px;height:24px}
+.tab[aria-current="page"]{color:var(--ink)}
+.tab[aria-current="page"]::before{content:"";position:absolute;top:-1px;left:30%;right:30%;height:2px;background:var(--grid);border-radius:0 0 2px 2px}
+
+/* ---------- start-face control ---------- */
+.startface{display:flex;align-items:center;gap:10px;margin:2px 0 12px}
+.startface .lbl{flex:none;font-size:13px;color:var(--pencil)}
+.seg{flex:1;min-width:0;display:grid;grid-template-columns:repeat(3,1fr) 1.15fr;border:1px solid var(--rule);border-radius:10px;background:var(--bg);padding:2px;gap:2px}
+.seg button{appearance:none;border:0;background:none;border-radius:8px;padding:5px 2px;font-size:13px;color:var(--pencil);min-height:34px;
+  display:flex;flex-wrap:wrap;align-content:center;align-items:baseline;justify-content:center;gap:3px;white-space:nowrap;min-width:0;overflow:hidden}
+.seg button .zh{font-size:17px;color:inherit}
+.seg button[aria-checked="true"]{background:var(--page);color:var(--ink);box-shadow:0 1px 2px var(--shadow)}
+@media (max-width:369px){ .seg .w{display:none} }
+
+/* ---------- prism ---------- */
+.stage{position:relative;width:100%;perspective:1150px;perspective-origin:50% 40%;touch-action:pan-y;
+  user-select:none;-webkit-user-select:none;outline:none;transition:opacity .16s ease,transform .16s ease}
+.stage.swap{opacity:0;transform:translateX(-14px)}
+.stage::after{content:"";position:absolute;left:12%;right:12%;bottom:-14px;height:22px;border-radius:50%;
+  background:radial-gradient(closest-side,var(--shadow),transparent);z-index:-1}
+.prism{position:relative;margin:0 auto;width:var(--pw,320px);height:var(--ph,280px);transform-style:preserve-3d;
+  transition:transform .56s cubic-bezier(.25,.8,.25,1)}
+.prism.instant{transition:none}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:var(--page);
+  border:1px solid var(--rule);border-radius:10px;display:flex;flex-direction:column;padding:12px 14px 12px;overflow:hidden}
+.face-head{flex:none;display:flex;align-items:center;justify-content:space-between;min-height:24px}
+.face-tag{display:flex;align-items:baseline;gap:6px;font-size:13px;color:var(--faint)}
+.face-tag .zh{font-size:19px;color:var(--grid)}
+.tri{width:20px;height:18px}
+.tri path{fill:none;stroke:var(--rule);stroke-width:1.6;stroke-linecap:round}
+.tri path.on{stroke:var(--grid);stroke-width:3}
+.face-body{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;align-items:center;position:relative}
+
+/* 形 : copybook grid */
+.tzg-row{display:flex;justify-content:center;flex-wrap:nowrap}
+.tzg{position:relative;width:var(--cell);height:var(--cell);border:1.5px solid var(--grid);margin-left:-1.5px;
+  display:grid;place-items:center;
+  background-image:repeating-linear-gradient(to right,var(--grid-soft) 0 5px,transparent 5px 9px),
+                   repeating-linear-gradient(to bottom,var(--grid-soft) 0 5px,transparent 5px 9px);
+  background-size:100% 1.2px,1.2px 100%;background-position:0 50%,50% 0;background-repeat:no-repeat}
+.tzg:first-child{margin-left:0}
+.tzg span{font-family:var(--zh);font-size:calc(var(--cell) * .80);line-height:1;transform:translateY(-.02em)}
+.tzg.sysfont span{font-family:var(--zh-sys);font-size:calc(var(--cell) * .74)}
+
+/* 音 : pinyin staff (四线三格) */
+.staff{position:relative;width:100%;display:flex;justify-content:center}
+.staff .lines{position:absolute;left:0;right:0;top:0;height:0}
+.staff .lines i{position:absolute;left:0;right:0;height:1px;background:var(--grid);opacity:.75}
+.staff .lines i.base{height:1.5px;opacity:1}
+.py{position:relative;white-space:nowrap;line-height:2.1;padding:0 4px;font-weight:400}
+.py .sep{color:var(--faint)}
+.tones .t1{color:var(--t1)} .tones .t2{color:var(--t2)} .tones .t3{color:var(--t3)} .tones .t4{color:var(--t4)} .tones .t5{color:var(--t5)}
+.speak{appearance:none;border:1px solid var(--rule);background:var(--bg);border-radius:999px;display:flex;align-items:center;gap:6px;
+  padding:6px 12px 6px 10px;font-size:13px;color:var(--pencil);margin-top:6px}
+.speak svg{width:18px;height:18px}
+.speak.playing{color:var(--ink);border-color:var(--grid)}
+
+/* 义 : dictionary entry */
+.senses{list-style:none;margin:0;padding:0;align-self:stretch;display:flex;flex-direction:column;gap:.35em;font-size:var(--fs,19px);line-height:1.35}
+.senses li{display:flex;gap:.4em;text-wrap:pretty}
+.senses .no{flex:none;font-family:var(--zh);color:var(--grid);font-size:.95em;line-height:1.42}
+.senses .zhi{font-family:var(--zh);font-size:1.08em}
+.note{align-self:stretch;margin:.7em 0 0;font-size:13px;color:var(--pencil);display:flex;gap:6px;align-items:baseline}
+.tag{flex:none;font-family:var(--zh);font-size:13px;color:var(--grid);border:1px solid var(--grid);border-radius:3px;padding:0 3px;line-height:1.3}
+
+/* status under the card */
+.status{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:20px 2px 10px;font-size:13px;color:var(--pencil);min-height:24px}
+.chips{display:flex;gap:6px;min-width:0;flex-wrap:wrap}
+.chip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--rule);border-radius:999px;padding:2px 9px;background:var(--page);white-space:nowrap}
+.chip.new{border-color:var(--grid);color:var(--ink)}
+.chip.rappel{border-color:var(--grid);border-style:dashed;color:var(--ink)}
+.chip.deck{background:none;border-color:transparent;padding-left:2px;color:var(--faint)}
+.dots{display:flex;gap:6px;align-items:center}
+.dots i{width:7px;height:7px;border-radius:50%;border:1.5px solid var(--grid)}
+.dots i.on{background:var(--grid)}
+
+/* 例 : example slip */
+.exslot{--exh:74px;min-height:var(--exh);margin:0 0 12px;display:flex;flex-direction:column}
+.exslot.open{--exh:116px}
+.ex{position:relative;flex:1;display:grid;grid-template-columns:auto minmax(0,1fr) auto;column-gap:10px;align-items:start;
+  background:var(--page);border:1px solid var(--rule);border-radius:10px;padding:8px 8px 6px 10px}
+.ex .tag{margin-top:7px}
+.ex-text{position:relative;min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:1px}
+.ex-zh{margin:0;align-self:stretch;font-family:var(--zh);font-size:var(--exfs,22px);line-height:1.45;white-space:nowrap;overflow:hidden}
+.ex-zh.wrap{white-space:normal}
+.ex-zh.sysfont{font-family:var(--zh-sys)}
+.ex-zh mark{background:none;color:var(--pen);text-decoration-line:underline;text-decoration-thickness:2px;text-decoration-color:var(--pen);text-underline-offset:.22em}
+.ex-more{display:none;align-self:stretch}
+.ex.open .ex-more{display:flex;flex-direction:column;gap:1px}
+.ex-py{margin:0;font-size:15px;line-height:1.35}
+.ex-py .sep{color:var(--faint)}
+.ex-fr{margin:0;font-size:14px;line-height:1.35;color:var(--pencil);text-wrap:pretty}
+.ex-toggle{appearance:none;border:0;background:none;padding:3px 0 2px;font-size:13px;color:var(--pencil);display:inline-flex;align-items:center;gap:5px}
+.ex-toggle svg{width:12px;height:12px;transition:transform .18s ease}
+.ex.open .ex-toggle svg{transform:rotate(180deg)}
+.ex-play{appearance:none;width:36px;height:36px;border-radius:50%;border:1px solid var(--rule);background:var(--bg);display:grid;place-items:center;color:var(--pencil);padding:0}
+.ex-play svg{width:18px;height:18px}
+.ex-play.playing{color:var(--ink);border-color:var(--grid)}
+.ex-cover{position:absolute;inset:3px 0 3px -2px;border-radius:6px;opacity:0;visibility:hidden;cursor:pointer;
+  background-color:var(--page);background-image:repeating-linear-gradient(135deg,var(--rule) 0 2px,transparent 2px 9px);
+  transition:opacity .28s ease,visibility 0s linear .28s}
+.ex.covered .ex-cover{opacity:1;visibility:visible;transition:none}
+.ex.covered .ex-text > :not(.ex-cover),.ex.covered .ex-play{visibility:hidden}
+.ex.empty{grid-template-columns:auto minmax(0,1fr);align-items:center;background:none;border-style:dashed}
+.ex.empty .tag{margin-top:0}
+.ex-none{margin:0;font-size:13px;color:var(--faint)}
+.exslot.insheet{min-height:0;margin:22px 0 0}
+
+/* grading */
+.actions{min-height:76px}
+.turnbtn{width:100%;height:64px;border-radius:14px;border:1.5px solid var(--ink);background:var(--page);font-size:17px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;gap:10px}
+.turnbtn svg{width:22px;height:22px}
+.grades{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.grade{appearance:none;border:1.5px solid var(--rule);background:var(--page);border-radius:14px;height:76px;padding:6px 4px;
+  display:grid;grid-template-rows:30px auto auto;justify-items:center;align-content:center;gap:0}
+.grade:active{transform:translateY(1px)}
+.grade .mk{width:30px;height:30px;color:var(--pen)}
+.grade .mk.you{font-family:var(--zh);font-size:26px;line-height:30px;text-align:center;width:auto}
+.grade .gl{font-size:15px;font-weight:700;line-height:1.2}
+.grade .gi{font-size:12px;color:var(--faint);font-variant-numeric:tabular-nums}
+.grade[data-g="1"]{border-color:var(--ink)}
+.stamp{position:absolute;left:50%;top:50%;width:132px;height:132px;margin:-66px 0 0 -66px;color:var(--pen);pointer-events:none;
+  opacity:0;transform:rotate(-9deg) scale(1.3);z-index:5}
+.stamp.show{animation:stamp .42s cubic-bezier(.2,.9,.3,1.2) forwards}
+.stamp svg{width:100%;height:100%}
+.stamp .you{font-family:var(--zh);font-size:118px;line-height:132px;display:block;text-align:center}
+@keyframes stamp{0%{opacity:0;transform:rotate(-9deg) scale(1.35)}45%{opacity:.95;transform:rotate(-9deg) scale(.98)}100%{opacity:.92;transform:rotate(-9deg) scale(1)}}
+
+/* session finished, loading */
+.done{padding:22px 4px 8px}
+.done h2{font-size:22px;margin:0 0 6px;text-wrap:balance}
+.done p{margin:0 0 10px;color:var(--pencil)}
+.done .row-btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.loading{padding:40px 4px;color:var(--pencil)}
+.loading p{margin:0 0 12px;max-width:44ch}
+
+/* buttons */
+.btn{appearance:none;border:1.5px solid var(--rule);background:var(--page);border-radius:12px;padding:9px 14px;font-size:15px;
+  display:inline-flex;align-items:center;gap:8px;font-weight:700;color:var(--ink)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.btn.danger{border-color:var(--pen);color:var(--pen)}
+.btn.ghost{background:none}
+.btn:disabled{opacity:.45;cursor:default}
+
+/* ---------- words ---------- */
+.searchbar{display:flex;gap:8px;margin:4px 0 10px}
+.searchbar input{flex:1;min-width:0;border:1.5px solid var(--rule);background:var(--page);border-radius:12px;padding:9px 12px;font-size:16px}
+.ltabs{display:flex;gap:18px;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid var(--rule);margin:0 0 10px;padding:0 2px}
+.ltabs::-webkit-scrollbar{display:none}
+.ltabs button{appearance:none;border:0;background:none;padding:6px 0 8px;font-size:14px;color:var(--pencil);white-space:nowrap;position:relative}
+.ltabs button.off{color:var(--faint)}
+.ltabs button[aria-pressed="true"]{color:var(--ink);font-weight:700}
+.ltabs button[aria-pressed="true"]::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;border-radius:2px;background:var(--grid)}
+.filters{display:flex;gap:6px;overflow-x:auto;padding:2px 0;margin-bottom:8px;scrollbar-width:none}
+.filters::-webkit-scrollbar{display:none}
+.filters button{appearance:none;border:1px solid var(--rule);background:none;border-radius:999px;padding:4px 11px;font-size:13px;color:var(--pencil);white-space:nowrap}
+.filters button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--page)}
+.list{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule)}
+.wrow{appearance:none;border:0;border-bottom:1px solid var(--rule);background:none;width:100%;text-align:left;padding:9px 2px;
+  display:grid;grid-template-columns:minmax(64px,auto) 1fr auto;column-gap:12px;align-items:center}
+.wrow .h{font-family:var(--zh);font-size:24px;line-height:1.1;white-space:nowrap}
+.wrow .h.sysfont{font-family:var(--zh-sys)}
+.wrow .m{min-width:0;display:flex;flex-direction:column}
+.wrow .p{font-size:15px;line-height:1.25}
+.wrow .f{font-size:13px;color:var(--pencil);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wrow .r{display:flex;flex-direction:column;align-items:flex-end;gap:3px}
+.wrow .dk{font-size:11px;color:var(--faint);white-space:nowrap}
+.meter{display:flex;gap:2px}
+.meter i{width:5px;height:14px;border-radius:1.5px;background:var(--rule)}
+.meter i.on{background:var(--grid)}
+.list-foot{display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;align-items:center;margin-top:14px;color:var(--faint);font-size:13px}
+.list-foot .btnrow{margin:0}
+.empty{padding:28px 6px;color:var(--pencil);text-align:center}
+
+/* ---------- progress ---------- */
+.section{margin:6px 0 26px}
+.section h2{font-size:18px;margin:0 0 4px;text-wrap:balance}
+.section .sub{margin:0 0 12px;color:var(--pencil);font-size:14px}
+.seen{display:flex;align-items:baseline;gap:8px;margin:2px 0 8px}
+.seen b{font-size:44px;line-height:1;font-weight:700}
+.seen span{color:var(--pencil)}
+.bar{height:8px;border-radius:4px;background:var(--rule);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--grid);border-radius:4px}
+.dt{width:100%;border-collapse:collapse;font-size:14px;margin-top:4px}
+.dt th{font-size:12px;color:var(--faint);font-weight:400;text-align:left;padding:0 8px 6px 0;border-bottom:1px solid var(--rule)}
+.dt td{padding:9px 8px 9px 0;border-bottom:1px solid var(--rule);vertical-align:top}
+.dt th:last-child,.dt td:last-child{text-align:right;padding-right:0}
+.dt .nm b{display:block;font-size:15px;line-height:1.25}
+.dt .nm small{display:block;color:var(--pencil);font-size:12px;line-height:1.3}
+.dt .sn{font-variant-numeric:tabular-nums;white-space:nowrap}
+.dt .off{color:var(--faint)}
+.mini{display:block;height:4px;border-radius:2px;background:var(--rule);margin-top:6px;width:72px;overflow:hidden}
+.mini i{display:block;height:100%;background:var(--grid)}
+.cols{display:grid;grid-template-columns:repeat(var(--n),1fr);align-items:end;height:136px;border-bottom:1px solid var(--rule);gap:4px}
+.col{height:100%;display:flex;align-items:flex-end;justify-content:center;appearance:none;border:0;background:none;padding:0}
+.col i{display:block;width:min(24px,70%);border-radius:4px 4px 0 0;background:var(--grid);min-height:0}
+.col[aria-pressed="true"] i{background:var(--accent)}
+.axis span.on{color:var(--ink);font-weight:700}
+.axis{display:grid;grid-template-columns:repeat(var(--n),1fr);gap:4px;margin-top:6px;text-align:center}
+.axis span{font-size:12px;color:var(--faint);line-height:1.2}
+.axis b{display:block;font-size:14px;color:var(--ink);font-variant-numeric:tabular-nums}
+.detail{min-height:20px;margin:8px 0 0;font-size:13px;color:var(--pencil)}
+.explain{font-size:14px;color:var(--pencil);margin:10px 0 0;max-width:62ch}
+.explain .zh{color:var(--pen);font-size:16px}
+
+/* ---------- settings ---------- */
+.set{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px 0;border-bottom:1px solid var(--rule)}
+.view > .set:first-child,.group-title + .set,.decks > .set:first-child{border-top:1px solid var(--rule)}
+.set.sub{padding:8px 0 10px 16px}
+.set .t{min-width:0}
+.set .t b{display:block;font-size:15px}
+.set .t small{display:block;color:var(--pencil);font-size:13px;line-height:1.35}
+.set .t small.warn{color:var(--pen)}
+.set input[type=date]{border:1.5px solid var(--rule);background:var(--page);border-radius:10px;padding:6px 8px;font-size:16px;min-width:0}
+.stepper{display:flex;align-items:center;gap:6px;flex:none}
+.stepper button{width:34px;height:34px;border-radius:10px;border:1.5px solid var(--rule);background:var(--page);font-size:18px;line-height:1}
+.stepper output{min-width:2.2ch;text-align:center;font-weight:700;font-variant-numeric:tabular-nums}
+.switch{appearance:none;width:48px;height:28px;border-radius:999px;background:var(--rule);position:relative;flex:none;border:0;transition:background .15s}
+.switch::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:var(--page);box-shadow:0 1px 2px var(--shadow);transition:transform .15s}
+.switch[aria-checked="true"]{background:var(--accent)}
+.switch[aria-checked="true"]::after{transform:translateX(20px)}
+input[type=range]{width:120px;accent-color:var(--accent)}
+.legend{display:flex;flex-wrap:wrap;gap:10px;font-size:15px;margin-top:4px}
+.legend span{display:inline-flex;gap:4px;align-items:baseline}
+.legend small{color:var(--faint);font-size:12px}
+.group-title{font-size:13px;color:var(--faint);margin:24px 0 6px}
+.btnrow{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.about{font-size:13px;color:var(--pencil);margin:18px 0 0;max-width:62ch}
+.about p{margin:0 0 8px}
+
+/* ---------- sheet ---------- */
+.sheet{position:fixed;inset:0;z-index:20;display:flex;flex-direction:column;justify-content:flex-end}
+.sheet .veil{position:absolute;inset:0;background:var(--veil)}
+.panel{position:relative;background:var(--bg);border-radius:18px 18px 0 0;max-height:92%;overflow-y:auto;
+  padding:10px 16px calc(18px + env(safe-area-inset-bottom,0px));width:100%;max-width:560px;margin:0 auto;
+  box-shadow:0 -8px 30px var(--shadow)}
+.panel-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px}
+.panel-head h2{font-size:18px;margin:0;font-family:var(--zh);font-weight:400;font-size:22px}
+.panel-head h2.plain{font-family:var(--ui);font-weight:700;font-size:18px}
+.close{appearance:none;border:0;background:var(--page);width:36px;height:36px;border-radius:50%;font-size:20px;line-height:1;color:var(--pencil)}
+.field{display:flex;flex-direction:column;gap:4px;margin:0 0 12px}
+.field label{font-size:13px;font-weight:700}
+.field input,.field textarea{border:1.5px solid var(--rule);background:var(--page);border-radius:10px;padding:9px 11px;font-size:16px;width:100%}
+.field textarea{min-height:84px;resize:vertical}
+.field .hint{font-size:12px;color:var(--pencil)}
+.field .hint.warn{color:var(--pen)}
+.field .err{font-size:13px;color:var(--pen)}
+.more{margin:4px 0 12px;border-top:1px solid var(--rule);padding-top:10px}
+.more summary{font-size:14px;font-weight:700;cursor:pointer;margin-bottom:10px}
+.preview-py{font-size:18px;min-height:26px}
+.meta{font-size:14px;color:var(--pencil);margin:12px 2px 4px}
+.confirm{border:1.5px solid var(--pen);border-radius:12px;padding:10px 12px;margin:10px 0;background:var(--page)}
+.confirm p{margin:0 0 8px}
+.mono{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px}
+textarea.mono{white-space:pre;overflow-x:auto}
+
+/* toast, update bar */
+.toast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:30;
+  background:var(--ink);color:var(--page);padding:9px 16px;border-radius:12px;font-size:14px;width:max-content;max-width:calc(100% - 32px);
+  box-shadow:0 4px 18px var(--shadow);text-wrap:pretty}
+.updatebar{position:fixed;left:16px;right:16px;top:calc(8px + env(safe-area-inset-top,0px));z-index:25;max-width:528px;margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--page);border:1.5px solid var(--grid);
+  border-radius:12px;padding:8px 8px 8px 14px;font-size:14px;box-shadow:0 4px 18px var(--shadow)}
+.updatebar .btn{padding:6px 12px;font-size:14px}
+
+@media (prefers-reduced-motion:reduce){
+  .prism,.stage,.switch,.switch::after,.ex-cover,.ex-toggle svg{transition:none}
+  .stamp.show{animation:none;opacity:.92;transform:rotate(-9deg)}
+}
+@media (min-width:700px){
+  .grade{height:84px}
+}
+</style>
+</head>
+<body>
+
+
+<div class="app" id="app">
+  <header class="top">
+    <h1 class="brand" lang="zh-Hans">形音义</h1>
+    <div class="counts" id="counts" aria-live="polite"></div>
+  </header>
+
+  <main id="main">
+    <!-- STUDY -->
+    <section class="view" id="view-study" aria-label="Réviser">
+      <div class="startface">
+        <span class="lbl" id="sf-lbl">D’abord</span>
+        <div class="seg" role="radiogroup" aria-labelledby="sf-lbl" id="startface">
+          <button type="button" role="radio" data-face="0"><span class="zh">形</span><span class="w">forme</span></button>
+          <button type="button" role="radio" data-face="1"><span class="zh">音</span><span class="w">son</span></button>
+          <button type="button" role="radio" data-face="2"><span class="zh">义</span><span class="w">sens</span></button>
+          <button type="button" role="radio" data-face="r">au hasard</button>
+        </div>
+      </div>
+
+      <div class="loading" id="loading" hidden>
+        <p id="loading-text">Chargement des listes…</p>
+        <button type="button" class="btn" id="loading-retry" hidden>Réessayer</button>
+      </div>
+
+      <div id="study-card" hidden>
+        <div class="stage" id="stage" tabindex="0" aria-label="Carte : touche ou glisse pour tourner"></div>
+        <div class="status">
+          <span class="chips" id="card-chip"></span>
+          <span class="dots" id="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+        </div>
+        <div class="exslot" id="example"></div>
+        <div class="actions" id="actions">
+          <button type="button" class="turnbtn" id="turnbtn">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 0 1 13.7-5.6M20 12a8 8 0 0 1-13.7 5.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M18 3v4h-4M6 21v-4h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Tourner la carte
+          </button>
+          <div class="grades" id="grades" hidden>
+            <button type="button" class="grade" data-g="0" aria-describedby="gi0">
+              <svg class="mk" viewBox="0 0 64 64" aria-hidden="true"><path d="M17 17c10 9 19 19 30 30M47 16c-9 10-18 20-30 31" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/></svg>
+              <span class="gl">Raté</span><span class="gi" id="gi0">à revoir</span>
+            </button>
+            <button type="button" class="grade" data-g="1" aria-describedby="gi1">
+              <svg class="mk" viewBox="0 0 64 64" aria-hidden="true"><path d="M12 34c6 4 10 9 14 15 8-15 16-27 27-38" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span class="gl">Bon</span><span class="gi" id="gi1">1 jour</span>
+            </button>
+            <button type="button" class="grade" data-g="2" aria-describedby="gi2">
+              <span class="mk you" aria-hidden="true">优</span>
+              <span class="gl">Facile</span><span class="gi" id="gi2">8 jours</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="done" id="done" hidden>
+        <h2 id="done-title">Séance terminée</h2>
+        <p id="done-text"></p>
+        <p id="done-next"></p>
+        <div class="row-btns">
+          <button type="button" class="btn primary" id="more-new">Apprendre 5 mots de plus</button>
+          <button type="button" class="btn" id="free-start">S’entraîner librement</button>
+        </div>
+      </div>
+      <p class="explain" id="free-note" hidden>Entraînement libre : tes réponses ne changent pas le planning. <button type="button" class="btn ghost" id="free-stop">Arrêter</button></p>
+    </section>
+
+    <!-- WORDS -->
+    <section class="view" id="view-words" aria-label="Mots" hidden>
+      <div class="searchbar">
+        <label class="sr" for="q">Chercher un mot</label>
+        <input id="q" type="search" placeholder="汉字, pinyin ou français" autocomplete="off" autocapitalize="off" spellcheck="false">
+        <button type="button" class="btn" id="btn-add">Ajouter</button>
+      </div>
+      <div class="ltabs" id="wdeck" role="group" aria-label="Liste"></div>
+      <div class="filters" id="filters" role="group" aria-label="Avancement">
+        <button type="button" data-f="all" aria-pressed="true">Tous</button>
+        <button type="button" data-f="new" aria-pressed="false">Pas encore vus</button>
+        <button type="button" data-f="learn" aria-pressed="false">En cours</button>
+        <button type="button" data-f="known" aria-pressed="false">Acquis</button>
+      </div>
+      <ul class="list" id="wlist"></ul>
+      <div class="list-foot">
+        <span id="wcount" class="num"></span>
+        <div class="btnrow">
+          <button type="button" class="btn ghost" id="btn-export" hidden>Copier vers perso.tsv</button>
+          <button type="button" class="btn ghost" id="btn-import">Importer une liste</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROGRESS -->
+    <section class="view" id="view-progress" aria-label="Progrès" hidden>
+      <div class="section">
+        <div class="seen"><b class="num" id="seen-n">0</b><span id="seen-of">mots vus</span></div>
+        <div class="bar" aria-hidden="true"><i id="seen-bar" style="width:0"></i></div>
+        <p class="explain" id="projection"></p>
+      </div>
+      <div class="section">
+        <h2>Par liste</h2>
+        <table class="dt" id="decktable"></table>
+      </div>
+      <div class="section">
+        <h2>Les boîtes de révision</h2>
+        <p class="sub">Les mots déjà vus, rangés selon leur délai de retour.</p>
+        <div class="cols" id="boxes" style="--n:6"></div>
+        <div class="axis" id="boxes-axis" style="--n:6"></div>
+        <p class="detail" id="boxes-detail"></p>
+        <p class="explain">Un <span class="zh">√</span> fait passer le mot dans la boîte suivante, où l’intervalle double. Un <span class="zh">优</span> le fait monter de deux boîtes. Un <span class="zh">×</span> le renvoie en boîte 1 et il revient plus tard dans la séance. Un rappel réussi part directement en boîte 4 (<span class="zh">√</span>) ou 6 (<span class="zh">优</span>).</p>
+      </div>
+      <div class="section">
+        <h2>Révisions prévues</h2>
+        <p class="sub">Mots déjà vus et rappels qui reviendront chaque jour de la semaine.</p>
+        <div class="cols" id="forecast" style="--n:7"></div>
+        <div class="axis" id="forecast-axis" style="--n:7"></div>
+        <p class="detail" id="forecast-detail"></p>
+      </div>
+    </section>
+
+    <!-- SETTINGS -->
+    <section class="view" id="view-settings" aria-label="Réglages" hidden>
+      <div class="set">
+        <div class="t"><b id="lbl-new">Nouveaux mots par jour</b><small id="new-order"></small></div>
+        <div class="stepper" role="group" aria-labelledby="lbl-new">
+          <button type="button" id="new-minus" aria-label="Moins">−</button>
+          <output id="new-val" class="num">10</output>
+          <button type="button" id="new-plus" aria-label="Plus">+</button>
+        </div>
+      </div>
+
+      <p class="group-title">Listes</p>
+      <div class="decks" id="deck-settings"></div>
+      <div class="btnrow" id="lists-check-row"><button type="button" class="btn" id="lists-check">Chercher une mise à jour des listes</button></div>
+      <p class="explain" id="lists-info"></p>
+
+      <p class="group-title">Examen</p>
+      <div class="set">
+        <div class="t"><b><label for="exam">Date de l’examen</label></b><small>Sert à situer ton rythme dans Progrès.</small></div>
+        <input type="date" id="exam">
+      </div>
+
+      <p class="group-title">Cartes</p>
+      <div class="set">
+        <div class="t"><b id="lbl-ex">Pinyin et traduction des exemples</b><small>Affichés d’office sous la phrase quand la carte est tournée.</small></div>
+        <button type="button" class="switch" role="switch" id="sw-ex" aria-labelledby="lbl-ex" aria-checked="false"></button>
+      </div>
+      <div class="set">
+        <div class="t"><b id="lbl-auto">Prononcer automatiquement</b><small>Le mot est lu quand la face <span class="zh">音</span> apparaît.</small></div>
+        <button type="button" class="switch" role="switch" id="sw-auto" aria-labelledby="lbl-auto" aria-checked="true"></button>
+      </div>
+      <div class="set">
+        <div class="t"><b><label for="rate">Vitesse de la voix</label></b><small id="voice-info">Voix chinoise de l’appareil.</small></div>
+        <input type="range" id="rate" min="0.5" max="1.1" step="0.05" value="0.8">
+      </div>
+      <div class="set">
+        <div class="t"><b id="lbl-tones">Couleurs des tons</b>
+          <div class="legend tones" aria-hidden="true">
+            <span><span class="t1">ā</span><small>1</small></span><span><span class="t2">á</span><small>2</small></span>
+            <span><span class="t3">ǎ</span><small>3</small></span><span><span class="t4">à</span><small>4</small></span>
+            <span><span class="t5">a</span><small>neutre</small></span>
+          </div>
+        </div>
+        <button type="button" class="switch" role="switch" id="sw-tones" aria-labelledby="lbl-tones" aria-checked="true"></button>
+      </div>
+
+      <p class="group-title">Sauvegarde</p>
+      <p class="explain" id="storage-note"></p>
+      <div class="btnrow">
+        <button type="button" class="btn" id="bk-copy">Copier la sauvegarde</button>
+        <button type="button" class="btn" id="bk-file" hidden>Exporter un fichier</button>
+        <button type="button" class="btn" id="bk-restore">Restaurer</button>
+      </div>
+      <p class="group-title">Recommencer</p>
+      <div class="btnrow"><button type="button" class="btn danger" id="reset">Effacer toute la progression</button></div>
+      <div id="reset-confirm" hidden></div>
+
+      <div class="about">
+        <p id="about-lists"></p>
+        <p>Phrases d’exemple écrites avec les seuls caractères des niveaux 1 à 3. Traductions françaises faites pour cette appli.</p>
+        <p>Polices : LXGW WenKai et Andika, sous licence SIL Open Font License.</p>
+      </div>
+    </section>
+  </main>
+
+  <nav class="tabs" aria-label="Sections">
+    <button type="button" class="tab" data-view="study" aria-current="page">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5 20.5 19H3.5Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M12 3.5 15 19" fill="none" stroke="currentColor" stroke-width="1.7"/></svg>Réviser</button>
+    <button type="button" class="tab" data-view="words">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-dasharray="2 2"/></svg>Mots</button>
+    <button type="button" class="tab" data-view="progress">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 20V13M12 20V8M19 20V4M3 20.5h18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>Progrès</button>
+    <button type="button" class="tab" data-view="settings">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h4M12 17h8" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="16" cy="7" r="2.2" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="10" cy="17" r="2.2" fill="none" stroke="currentColor" stroke-width="1.7"/></svg>Réglages</button>
+  </nav>
+
+  <div class="sheet" id="sheet" hidden>
+    <div class="veil" data-close></div>
+    <div class="panel" role="dialog" aria-modal="true" aria-labelledby="sheet-title">
+      <div class="panel-head"><h2 id="sheet-title"></h2><button type="button" class="close" data-close aria-label="Fermer">×</button></div>
+      <div id="sheet-body"></div>
+    </div>
+  </div>
+  <div class="updatebar" id="updatebar" role="status" hidden>
+    <span>Nouvelle version de l’appli prête.</span>
+    <button type="button" class="btn primary" id="update-reload">Recharger</button>
+  </div>
+  <div class="toast" id="toast" role="status" hidden></div>
+</div>
+
+<script>
+"use strict";
+const EMBEDDED = null;
+const COVER = new Set("一丁七万丈三上下不与丐丑专且世丘丙业丛东丝丢两严丧个丫中丰串临丸丹为主丽举乃久么义之乌乎乏乐乒乓乔乖乘乙九乞也习乡书买乱乳了予争事二于亏云互五井亚些亡交亦产亩享京亭亮亲人亿什仁仅仆仇今介仍从仓仔他仗付仙代令以仪们仰仲件价任份仿企伊伍伏伐休众优伙会伞伟传伤伦伪伯估伴伶伸伺似但位低住佐佑体何余佛作你佣佩佳使侃侄侈例侍供依侠侣侥侦侧侨侮侵便促俄俊俏俐俗俘保信俩俭修俯俱倍倒倔倘候倚借倡倦债值倾假偏做停健偶偷偿傅傍储催傲傻像僚僧僵僻儒儿允元兄充兆先光克免兑兔党兜兢入全八公六兰共关兴兵其具典兹养兼兽内冈册再冒冗写军农冠冤冬冰冲决况冶冷冻净凄准凉凌减凑凝几凡凤凭凯凰凳凶凸凹出击函凿刀刁分切刊刑划列则刚创初删判刨利别刮到制刷券刹刺刻剂剃削前剑剔剖剥剧剩剪副割劈力劝办功加务劣动助努劫励劲劳势勃勇勉勋勒勘募勤勺勾勿匀包匆化北匙匠匪匹区医匿十千升午卉半华协卑卒卓单卖南博卜占卡卤卦卧卫印危即却卵卷卸厂厄厅历厉压厌厕厘厚原厢厦厨去县参又叉及友双反发叔取受变叙叛叠口古句另叨只叫召叭叮可台史右叶号司叹叼吁吃各合吉吊同名后吏吐向吓吗君吝吞吟否吧吨吩含听吭启吵吸吹吻吼呀呆呈告呐呕员呛呜呢周味呵呻呼命咀咋和咏咐咖咙咧咨咬咱咳咸咽哀品哄哆哇哈响哎哑哗哥哦哨哪哭哲哺哼唆唇唉唐唠唤唬售唯唱唾啃商啊啡啤啥啦啬啰啸喂善喇喉喊喘喜喝喧喷喻嗅嗓嗜嗦嗨嗯嗽嘈嘉嘛嘱嘲嘴嘿器噪嚏嚷嚼囊囚四回因团园困囱围固国图圆圈土圣在地场圾址均坏坐坑块坚坛坝坟坠坡坦坪垂垃垄型垒垦垫垮埋城域培基堂堆堕堡堤堪堵塌塑塔塘塞填境墅墓墙增墟墨壁壤士壮声壳壶处备复夏夕外多夜够大天太夫央失头夷夸夹夺奇奈奉奋奏契奔奖套奠奢奥女奴奶奸她好如妄妆妇妈妒妖妙妥妨妹妻姆始姐姑姓委姜姥姨姻姿威娃娇娘娥娱娶婆婉婚婪婴婿媒媚媲媳嫁嫂嫉嫌嫦嫩嬉子孔孕字存孙孝季孤学孩孪孵宁它宅宇守安完宏宗官宙定宜宝实宠审客宣室宪宫宰害宴宵家容宽宾宿寂寄密富寒寓寝寞察寡寥寨寸对寺寻导寿封射将尊小少尔尖尘尚尝尤尬就尴尸尺尼尽尾尿局屁层居屈屉届屋屏屑展属屠屡履屯山屹屿岁岂岔岗岛岩岭岳岸峙峡峭峰峻崇崖崛崩崭嵌巅川州巡巢工左巧巨巩巫差己已巴巷巾币市布帅帆师希帐帕帖帘帜帝带席帮常帽幅幕幢干平年并幸幻幼幽广庄庆庇床序库应底店庙府庞废度座庭康庸廉廊廓延廷建开异弃弄弈弊式弓引弘弛弟张弥弦弧弯弱弹强归当录形彩彬彰影役彻彼往征径待很徊律徐徒得徘徙御循微德徽心必忆忌忍志忘忙忠忧快念忽怀态怎怒怕怖怜思怠怡急性怨怪怯总恋恍恐恒恕恢恤恨恩恭息恰恳恶恼悄悉悔悟悠患悦您悬悲悼情惊惋惑惕惜惠惦惧惨惩惫惭惮惯惰想惹愁愈愉意愚感愣愤愧愿慈慌慎慑慕慢慧慨慰慷憋憾懂懈懒戈戏成我戒或战戚截戳戴户房所扁扇手才扎扑扒打扔托扛扣执扩扫扬扭扮扯扰扳扶批找承技抄把抑抒抓投抖抗折抚抛抠抡抢护报抨披抬抱抵抹押抽拄担拆拉拌拍拎拐拒拓拔拖拘拙招拜拟拢拣拥拦拧拨择括拯拱拳拴拼拽拾拿持挂指按挎挑挖挚挟挠挡挣挤挥挨挪挫振挺挽捂捅捆捉捍捎捏捐捕捞损捡换捣捧据捶捷掀授掉掌掏掐排掘掠探接控推掩措掰掷掺揉揍描提插握揣揪揭援揽搀搁搂搅搏搓搜搞搬搭携摄摆摇摊摔摘摧摩摸撇撑撒撕撞撤撬播撰撼擅操擎擦攀攒攘支收改攻放政故效敌敏救教敛敞敢散敦敬数敲整敷文斑斗料斜斟斤斥斧斩断斯新方施旁旅旋族旗无既日旦旧旨早旬旭旱时旷旺昂昆昌明昏易昔星映春昧昨是昼显晃晋晒晓晕晚晤晨普景晰晴晶智晾暂暄暑暖暗暧暮暴曙曝曰曲更曾替最月有朋服朗望朝期朦木未末本术朱朴朵机朽杀杂权杆李材村杖杜束杠条来杨杯杰松板极构枉析枕林枚果枝枢枣枪枯架柄柏某染柔柜查柬柱柳柴柿标栋栏树栓栖校株样核根格栽桂桃框案桌桑桔档桥桨桩桶梁梅梢梦梨梯械梳检棉棋棍棒棕棘棚森棱棵棺椅植椎椒椭椰楚楷楼概榜榨槐槛槽模横橘橙橡橱欠次欢欣欧欲欺款歇歉歌止正此步武歧歪歹死歼殃殊残殖殴段殷殿毁毅母每毒比毕毙毛毫毯氏民氓气氛氧水永汁求汇汉汗汛江池污汤汪汰汹汽沃沉沏沐沙沛沟没沧沫沮河沸油治沼沽沾沿泄泉泊泌法泛泡波泣泥注泪泰泳泻泼泽洁洋洒洗洞津洪洲活洽派流浅浆浇浊测济浏浑浓浩浪浮浴海浸涂消涉涌涕涛涝涡涤润涨涩涮涯液涵淀淆淋淌淘淡深混淹添清渊渐渔渗渠渡渣温港渴游渺湖湾湿溃溅溉源溜溢溪溯溶滋滑滔滚滞满滤滥滨滩滴漂漆漏演漠漫漾潇潜潦潭潮澄澈澜澡激濒瀑灌火灭灯灰灵灶灸灼灾灿炉炊炎炒炖炫炬炭炮炸点炼烁烂烈烘烛烟烤烦烧烫热烹焊焕焚焦焰然煌煎煤照煮煲煽熄熊熏熙熟熨熬燃燕燥爆爪爬爱爵父爷爸爹爽片版牌牙牛牡牢牧物牲牵特牺犬犯状犹狂狈狗狠狡独狭狮狱狼猎猖猛猜猩猪猫献猴猾玄率玉王玩玫环现玻珍珠班球理琢琴瑞瑰璃瓜瓣瓦瓶瓷甘甚甜生用甩甭田由甲申电男甸画畅界畏畔留畜略番畴畸疆疏疑疗疙疤疫疯疲疼疾病症痒痕痛痪痰痴痹瘟瘤瘦瘩瘫瘸瘾癌登白百皂的皆皇皮皱盆盈益盏盐监盒盖盗盘盛盟目盯盲直相盹盼盾省眉看真眠眨眯眶眼着睁睛睡督睦睬睹瞄瞅瞎瞒瞧瞩瞪瞬瞻矛矢矣知矩矫短矮石矿码砂砌砍研砖破砸础硕硬确碌碍碎碑碗碟碧碰碳磁磅磊磋磕磨礁示礼社祀祈祖祝神祥票祭祷祸禁禅福离禽禾秀私秃秉秋种科秒秘租秤秧秩积称移秽稀程稍税稚稠稳稻稼稽稿穆穴究穷空穿突窃窄窍窑窒窗窘窜窝窟窥窿立竖站竞竟章竣童竭端竹竿笑笔笛符笨第笼等筋筐筑筒答策筛筝筷筹签简算管箭箱篇篮篷簇簸籍米类粉粒粗粘粥粪粮粹粽精糊糕糖糙糟系紊素索紧紫累絮繁纠红纤约级纪纬纯纱纲纳纵纷纸纹纺纽线练组绅细织终绍绎经绑绒结绕绘给络绝绞统绣继绩绪续绯绰绳维绵绷绸综绽绿缀缅缆缉缓缔缕编缘缚缝缠缤缩缴缸缺罐网罕罗罚罢罩罪置署羊美羞羡群羽翁翅翔翘翠翻翼耀老考者而耍耐耕耗耳耸耻耽耿聊聋职联聘聚聪肃肆肇肉肌肖肚肝肠股肢肤肥肩肪肯育肴肺肾肿胀胁胃胆背胎胖胚胜胞胡胧胳胶胸能脂脆脉脊脏脑脖脚脱脸脾腊腐腔腕腥腰腹腺腻腾腿膀膊膏膛膜膝膨膳臂臊臣自臭至致舅舆舌舍舒舔舞舟航般舰舱舵舶船艇艘良艰色艳艺艾节芒芝芦芬芭芯花芳芽苍苏苗苛苟若苦英苹茂范茄茅茎茫茶荆草荐荒荡荣荤荧荫药荷莫莲获莹莽菇菊菌菜菩萄萌萍萎萝营萧萨落著葡董葬葱蒂蒙蒜蒸蓄蓝蓬蔑蔓蔚蔬蔼蔽蕉蕴蕾薄薪薯藏藐藤藻蘑蘸虎虏虐虑虔虚虫虹虽虾蚀蚁蚂蚊蛇蛋蛙蛮蜂蜜蜡蝇蝴蝶融螺蠢血衅行衍衔街衡衣补表衫衬衰衷袋袍袖袜被袭袱裁裂装裔裕裙裤裳裸裹西要覆见观规觅视览觉角解触言誉誓警譬计订认讥讨让训议讯记讲讳讶许讹论讼讽设访诀证评识诈诉诊词译试诗诚话诞询该详诧诫诬语误诱说诵请诸诺读诽课谁调谅谈谊谋谍谎谐谓谜谢谣谤谦谨谬谱谴谷豁豆豈象豪豫豹貌贝贞负贡财责贤败账货质贩贪贫贬购贮贯贱贴贵贷贸费贺贼贾贿赁赂赃资赋赌赎赏赐赔赖赚赛赞赠赡赢赤赫走赴赶起趁超越趋趟趣足趴跃跌跑距跟跤跨跪路跳践踊踏踢踩踪踹蹈蹋蹦蹬蹭蹲躁身躬躯躲躺车轨转轮软轰轴轻载轿较辅辆辈辉辐辑输辕辖辙辛辜辞辟辣辨辩辫辰辱边辽达迁迄迅过迈迎运近返还这进远违连迟迪迫迭述迷迸迹追退送适逃逆选逊透逐递途逗通逛逝逞速造逢逮逸逻逼逾遂遇遍遏道遗遛遣遥遭遮遵避邀那邦邪邮邻郁郊郎郑部都鄙酌配酒酗酝酣酥酬酱酵酷酸酿醇醉醋醒采释里重野量金鉴针钉钓钙钝钞钟钢钥钦钧钩钱钳钻铁铃铅铜铝铭铲银铸铺链销锁锅锈锋锐错锡锤锦键锯锲锻镇镑镜镶长门闪闭问闯闲间闷闸闹闺闻阀阁阂阅阎阐阔队阱防阳阴阵阶阻阿附际陆陈陋陌降限陡院除陨险陪陵陶陷隆随隐隔隘隙障隧隶难雀雁雄雅集雇雌雕雨雪零雷雹雾需震霉霍霜霞露霸青静非靠面革靴靶鞋鞠鞭韧音韵页顶顷项顺须顽顾顿颁颂预领颇颈颊频颓颖颗题颜额颠颤风飘飙飞食餐饥饪饭饮饰饱饲饵饶饺饼饿馁馅馆馈馋馒首香馨马驭驮驯驰驱驳驶驻驾骂骄骇验骏骑骗骚骤骨髓高髦鬼魁魂魄魅魔鱼鲁鲜鲨鳄鸟鸡鸣鸦鸭鸽鹅鹏鹤鹰鹿麦麻黄黎黏黑默鼎鼓鼠鼻齐齿龄龙龟鿿");
+const SYLL = new Set(("chuang shuang zhuang biang chang cheng chong chuai chuan diang guang huang jiang jiong kuang liang niang qiang qiong shang sheng shuai shuan xiang xiong zhang zheng zhong zhuai zhuan bang beng bian biao bing cang ceng chai chan chao chen chou chui chun chuo cong cuan dang deng dian diao ding dong duan fang feng fiao gang geng gong guai guan hang heng hong huai huan jian jiao jing juan kang keng kong kuai kuan lang leng lian liao ling long luan mang meng mian miao ming nang neng nian niao ning nong nuan pang peng pian piao ping qian qiao qing quan rang reng rong ruan sang seng shai shan shao shei shen shou shua shui shun shuo song suan tang teng tian tiao ting tong tuan wang weng xian xiao xing xuan yang ying yong yuan zang zeng zhai zhan zhao zhei zhen zhou zhua zhui zhun zhuo zong zuan ang bai ban bao bei ben bia bie bin cai can cao cei cha che chi chu cou cui cun cuo dai dan dao dei den dia die diu dou dui dun duo eng fan fei fen fou gai gan gao gei gen gou gua gui gun guo hai han hao hei hen hng hou hua hui hun huo jia jie jin jiu jue jun kai kan kao kei ken kou kua kui kun kuo lai lan lao lei lia lie lin liu lou lun luo lve mai man mao mei men mie min miu mou nai nan nao nei nen nie nin niu nou nuo nve pai pan pao pei pen pie pin pou qia qie qin qiu que qun ran rao ren rou rua rui run ruo sai san sao sei sen sha she shi shu sou sui sun suo tai tan tao tei tie tou tui tun tuo wai wan wei wen xia xie xin xiu xue xun yai yan yao yin you yue yun zai zan zao zei zen zha zhe zhi zhu zou zui zun zuo ai an ao ba bi bo bu ca ce ci cu da de di du ei en er fa fo fu ga ge gu ha he hm hu ji ju ka ke ku la le li lo lu lv ma me mi mo mu na ne ng ni nu nv ou pa pi po pu qi qu re ri ru sa se si su ta te ti tu wa wo wu xi xu ya ye yi yo yu za ze zi zu a e m n o").split(/\s+/).filter(Boolean));
+const LEGACY = ["阿姨","啊","矮","爱好","安静","把","班","搬","办法","办公室","半","帮忙","包","饱","北方","被","鼻子","比较","比赛","笔记本","必须","变化","别人","冰箱","不但","而且","菜单","参加","草","层","差","超市","衬衫","成绩","城市","迟到","除了","船","春","词典","聪明","打扫","打算","带","担心","蛋糕","当然","地","灯","地方","地铁","地图","电梯","电子邮件","东","冬","动物","短","段","锻炼","多么","饿","耳朵","发","发烧","发现","方便","放","放心","分","附近","复习","干净","感冒","感兴趣","刚才","个子","根据","跟","更","公斤","公园","故事","刮风","关","关系","关心","关于","国家","过","过去","还是","害怕","黑板","后来","护照","花","画","坏","欢迎","还","环境","换","黄河","回答","会议","或者","几乎","机会","极","记得","季节","检查","简单","见面","健康","讲","教","角","脚","接","街道","节目","节日","结婚","结束","解决","借","经常","经过","经理","久","旧","句子","决定","可爱","渴","刻","客人","空调","口","哭","裤子","筷子","蓝","老","离开","礼物","历史","脸","练习","辆","聊天","了解","邻居","留学","楼","绿","马","马上","满意","帽子","米","面包","明白","拿","奶奶","南","难","难过","年级","年轻","鸟","努力","爬山","盘子","胖","皮鞋","啤酒","瓶子","其实","其他","奇怪","骑","起飞","起来","清楚","请假","秋","裙子","然后","热情","认为","认真","容易","如果","伞","上网","生气","声音","世界","试","瘦","叔叔","舒服","树","数学","刷牙","双","水平","司机","太阳","特别","疼","提高","体育","甜","条","同事","同意","头发","突然","图书馆","腿","完成","碗","万","忘记","为","为了","位","文化","西","习惯","洗手间","洗澡","夏","先","相信","香蕉","向","像","小心","校长","新闻","新鲜","信用卡","行李箱","熊猫","需要","选择","要求","爷爷","一般","一边","一定","一共","一会儿","一样","一直","以前","音乐","银行","饮料","应该","影响","用","游戏","有名","又","遇到","元","愿意","月亮","越","站","张","长","着急","照顾","照片","照相机","只","只有","才","中间","中文","终于","种","重要","周末","主要","注意","自己","自行车","总是","嘴","最后","最近","作业"];
+const IS_PWA = true;
+const XH = 0.5078;
+
+/* ---------- utilities ---------- */
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const HAN = /[㐀-鿿豈-﫿]/;
+const isHan = ch => HAN.test(ch);
+const INTERVALS = [0, 1, 2, 4, 8, 16, 32];
+const CIRCLED = "①②③④⑤⑥⑦⑧⑨";
+const FACE_NAMES = [["形", "forme"], ["音", "son"], ["义", "sens"]];
+const NB = " "; // narrow no-break space, before : ; ! ? in French
+
+function dayNum(t = Date.now()) {               // the day starts at 4:00, like Anki
+  const d = new Date(t - 4 * 3600e3);
+  return Math.floor(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()) / 864e5);
+}
+function dateOfDay(n) { const u = new Date(n * 864e5); return new Date(u.getUTCFullYear(), u.getUTCMonth(), u.getUTCDate(), 12); }
+function dayOfISO(s) { const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(s || ""); return m ? Math.floor(Date.UTC(+m[1], +m[2] - 1, +m[3]) / 864e5) : null; }
+const fmtLong = new Intl.DateTimeFormat("fr-FR", { weekday: "long", day: "numeric", month: "long" });
+const fmtDM = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "short" });
+const fmtShort = new Intl.DateTimeFormat("fr-FR", { weekday: "short" });
+const fmtTime = new Intl.DateTimeFormat("fr-FR", { hour: "numeric", minute: "2-digit" });
+function longDate(n) { return fmtLong.format(dateOfDay(n)).replace(/(^|\s)1 /, "$11er "); }
+function shortDate(n) { return fmtDM.format(dateOfDay(n)).replace(/^1 /, "1er "); }
+function dayLabel(n, today) {
+  if (n === today) return "aujourd’hui";
+  if (n === today + 1) return "demain";
+  return longDate(n);
+}
+function whenText(t) {                            // "aujourd’hui à 14 h 05", "le 3 octobre à 9 h 12"
+  if (!t) return "";
+  const n = dayNum(t), today = dayNum();
+  const hm = fmtTime.format(new Date(t)).replace(":", " h ");
+  return (n === today ? "aujourd’hui" : n === today - 1 ? "hier" : "le " + longDate(n)) + " à " + hm;
+}
+function shuffle(a) { for (let k = a.length - 1; k > 0; k--) { const r = Math.floor(Math.random() * (k + 1)); [a[k], a[r]] = [a[r], a[k]]; } return a; }
+function plural(n, one, many) { return n + " " + (n > 1 ? many : one); }   // no-break space
+function spread(a, b) {                          // b's items spaced out evenly among a's
+  const out = []; let i = 0, j = 0;
+  while (i < a.length || j < b.length) {
+    if (j >= b.length || (i < a.length && (i + 1) / (a.length + 1) <= (j + 1) / (b.length + 1))) out.push(a[i++]);
+    else out.push(b[j++]);
+  }
+  return out;
+}
+function newId() { return "u-" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6); }
+
+/* ---------- pinyin ---------- */
+const MARKS = { a: "āáǎà", e: "ēéěè", i: "īíǐì", o: "ōóǒò", u: "ūúǔù", "ü": "ǖǘǚǜ" };
+const TONED = "āáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜ";
+const INTERJ = new Set(["m", "n", "ng", "hm", "hng"]);
+const LETTER = /[a-zA-ZüÜāáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜĀÁǍÀĒÉĚÈĪÍǏÌŌÓǑÒŪÚǓÙǕǗǙǛ]/;
+function markSyllable(s, tone) {
+  s = s.replace(/u:|v/g, "ü").replace(/U:|V/g, "Ü");
+  if (tone < 1 || tone > 4) return s;
+  const low = s.toLowerCase();
+  let k = low.indexOf("a");
+  if (k < 0) k = low.indexOf("e");
+  if (k < 0 && low.includes("ou")) k = low.indexOf("o");
+  if (k < 0) for (let i = low.length - 1; i >= 0; i--) if ("iouü".includes(low[i])) { k = i; break; }
+  if (k < 0) return s;
+  let m = MARKS[low[k]][tone - 1];
+  if (s[k] !== low[k]) m = m.toUpperCase();
+  return s.slice(0, k) + m + s.slice(k + 1);
+}
+function decodeCh(ch) {                          // "ǎ" -> ["a", 3], "ü" -> ["v", 0]
+  const low = ch.toLowerCase();
+  const k = TONED.indexOf(low);
+  if (k >= 0) return ["aeiouv"[k >> 2], (k & 3) + 1];
+  return [low === "ü" ? "v" : low, 0];
+}
+function splitRun(run, strict) {
+  // Cut a run of pinyin letters into syllables (túshūguǎn -> tú shū guǎn) with the fewest
+  // syllables; inside a word a syllable never starts with a, o or e (that needs an apostrophe).
+  const chars = [...run], n = chars.length;
+  if (!SYLL.size || !n) return null;
+  const dec = chars.map(decodeCh), base = dec.map(d => d[0]).join("");
+  const best = new Array(n + 1).fill(Infinity), prev = new Array(n + 1).fill(-1);
+  best[0] = 0;
+  for (let i = 0; i < n; i++) {
+    if (best[i] === Infinity) continue;
+    for (let L = 1; L <= 6 && i + L <= n; L++) {
+      const s = base.slice(i, i + L);
+      let ok = SYLL.has(s) && !INTERJ.has(s);
+      if (ok && strict && i > 0 && "aoe".includes(s[0])) ok = false;
+      if (!ok && s === "r" && i > 0 && i + L === n) ok = true;          // erhua: diǎnr
+      if (!ok && INTERJ.has(s) && i === 0 && L === n) ok = true;
+      if (ok && best[i] + 1 < best[i + L]) { best[i + L] = best[i] + 1; prev[i + L] = i; }
+    }
+  }
+  if (best[n] === Infinity) return strict ? splitRun(run, false) : null;
+  const cuts = [];
+  for (let j = n; j > 0; j = prev[j]) cuts.unshift([prev[j], j]);
+  const anyMark = dec.some(d => d[1]);
+  const syl = cuts.map(([a, b]) => {
+    const t = dec.slice(a, b).reduce((m, d) => d[1] || m, 0);
+    return { s: chars.slice(a, b).join(""), t: t || (anyMark || cuts.length === 1 ? 5 : 0) };
+  });
+  for (let k = syl.length - 1; k > 0; k--) if (syl[k].s.toLowerCase() === "r") { syl[k - 1].s += syl[k].s; syl.splice(k, 1); }
+  return syl;
+}
+function parseNumeric(p) {                       // "tu2shu1guan3", "yi2hui4r5", "de5 / di4"
+  const toks = []; let buf = "";
+  const isSyl = t => t && !t.sep;
+  const pushSyl = tok => {
+    if (isSyl(toks[toks.length - 1]) && /^[aeoāáǎàēéěèōóǒò]/i.test(tok.s) && tok.s.toLowerCase() !== "r") toks.push({ sep: "’" });
+    toks.push(tok);
+  };
+  const flush = () => { if (buf) { toks.push({ s: buf.replace(/u:|v/g, "ü"), t: 0 }); buf = ""; } };
+  for (let i = 0; i < p.length; i++) {
+    const ch = p[i];
+    if (/[1-5]/.test(ch) && buf && /[a-zü:]$/i.test(buf)) { pushSyl({ s: markSyllable(buf, +ch), t: +ch }); buf = ""; continue; }
+    if (ch === "/") { flush(); if (toks.length && toks[toks.length - 1].sep === " ") toks.pop(); toks.push({ sep: " / " }); while (p[i + 1] === " ") i++; continue; }
+    if (ch === " ") { flush(); toks.push({ sep: " " }); continue; }
+    if (ch === "'" || ch === "’") { flush(); toks.push({ sep: "’" }); continue; }
+    if (!/[a-zü:]/i.test(ch)) { flush(); toks.push({ sep: ch }); continue; }
+    buf += ch;
+  }
+  flush();
+  return toks;
+}
+function parsePinyin(p) {
+  p = String(p || "").normalize("NFC");
+  if (/[a-zü:][1-5]/i.test(p)) return parseNumeric(p);
+  const toks = [], chars = [...p];
+  for (let i = 0; i < chars.length;) {
+    const ch = chars[i];
+    if (LETTER.test(ch)) {
+      let j = i;
+      while (j < chars.length && LETTER.test(chars[j])) j++;
+      const run = chars.slice(i, j).join("");
+      const syl = splitRun(run, true);
+      if (syl) toks.push(...syl); else toks.push({ s: run, t: 0 });
+      i = j; continue;
+    }
+    if (ch === "/") {
+      if (toks.length && toks[toks.length - 1].sep === " ") toks.pop();
+      toks.push({ sep: " / " }); i++;
+      while (chars[i] === " ") i++;
+      continue;
+    }
+    toks.push({ sep: ch === "'" ? "’" : ch }); i++;
+  }
+  return toks;
+}
+function pinyinText(p) { return parsePinyin(p).map(t => t.sep || t.s).join(""); }
+function pinyinHTML(p) {
+  return parsePinyin(p).map(t => t.sep ? `<span class="sep">${esc(t.sep)}</span>` : `<span class="t${t.t}">${esc(t.s)}</span>`).join("");
+}
+function fold(s) {
+  return String(s || "").normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[üǖǘǚǜ]/g, "u").replace(/v/g, "u")
+    .replace(/[1-5'’\s  \/·.,;:!?()-]/g, "").toLowerCase();
+}
+
+/* ---------- storage ---------- */
+const KEY = "xingyinyi.v2", KEY_V1 = "xingyinyi.v1", LKEY = "xingyinyi.listes";
+const DEFAULTS = { newPerDay: 10, startFace: 0, autoAudio: true, rate: 0.8, toneColors: true, exDetails: false, exam: "2026-11-29" };
+let storageOK = true, migratedV1 = false;
+function freshState() { return { v: 2, settings: { ...DEFAULTS }, cards: {}, edits: {}, custom: [], decks: {}, log: {}, extra: null }; }
+function normalizeState(s) {
+  // Accepts a saved state of this version or of the first one (single HSK 3 list, ids h3-000…h3-299).
+  const st = freshState();
+  if (!s || typeof s !== "object") return st;
+  st.settings = { ...DEFAULTS, ...(s.settings || {}) };
+  st.log = s.log && typeof s.log === "object" ? s.log : {};
+  st.extra = s.extra || null;
+  const obj = o => (o && typeof o === "object" ? o : {});
+  if ((s.v || 1) < 2) {
+    const mapId = id => { const m = /^h3-(\d{3})$/.exec(id); return m && LEGACY[+m[1]] ? "hsk3:" + LEGACY[+m[1]] : id; };
+    for (const [id, c] of Object.entries(obj(s.cards))) st.cards[mapId(id)] = c;
+    for (const [id, e] of Object.entries(obj(s.edits))) st.edits[mapId(id)] = e;
+    st.custom = (Array.isArray(s.custom) ? s.custom : []).filter(w => w && w.h)
+      .map(w => ({ id: w.id || newId(), h: w.h, p: w.p || "", f: w.f || "", ...(w.n ? { n: w.n } : {}) }));
+  } else {
+    st.cards = obj(s.cards); st.edits = obj(s.edits); st.decks = obj(s.decks);
+    st.custom = (Array.isArray(s.custom) ? s.custom : []).filter(w => w && w.h && w.id);
+  }
+  return st;
+}
+function loadState() {
+  try {
+    const raw = localStorage.getItem(KEY);
+    if (raw) return normalizeState(JSON.parse(raw));
+    const old = localStorage.getItem(KEY_V1);
+    if (old) { migratedV1 = true; return normalizeState(JSON.parse(old)); }
+    return freshState();
+  } catch (e) { storageOK = false; return freshState(); }
+}
+let state = loadState();
+function save() {
+  try {
+    const today = dayNum();
+    for (const k of Object.keys(state.log)) if (+k < today - 120) delete state.log[k];
+    localStorage.setItem(KEY, JSON.stringify(state));
+    storageOK = true;
+  } catch (e) { storageOK = false; }
+}
+if (IS_PWA && navigator.storage && navigator.storage.persist) { navigator.storage.persist().catch(() => {}); }
+
+/* ---------- lists (decks/decks.json + one TSV file per list) ---------- */
+const TEL = "tel";                                 // words added on this phone
+const FIELDS = ["p", "f", "n", "s", "e", "ep", "ef"];
+const COLMAP = { hanzi: "h", "汉字": "h", "caractères": "h", caracteres: "h", pinyin: "p", francais: "f", "français": "f",
+  traduction: "f", sens: "f", note: "n", audio: "s", voix: "s", exemple: "e", phrase: "e", exemple_pinyin: "ep",
+  pinyin_exemple: "ep", exemple_fr: "ef", exemple_francais: "ef", "exemple_français": "ef", traduction_exemple: "ef" };
+const DEFAULT_COLS = ["h", "p", "f", "n", "s", "e", "ep", "ef"];
+function parseTSV(text) {
+  const rows = []; let cols = null;
+  String(text || "").replace(/^﻿/, "").split(/\r?\n/).forEach(line => {
+    if (!line.trim() || /^\s*#/.test(line)) return;
+    let cells = line.split("\t");
+    if (cells.length === 1 && / {2,}/.test(line.trim())) cells = line.trim().split(/ {2,}/);   // tabs turned into spaces by an editor
+    cells = cells.map(c => c.trim());
+    if (!cols) {
+      const keys = cells.map(c => COLMAP[c.toLowerCase()] || null);
+      if (keys.includes("h")) { cols = keys; return; }
+      cols = DEFAULT_COLS;
+    }
+    const w = {};
+    cols.forEach((k, i) => { if (k && cells[i]) w[k] = cells[i]; });
+    if (w.h) rows.push(w);
+  });
+  return rows;
+}
+function buildLists(src) {
+  const cfg = src && src.config && Array.isArray(src.config.listes) ? src.config.listes : [];
+  const texts = (src && src.texts) || {};
+  const lists = [], ids = new Set();
+  for (const raw of cfg) {
+    if (!raw || !raw.id || !raw.fichier) continue;
+    const id = String(raw.id).trim();
+    if (!id || ids.has(id) || id === TEL) continue;
+    ids.add(id);
+    const text = texts[raw.fichier];
+    const count = {};
+    const words = (typeof text === "string" ? parseTSV(text) : []).map((r, i) => {
+      const k = (count[r.h] = (count[r.h] || 0) + 1);
+      return { ...r, id: id + ":" + r.h + (k > 1 ? "#" + k : ""), deck: id, o: i };
+    });
+    const per = Math.round(+raw.parJour);
+    lists.push({ id, nom: String(raw.nom || id), fichier: String(raw.fichier), mode: raw.mode === "rappel" ? "rappel" : "apprendre",
+      parJour: Number.isFinite(per) ? Math.max(0, Math.min(50, per)) : 3, actif: raw.actif !== false, words, missing: typeof text !== "string" });
+  }
+  return lists;
+}
+let BASE = [];                                   // lists of decks.json, in priority order
+let LISTS = [], DECK = [], BYID = new Map(), LISTBYID = new Map();
+let listsAt = 0, listsChecked = 0, listsReady = false;
+function rebuildDeck() {
+  const tel = { id: TEL, nom: "Ajoutés ici", fichier: "", mode: "apprendre", parJour: 0, actif: true,
+    words: state.custom.map((w, i) => ({ ...w, deck: TEL, o: i })) };
+  LISTS = [tel, ...BASE];
+  DECK = [];
+  for (const L of LISTS) for (const w of L.words) DECK.push(state.edits[w.id] ? { ...w, ...state.edits[w.id], edited: true } : w);
+  BYID = new Map(DECK.map(w => [w.id, w]));
+  LISTBYID = new Map(LISTS.map(L => [L.id, L]));
+}
+function original(id) { const w = BYID.get(id); const L = w && LISTBYID.get(w.deck); return L ? L.words.find(x => x.id === id) : null; }
+function deckOn(id) { if (id === TEL) return true; const d = state.decks[id]; return !d || d.on !== false; }
+function deckPerDay(id) { const d = state.decks[id], L = LISTBYID.get(id); return d && Number.isFinite(d.perDay) ? d.perDay : (L ? L.parJour : 3); }
+function syncDeckSettings() {
+  // What decks.json says wins whenever it changes; otherwise the phone's own switch stays.
+  for (const L of BASE) {
+    const d = state.decks[L.id] || (state.decks[L.id] = {});
+    if (d.cfgOn !== L.actif) { d.cfgOn = L.actif; d.on = L.actif; }
+    if (d.cfgPer !== L.parJour) { d.cfgPer = L.parJour; d.perDay = L.parJour; }
+  }
+}
+function mergeTel() {
+  // A word added on the phone that now exists in a list (copied into perso.tsv, say) moves there with its progress.
+  const moved = [];
+  state.custom = state.custom.filter(t => {
+    let target = null;
+    for (const L of BASE) { target = L.words.find(w => w.h === t.h); if (target) { moved.push(L.nom); break; } }
+    if (!target) return true;
+    const a = state.cards[t.id], b = state.cards[target.id];
+    if (a && (!b || (a.r || 0) > (b.r || 0))) state.cards[target.id] = a;
+    delete state.cards[t.id];
+    return false;
+  });
+  return moved;
+}
+function dropSameEdits() {
+  for (const [id, e] of Object.entries(state.edits)) {
+    const L = BASE.find(x => id.startsWith(x.id + ":"));
+    const w = L && L.words.find(x => x.id === id);
+    if (w && Object.keys(e).every(k => (e[k] || "") === (w[k] || ""))) delete state.edits[id];
+  }
+}
+function diffLists(before, after) {
+  const old = new Map();
+  before.forEach(L => L.words.forEach(w => old.set(w.id, w)));
+  const parts = [];
+  for (const L of after) {
+    if (!before.some(x => x.id === L.id)) { parts.push(`nouvelle liste ${L.nom} (${plural(L.words.length, "mot", "mots")})`); continue; }
+    let add = 0, chg = 0;
+    for (const w of L.words) {
+      const o = old.get(w.id);
+      if (!o) add++;
+      else if (FIELDS.some(k => (o[k] || "") !== (w[k] || ""))) chg++;
+    }
+    const bits = [];
+    if (add) bits.push(plural(add, "mot ajouté", "mots ajoutés"));
+    if (chg) bits.push(plural(chg, "mot corrigé", "mots corrigés"));
+    if (bits.length) parts.push(`${L.nom}${NB}: ${bits.join(", ")}`);
+  }
+  for (const L of before) if (!after.some(x => x.id === L.id)) parts.push(`${L.nom} retirée`);
+  return parts;
+}
+function readCache() { try { const raw = localStorage.getItem(LKEY); return raw ? JSON.parse(raw) : null; } catch (e) { return null; } }
+function writeCache(src) { try { localStorage.setItem(LKEY, JSON.stringify(src)); } catch (e) {} }
+function sameSrc(a, b) {
+  if (!a || !b || JSON.stringify(a.config) !== JSON.stringify(b.config)) return false;
+  const ka = Object.keys(a.texts || {}).sort(), kb = Object.keys(b.texts || {}).sort();
+  return ka.join("\n") === kb.join("\n") && ka.every(k => a.texts[k] === b.texts[k]);
+}
+async function fetchLists() {
+  const get = async (path, json) => {
+    const res = await fetch("decks/" + path, { cache: "no-cache" });
+    if (!res.ok) throw new Error(path + " (" + res.status + ")");
+    return json ? res.json() : res.text();
+  };
+  const config = await get("decks.json", true);
+  if (!config || !Array.isArray(config.listes)) throw new Error("decks.json : pas de « listes »");
+  const texts = {}, missing = [];
+  await Promise.all(config.listes.map(async L => {
+    if (!L || !L.fichier || L.fichier in texts) return;
+    texts[L.fichier] = null;
+    try { texts[L.fichier] = await get(L.fichier, false); } catch (e) { delete texts[L.fichier]; missing.push(L.fichier); }
+  }));
+  return { config, texts, missing, at: Date.now() };
+}
+function useLists(src, why, prevSrc) {
+  const before = BASE.length ? BASE : (prevSrc ? buildLists(prevSrc) : []);
+  BASE = buildLists(src);
+  listsAt = src.at || 0;
+  listsReady = true;
+  syncDeckSettings();
+  const moved = mergeTel();
+  dropSameEdits();
+  rebuildDeck();
+  save();
+  if (why === "update") {
+    const parts = diffLists(before, BASE);
+    if (moved.length) parts.push(`${plural(moved.length, "mot ajouté ici est passé", "mots ajoutés ici sont passés")} dans ${[...new Set(moved)].join(", ")}`);
+    if (parts.length) toast("Listes mises à jour" + NB + ": " + parts.join(" ; ") + ".", 5600);
+  }
+  $("#loading").hidden = true;
+  if (current === "words") renderWords();
+  if (current === "progress") renderProgress();
+  if (current === "settings") renderSettings();
+  study.build(why === "update" && !!study.cur);
+}
+let checking = false;
+async function refreshLists(first, manual) {
+  if (EMBEDDED || checking) return;
+  checking = true;
+  if (manual) { $("#lists-check").disabled = true; $("#lists-check").textContent = "Recherche…"; }
+  try {
+    const src = await fetchLists();
+    listsChecked = Date.now();
+    const cached = readCache();
+    if (cached && sameSrc(cached, src)) {
+      if (!listsReady) useLists(cached, "first");
+      else if (manual) toast("Les listes sont à jour.");
+    } else {
+      writeCache(src);
+      useLists(src, cached && listsReady ? "update" : "first", cached);
+      if (manual && cached && !diffLists(buildLists(cached), BASE).length) toast("Listes rechargées.");
+    }
+    if (src.missing.length) toast(`Fichier introuvable dans decks/${NB}: ${src.missing.join(", ")}`, 5600);
+  } catch (e) {
+    if (!listsReady) showLoadError(e);
+    else if (manual) toast(navigator.onLine === false ? "Pas de connexion : les listes restent celles d’avant." : "Mise à jour impossible (" + (e && e.message || e) + ").", 5000);
+  } finally {
+    checking = false;
+    if (manual) { $("#lists-check").disabled = false; $("#lists-check").textContent = "Chercher une mise à jour des listes"; }
+    if (current === "settings") renderListsInfo();
+  }
+}
+function bootLists() {
+  const cached = readCache();
+  if (EMBEDDED) {
+    const src = { config: EMBEDDED.config, texts: EMBEDDED.texts, at: EMBEDDED.at || 0 };
+    const changed = cached && !sameSrc(cached, src);
+    if (!cached || changed) writeCache(src);
+    useLists(src, changed ? "update" : "first", changed ? cached : null);
+    return;
+  }
+  if (cached) useLists(cached, "first");
+  else { $("#loading").hidden = false; $("#loading-retry").hidden = true; $("#loading-text").textContent = "Chargement des listes…"; }
+  refreshLists(!cached, false);
+}
+function showLoadError(e) {
+  $("#loading").hidden = false;
+  $("#study-card").hidden = true;
+  $("#loading-text").textContent = "Les listes de mots n’ont pas pu être chargées (" + (e && e.message || e) +
+    "). Vérifie la connexion, ou que le dossier decks/ a bien été publié avec l’appli.";
+  $("#loading-retry").hidden = false;
+}
+
+/* ---------- cards ---------- */
+const card = id => state.cards[id];
+const seen = id => { const c = state.cards[id]; return !!(c && c.r); };
+const boxOf = id => (seen(id) ? state.cards[id].b : 0);
+function listOf(id) { const w = BYID.get(id); return w ? LISTBYID.get(w.deck) : null; }
+function isRappel(id) { const L = listOf(id); return !!L && L.mode === "rappel" && !seen(id); }
+function covered(h) { for (const ch of String(h || "")) if (isHan(ch) && !COVER.has(ch)) return false; return true; }
+
+/* ---------- scheduling (Leitner boxes) ---------- */
+function outcome(c, today, rappel) {
+  if (rappel) return { good: 4, easy: 6 };       // a known word met again: back in 8 or 32 days
+  const b = c ? c.b : 0;
+  const failedToday = !!c && c.f === today;
+  const good = failedToday ? 1 : Math.min(6, Math.max(1, b + 1));
+  const easy = failedToday ? 2 : (b === 0 ? 4 : Math.min(6, b + 2));
+  return { good, easy };
+}
+function logAdd(today, kind, deck) {
+  const L = state.log[today] || (state.log[today] = { n: 0, r: 0 });
+  if (kind === "k") { L.k = L.k || {}; L.k[deck] = (L.k[deck] || 0) + 1; }
+  else L[kind] = (L[kind] || 0) + 1;
+}
+function applyGrade(id, g) {
+  const today = dayNum();
+  const rappel = isRappel(id);
+  const c = state.cards[id] || { b: 0, d: today, r: 0, l: 0 };
+  const first = !c.r;
+  if (g === 0) {
+    if (c.b > 0 && c.f !== today) c.l++;
+    c.b = 1; c.d = today; c.f = today;
+  } else {
+    const o = outcome(c, today, rappel);
+    c.b = g === 1 ? o.good : o.easy;
+    c.d = today + INTERVALS[c.b];
+  }
+  c.r++; c.t = today;
+  if (first) c.s = today;
+  state.cards[id] = c;
+  const w = BYID.get(id);
+  logAdd(today, first ? (rappel ? "k" : "n") : "r", w && w.deck);
+}
+function newQuota(today) {
+  const extra = state.extra && state.extra.day === today ? state.extra.n : 0;
+  const done = (state.log[today] && state.log[today].n) || 0;
+  return Math.max(0, state.settings.newPerDay + extra - done);
+}
+function rappelQuota(deck, today) {
+  const L = state.log[today];
+  return Math.max(0, deckPerDay(deck) - ((L && L.k && L.k[deck]) || 0));
+}
+function unseenOf(L) { return L.words.filter(w => !seen(w.id)); }
+
+/* ---------- speech ---------- */
+const tts = {
+  ok: "speechSynthesis" in window && typeof SpeechSynthesisUtterance === "function",
+  voice: null,
+  init() {
+    if (!this.ok) return;
+    const pick = () => {
+      let vs = [];
+      try { vs = speechSynthesis.getVoices(); } catch (e) {}
+      this.voice = vs.find(v => /^zh[-_]CN/i.test(v.lang)) || vs.find(v => /^zh/i.test(v.lang)) || null;
+      updateVoiceInfo();
+    };
+    pick();
+    try { speechSynthesis.addEventListener("voiceschanged", pick); } catch (e) {}
+  },
+  say(text, btn) {
+    if (!this.ok || !text) return false;
+    try {
+      speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = "zh-CN";
+      if (this.voice) u.voice = this.voice;
+      u.rate = state.settings.rate;
+      if (btn) { btn.classList.add("playing"); u.onend = u.onerror = () => btn.classList.remove("playing"); }
+      speechSynthesis.speak(u);
+      return true;
+    } catch (e) { return false; }
+  }
+};
+
+/* ---------- the prism ---------- */
+const SPEAKER = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" fill="currentColor"/><path d="M15.5 8.8a4.5 4.5 0 0 1 0 6.4M18 6.3a8 8 0 0 1 0 11.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>';
+const CHEVRON = '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+function triSVG(k) {
+  // Cross-section of the prism seen from above; the lit side is the face shown.
+  const sides = ["M3 16H17", "M17 16 10 3", "M10 3 3 16"];
+  return '<svg class="tri" viewBox="0 0 20 19" aria-hidden="true">' +
+    sides.map((d, i) => `<path d="${d}"${i === k ? ' class="on"' : ""}/>`).join("") + "</svg>";
+}
+function senseItems(w) {
+  const parts = String(w.f || "").split(/\s*;\s*/).map(s => s.trim()).filter(Boolean);
+  const mask = s => (w.h ? s.split(w.h).join("～") : s);
+  const zhWrap = s => esc(s).replace(/([㐀-鿿～][㐀-鿿～…]*)/g, '<span class="zhi">$1</span>');
+  if (!parts.length) return '<li><span>—</span></li>';
+  return parts.map((s, i) => `<li>${parts.length > 1 ? `<span class="no">${CIRCLED[i] || "•"}</span>` : ""}<span>${zhWrap(mask(s))}</span></li>`).join("");
+}
+
+class Prism {
+  constructor(root, opts = {}) {
+    this.root = root; this.opts = opts;
+    root.innerHTML = '<div class="prism"><section class="face" data-face="0"></section><section class="face" data-face="1"></section><section class="face" data-face="2"></section></div>';
+    this.el = $(".prism", root);
+    this.faces = $$(".face", root);
+    this.turns = 0; this.start = 0; this.seen = new Set([0]); this.word = null;
+    this.layout();
+    root.addEventListener("pointerdown", e => {
+      if (e.target.closest("button") || (e.pointerType === "mouse" && e.button !== 0)) return;
+      this.down = { x: e.clientX, y: e.clientY };
+    });
+    root.addEventListener("pointerup", e => {
+      if (!this.down) return;
+      const dx = e.clientX - this.down.x, dy = e.clientY - this.down.y;
+      this.down = null;
+      if (Math.abs(dx) > 34 && Math.abs(dx) > Math.abs(dy) * 1.2) this.turn(dx < 0 ? 1 : -1);
+      else if (Math.abs(dx) < 10 && Math.abs(dy) < 10) this.turn(1);
+    });
+    root.addEventListener("pointercancel", () => { this.down = null; });
+    root.addEventListener("keydown", e => {
+      if (e.target !== root) return;
+      if (e.key === " " || e.key === "Enter" || e.key === "ArrowRight") { e.preventDefault(); this.turn(1); }
+      else if (e.key === "ArrowLeft") { e.preventDefault(); this.turn(-1); }
+    });
+  }
+  get face() { return ((this.turns % 3) + 3) % 3; }
+  layout() {
+    const avail = this.root.clientWidth || 320;
+    const w = Math.round(Math.min(avail - 16, this.opts.maxW || 380));
+    let h = Math.round(w * 0.86);
+    if (this.opts.fill) {
+      const room = this.opts.fill();                 // vertical space the view can give the card
+      if (room) h = Math.round(Math.min(w * 1.18, Math.max(w * 0.74, room)));
+    }
+    this.w = w; this.h = h; this.a = w / (2 * Math.sqrt(3));
+    this.root.style.height = h + "px";
+    this.el.style.setProperty("--pw", w + "px");
+    this.el.style.setProperty("--ph", h + "px");
+    this.faces.forEach((f, i) => { f.style.transform = `rotateY(${i * 120}deg) translateZ(${this.a.toFixed(2)}px)`; });
+    this.apply(false);
+    if (this.word) this.fit();
+  }
+  apply(animate) {
+    if (!animate) this.el.classList.add("instant");
+    this.el.style.transform = `translateZ(${(-this.a).toFixed(2)}px) rotateY(${-this.turns * 120}deg)`;
+    if (!animate) { void this.el.offsetWidth; this.el.classList.remove("instant"); }
+    this.faces.forEach((f, i) => f.setAttribute("aria-hidden", i === this.face ? "false" : "true"));
+  }
+  show(w, start) {
+    this.word = w; this.start = start; this.turns = start; this.seen = new Set([start]);
+    const tones = state.settings.toneColors ? " tones" : "";
+    const sys = covered(w.h) ? "" : " sysfont";
+    const cells = [...w.h].map(ch => `<div class="tzg${sys}"><span lang="zh-Hans">${esc(ch)}</span></div>`).join("");
+    const head = k => `<div class="face-head"><span class="face-tag"><span class="zh">${FACE_NAMES[k][0]}</span>${FACE_NAMES[k][1]}</span>${triSVG(k)}</div>`;
+    this.faces[0].innerHTML = head(0) + `<div class="face-body"><div class="tzg-row">${cells}</div></div>`;
+    this.faces[1].innerHTML = head(1) +
+      `<div class="face-body"><div class="staff"><div class="lines"><i></i><i></i><i class="base"></i><i></i></div>` +
+      `<div class="py${tones}">${w.p ? pinyinHTML(w.p) : "—"}</div></div>` +
+      (tts.ok ? `<button type="button" class="speak" data-say>${SPEAKER}Écouter</button>` : "") + "</div>";
+    const note = w.n ? `<p class="note" data-note><span class="tag">注</span><span>${esc(w.n)}</span></p>` : "";
+    this.faces[2].innerHTML = head(2) + `<div class="face-body"><ol class="senses">${senseItems(w)}</ol>${note}</div>`;
+    const sb = $("[data-say]", this.faces[1]);
+    if (sb) sb.addEventListener("click", e => { e.stopPropagation(); tts.say(w.s || w.h, sb); });
+    this.noteState();
+    this.apply(false);
+    this.fit();
+  }
+  noteState() {
+    const n = $("[data-note]", this.faces[2]);
+    if (n) n.hidden = this.start === 2 && this.seen.size < 2;
+  }
+  turn(dir = 1) {
+    if (!this.word) return;
+    this.turns += dir;
+    this.seen.add(this.face);
+    this.noteState();
+    this.apply(true);
+    if (this.face === 1 && state.settings.autoAudio) tts.say(this.word.s || this.word.h, $("[data-say]", this.faces[1]));
+    if (this.opts.onTurn) this.opts.onTurn(this);
+  }
+  fit() {
+    const w = this.word; if (!w) return;
+    // 形: one copybook cell per character
+    const n = Math.max(1, [...w.h].length);
+    const innerW = this.w - 30, innerH = this.h - 70;
+    const cell = Math.floor(Math.min(156, innerH, (innerW + (n - 1) * 1.5) / n));
+    $(".tzg-row", this.faces[0]).style.setProperty("--cell", cell + "px");
+    // 音: pinyin sized to the width, staff lines drawn on its metrics
+    const py = $(".py", this.faces[1]);
+    let fs = 46;
+    py.style.fontSize = fs + "px";
+    const room = this.w - 44;
+    while (py.scrollWidth > room && fs > 18) { fs -= 2; py.style.fontSize = fs + "px"; }
+    const probe = document.createElement("span");
+    probe.style.cssText = "display:inline-block;width:0;height:0;vertical-align:baseline";
+    py.insertBefore(probe, py.firstChild);
+    const base = probe.offsetTop;
+    probe.remove();
+    const xh = fs * XH;
+    const ys = [base - 2 * xh, base - xh, base, base + xh];
+    $$(".lines i", this.faces[1]).forEach((el, i) => { el.style.top = (ys[i] - (i === 2 ? 0.75 : 0.5)).toFixed(1) + "px"; });
+    $(".lines", this.faces[1]).style.top = py.offsetTop + "px";
+    // 义: shrink long definitions until they fit
+    const ol = $(".senses", this.faces[2]), body = $(".face-body", this.faces[2]), note = $("[data-note]", this.faces[2]);
+    const wasHidden = note ? note.hidden : false;
+    if (note) note.hidden = false;
+    const need = () => ol.offsetHeight + (note ? note.offsetHeight + 11 : 0);
+    let s = 19;
+    ol.style.setProperty("--fs", s + "px");
+    while (need() > body.clientHeight && s > 13) { s -= 1; ol.style.setProperty("--fs", s + "px"); }
+    if (note) note.hidden = wasHidden;
+  }
+}
+
+/* ---------- 例 : the example slip ---------- */
+function markHead(e, h) {
+  if (!h || !e.includes(h)) return esc(e);
+  return e.split(h).map(esc).join(`<mark>${esc(h)}</mark>`);
+}
+function slipHTML(w, mode) {                      // mode: "covered" (card not turned yet), "shown", "full" (word sheet)
+  if (!w || !w.e) return `<div class="ex empty"><span class="tag" aria-hidden="true">例</span><p class="ex-none">Pas encore de phrase d’exemple pour ce mot.</p></div>`;
+  const open = mode === "full" || !!state.settings.exDetails;
+  const tones = state.settings.toneColors ? " tones" : "";
+  const extra = (w.ep ? `<p class="ex-py${tones}">${pinyinHTML(w.ep)}</p>` : "") + (w.ef ? `<p class="ex-fr" lang="fr">${esc(w.ef)}</p>` : "");
+  const toggle = mode !== "full" && extra
+    ? `<button type="button" class="ex-toggle" data-ex-toggle aria-expanded="${open}">${CHEVRON}${open ? "Masquer" : "Pinyin et traduction"}</button>` : "";
+  return `<div class="ex${mode === "covered" ? " covered" : ""}${open ? " open" : ""}">` +
+    `<span class="tag" aria-hidden="true">例</span>` +
+    `<div class="ex-text"><p class="ex-zh${covered(w.e) ? "" : " sysfont"}" lang="zh-Hans">${markHead(w.e, w.h)}</p>` +
+    `<div class="ex-more">${extra}</div>${toggle}` +
+    (mode === "covered" ? `<span class="ex-cover" data-ex-cover title="Tourne la carte pour voir la phrase"></span>` : "") + `</div>` +
+    (tts.ok ? `<button type="button" class="ex-play" data-ex-say aria-label="Écouter la phrase">${SPEAKER}</button>` : "") +
+    `</div>`;
+}
+function fitSlip(root) {
+  const zh = $(".ex-zh", root); if (!zh) return;
+  zh.classList.remove("wrap");
+  let fs = 22;
+  zh.style.setProperty("--exfs", fs + "px");
+  while (zh.scrollWidth > zh.clientWidth + 1 && fs > 16) { fs -= 1; zh.style.setProperty("--exfs", fs + "px"); }
+  if (zh.scrollWidth > zh.clientWidth + 1) zh.classList.add("wrap");
+}
+function renderSlip(w, mode) {
+  const slot = $("#example");
+  slot.classList.toggle("open", !!state.settings.exDetails && !!(w && w.e && (w.ep || w.ef)));
+  slot.innerHTML = slipHTML(w, mode);
+  fitSlip(slot);
+}
+function revealSlip() {
+  const ex = $("#example .ex");
+  if (ex && ex.classList.contains("covered")) { ex.classList.remove("covered"); fitSlip($("#example")); }
+}
+function bindSlip(root, getWord) {
+  root.addEventListener("click", e => {
+    const w = getWord(); if (!w) return;
+    const say = e.target.closest("[data-ex-say]");
+    if (say) { tts.say(w.e, say); return; }
+    if (e.target.closest("[data-ex-cover]")) { if (prism && root.id === "example") prism.turn(1); return; }
+    const tg = e.target.closest("[data-ex-toggle]");
+    if (tg) {
+      state.settings.exDetails = !state.settings.exDetails; save();
+      const ex = $(".ex", root);
+      ex.classList.toggle("open", state.settings.exDetails);
+      tg.setAttribute("aria-expanded", String(state.settings.exDetails));
+      tg.innerHTML = CHEVRON + (state.settings.exDetails ? "Masquer" : "Pinyin et traduction");
+      if (root.id === "example") { root.classList.toggle("open", state.settings.exDetails); prism.layout(); }
+    }
+  });
+}
+
+/* ---------- study session ---------- */
+const study = {
+  queue: [], cur: null, curFace: 0, free: false, busy: false, ready: false, day: 0,
+  build(keep) {
+    const today = dayNum();
+    this.day = today;
+    const active = DECK.filter(w => deckOn(w.deck));
+    const due = shuffle(active.filter(w => { const c = card(w.id); return c && c.r && c.d <= today; }))
+      .sort((a, b) => card(a.id).d - card(b.id).d || card(a.id).b - card(b.id).b)
+      .map(w => w.id);
+    const rappel = [];
+    for (const L of LISTS) if (L.mode === "rappel" && deckOn(L.id)) {
+      const q = rappelQuota(L.id, today);
+      if (q > 0) rappel.push(...unseenOf(L).slice(0, q).map(w => w.id));
+    }
+    const fresh = [];
+    let quota = newQuota(today);
+    for (const L of LISTS) if (L.mode === "apprendre" && deckOn(L.id) && quota > 0) {
+      const pick = unseenOf(L).slice(0, quota);
+      fresh.push(...pick.map(w => w.id));
+      quota -= pick.length;
+    }
+    const known = spread(due, shuffle(rappel));
+    const q = [];
+    let i = 0, j = 0;
+    while (i < known.length || j < fresh.length) {        // one new word after every two known ones
+      if (i < known.length) q.push(known[i++]);
+      if (i < known.length) q.push(known[i++]);
+      if (j < fresh.length) q.push(fresh[j++]);
+    }
+    if (keep && this.cur && BYID.has(this.cur) && !this.free) {
+      this.queue = q.filter(id => id !== this.cur);
+      renderCounts();
+      return;
+    }
+    this.free = false;
+    this.queue = q;
+    this.next(true);
+  },
+  startFree() {
+    const active = DECK.filter(w => deckOn(w.deck));
+    const pool = active.filter(w => seen(w.id)).map(w => w.id);
+    this.queue = shuffle(pool.length >= 5 ? pool : active.map(w => w.id)); this.free = true;
+    this.next(true);
+  },
+  pickFace() {
+    const f = state.settings.startFace;
+    return f === "r" ? Math.floor(Math.random() * 3) : +f;
+  },
+  next(instant) {
+    this.cur = this.queue.shift() || null;
+    this.ready = false;
+    renderCounts();
+    $("#free-note").hidden = !this.free;
+    if (!this.cur) { showDone(); return; }
+    $("#done").hidden = true;
+    const first = $("#study-card").hidden;
+    $("#study-card").hidden = false;
+    if (first) prism.layout();
+    const w = BYID.get(this.cur);
+    this.curFace = this.pickFace();
+    const stage = $("#stage");
+    const put = () => {
+      prism.show(w, this.curFace);
+      renderSlip(w, "covered");
+      setActions(false);
+      renderCardStatus();
+      if (this.curFace === 1 && state.settings.autoAudio && !instant) tts.say(w.s || w.h, $("[data-say]", prism.faces[1]));
+      this.ready = true;
+    };
+    if (instant) { put(); return; }
+    $("#grades").hidden = true;                          // nothing to grade while the next card slides in
+    $("#turnbtn").hidden = false;
+    stage.classList.add("swap");
+    setTimeout(() => { put(); stage.classList.remove("swap"); }, 170);
+  },
+  grade(g) {
+    if (!this.cur || this.busy || !this.ready || prism.seen.size < 2) return;
+    this.busy = true;
+    this.ready = false;
+    const id = this.cur;
+    if (!this.free) {
+      applyGrade(id, g);
+      save();
+      if (g === 0) this.queue.splice(Math.min(2, this.queue.length), 0, id);
+    } else if (g === 0) {
+      this.queue.splice(Math.min(4, this.queue.length), 0, id);
+    }
+    stampMark(g);
+    setTimeout(() => { this.busy = false; this.next(false); }, matchMedia("(prefers-reduced-motion: reduce)").matches ? 200 : 430);
+  }
+};
+
+function stampMark(g) {
+  const st = $("#stamp") || (() => { const d = document.createElement("div"); d.id = "stamp"; d.className = "stamp"; $("#stage").appendChild(d); return d; })();
+  const src = $(`.grade[data-g="${g}"] .mk`);
+  st.innerHTML = g === 2 ? '<span class="you">优</span>' : src.outerHTML;
+  st.classList.remove("show"); void st.offsetWidth; st.classList.add("show");
+  setTimeout(() => st.classList.remove("show"), 520);
+}
+
+function setActions(turned) {
+  $("#turnbtn").hidden = turned;
+  $("#grades").hidden = !turned;
+  if (turned) {
+    const today = dayNum();
+    const o = outcome(card(study.cur), today, isRappel(study.cur));
+    const days = n => (n === 1 ? "1 jour" : n + " jours");
+    if (study.free) { $("#gi0").textContent = "à revoir"; $("#gi1").textContent = "su"; $("#gi2").textContent = "facile"; }
+    else { $("#gi0").textContent = "à revoir"; $("#gi1").textContent = days(INTERVALS[o.good]); $("#gi2").textContent = days(INTERVALS[o.easy]); }
+  }
+}
+function renderCardStatus() {
+  const id = study.cur, c = card(id), L = listOf(id);
+  let chip;
+  if (study.free) chip = '<span class="chip">Entraînement libre</span>';
+  else if (isRappel(id)) chip = '<span class="chip rappel">Rappel</span>';
+  else if (!seen(id)) chip = '<span class="chip new">Nouveau mot</span>';
+  else chip = `<span class="chip">Boîte ${c.b}${c.f === dayNum() ? ", à revoir" : ""}</span>`;
+  $("#card-chip").innerHTML = chip + (L ? `<span class="chip deck">${esc(L.nom)}</span>` : "");
+  $$("#dots i").forEach((d, i) => d.classList.toggle("on", prism.seen.has(i)));
+}
+function renderCounts() {
+  if (!listsReady) { $("#counts").innerHTML = ""; return; }
+  const ids = study.cur ? [study.cur, ...study.queue] : study.queue;
+  if (study.free) {
+    $("#counts").innerHTML = `<span class="count free"><b>${ids.length}</b>en libre</span>`;
+    return;
+  }
+  let rev = 0, nw = 0;
+  for (const id of new Set(ids)) { if (seen(id) || isRappel(id)) rev++; else nw++; }
+  $("#counts").innerHTML = `<span class="count"><b>${rev}</b>à revoir</span><span class="count"><b>${nw}</b>${nw > 1 ? "nouveaux" : "nouveau"}</span>`;
+}
+function rappelsPlanned(dayOffset) {               // rappels waiting on a given day (0 = today)
+  let n = 0;
+  for (const L of LISTS) if (L.mode === "rappel" && deckOn(L.id)) {
+    let left = unseenOf(L).length;
+    for (let d = 0; d <= dayOffset && left > 0; d++) {
+      const take = Math.min(left, d === 0 ? rappelQuota(L.id, dayNum()) : deckPerDay(L.id));
+      left -= take;
+      if (d === dayOffset) n += take;
+    }
+  }
+  return n;
+}
+function showDone() {
+  $("#study-card").hidden = true;
+  $("#done").hidden = false;
+  const today = dayNum();
+  const L = state.log[today] || { n: 0, r: 0 };
+  const k = L.k ? Object.values(L.k).reduce((a, b) => a + b, 0) : 0;
+  const active = DECK.filter(w => deckOn(w.deck));
+  const tomorrow = active.filter(w => { const c = card(w.id); return c && c.r && c.d <= today + 1; }).length;
+  const tomorrowRap = rappelsPlanned(1);
+  const leftNew = LISTS.some(D => D.mode === "apprendre" && deckOn(D.id) && D.words.some(w => !seen(w.id)));
+  const title = $("#done-title"), text = $("#done-text"), next = $("#done-next");
+  if (!active.length) {
+    title.textContent = "Aucun mot à réviser";
+    text.textContent = BASE.length ? "Toutes les listes sont désactivées : active-en une dans Réglages." : "Aucune liste n’est chargée.";
+    next.textContent = "";
+    $("#more-new").hidden = true; $("#free-start").hidden = true;
+    renderCounts();
+    return;
+  }
+  $("#free-start").hidden = false;
+  if (study.free) {
+    title.textContent = "Entraînement terminé";
+    text.textContent = "Tu as fait le tour des mots choisis.";
+  } else if (!L.n && !L.r && !k) {
+    title.textContent = "Rien à revoir pour l’instant";
+    text.textContent = leftNew ? "Aucun mot n’est dû aujourd’hui et le quota de nouveaux mots est atteint." : "Aucun mot n’est dû aujourd’hui.";
+  } else {
+    title.textContent = "Séance terminée";
+    const bits = [plural(L.r || 0, "révision", "révisions"), plural(L.n || 0, "nouveau mot", "nouveaux mots")];
+    if (k) bits.push(plural(k, "rappel", "rappels"));
+    text.textContent = `Aujourd’hui${NB}: ${bits.join(", ")}.`;
+  }
+  const tot = tomorrow + tomorrowRap;
+  next.textContent = tot
+    ? `Demain${NB}: ${plural(tot, "mot", "mots")} à revoir${tomorrowRap ? `, dont ${plural(tomorrowRap, "rappel", "rappels")}` : ""}.`
+    : `Demain${NB}: aucun mot à revoir pour l’instant.`;
+  $("#more-new").hidden = !leftNew;
+  $("#free-note").hidden = true;
+  renderCounts();
+}
+
+/* ---------- views ---------- */
+let prism = null;
+let current = "study";
+function showView(v) {
+  current = v;
+  $$(".tab").forEach(t => { if (t.dataset.view === v) t.setAttribute("aria-current", "page"); else t.removeAttribute("aria-current"); });
+  for (const name of ["study", "words", "progress", "settings"]) $("#view-" + name).hidden = name !== v;
+  $("#main").scrollTop = 0;
+  if (v === "study") requestAnimationFrame(() => { prism.layout(); fitSlip($("#example")); });
+  if (v === "words") renderWords();
+  if (v === "progress") renderProgress();
+  if (v === "settings") renderSettings();
+}
+
+/* words list */
+let wfilter = "all", wdeck = "all";
+function wordMatches(w, q) {
+  if (!q) return true;
+  if (HAN.test(q)) return (w.h || "").includes(q) || (w.e || "").includes(q);
+  const fq = fold(q);
+  return fold(w.p).includes(fq) || fold(w.f).includes(fq);
+}
+function meterHTML(b) { let s = ""; for (let i = 1; i <= 6; i++) s += `<i${i <= b ? ' class="on"' : ""}></i>`; return `<span class="meter" aria-label="Boîte ${b} sur 6">${s}</span>`; }
+function renderDeckTabs() {
+  const lists = LISTS.filter(L => L.id !== TEL || L.words.length);
+  if (wdeck !== "all" && !lists.some(L => L.id === wdeck)) wdeck = "all";
+  const tab = (id, label, off) => `<button type="button" data-deck="${esc(id)}" aria-pressed="${wdeck === id}"${off ? ' class="off" title="Liste désactivée"' : ""}>${esc(label)}</button>`;
+  $("#wdeck").innerHTML = tab("all", "Toutes") + lists.map(L => tab(L.id, L.nom, !deckOn(L.id))).join("");
+}
+function renderWords() {
+  renderDeckTabs();
+  const q = $("#q").value.trim();
+  const tones = state.settings.toneColors ? " tones" : "";
+  const rank = new Map(LISTS.map((L, i) => [L.id, i]));
+  const list = DECK.filter(w => {
+    if (wdeck !== "all" && w.deck !== wdeck) return false;
+    const c = card(w.id), s = c && c.r;
+    if (wfilter === "new" && s) return false;
+    if (wfilter === "learn" && !(s && c.b < 5)) return false;
+    if (wfilter === "known" && !(s && c.b >= 5)) return false;
+    return wordMatches(w, q);
+  }).sort((a, b) => rank.get(a.deck) - rank.get(b.deck) || a.o - b.o);
+  const showDeck = wdeck === "all";
+  $("#wlist").innerHTML = list.length ? list.map(w => {
+    const first = String(w.f || "").split(/\s*;\s*/)[0];
+    const L = LISTBYID.get(w.deck);
+    return `<li><button type="button" class="wrow" data-id="${esc(w.id)}"><span class="h${covered(w.h) ? "" : " sysfont"}" lang="zh-Hans">${esc(w.h)}</span>` +
+      `<span class="m"><span class="p${tones}">${w.p ? pinyinHTML(w.p) : "—"}</span><span class="f">${esc(first)}</span></span>` +
+      `<span class="r">${meterHTML(boxOf(w.id))}${showDeck ? `<span class="dk">${esc(L ? L.nom : "")}</span>` : ""}</span></button></li>`;
+  }).join("") : `<li class="empty">${q ? "Aucun mot ne correspond à « " + esc(q) + " »." : listsReady ? "Aucun mot dans cette catégorie." : "Les listes ne sont pas encore chargées."}</li>`;
+  const L = wdeck !== "all" && LISTBYID.get(wdeck);
+  $("#wcount").textContent = plural(list.length, "mot", "mots") + (L && L.id !== TEL ? `, fichier decks/${L.fichier}` : "") + (L && !deckOn(L.id) ? ", liste désactivée" : "");
+  $("#btn-export").hidden = !state.custom.length;
+}
+
+/* progress */
+function finishDays() {
+  // Day on which each list's last unseen word will come up, at the current pace (-1 = all seen, Infinity = never).
+  const today = dayNum(), per = state.settings.newPerDay, q0 = newQuota(today);
+  const out = {};
+  let cum = 0;
+  for (const L of LISTS) {
+    if (!deckOn(L.id) || !L.words.length) continue;
+    const left = unseenOf(L).length;
+    if (L.mode === "apprendre") {
+      cum += left;
+      out[L.id] = !left ? -1 : cum <= q0 ? today : per ? today + Math.ceil((cum - q0) / per) : Infinity;
+    } else {
+      const p = deckPerDay(L.id), q = rappelQuota(L.id, today);
+      out[L.id] = !left ? -1 : left <= q ? today : p ? today + Math.ceil((left - q) / p) : Infinity;
+    }
+  }
+  return { out, cum };
+}
+function renderProgress() {
+  const today = dayNum();
+  const active = LISTS.filter(L => deckOn(L.id) && L.words.length);
+  const words = active.flatMap(L => L.words);
+  const total = words.length, seenN = words.filter(w => seen(w.id)).length;
+  $("#seen-n").textContent = seenN;
+  $("#seen-of").textContent = `mots vus sur ${total}${active.length > 1 ? ", toutes listes actives" : ""}`;
+  $("#seen-bar").style.width = (total ? (100 * seenN / total) : 0).toFixed(1) + "%";
+
+  const { out: fin, cum } = finishDays();
+  const learn = active.filter(L => L.mode === "apprendre");
+  const per = state.settings.newPerDay;
+  const lastNew = Math.max(-1, ...learn.map(L => fin[L.id]));
+  const exam = dayOfISO(state.settings.exam);
+  let proj = [];
+  if (!learn.length) proj.push("Aucune liste de nouveaux mots n’est active.");
+  else if (lastNew === -1) proj.push("Tous les nouveaux mots ont été vus au moins une fois.");
+  else if (!per) proj.push("Aucun nouveau mot n’est prévu : règle le nombre de nouveaux mots par jour dans Réglages.");
+  else proj.push(`À ${per} nouveaux mots par jour, le dernier arrivera ${lastNew === today ? "aujourd’hui" : lastNew === today + 1 ? "demain" : "le " + longDate(lastNew)}.`);
+  if (exam != null && exam >= today) {
+    const dleft = exam - today;
+    proj.push(`Examen ${dleft === 0 ? "aujourd’hui" : "le " + longDate(exam) + ", dans " + plural(dleft, "jour", "jours")}.`);
+    const target = exam - 7;                       // aim to have met every word a week before
+    if (learn.length && lastNew > target && Number.isFinite(lastNew) && cum > 0) {
+      const days = target - today + 1;
+      if (days > 0) proj.push(`Pour tout voir une semaine avant, il faudrait ${Math.ceil(cum / days)} nouveaux mots par jour.`);
+    } else if (learn.length && lastNew === Infinity && target >= today && cum > 0) {
+      proj.push(`Pour tout voir une semaine avant, il faudrait ${Math.ceil(cum / (target - today + 1))} nouveaux mots par jour.`);
+    }
+  }
+  $("#projection").textContent = proj.join(" ");
+
+  const finText = (L) => {
+    if (!deckOn(L.id)) return "désactivée";
+    const f = fin[L.id];
+    if (f === -1 || f === undefined) return L.words.length ? "terminé" : "vide";
+    if (f === Infinity) return "en pause";
+    return f === today ? "aujourd’hui" : f === today + 1 ? "demain" : shortDate(f);
+  };
+  const rows = LISTS.filter(L => L.words.length || L.id !== TEL).map(L => {
+    const n = L.words.length, s = L.words.filter(w => seen(w.id)).length;
+    const mode = L.mode === "rappel" ? `rappel, ${deckPerDay(L.id)} par jour` : L.id === TEL ? "sur ce téléphone" : "nouveaux mots";
+    const pct = n ? (100 * s / n).toFixed(1) : 0;
+    return `<tr${deckOn(L.id) ? "" : ' class="off"'}><td class="nm"><b>${esc(L.nom)}</b><small>${esc(mode)}</small></td>` +
+      `<td class="sn">${s} / ${n}<span class="mini" aria-hidden="true"><i style="width:${pct}%"></i></span></td><td>${esc(finText(L))}</td></tr>`;
+  }).join("");
+  $("#decktable").innerHTML = `<thead><tr><th scope="col">Liste</th><th scope="col">Vus</th><th scope="col">Fin prévue</th></tr></thead><tbody>${rows}</tbody>`;
+
+  const counts = [0, 0, 0, 0, 0, 0, 0];
+  words.forEach(w => { const c = card(w.id); if (c && c.r) counts[c.b]++; });
+  const inBoxes = counts.slice(1);
+  const labels = ["1 j", "2 j", "4 j", "8 j", "16 j", "32 j"];
+  const names = ["Boîte 1, revus le lendemain", "Boîte 2, tous les 2 jours", "Boîte 3, tous les 4 jours", "Boîte 4, tous les 8 jours", "Boîte 5, tous les 16 jours", "Boîte 6, tous les 32 jours"];
+  drawCols($("#boxes"), $("#boxes-axis"), $("#boxes-detail"), inBoxes, labels, i => `${names[i]}${NB}: ${plural(inBoxes[i], "mot", "mots")}`);
+
+  const fc = [], fr = [];
+  for (let d = 0; d < 7; d++) {
+    const day = today + d;
+    const due = words.filter(w => { const c = card(w.id); return c && c.r && (d === 0 ? c.d <= day : c.d === day); }).length;
+    const rap = rappelsPlanned(d);
+    fc.push(due + rap); fr.push(rap);
+  }
+  const fl = fc.map((_, d) => d === 0 ? "auj." : d === 1 ? "dem." : fmtShort.format(dateOfDay(today + d)));
+  drawCols($("#forecast"), $("#forecast-axis"), $("#forecast-detail"), fc, fl,
+    d => `${dayLabel(today + d, today).replace(/^./, c => c.toUpperCase())}${NB}: ${plural(fc[d], "mot", "mots")} à revoir${fr[d] ? `, dont ${plural(fr[d], "rappel", "rappels")}` : ""}`);
+}
+function drawCols(cols, axis, detail, vals, labels, describe) {
+  const max = Math.max(1, ...vals);
+  cols.innerHTML = vals.map((v, i) =>
+    `<button type="button" class="col" data-i="${i}" aria-pressed="false" aria-label="${esc(describe(i))}"><i style="height:${v ? Math.max(3, Math.round(100 * v / max)) : 0}%"></i></button>`).join("");
+  axis.innerHTML = vals.map((v, i) => `<span>${esc(labels[i])}<b>${v}</b></span>`).join("");
+  detail.textContent = "";
+  const pick = el => {
+    $$(".col", cols).forEach(c => c.setAttribute("aria-pressed", c === el ? "true" : "false"));
+    $$("span", axis).forEach((sp, k) => sp.classList.toggle("on", k === +el.dataset.i));
+    detail.textContent = describe(+el.dataset.i);
+  };
+  $$(".col", cols).forEach(el => {
+    el.addEventListener("pointerenter", () => pick(el));
+    el.addEventListener("focus", () => pick(el));
+    el.addEventListener("click", () => pick(el));
+  });
+}
+
+/* settings */
+function updateVoiceInfo() {
+  const el = $("#voice-info"); if (!el) return;
+  if (!tts.ok) el.textContent = "Ce navigateur ne propose pas de synthèse vocale.";
+  else if (tts.voice) el.textContent = `Voix${NB}: ${tts.voice.name}.`;
+  else el.textContent = "Aucune voix chinoise trouvée. Sur iPhone : Réglages › Accessibilité › Contenu énoncé › Voix › Chinois.";
+}
+function deckRowHTML(L) {
+  const n = L.words.length;
+  if (L.id === TEL) return `<div class="set"><div class="t"><b>${esc(L.nom)}</b><small>${plural(n, "mot ajouté", "mots ajoutés")} sur ce téléphone, appris en premier.</small></div></div>`;
+  const on = deckOn(L.id);
+  const what = !n ? "Vide pour l’instant" : L.mode === "rappel" ? plural(n, "mot", "mots") + " en rappel" : plural(n, "mot", "mots") + " à apprendre";
+  const warn = L.missing ? `<small class="warn">Fichier decks/${esc(L.fichier)} introuvable.</small>` : "";
+  let row = `<div class="set"><div class="t"><b id="dl-${esc(L.id)}">${esc(L.nom)}</b><small>${what}, fichier ${esc(L.fichier)}</small>${warn}</div>` +
+    `<button type="button" class="switch" role="switch" data-deck="${esc(L.id)}" aria-labelledby="dl-${esc(L.id)}" aria-checked="${on}"></button></div>`;
+  if (L.mode === "rappel" && on) {
+    const fin = finishDays().out[L.id];
+    const today = dayNum();
+    const end = fin === -1 ? "Tous les mots de la liste ont été revus." : fin === Infinity ? "En pause." :
+      `Dernier rappel ${fin === today ? "aujourd’hui" : fin === today + 1 ? "demain" : "le " + longDate(fin)}.`;
+    row += `<div class="set sub"><div class="t"><b id="dp-${esc(L.id)}">Rappels par jour</b><small>${end}</small></div>` +
+      `<div class="stepper" role="group" aria-labelledby="dp-${esc(L.id)}"><button type="button" data-per="-1" data-deck="${esc(L.id)}" aria-label="Moins">−</button>` +
+      `<output class="num">${deckPerDay(L.id)}</output><button type="button" data-per="1" data-deck="${esc(L.id)}" aria-label="Plus">+</button></div></div>`;
+  }
+  return row;
+}
+function renderListsInfo() {
+  const el = $("#lists-info");
+  if (EMBEDDED) {
+    el.textContent = "Dans cette version de démonstration, les listes sont incluses dans la page. L’appli installée depuis ton dépôt GitHub lit le dossier decks/ : c’est là que tu ajoutes des mots depuis l’ordinateur.";
+    return;
+  }
+  const bits = [];
+  if (listsAt && listsChecked && Math.abs(listsChecked - listsAt) < 60e3) bits.push(`Listes reçues ${whenText(listsAt)}.`);
+  else {
+    if (listsAt) bits.push(`Listes reçues ${whenText(listsAt)}.`);
+    bits.push(listsChecked ? `Dernière vérification ${whenText(listsChecked)}.` : "Pas encore vérifiées depuis l’ouverture de l’appli.");
+  }
+  bits.push("Après un git push, compte une à deux minutes avant que GitHub publie les fichiers.");
+  el.textContent = bits.join(" ");
+}
+function renderSettings() {
+  const s = state.settings;
+  $("#new-val").textContent = s.newPerDay;
+  const order = LISTS.filter(L => L.mode === "apprendre" && deckOn(L.id) && L.words.length).map(L => L.nom);
+  $("#new-order").textContent = !order.length ? "Aucune liste de nouveaux mots n’est active."
+    : order.length === 1 ? `Pris dans la liste ${order[0]}.` : "Pris dans cet ordre" + NB + ": " + order.join(", puis ") + ".";
+  $("#deck-settings").innerHTML = LISTS.filter(L => L.id !== TEL || L.words.length).map(deckRowHTML).join("") ||
+    `<p class="explain">Aucune liste chargée.</p>`;
+  $("#lists-check-row").hidden = !!EMBEDDED;
+  renderListsInfo();
+  $("#exam").value = s.exam || "";
+  $("#sw-ex").setAttribute("aria-checked", String(!!s.exDetails));
+  $("#sw-auto").setAttribute("aria-checked", String(!!s.autoAudio));
+  $("#sw-tones").setAttribute("aria-checked", String(!!s.toneColors));
+  $("#rate").value = s.rate;
+  updateVoiceInfo();
+  $("#storage-note").textContent = !storageOK
+    ? "Ce navigateur bloque l’enregistrement : ta progression sera perdue à la fermeture. Copie la sauvegarde avant de partir."
+    : IS_PWA ? "Ta progression est enregistrée sur ce téléphone seulement : elle n’est ni dans le dépôt GitHub ni dans un compte. Exporte un fichier de temps en temps."
+             : "Ta progression est enregistrée dans ce navigateur. Garde une copie de temps en temps.";
+  $("#bk-file").hidden = !IS_PWA;
+  $("#reset-confirm").hidden = true;
+  const names = BASE.map(L => L.nom);
+  $("#about-lists").textContent = names.length
+    ? `Listes${NB}: ${names.join(", ")}. HSK 1 à 3 : listes officielles HSK 2.0 (révision de 2012), présentées du mot le plus fréquent au plus rare.`
+    : "Aucune liste chargée.";
+}
+
+/* ---------- sheet ---------- */
+function openSheet(title, html, onOpen, plain) {
+  const h = $("#sheet-title");
+  h.textContent = title;
+  h.classList.toggle("plain", !!plain);
+  h.lang = plain ? "fr" : "zh-Hans";
+  const old = $("#sheet-body"), nb = old.cloneNode(false);
+  old.replaceWith(nb);
+  nb.innerHTML = html;
+  $("#sheet").hidden = false;
+  if (onOpen) onOpen($("#sheet-body"));
+  setTimeout(() => { const f = $("#sheet-body [autofocus]") || $(".close", $("#sheet")); if (f) f.focus(); }, 30);
+}
+function closeSheet() { $("#sheet").hidden = true; $("#sheet-body").innerHTML = ""; sheetPrism = null; }
+let sheetPrism = null;
+
+function wordSheet(id) {
+  const w = BYID.get(id); if (!w) return;
+  const L = LISTBYID.get(w.deck);
+  const c = card(id), today = dayNum();
+  let meta = L ? (L.id === TEL ? "Mot ajouté sur ce téléphone. " : `Liste ${L.nom}. `) : "";
+  meta += c && c.r ? `Boîte ${c.b}, prochaine révision ${dayLabel(Math.max(c.d, today), today)}.` : (L && L.mode === "rappel" ? "Pas encore revu." : "Pas encore vu.");
+  if (w.edited) meta += " Corrigé sur ce téléphone.";
+  openSheet(w.h, `
+    <div class="stage" id="sheet-stage" tabindex="0" aria-label="Carte : touche pour tourner"></div>
+    <div class="exslot insheet" id="sheet-ex">${slipHTML(w, "full")}</div>
+    <p class="meta">${esc(meta)}</p>
+    <div class="btnrow">
+      <button type="button" class="btn" data-act="edit">Modifier</button>
+      ${c && c.r ? '<button type="button" class="btn" data-act="reset">Remettre à zéro</button>' : ""}
+      ${w.deck === TEL ? '<button type="button" class="btn danger" data-act="delete">Supprimer</button>' : ""}
+    </div>
+    <div id="word-confirm"></div>`, body => {
+      sheetPrism = new Prism($("#sheet-stage", body), { maxW: 340 });
+      sheetPrism.show(w, 0);
+      fitSlip($("#sheet-ex", body));
+      bindSlip($("#sheet-ex", body), () => w);
+      body.addEventListener("click", e => {
+        const a = e.target.closest("[data-act]"); if (!a) return;
+        const box = $("#word-confirm", body);
+        if (a.dataset.act === "edit") editSheet(id);
+        if (a.dataset.act === "reset") box.innerHTML = `<div class="confirm"><p>Ce mot repartira comme un mot jamais vu.</p><div class="btnrow"><button type="button" class="btn danger" data-act="reset-yes">Remettre à zéro</button><button type="button" class="btn" data-act="cancel">Annuler</button></div></div>`;
+        if (a.dataset.act === "delete") box.innerHTML = `<div class="confirm"><p>Supprimer « ${esc(w.h)} » et sa progression${NB}?</p><div class="btnrow"><button type="button" class="btn danger" data-act="delete-yes">Supprimer</button><button type="button" class="btn" data-act="cancel">Annuler</button></div></div>`;
+        if (a.dataset.act === "cancel") box.innerHTML = "";
+        if (a.dataset.act === "reset-yes") { delete state.cards[id]; save(); closeSheet(); afterDeckChange(); toast("Mot remis à zéro"); }
+        if (a.dataset.act === "delete-yes") { state.custom = state.custom.filter(x => x.id !== id); delete state.cards[id]; save(); rebuildDeck(); closeSheet(); afterDeckChange(); toast("Mot supprimé"); }
+      });
+    });
+}
+
+function formHTML(w) {
+  const deckWord = !!w.id && w.deck !== TEL;
+  const L = deckWord ? LISTBYID.get(w.deck) : null;
+  return `
+  <form id="wform" novalidate>
+    ${deckWord ? `<p class="meta" style="margin-top:0">Mot de la liste ${esc(L.nom)}. La correction reste sur ce téléphone${NB}; pour la garder partout, corrige aussi la ligne dans <span class="mono">decks/${esc(L.fichier)}</span> sur l’ordinateur.</p>` : ""}
+    <div class="field"><label for="f-h">汉字</label><input id="f-h" lang="zh-Hans" value="${esc(w.h || "")}" ${deckWord ? "readonly" : "autofocus"} autocomplete="off" required></div>
+    <div class="field"><label for="f-p">Pinyin</label><input id="f-p" value="${esc(w.p || "")}" autocomplete="off" autocapitalize="off" spellcheck="false" required ${deckWord ? "autofocus" : ""}>
+      <span class="hint">Avec accents, ou tons en chiffres${NB}: <span class="mono">tu2shu1guan3</span> donne túshūguǎn.</span>
+      <span class="preview-py tones" id="f-pv" aria-live="polite"></span></div>
+    <div class="field"><label for="f-f">Français</label><textarea id="f-f" required>${esc(w.f || "")}</textarea><span class="hint">Sépare les sens par un point-virgule.</span></div>
+    <div class="field"><label for="f-n">Note (facultatif)</label><input id="f-n" value="${esc(w.n || "")}" autocomplete="off"></div>
+    <details class="more"${w.e ? " open" : ""}><summary>Phrase d’exemple (facultatif)</summary>
+      <div class="field"><label for="f-e">Phrase en caractères</label><input id="f-e" lang="zh-Hans" value="${esc(w.e || "")}" autocomplete="off"><span class="hint" id="f-eh">Elle doit contenir le mot.</span></div>
+      <div class="field"><label for="f-ep">Pinyin de la phrase</label><input id="f-ep" value="${esc(w.ep || "")}" autocomplete="off" autocapitalize="off" spellcheck="false"><span class="hint">Peut rester vide : <span class="mono">outils/decks.py completer</span> le remplit sur l’ordinateur.</span></div>
+      <div class="field"><label for="f-ef">Traduction de la phrase</label><input id="f-ef" value="${esc(w.ef || "")}" autocomplete="off"></div>
+    </details>
+    <p class="field err" id="f-err" hidden></p>
+    <div class="btnrow"><button type="submit" class="btn primary">${w.id ? "Enregistrer" : "Ajouter le mot"}</button>
+    ${deckWord && state.edits[w.id] ? '<button type="button" class="btn" id="f-restore">Revenir à la version de la liste</button>' : ""}</div>
+  </form>`;
+}
+function bindForm(body, w, onSave) {
+  const pv = () => { const v = $("#f-p", body).value.trim(); $("#f-pv", body).innerHTML = /[1-5]/.test(v) ? pinyinHTML(v) : ""; };
+  const eh = () => {
+    const h = $("#f-h", body).value.trim(), e = $("#f-e", body).value.trim(), hint = $("#f-eh", body);
+    const bad = e && h && !e.includes(h);
+    hint.classList.toggle("warn", !!bad);
+    hint.textContent = bad ? `La phrase ne contient pas « ${h} ».` : "Elle doit contenir le mot.";
+  };
+  $("#f-p", body).addEventListener("input", pv); pv();
+  $("#f-e", body).addEventListener("input", eh); $("#f-h", body).addEventListener("input", eh); eh();
+  $("#wform", body).addEventListener("submit", e => {
+    e.preventDefault();
+    const val = k => $("#f-" + k, body).value.trim().replace(/[\t\r\n]+/g, " ").replace(/\s{2,}/g, " ");
+    const v = { h: val("h"), p: val("p"), f: val("f"), n: val("n"), e: val("e"), ep: val("ep"), ef: val("ef") };
+    const err = $("#f-err", body);
+    const miss = [!v.h && "汉字", !v.p && "pinyin", !v.f && "traduction"].filter(Boolean);
+    if (miss.length) { err.hidden = false; err.textContent = "Il manque" + NB + ": " + miss.join(", ") + "."; return; }
+    if (!w.id || (w.deck === TEL && v.h !== w.h)) {
+      const dup = DECK.find(x => x.h === v.h && x.id !== w.id);
+      if (dup) { const L = LISTBYID.get(dup.deck); err.hidden = false; err.textContent = `« ${v.h} » est déjà dans la liste ${L ? L.nom : ""}.`; return; }
+    }
+    onSave(v);
+  });
+  const r = $("#f-restore", body);
+  if (r) r.addEventListener("click", () => { delete state.edits[w.id]; save(); rebuildDeck(); closeSheet(); afterDeckChange(); toast("Version de la liste rétablie"); });
+}
+function compact(v) { const o = {}; for (const [k, x] of Object.entries(v)) if (x) o[k] = x; return o; }
+function addSheet() {
+  openSheet("Ajouter un mot", formHTML({}), body => bindForm(body, {}, v => {
+    state.custom.push({ id: newId(), ...compact(v) });
+    save(); rebuildDeck(); closeSheet(); afterDeckChange(); toast("Mot ajouté : il arrive parmi les prochains nouveaux mots");
+  }), true);
+}
+function editSheet(id) {
+  const w = BYID.get(id);
+  openSheet("Modifier " + w.h, formHTML(w), body => bindForm(body, w, v => {
+    if (w.deck !== TEL) {
+      const o = original(id) || {};
+      const diff = {};
+      for (const k of FIELDS) if ((v[k] || "") !== (o[k] || "")) diff[k] = v[k] || "";
+      if (Object.keys(diff).length) state.edits[id] = diff; else delete state.edits[id];
+    } else {
+      const k = state.custom.findIndex(x => x.id === id);
+      state.custom[k] = { id, ...compact(v) };
+    }
+    save(); rebuildDeck(); closeSheet(); afterDeckChange(); toast("Modifications enregistrées");
+  }), true);
+}
+
+/* words added on the phone -> perso.tsv */
+function customTSV() {
+  const cell = x => String(x || "").replace(/[\t\r\n]+/g, " ").trim();
+  return state.custom.map(w => [w.h, w.p ? pinyinText(w.p) : "", w.f, w.n, w.s, w.e, w.ep ? pinyinText(w.ep) : "", w.ef].map(cell).join("\t")).join("\n");
+}
+function exportSheet() {
+  const txt = customTSV();
+  openSheet("Copier vers perso.tsv", `
+    <p class="meta" style="margin-top:0">${plural(state.custom.length, "mot ajouté", "mots ajoutés")} sur ce téléphone, au format des listes. Colle ces lignes à la fin de <span class="mono">decks/perso.tsv</span> sur l’ordinateur, puis publie (<span class="mono">git push</span>). À la mise à jour suivante, ces mots passent dans la liste Perso et gardent leur progression.</p>
+    <div class="field"><label for="ex-t">Lignes à coller</label><textarea id="ex-t" rows="6" class="mono" readonly>${esc(txt)}</textarea></div>
+    <div class="btnrow"><button type="button" class="btn primary" id="ex-copy">Copier</button></div>`, body => {
+      $("#ex-copy", body).addEventListener("click", () => {
+        const t = $("#ex-t", body);
+        const fallback = () => { t.focus(); t.select(); toast("Texte sélectionné : copie-le avec le menu Copier"); };
+        try {
+          navigator.clipboard.writeText(txt).then(() => toast("Copié : colle-le dans decks/perso.tsv"), fallback);
+        } catch (e) { fallback(); }
+      });
+    }, true);
+}
+
+function parseImport(text) {
+  const ok = [], bad = [];
+  text.split(/\r?\n/).forEach((line, i) => {
+    const raw = line.trim(); if (!raw || raw.startsWith("#")) return;
+    if (/^hanzi\t/i.test(raw)) return;
+    if (raw.includes("\t")) {
+      const c = line.split("\t").map(s => s.trim());
+      const w = compact({ h: c[0], p: c[1], f: c[2], n: c[3], s: c[4], e: c[5], ep: c[6], ef: c[7] });
+      if (!w.h || !w.p || !w.f) { bad.push(i + 1); return; }
+      ok.push(w); return;
+    }
+    let parts = raw.includes(";") ? raw.split(";") : raw.split(",");
+    parts = parts.map(s => s.trim());
+    const [h, p, ...rest] = parts;
+    const f = rest.join(" ; ").trim();
+    if (!h || !p || !f) { bad.push(i + 1); return; }
+    ok.push({ h, p, f });
+  });
+  return { ok, bad };
+}
+function importSheet() {
+  openSheet("Importer une liste", `
+    <p class="meta" style="margin-top:0">Une ligne par mot${NB}: <span class="mono">汉字 ; pinyin ; français</span>. Les lignes d’un fichier de liste (colonnes séparées par des tabulations) marchent aussi. Les mots arrivent dans « Ajoutés ici ».</p>
+    <div class="field"><label for="imp-t">Liste à importer</label><textarea id="imp-t" rows="6" placeholder="打印 ; da3yin4 ; imprimer&#10;安排 ; ānpái ; organiser"></textarea></div>
+    <div class="field"><label for="imp-f">Ou un fichier texte</label><input type="file" id="imp-f" accept=".txt,.csv,.tsv,text/plain,text/csv,text/tab-separated-values"></div>
+    <p class="meta" id="imp-info" aria-live="polite"></p>
+    <div class="btnrow"><button type="button" class="btn primary" id="imp-go" disabled>Importer</button></div>`, body => {
+      let parsed = { ok: [], bad: [] };
+      const refresh = () => {
+        parsed = parseImport($("#imp-t", body).value);
+        const dup = parsed.ok.filter(x => DECK.some(w => w.h === x.h)).length;
+        const fresh = parsed.ok.length - dup;
+        const bits = [];
+        if (parsed.ok.length) bits.push(plural(fresh, "mot à ajouter", "mots à ajouter"));
+        if (dup) bits.push(plural(dup, "déjà présent", "déjà présents"));
+        if (parsed.bad.length) bits.push(`lignes ignorées (il manque une colonne)${NB}: ${parsed.bad.slice(0, 6).join(", ")}${parsed.bad.length > 6 ? "…" : ""}`);
+        $("#imp-info", body).textContent = bits.join(" ; ");
+        $("#imp-go", body).disabled = !fresh;
+        $("#imp-go", body).textContent = fresh ? `Importer ${plural(fresh, "mot", "mots")}` : "Importer";
+      };
+      $("#imp-t", body).addEventListener("input", refresh);
+      $("#imp-f", body).addEventListener("change", e => {
+        const file = e.target.files && e.target.files[0]; if (!file) return;
+        const rd = new FileReader();
+        rd.onload = () => { $("#imp-t", body).value = String(rd.result || ""); refresh(); };
+        rd.readAsText(file);
+      });
+      $("#imp-go", body).addEventListener("click", () => {
+        let n = 0;
+        const have = new Set(DECK.map(w => w.h));
+        for (const x of parsed.ok) {
+          if (have.has(x.h)) continue;
+          have.add(x.h);
+          state.custom.push({ id: newId() + n++, ...x });
+        }
+        save(); rebuildDeck(); closeSheet(); afterDeckChange(); toast(plural(n, "mot importé", "mots importés"));
+      });
+    }, true);
+}
+
+/* backup */
+function backupText() { return JSON.stringify({ app: "xingyinyi", date: new Date().toISOString(), state }); }
+async function copyBackup() {
+  const txt = backupText();
+  try { await navigator.clipboard.writeText(txt); toast("Sauvegarde copiée : colle-la dans une note"); }
+  catch (e) {
+    openSheet("Copier la sauvegarde", `<p class="meta" style="margin-top:0">Sélectionne tout le texte ci-dessous et copie-le dans une note.</p><div class="field"><label for="bk-t">Sauvegarde</label><textarea id="bk-t" rows="8" class="mono" readonly>${esc(txt)}</textarea></div>`,
+      body => { const t = $("#bk-t", body); t.focus(); t.select(); }, true);
+  }
+}
+async function exportFile() {
+  const name = "xingyinyi-" + new Date().toISOString().slice(0, 10) + ".json";
+  const blob = new Blob([backupText()], { type: "application/json" });
+  try {
+    const file = new File([blob], name, { type: "application/json" });
+    if (navigator.canShare && navigator.canShare({ files: [file] })) { await navigator.share({ files: [file], title: "Sauvegarde 形音义" }); return; }
+  } catch (e) { if (e && e.name === "AbortError") return; }
+  const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = name;
+  document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+}
+function restoreSheet() {
+  openSheet("Restaurer une sauvegarde", `
+    <p class="meta" style="margin-top:0">Colle une sauvegarde ou choisis le fichier exporté. Elle remplace la progression actuelle.</p>
+    <div class="field"><label for="rs-t">Sauvegarde</label><textarea id="rs-t" rows="6" class="mono" placeholder='{"app":"xingyinyi", …}'></textarea></div>
+    <div class="field"><label for="rs-f">Ou un fichier</label><input type="file" id="rs-f" accept=".json,application/json,text/plain"></div>
+    <p class="field err" id="rs-err" hidden></p>
+    <div class="btnrow"><button type="button" class="btn primary" id="rs-go">Restaurer</button></div>`, body => {
+      $("#rs-f", body).addEventListener("change", e => {
+        const file = e.target.files && e.target.files[0]; if (!file) return;
+        const rd = new FileReader(); rd.onload = () => { $("#rs-t", body).value = String(rd.result || ""); }; rd.readAsText(file);
+      });
+      $("#rs-go", body).addEventListener("click", () => {
+        const err = $("#rs-err", body);
+        try {
+          const data = JSON.parse($("#rs-t", body).value);
+          const s = data && data.state;
+          if (!s || typeof s.cards !== "object" || !s.settings) throw new Error("format");
+          state = normalizeState(s);
+          syncDeckSettings(); mergeTel(); rebuildDeck(); save();
+          closeSheet(); afterDeckChange(); renderSettings(); toast("Sauvegarde restaurée");
+        } catch (e) { err.hidden = false; err.textContent = "Ce texte n’est pas une sauvegarde de cette appli. Vérifie qu’il commence par {\"app\":\"xingyinyi\"."; }
+      });
+    }, true);
+}
+
+/* toast */
+let toastT = 0;
+function frTypo(s) { return String(s).replace(/ ([:;!?»])/g, NB + "$1").replace(/« /g, "«" + NB); }
+function toast(msg, ms = 2600) { const t = $("#toast"); t.textContent = frTypo(msg); t.hidden = false; clearTimeout(toastT); toastT = setTimeout(() => { t.hidden = true; }, ms); }
+function showUpdateBar() { $("#updatebar").hidden = false; }
+
+function afterDeckChange() {
+  if (current === "words") renderWords();
+  if (current === "progress") renderProgress();
+  if (current === "settings") renderSettings();
+  study.build();
+}
+
+/* ---------- wiring ---------- */
+function outer(el) { if (!el) return 0; const cs = getComputedStyle(el); return el.offsetHeight + parseFloat(cs.marginTop) + parseFloat(cs.marginBottom); }
+function studyRoom() {
+  // main's height minus everything else stacked in the study view
+  const main = $("#main"), view = $("#view-study");
+  if (!main || view.hidden || $("#study-card").hidden) return 0;
+  const cs = getComputedStyle(view);
+  const slot = $("#example");
+  const slotH = parseFloat(getComputedStyle(slot).minHeight) + parseFloat(getComputedStyle(slot).marginBottom);
+  return main.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom) - outer($(".startface")) -
+    outer($(".status")) - slotH - Math.max(76, $("#actions").offsetHeight) - 2;
+}
+function renderStartFace() {
+  $$("#startface button").forEach(b => b.setAttribute("aria-checked", String(String(state.settings.startFace) === b.dataset.face)));
+}
+function redrawCurrent() {
+  if (!study.cur) return;
+  const w = BYID.get(study.cur);
+  if (!w) return;
+  study.curFace = study.pickFace();
+  prism.show(w, study.curFace);
+  renderSlip(w, "covered");
+  setActions(false);
+  renderCardStatus();
+}
+function init() {
+  tts.init();
+  prism = new Prism($("#stage"), { maxW: 380, fill: studyRoom, onTurn: p => {
+    renderCardStatus();
+    const turned = p.seen.size >= 2;
+    setActions(turned);
+    if (turned) revealSlip();
+  } });
+  bindSlip($("#example"), () => BYID.get(study.cur));
+  renderStartFace();
+
+  $("#turnbtn").addEventListener("click", () => { if (study.ready) prism.turn(1); });
+  $("#grades").addEventListener("click", e => { const b = e.target.closest(".grade"); if (b) study.grade(+b.dataset.g); });
+  $("#startface").addEventListener("click", e => {
+    const b = e.target.closest("button"); if (!b) return;
+    const v = b.dataset.face; state.settings.startFace = v === "r" ? "r" : +v; save(); renderStartFace();
+    redrawCurrent();
+  });
+  $("#more-new").addEventListener("click", () => {
+    const today = dayNum();
+    state.extra = { day: today, n: (state.extra && state.extra.day === today ? state.extra.n : 0) + 5 };
+    save(); study.build();
+  });
+  $("#free-start").addEventListener("click", () => study.startFree());
+  $("#free-stop").addEventListener("click", () => study.build());
+  $("#loading-retry").addEventListener("click", () => { $("#loading-text").textContent = "Chargement des listes…"; $("#loading-retry").hidden = true; refreshLists(true, false); });
+
+  $$(".tab").forEach(t => t.addEventListener("click", () => showView(t.dataset.view)));
+
+  $("#q").addEventListener("input", renderWords);
+  $("#wdeck").addEventListener("click", e => { const b = e.target.closest("button[data-deck]"); if (b) { wdeck = b.dataset.deck; renderWords(); } });
+  $("#filters").addEventListener("click", e => {
+    const b = e.target.closest("button"); if (!b) return;
+    wfilter = b.dataset.f;
+    $$("#filters button").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+    renderWords();
+  });
+  $("#wlist").addEventListener("click", e => { const r = e.target.closest(".wrow"); if (r) wordSheet(r.dataset.id); });
+  $("#btn-add").addEventListener("click", addSheet);
+  $("#btn-import").addEventListener("click", importSheet);
+  $("#btn-export").addEventListener("click", exportSheet);
+
+  $("#new-minus").addEventListener("click", () => { state.settings.newPerDay = Math.max(0, state.settings.newPerDay - 1); save(); renderSettings(); study.build(); });
+  $("#new-plus").addEventListener("click", () => { state.settings.newPerDay = Math.min(60, state.settings.newPerDay + 1); save(); renderSettings(); study.build(); });
+  $("#deck-settings").addEventListener("click", e => {
+    const sw = e.target.closest(".switch[data-deck]");
+    const st = e.target.closest("[data-per]");
+    if (sw) {
+      const d = state.decks[sw.dataset.deck] || (state.decks[sw.dataset.deck] = {});
+      d.on = !deckOn(sw.dataset.deck);
+    } else if (st) {
+      const d = state.decks[st.dataset.deck] || (state.decks[st.dataset.deck] = {});
+      d.perDay = Math.max(0, Math.min(30, deckPerDay(st.dataset.deck) + +st.dataset.per));
+    } else return;
+    save(); renderSettings(); study.build();
+  });
+  $("#lists-check").addEventListener("click", () => refreshLists(false, true));
+  $("#exam").addEventListener("change", e => { state.settings.exam = e.target.value || ""; save(); });
+  $("#sw-ex").addEventListener("click", () => {
+    state.settings.exDetails = !state.settings.exDetails; save(); renderSettings();
+    if (study.cur) { const ex = $("#example .ex"); renderSlip(BYID.get(study.cur), ex && ex.classList.contains("covered") ? "covered" : "shown"); }
+  });
+  $("#sw-auto").addEventListener("click", () => { state.settings.autoAudio = !state.settings.autoAudio; save(); renderSettings(); });
+  $("#sw-tones").addEventListener("click", () => { state.settings.toneColors = !state.settings.toneColors; save(); renderSettings(); redrawCurrent(); });
+  $("#rate").addEventListener("change", e => { state.settings.rate = +e.target.value; save(); tts.say("你好，我们开始复习吧"); });
+  $("#bk-copy").addEventListener("click", copyBackup);
+  if (IS_PWA) $("#bk-file").addEventListener("click", () => exportFile());
+  $("#bk-restore").addEventListener("click", restoreSheet);
+  $("#reset").addEventListener("click", () => {
+    const box = $("#reset-confirm"); box.hidden = false;
+    box.innerHTML = `<div class="confirm"><p>Toute la progression, tes corrections et les mots ajoutés sur ce téléphone seront effacés. Les réglages et les listes du dépôt restent.</p><div class="btnrow"><button type="button" class="btn danger" id="reset-yes">Tout effacer</button><button type="button" class="btn" id="reset-no">Annuler</button></div></div>`;
+    $("#reset-no").addEventListener("click", () => { box.hidden = true; });
+    $("#reset-yes").addEventListener("click", () => {
+      const keep = { settings: state.settings, decks: state.decks };
+      state = freshState(); Object.assign(state, keep); save(); rebuildDeck(); box.hidden = true; study.build(); toast("Progression effacée");
+    });
+  });
+  $("#update-reload").addEventListener("click", () => location.reload());
+
+  $("#sheet").addEventListener("click", e => { if (e.target.closest("[data-close]")) closeSheet(); });
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape" && !$("#sheet").hidden) { closeSheet(); return; }
+    if (current !== "study" || !$("#sheet").hidden || /INPUT|TEXTAREA|SELECT/.test((e.target && e.target.tagName) || "")) return;
+    if (!$("#grades").hidden && ["1", "2", "3"].includes(e.key)) study.grade(+e.key - 1);
+    else if ((e.key === " " || e.key === "Enter") && e.target === document.body) { e.preventDefault(); prism.turn(1); }
+    else if (e.key === "a" && study.cur) { const w = BYID.get(study.cur); tts.say(w.s || w.h); }
+    else if (e.key === "e" && study.cur && prism.seen.size >= 2) { const w = BYID.get(study.cur); if (w.e) tts.say(w.e); }
+  });
+
+  let rt = 0;
+  window.addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(() => { prism.layout(); fitSlip($("#example")); if (sheetPrism) sheetPrism.layout(); }, 120); });
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState !== "visible") return;
+    if (listsReady && study.day !== dayNum() && !study.free) study.build();
+    if (!EMBEDDED && Date.now() - listsChecked > 30 * 60e3) refreshLists(false, false);
+    if (swReg && Date.now() - swChecked > 30 * 60e3) { swChecked = Date.now(); swReg.update().catch(() => {}); }
+  });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { prism.layout(); fitSlip($("#example")); });
+  bootLists();
+  if (migratedV1) toast("Progression de la première version reprise.", 4000);
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("sw.js").then(reg => {
+      swReg = reg;
+      const watch = w => { if (w) w.addEventListener("statechange", () => { if (w.state === "installed" && navigator.serviceWorker.controller) showUpdateBar(); }); };
+      reg.addEventListener("updatefound", () => watch(reg.installing));
+    }).catch(() => {});
+  }
+}
+let swReg = null, swChecked = Date.now();
+init();
+</script>
+
+</body>
+</html>

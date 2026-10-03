@@ -1,0 +1,7 @@
+# 形音义 : tes mots perso
+# Même format que les autres listes : une ligne par mot, colonnes séparées par une tabulation.
+# Seuls hanzi, pinyin et francais sont obligatoires. Pour remplir le pinyin automatiquement :
+#   python3 outils/decks.py completer decks/perso.tsv
+# Exemple (enlève le # pour l'activer) :
+# 打印	dǎyìn	imprimer				我要打印这张照片。	Wǒ yào dǎyìn zhè zhāng zhàopiàn.	Je dois imprimer cette photo.
+hanzi	pinyin	francais	note	audio	exemple	exemple_pinyin	exemple_fr

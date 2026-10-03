@@ -1,0 +1,34 @@
+{
+  "listes": [
+    {
+      "id": "perso",
+      "nom": "Perso",
+      "fichier": "perso.tsv",
+      "mode": "apprendre",
+      "actif": true
+    },
+    {
+      "id": "hsk3",
+      "nom": "HSK 3",
+      "fichier": "hsk3.tsv",
+      "mode": "apprendre",
+      "actif": true
+    },
+    {
+      "id": "hsk2",
+      "nom": "HSK 2",
+      "fichier": "hsk2.tsv",
+      "mode": "rappel",
+      "parJour": 3,
+      "actif": true
+    },
+    {
+      "id": "hsk1",
+      "nom": "HSK 1",
+      "fichier": "hsk1.tsv",
+      "mode": "rappel",
+      "parJour": 3,
+      "actif": true
+    }
+  ]
+}
