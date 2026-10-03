@@ -34,6 +34,13 @@ sys.path.insert(0, HERE)
 import pinyin_auto  # noqa: E402
 
 COLUMNS = ["hanzi", "pinyin", "francais", "note", "audio", "exemple", "exemple_pinyin", "exemple_fr"]
+# same header aliases as the app (index.html), mapped to the canonical column names
+ALIASES = {"汉字": "hanzi", "caractères": "hanzi", "caracteres": "hanzi", "français": "francais", "traduction": "francais",
+           "sens": "francais", "voix": "audio", "phrase": "exemple", "pinyin_exemple": "exemple_pinyin",
+           "exemple_francais": "exemple_fr", "exemple_français": "exemple_fr", "traduction_exemple": "exemple_fr"}
+WIN = os.name == "nt"
+CMD = "py outils\\decks.py" if WIN else "python3 outils/decks.py"
+PIP = "py -m pip install pypinyin" if WIN else "python3 -m pip install pypinyin"
 HAN = re.compile(r"[㐀-鿿豈-﫿]")
 TONED = "āáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜ"
 LETTER = re.compile(r"[a-zA-ZüÜāáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜĀÁǍÀĒÉĚÈĪÍǏÌŌÓǑÒŪÚǓÙǕǗǙǛ]+")
@@ -158,7 +165,7 @@ def to_marked(numeric):
 
 def need_pypinyin():
     if pinyin_auto.lazy_pinyin is None:
-        sys.exit("Le pinyin automatique demande pypinyin : python3 -m pip install pypinyin\n"
+        sys.exit("Le pinyin automatique demande pypinyin : " + PIP + "\n"
                  "(ou donne le pinyin toi-même avec --pinyin / --exemple-pinyin).")
 
 
@@ -195,7 +202,7 @@ class Sheet:
                 self.lines[i] = "\t".join(cells)
                 self.space_rows.add(i)
             if self.header is None:
-                keys = [c.strip().lower() for c in cells]
+                keys = [ALIASES.get(c.strip().lower(), c.strip().lower()) for c in cells]
                 if "hanzi" in keys:
                     self.header, self.cols = i, keys
                     continue
@@ -293,7 +300,7 @@ def check_sheet(sheet, name, report):
         h = sheet.get(cells, "hanzi")
         if i in sheet.space_rows:
             report(where, "avertissement", "colonnes séparées par des espaces au lieu de tabulations (l'appli s'en accommode ; "
-                   "python3 outils/decks.py completer %s remet des tabulations)" % name)
+                   "%s completer %s remet des tabulations)" % (CMD, name))
         if not h:
             report(where, "erreur", "la colonne hanzi est vide : la ligne est ignorée")
             continue
@@ -306,7 +313,7 @@ def check_sheet(sheet, name, report):
         p, f = sheet.get(cells, "pinyin"), sheet.get(cells, "francais")
         nhan = len(HAN.findall(h))
         if not p:
-            report(where, "avertissement", "pas de pinyin (python3 outils/decks.py completer %s le calcule)" % name)
+            report(where, "avertissement", "pas de pinyin (%s completer %s le calcule)" % (CMD, name))
         else:
             for alt in p.split("/"):
                 syl = syllables_of(alt.strip())
@@ -326,7 +333,7 @@ def check_sheet(sheet, name, report):
                 if outside:
                     report(where, "info", "exemple : caractères hors HSK 1-3 : %s" % " ".join(outside))
             if not ep:
-                report(where, "info", "exemple sans pinyin (python3 outils/decks.py completer %s le calcule)" % name)
+                report(where, "info", "exemple sans pinyin (%s completer %s le calcule)" % (CMD, name))
             elif syllables_of(ep) is None:
                 report(where, "avertissement", "pinyin de l'exemple : une partie n'est pas une syllabe connue")
         elif ep or sheet.get(cells, "exemple_fr"):
@@ -391,7 +398,7 @@ def ajouter(args):
             print("Attention : la phrase ne contient pas « %s »." % h)
     if auto:
         print("Pinyin calculé automatiquement : relis-le avant de publier.")
-    print("Pour l'envoyer sur le téléphone :  git add decks && git commit -m \"Ajoute %s\" && git push" % h)
+    print("Pour l'envoyer sur le téléphone :\n  git add decks\n  git commit -m \"Ajoute %s\"\n  git push" % h)
 
 
 def completer(args):
@@ -446,6 +453,8 @@ def nouvelle_liste(args):
         sys.exit("Identifiant « %s » : utilise lettres, chiffres, - et _ (et pas « tel »)." % lid)
     if any(str(l.get("id")) == lid for l in cfg.get("listes", [])):
         sys.exit("La liste « %s » existe déjà dans decks.json." % lid)
+    if any(str(l.get("nom", "")).lower() == args.nom.lower() for l in cfg.get("listes", [])):
+        sys.exit("Une liste s'appelle déjà « %s » dans decks.json." % args.nom)
     fichier = args.fichier or lid + ".tsv"
     path = os.path.join(DECKS, fichier)
     if os.path.exists(path):
@@ -461,7 +470,7 @@ def nouvelle_liste(args):
     cfg.setdefault("listes", []).append(entry)
     save_config(cfg)
     print("Ajoutée à decks/decks.json, en dernière position (l'ordre des listes est l'ordre de priorité des nouveaux mots).")
-    print("Remplis le fichier, vérifie avec  python3 outils/decks.py verifier  puis publie avec git.")
+    print("Remplis le fichier, vérifie avec  %s verifier  puis publie avec git." % CMD)
 
 
 def main():

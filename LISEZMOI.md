@@ -112,14 +112,16 @@ et télécharge une voix de bonne qualité.
 
 ## 2. Sur l’iPhone, au quotidien
 
-- **Réviser** : touche la carte ou fais-la glisser pour la tourner. Dès qu’elle a tourné, la
-  phrase d’exemple se découvre sous la carte (例) ; « Pinyin et traduction » affiche le reste.
+- **Réviser** : touche la carte ou fais-la glisser pour la tourner. La face 形 montre déjà la
+  phrase d’exemple en caractères (réglable). Dès que la carte a tourné, la phrase se découvre
+  sous la carte (例) ; « Pinyin et traduction » affiche le reste.
   Note-toi ensuite : × raté, √ bon, 优 facile. Le haut de l’écran compte les cartes à revoir et
   les nouveaux mots du jour.
 - **Mots** : chercher (caractères, pinyin sans accents ou français), filtrer par liste, ajouter un mot.
 - **Progrès** : mots vus par liste, date à laquelle chaque liste sera entièrement vue,
   révisions prévues sur la semaine, et le rythme à tenir avant l’examen.
 - **Réglages** : nouveaux mots par jour, listes actives, rappels par jour, date de l’examen,
+  publication sur GitHub, mise à jour de l’appli (Appli › Vérifier),
   sauvegarde.
 
 Les nouveaux mots arrivent dans l’ordre des listes : d’abord ceux ajoutés sur le téléphone, puis
@@ -200,19 +202,55 @@ Tu peux aussi corriger un mot sur le téléphone (Mots › le mot › Modifier) 
 le téléphone et prend le pas sur la liste. Reporte-la dans le fichier pour la garder partout.
 
 
-## 4. Les mots ajoutés sur le téléphone
+## 4. Listes et mots créés sur le téléphone
 
-Mots › **Ajouter** : le mot va dans « Ajoutés ici » et passe en tête des nouveaux mots.
-Pour le ranger dans le dépôt :
+### Créer, remplir, supprimer une liste
 
-1. Mots › **Copier vers perso.tsv** (le bouton apparaît sous la liste dès qu’il y a des mots
-   ajoutés sur le téléphone) › Copier.
-2. Sur l’ordinateur, colle les lignes à la fin de `decks/perso.tsv` (avec un Mac et le même
-   compte Apple, le presse-papiers est partagé ; sinon, passe par Notes).
-3. `python3 outils/decks.py completer decks/perso.tsv`, puis `verifier`, puis
-   `git add decks`, `git commit -m "Mots du téléphone"`, `git push`.
+- Mots › **＋ Nouvelle liste** : donne-lui un nom (« Cours du mardi »). Elle s’ouvre aussitôt.
+- Dans une liste du téléphone : **Ajouter un mot ici**, **Renommer**, **Supprimer la liste**
+  (ses mots et leur progression partent avec elle).
+- Le formulaire **Ajouter** a aussi un champ « Liste », avec l’option « Nouvelle liste… ».
 
-À la mise à jour suivante, ces mots passent dans la liste Perso en gardant leur progression.
+Les listes du téléphone passent en tête des nouveaux mots. Tant qu’elles ne sont pas publiées,
+elles n’existent que sur ce téléphone.
+
+### Publier depuis le téléphone, sans l’ordinateur
+
+L’appli peut écrire elle-même dans ton dépôt GitHub : chaque liste du téléphone devient un fichier
+`decks/<nom>.tsv` déclaré dans `decks.json`, les mots de « Ajoutés ici » vont dans `perso.tsv`,
+et les corrections faites sur des mots HSK sont reportées dans leur fichier. La progression est
+gardée. Il lui faut un **jeton d’accès** limité à ce dépôt :
+
+1. Sur github.com : avatar › **Settings** › **Developer settings** › **Personal access tokens** ›
+   **Fine-grained tokens** › **Generate new token**.
+2. Nom : `xingyinyi téléphone` ; expiration : un an ; **Repository access** : « Only select
+   repositories » › `xingyinyi`.
+3. **Permissions** › Repository permissions › **Contents** : « Read and write ». Rien d’autre.
+4. **Generate token**, puis copie le jeton (`github_pat_…`) ; il ne s’affiche qu’une fois.
+5. Dans l’appli : Réglages › **Publier depuis le téléphone** : le dépôt est déjà rempli, colle le
+   jeton, **Connecter**.
+
+Ensuite, **Publier sur GitHub** (dans Réglages, ou sous la liste de mots) envoie tout en un seul
+commit. Avec le jeton, chaque liste des Réglages a aussi un bouton **Supprimer** qui la retire
+du dépôt.
+
+Le jeton reste dans l’appli, sur ce téléphone ; « Déconnecter » l’efface. S’il fuit, il ne donne
+accès qu’au contenu de ce dépôt, et tu peux le révoquer sur la même page de GitHub.
+
+**Important** : après une publication depuis le téléphone, lance `git pull` sur l’ordinateur
+avant de modifier les listes, sinon `git push` sera refusé.
+
+### Sans jeton
+
+Mots › **Copier pour l’ordinateur** donne, pour chaque liste du téléphone, les lignes à coller et
+le fichier où les mettre : `decks/perso.tsv` pour « Ajoutés ici » ; pour une autre liste, un
+fichier créé avec `py outils\decks.py nouvelle-liste <id> "<nom>"` (la commande exacte est
+affichée). Lance ensuite `py outils\decks.py completer` sur le fichier, puis publie avec git. À la
+mise à jour suivante, ces mots passent dans la liste du dépôt du même nom en gardant leur
+progression.
+
+Un même mot peut figurer dans plusieurs listes (par exemple un mot du HSK 3 dans ta liste
+« Cours du mardi ») : chaque liste a alors sa propre carte pour ce mot.
 
 
 ## 5. Les rappels HSK 1 et HSK 2
@@ -273,6 +311,7 @@ git push
 ```
 
 Sur l’iPhone, un bandeau « Nouvelle version de l’appli prête » apparaît : touche Recharger.
+Tu peux aussi forcer la vérification : Réglages › Appli › **Vérifier** (listes et appli).
 
 
 ## 9. En cas de souci
