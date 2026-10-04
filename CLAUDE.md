@@ -64,18 +64,24 @@ l'iPhone : Réglages › Appli › Vérifier. Le téléphone peut lui aussi écr
   jamais dans les sauvegardes), `xingyinyi.publie` (garde contre GitHub Pages pas encore à jour),
   `xingyinyi.avant-seaux` (`KEY_OLD` : copie brute de l'état d'avant les seaux, écrite une seule fois par
   `loadState` lors de la migration, lue par aucun code ; à garder pour pouvoir récupérer l'ancienne progression).
-- **État** : `{v:2, sched:1, settings, cards, edits, custom, lists, decks, log}`.
+- **État** : `{v:2, sched:1, settings, cards, edits, custom, lists, decks, log, test}`.
   `settings` : `delays` (délai de chaque seau à partir du seau 1 ; `delays.length` = numéro du
-  dernier seau, `topBucket()` ; 1 à 9 délais), `evalSize` (mots par évaluation, 20, de 5 à 100),
+  dernier seau, `topBucket()` ; 1 à 9 délais), `evalSize` (mots par évaluation et par test « nouveau sens »,
+  20, de 5 à 100), `learnSize` (mots par apprentissage, 20, de 5 à 50),
   `startFace`, `autoAudio`, `rate`, `toneColors`, `exDetails` (traduction de l'exemple ouverte d'office
   sous la carte), `exOnForm` (phrase sur les faces : caractères sur 形, pinyin sur 音 ; le nom est resté), `exam`.
   `decks[id] = {on, cfgOn}` (interrupteur du téléphone ; `cfgOn` = dernier `actif` lu dans
   decks.json, qui l'emporte quand il change : `syncDeckSettings`). `log[jour] = {n premières vues,
-  r autres révisions, p mots sortis du premier tour}` ; une évaluation n'y écrit rien.
+  r autres révisions, p mots sortis du premier tour}` ; une évaluation ou un test n'y écrit rien.
+  `test` : le test complet en cours ou `null` (`cleanTest`, appelé par `normalizeState`) : `{lists choisies,
+  n mots au départ, queue mots restants (celui à l'écran compris, retiré seulement une fois noté), ok, ko :
+  [id, seau avant la réponse, -1 = mot encore au premier tour]}`, enregistré après chaque réponse.
   Carte (absente = jamais vue) : `{b seau, d jour dû (seau ≥ 1 seulement), k clé de file =
   Date.now() au dernier × (seau 0 seulement ; seau 0 sans k = attend le premier tour), r nb de
   révisions, l oublis (× depuis un seau ≥ 1), t jour de la dernière révision, s jour de la
-  première}`. L'ancien champ `f` (jour du dernier raté) n'est plus écrit et `normalizeState` l'efface.
+  première, kn sens connus : bits `1 << face` de départ des cartes réussies, 1 形 caractère, 2 音 pinyin, 4 义
+  traduction ; un × le remet à 0}`. `normalizeState` donne `kn = 1 << startFace` (形 si « au hasard ») aux
+  cartes de seau ≥ 1 dont `kn` manque ou vaut 0 (passées avant les sens, ou par une ancienne version encore ouverte). L'ancien champ `f` (jour du dernier raté) n'est plus écrit et `normalizeState` l'efface.
   Mot : `h` caractères, `p` pinyin, `f` sens (séparés par `;`), `n` note, `s` texte lu par la voix,
   `e`, `ep`, `ef` (exemple, son pinyin, sa traduction), plus `id`, `deck`, `o` (ordre).
 - **Migrations** (`normalizeState`, aussi appelée par la restauration d'une sauvegarde) : état
@@ -98,7 +104,8 @@ l'iPhone : Réglages › Appli › Vérifier. Le téléphone peut lui aussi écr
 - **Chargement** : `bootLists` (cache, puis `refreshLists`) → `useLists(src, why)` →
   `syncDeckSettings`, `mergeTel` (un mot du téléphone passe dans sa liste jumelle du dépôt : Perso
   pour « Ajoutés ici », même nom sinon ; sa carte `u-…` passe à l'identifiant du mot jumeau,
-  `perso:<hanzi>` par exemple, avec tous ses champs, donc sa place dans la file),
+  `perso:<hanzi>` par exemple, avec tous ses champs, donc sa place dans la file ; `renameInStudy` lui garde sa place
+  dans le test enregistré et dans la séance en cours, quel que soit le mode),
   `dropSameEdits`, `rebuildDeck`, `study.build`.
   `diffLists` rédige le message « Listes mises à jour ».
 - **Planning** (seaux et file, demandés par Guillaume) : seaux 0 à `topBucket()`, tout mot commence
@@ -106,10 +113,12 @@ l'iPhone : Réglages › Appli › Vérifier. Le téléphone peut lui aussi écr
   mots `inPass` (pas de carte, ou seau 0 sans `k` : le premier tour), dans l'ordre de `LISTS` puis
   `o` ; ensuite les mots `missed` (seau 0 avec `k`) et `isDue` (seau ≥ 1, `d` ≤ aujourd'hui), triés
   par `lineKey` (`k` pour un raté, `dayStart(d)` pour un mot dû ; à égalité, `t`). Deux notes
-  seulement : `applyGrade(id, ok, test)` ; × → seau 0, `k = Date.now()`, `l++` si le seau était
+  seulement : `applyGrade(id, ok, kind, face)` (`face` : face de départ, `study.curFace` ; √ allume son bit
+  dans `kn`, × met `kn` à 0) ; × → seau 0, `k = Date.now()`, `l++` si le seau était
   ≥ 1, plus de `d` ; √ → seau b+1 (plafonné à `topBucket()`), `d` = aujourd'hui + `delayOf(b)`, plus
-  de `k`. `test` (évaluation) : un √ ne touche ni au seau, ni à `d`, ni à `t`. Toujours `r++`, `s` à
-  la première vue, `logAdd` (sauf en évaluation). Autres aides : `bucketOf`, `delayOf`, `seen` (r > 0), `recomputeDue()`
+  de `k`. `kind` = `"eval"` (évaluation), `"test"` (test complet) ou `"sens"` (nouveau sens) : un √ ne touche ni au
+  seau, ni à `d`, ni à `t`, sauf en test pour un mot `inPass`, qui passe au seau 1. Toujours `r++`, `s` à
+  la première vue, `logAdd` (sauf en évaluation et en test). Autres aides : `bucketOf`, `delayOf`, `seen` (r > 0), `recomputeDue()`
   après un changement des délais ou du nombre de seaux (`d = t + délai`, seau plafonné), `bucketCounts()`
   (mots déjà passés des listes actives, par seau). La journée
   commence à 4 h (`dayNum`).
@@ -119,8 +128,22 @@ l'iPhone : Réglages › Appli › Vérifier. Le téléphone peut lui aussi écr
   listes actives mélangés, tous s'il y en a moins de 5 ; aucun effet sur le planning ; un × remet
   le mot au bout), `"eval"` (`startEval` : `evalPick(evalSize)` tire à tour de rôle dans chaque seau
   parmi les mots vus des listes actives, puis mélange ; renvoie `false` avec un toast s'il n'y a
-  rien ; `res = {ok, ko}` de paires `[id, seau avant]`). `stop()` (« Arrêter ») : une évaluation
-  entamée montre ses résultats partiels, sinon retour à la file. `grade(g)` : 0 = ×, 1 = √ (touches
+  rien ; `res = {ok, ko}` de paires `[id, seau avant]`), `"test"` (test complet : `testSheet` fait cocher
+  les listes, actives au départ, sans toucher à `state.decks` ; `startTest(lists)` mélange tous leurs mots,
+  vus ou non, dans `state.test` ; `resumeTest()` le reprend, même après un rechargement ; `res` = `state.test` ;
+  `build(keep)` garde ses listes même désactivées et retire les mots disparus), `"learn"` (apprentissage :
+  `startLearn` tire `learnSize` mots du seau 0 des listes actives, `learnPool` ; `study.learn = {ids, got, check}` ;
+  boucle sans `applyGrade` : √ → `got` et fin de la boucle, × → hors de `got` et 3 cartes plus loin ; quand
+  `got` contient tous les `ids`, `toCheck(last)` lance le dernier passage, noté comme la file : √ seau 1 ; si cela
+  arrive dans `build(keep)` avec une carte de la boucle à l'écran, elle est abandonnée), `"sens"`
+  (nouveau sens : `startSens`, `sensPick(evalSize)` ; la file contient des objets `{id, face}`, lus par `qid` ;
+  la carte part de `face`, que `redrawCurrent` garde ; × retire les autres sens du mot et fait passer ses √ du même
+  test de `res.ok` à `res.ko` ; `spread` évite deux fois de suite le même mot, dans `sensPick` et après un × ; le
+  sélecteur « D'abord » montre la face testée, verrouillé : `renderStartFace`). Note « i sur n » (test, sens, dernier
+  passage) : n = réponses données + carte à l'écran + file. `stop()` (« Arrêter », « Pause »
+  en test) : une évaluation entamée montre ses résultats partiels, un test se met en pause (écran « Test en
+  pause »), sinon retour à la file (`res.cut` : questions restées sans réponse, « Test des sens arrêté »). `next()`
+  prend un jeton `tok` : une carte encore en train de glisser (170 ms) n'est pas dessinée si une autre a été demandée entre-temps. `grade(g)` : 0 = ×, 1 = √ (touches
   1 et 2) ; il n'y a plus de 3e note.
 - **Interface** : classe `Prism` (rotation 3D, `fit()` ajuste les tailles ; face 音 : pinyin du mot,
   phrase en pinyin `.sound-ex` par `markPinyin` qui souligne les syllabes du mot sans tenir compte des tons,
@@ -131,11 +154,14 @@ l'iPhone : Réglages › Appli › Vérifier. Le téléphone peut lui aussi écr
   feuilles (`openSheet`, `wordSheet` qui indique le seau), `toast(msg, ms, hold)` (applique `frTypo` ; `hold` garde un message important
   à l'écran, le dernier message arrivé entre-temps s'affiche ensuite).
   Révision : `#counts` (`renderCounts` : « à voir » = `inPass`, « à revoir » ; « à évaluer » ou
-  « en libre » hors de la file), étiquettes `renderCardStatus` (« Nouveau mot », « Seau N », « raté »,
-  `.chip.test` en évaluation), indications `#gi0`/`#gi1` sous × et √ (`setActions`), `#free-note`
+  « en libre » ou « à tester » hors de la file), étiquettes `renderCardStatus` (« Nouveau mot », « Seau N », « raté »,
+  `.chip.test` en évaluation et en test), indications `#gi0`/`#gi1` sous × et √ (`setActions`), `#free-note`
   et `#free-stop` (`renderModeNote`), écran de fin `showDone` (`#done-title`, `#done-text`,
-  `#done-more` avec `evalSummary` : score, résultat par seau, mots ratés ; `#done-next` ; boutons
-  `#done-back` « Reprendre la file » hors de la file, `#eval-start`, `#free-start`).
+  `#done-more` avec `evalSummary(res)` : score, résultat par seau (« Nouveaux » pour le seau -1 d'un test), mots ratés ; `#done-next` ; boutons
+  `#done-back` « Reprendre la file » hors de la file, `#eval-start`, `#free-start`, `#learn-start`, `#done-test` : `renderDoneBtns`,
+  aussi appelé par `build(keep)` quand les listes changent sous l'écran de fin).
+  Boutons du test (`renderTestBtns`, `testBtnsHTML`, dans `#done-test` et `#test-box` de Progrès, avec
+  `#test-info`) : `data-test` = `start`/`resume`/`drop` (confirmation `drop-yes`/`cancel`).
   Progrès (`renderProgress`) : `#seen-n` mots passés, `#projection` (reste du premier tour, rythme
   `passPace` tiré de `log.p`, rythme pour l'examen), `#decktable` (Liste, Passés, À voir), colonnes
   des seaux `#boxes`/`#boxes-axis` par `drawCols` (`--n` posé en JS ; seau 0 = mots ratés), boutons
@@ -143,7 +169,10 @@ l'iPhone : Réglages › Appli › Vérifier. Le téléphone peut lui aussi écr
   `#new-order`, `#deck-settings` (`.switch[data-deck]`), seaux `#bucket-settings`
   (`bucketRowsHTML`, `button[data-delay][data-b]`, `stepDelay` sur `DELAY_STEPS`) et
   `#bucket-btns` (`bucketBtnsHTML`, `data-bk` = `add`/`remove`/`reset`), `#eval-minus`/`#eval-plus`.
-  Mots : filtres `data-f` (`new` = `inPass`, `known` = seau ≥ max(1, dernier − 1)), `meterHTML`.
+  Mots : filtres `data-f` (`new` = `inPass`, `known` = seau ≥ max(1, dernier − 1)), `meterHTML`, `knHTML`
+  (形音义 allumés selon `kn`, aussi sous la carte et dans `#kn-counts` de Progrès), `knText` (fiche du mot).
+  Progrès : sections Apprentissage (`#learn-go`, `#learn-info`) et Sens connus (`#kn-counts`, `#sens-go`,
+  `#sens-info`) ; écran de fin : `#learn-start`.
 - **Publication** : `publishGitHub` (API Git Data, un seul commit : trees, commits, refs ; jeton à
   accès fin, permission Contents en lecture et écriture ; nouvelles entrées de decks.json sans
   `mode`), puis `stalePages` ignore les anciens fichiers servis par Pages pendant au plus 15 minutes.

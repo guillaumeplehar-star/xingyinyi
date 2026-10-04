@@ -133,8 +133,8 @@ et télécharge une voix de bonne qualité.
   que tu as tapé.
 - **Progrès** : mots passés, en tout et par liste, ce qu’il reste à voir au premier tour et quand
   il sera fini à ton rythme, le rythme à tenir avant l’examen, le nombre de mots dans chaque seau
-  et les révisions prévues sur la semaine. C’est aussi là que tu lances une **évaluation** ou un
-  **entraînement libre** (section 5).
+  et les révisions prévues sur la semaine. C’est aussi là que tu lances un **apprentissage**, une **évaluation**, un
+  **test complet**, un test **nouveau sens** ou un **entraînement libre** (section 5).
 - **Réglages** : listes actives, seaux et délais, nombre de mots par évaluation, date de l’examen,
   publication sur GitHub, affichage des cartes et voix, mise à jour de l’appli (Appli › Vérifier),
   sauvegarde.
@@ -337,6 +337,49 @@ seau et sa date de retour.
 termine l’évaluation en cours et montre les résultats déjà obtenus ; **Reprendre la file** te
 ramène aux révisions. Le nombre de mots se règle dans Réglages › Évaluation (de 5 à 100, de 5
 en 5).
+
+### L’apprentissage
+
+Progrès › **Apprendre 20 mots** (le même bouton apparaît sur les écrans de fin) : l’appli tire
+au hasard 20 mots du seau 0 des listes actives (mots jamais vus ou ratés ; le nombre se règle
+dans Réglages › Apprentissage, de 5 à 50). Ils reviennent en boucle : un mot raté revient trois
+cartes plus loin, un mot réussi est marqué « Appris » et revient lui aussi, plus tard. Un mot
+appris puis raté redevient à apprendre. La boucle ne touche pas à tes seaux.
+
+Quand les 20 mots sont appris en même temps, un **dernier passage** pose chaque mot une fois :
+un mot réussi passe au seau 1 (il revient demain), un mot raté reste au seau 0, à la fin de la
+file. **Arrêter** pendant la boucle ne change rien ; pendant le dernier passage, il montre les
+résultats déjà obtenus.
+
+### Les sens connus
+
+Un mot est connu **par le caractère**, **par le pinyin** ou **par la traduction** selon la face
+d’où sa carte est partie quand tu l’as réussi (形, 音 ou 义 : c’est le réglage « D’abord » au-dessus
+de la carte, ou le hasard). Un × lui fait perdre tous ses sens. Les sens connus s’affichent
+dans la liste Mots (形音义, allumés quand le sens est connu), dans la fiche du mot, sous la carte
+pendant la révision et dans Progrès › Sens connus. Les mots déjà au seau 1 ou plus avant cette
+version comptent comme connus par la face de départ réglée à ce moment-là.
+
+**Tester un nouveau sens** (Progrès › Sens connus) prend au hasard jusqu’à 20 mots (le nombre de
+l’évaluation) connus dans un ou deux sens, et les pose dans chacun des sens qui leur manquent :
+la carte part alors de la face à tester (le sélecteur « D’abord » la montre, sans changer ton réglage). Un √ ajoute ce sens sans toucher aux seaux ; un ×
+renvoie le mot au seau 0, lui fait perdre tous ses sens, même ceux gagnés pendant ce test, et
+retire ses autres sens du test Le bilan compte alors comme ratés les sens qu’il venait de gagner.
+
+### Le test complet
+
+Progrès › **Faire un test complet** (le même bouton apparaît sur les écrans de fin) : tu coches
+les listes à tester (au départ, les listes actives ; cocher ici ne change pas les listes de la
+file), puis l’appli te pose **tous** leurs mots, dans le désordre, y compris ceux que tu n’as
+pas encore vus. Un mot raté retourne au seau 0, à la fin de la file ; un mot pas encore vu et
+réussi passe directement au seau 1 (tu le connais déjà, inutile de le voir au premier tour) ;
+les autres mots réussis gardent leur seau et leur date de retour.
+
+Le test est enregistré après chaque réponse. **Pause** l’interrompt et montre les résultats
+déjà obtenus ; tu peux le reprendre plus tard, même après avoir fermé l’appli, avec
+**Reprendre le test** (dans Progrès ou sur les écrans de fin). **Abandonner le test** l’arrête
+pour de bon : les réponses déjà données restent comptées. À la fin, l’appli affiche ton score,
+le résultat seau par seau (« Nouveaux » pour les mots pas encore vus) et les mots ratés.
 
 ### L’entraînement libre
 

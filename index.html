@@ -101,6 +101,7 @@ main{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch}
 /* ---------- start-face control ---------- */
 .startface{display:flex;align-items:center;gap:10px;margin:2px 0 12px}
 .startface .lbl{flex:none;font-size:13px;color:var(--pencil)}
+#startface[aria-disabled="true"]{opacity:.6}
 .seg{flex:1;min-width:0;display:grid;grid-template-columns:repeat(3,1fr) 1.15fr;border:1px solid var(--rule);border-radius:10px;background:var(--bg);padding:2px;gap:2px}
 .seg button{appearance:none;border:0;background:none;border-radius:8px;padding:5px 2px;font-size:13px;color:var(--pencil);min-height:34px;
   display:flex;flex-wrap:wrap;align-content:center;align-items:baseline;justify-content:center;gap:3px;white-space:nowrap;min-width:0;overflow:hidden}
@@ -168,11 +169,12 @@ main{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch}
 
 /* status under the card */
 .status{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:20px 2px 10px;font-size:13px;color:var(--pencil);min-height:24px}
-.chips{display:flex;gap:6px;min-width:0;flex-wrap:wrap}
+.chips{display:flex;gap:6px;min-width:0}
+.chips .chip{flex:none}
 .chip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--rule);border-radius:999px;padding:2px 9px;background:var(--page);white-space:nowrap}
 .chip.new{border-color:var(--grid);color:var(--ink)}
 .chip.test{border-color:var(--grid);border-style:dashed;color:var(--ink)}
-.chip.deck{background:none;border-color:transparent;padding-left:2px;color:var(--faint)}
+.chips .chip.deck{flex:0 1 auto;min-width:0;display:block;background:none;border-color:transparent;padding-left:2px;color:var(--faint);overflow:hidden;text-overflow:ellipsis}
 .dots{display:flex;gap:6px;align-items:center}
 .dots i{width:7px;height:7px;border-radius:50%;border:1.5px solid var(--grid)}
 .dots i.on{background:var(--grid)}
@@ -233,8 +235,12 @@ main{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .done h2{font-size:22px;margin:0 0 6px;text-wrap:balance}
 .done p{margin:0 0 10px;color:var(--pencil)}
 .done .row-btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
-.done .zh{color:var(--ink);font-size:19px}
+.done .zh{color:var(--ink);font-size:19px;white-space:nowrap}
 .evalres{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 12px}
+.test-btns{display:contents}
+.test-btns [data-test="resume"]{order:-1}
+.test-btns .confirm,#test-box .confirm{flex-basis:100%;margin:0}
+.done details summary{cursor:pointer;color:var(--pencil);margin:4px 0}
 .loading{padding:40px 4px;color:var(--pencil)}
 .loading p{margin:0 0 12px;max-width:44ch}
 
@@ -270,6 +276,11 @@ main{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .wrow .f{font-size:13px;color:var(--pencil);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .wrow .r{display:flex;flex-direction:column;align-items:flex-end;gap:3px}
 .wrow .dk{font-size:11px;color:var(--faint);white-space:nowrap}
+.wrow .km{display:flex;align-items:center;gap:6px}
+.kn{display:inline-flex;gap:2px;font-family:var(--zh);font-size:13px;line-height:1.1}
+.kn i{font-style:normal;color:var(--faint);opacity:.5}
+.kn i.on{color:var(--accent);opacity:1}
+.chip .kn{font-size:14px}
 .meter{display:flex;gap:2px}
 .meter i{width:5px;height:14px;border-radius:1.5px;background:var(--rule)}
 .meter i.on{background:var(--grid)}
@@ -311,7 +322,7 @@ main{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .axis b{display:block;font-size:14px;color:var(--ink);font-variant-numeric:tabular-nums}
 .detail{min-height:20px;margin:8px 0 0;font-size:13px;color:var(--pencil)}
 .explain{font-size:14px;color:var(--pencil);margin:10px 0 0;max-width:62ch}
-.explain .zh{color:var(--pen);font-size:16px}
+.explain .zh{color:var(--pen);font-size:16px;line-height:1}
 
 /* ---------- settings ---------- */
 .set{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px 0;border-bottom:1px solid var(--rule)}
@@ -370,7 +381,7 @@ textarea.mono{white-space:pre;overflow-x:auto}
 /* toast, update bar */
 .toast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:30;
   background:var(--ink);color:var(--page);padding:9px 16px;border-radius:12px;font-size:14px;width:max-content;max-width:calc(100% - 32px);
-  box-shadow:0 4px 18px var(--shadow);text-wrap:pretty}
+  box-shadow:0 4px 18px var(--shadow);text-wrap:pretty;pointer-events:none}
 .updatebar{position:fixed;left:16px;right:16px;top:calc(8px + env(safe-area-inset-top,0px));z-index:25;max-width:528px;margin:0 auto;
   display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--page);border:1.5px solid var(--grid);
   border-radius:12px;padding:8px 8px 8px 14px;font-size:14px;box-shadow:0 4px 18px var(--shadow)}
@@ -445,8 +456,10 @@ textarea.mono{white-space:pre;overflow-x:auto}
         <p id="done-next"></p>
         <div class="row-btns">
           <button type="button" class="btn primary" id="done-back" hidden>Reprendre la file</button>
+          <button type="button" class="btn" id="learn-start">Apprendre des mots</button>
           <button type="button" class="btn" id="eval-start">Faire une évaluation</button>
           <button type="button" class="btn" id="free-start">S’entraîner librement</button>
+          <span class="test-btns" id="done-test"></span>
         </div>
       </div>
       <p class="explain" id="free-note" hidden><span id="free-text"></span> <button type="button" class="btn ghost" id="free-stop">Arrêter</button></p>
@@ -490,6 +503,18 @@ textarea.mono{white-space:pre;overflow-x:auto}
         <table class="dt" id="decktable"></table>
       </div>
       <div class="section">
+        <h2>Apprentissage</h2>
+        <p class="explain" id="learn-info" style="margin-top:0"></p>
+        <div class="btnrow"><button type="button" class="btn" id="learn-go">Apprendre des mots</button></div>
+      </div>
+      <div class="section">
+        <h2>Sens connus</h2>
+        <p class="explain" style="margin-top:0">Un mot est connu par la face d’où sa carte est partie quand tu l’as réussi : le caractère <span class="zh">形</span>, le pinyin <span class="zh">音</span> ou la traduction <span class="zh">义</span>. Un <span class="zh">×</span> lui fait perdre tous ses sens.</p>
+        <div class="evalres" id="kn-counts"></div>
+        <p class="explain" id="sens-info"></p>
+        <div class="btnrow"><button type="button" class="btn" id="sens-go">Tester un nouveau sens</button></div>
+      </div>
+      <div class="section">
         <h2>Les seaux</h2>
         <p class="sub">Les mots déjà passés, rangés selon leur délai de retour.</p>
         <div class="cols" id="boxes"></div>
@@ -498,6 +523,11 @@ textarea.mono{white-space:pre;overflow-x:auto}
         <p class="explain">Chaque mot commence au seau 0. Un <span class="zh">√</span> le fait monter d’un seau : il revient après le délai de ce seau, réglable dans Réglages. Un <span class="zh">×</span> le renvoie au seau 0, à la fin de la file : il revient quand tous les autres mots sont passés.</p>
         <div class="btnrow"><button type="button" class="btn primary" id="eval-go">Faire une évaluation</button><button type="button" class="btn" id="free-go">S’entraîner librement</button></div>
         <p class="explain" id="eval-info" style="margin-top:0"></p>
+      </div>
+      <div class="section">
+        <h2>Test complet</h2>
+        <p class="explain" id="test-info" style="margin-top:0"></p>
+        <div class="btnrow" id="test-box"></div>
       </div>
       <div class="section">
         <h2>Révisions prévues</h2>
@@ -520,9 +550,19 @@ textarea.mono{white-space:pre;overflow-x:auto}
       <div class="decks" id="bucket-settings"></div>
       <div class="btnrow" id="bucket-btns"></div>
 
+      <p class="group-title">Apprentissage</p>
+      <div class="set">
+        <div class="t"><b id="lbl-learn">Mots par apprentissage</b><small>Tirés au hasard dans le seau 0 (mots jamais vus ou ratés) des listes actives.</small></div>
+        <div class="stepper" role="group" aria-labelledby="lbl-learn">
+          <button type="button" id="learn-minus" aria-label="Moins">−</button>
+          <output id="learn-val" class="num">20</output>
+          <button type="button" id="learn-plus" aria-label="Plus">+</button>
+        </div>
+      </div>
+
       <p class="group-title">Évaluation</p>
       <div class="set">
-        <div class="t"><b id="lbl-eval">Mots par évaluation</b><small>Tirés dans tous les seaux, parmi les mots déjà vus.</small></div>
+        <div class="t"><b id="lbl-eval">Mots par évaluation</b><small>Tirés dans tous les seaux, parmi les mots déjà vus. Le test « nouveau sens » prend autant de mots.</small></div>
         <div class="stepper" role="group" aria-labelledby="lbl-eval">
           <button type="button" id="eval-minus" aria-label="Moins">−</button>
           <output id="eval-val" class="num">20</output>
@@ -587,7 +627,7 @@ textarea.mono{white-space:pre;overflow-x:auto}
       <div class="about">
         <p id="about-lists"></p>
         <p>Phrases d’exemple écrites avec les seuls caractères des niveaux 1 à 3. Traductions françaises faites pour cette appli.</p>
-        <p>Polices : LXGW WenKai et Andika, sous licence SIL Open Font License.</p>
+        <p>Polices : LXGW WenKai et Andika, sous licence SIL Open Font License.</p>
       </div>
     </section>
   </main>
@@ -625,7 +665,7 @@ const SYLL = new Set(("chuang shuang zhuang biang chang cheng chong chuai chuan 
 const LEGACY = ["阿姨","啊","矮","爱好","安静","把","班","搬","办法","办公室","半","帮忙","包","饱","北方","被","鼻子","比较","比赛","笔记本","必须","变化","别人","冰箱","不但","而且","菜单","参加","草","层","差","超市","衬衫","成绩","城市","迟到","除了","船","春","词典","聪明","打扫","打算","带","担心","蛋糕","当然","地","灯","地方","地铁","地图","电梯","电子邮件","东","冬","动物","短","段","锻炼","多么","饿","耳朵","发","发烧","发现","方便","放","放心","分","附近","复习","干净","感冒","感兴趣","刚才","个子","根据","跟","更","公斤","公园","故事","刮风","关","关系","关心","关于","国家","过","过去","还是","害怕","黑板","后来","护照","花","画","坏","欢迎","还","环境","换","黄河","回答","会议","或者","几乎","机会","极","记得","季节","检查","简单","见面","健康","讲","教","角","脚","接","街道","节目","节日","结婚","结束","解决","借","经常","经过","经理","久","旧","句子","决定","可爱","渴","刻","客人","空调","口","哭","裤子","筷子","蓝","老","离开","礼物","历史","脸","练习","辆","聊天","了解","邻居","留学","楼","绿","马","马上","满意","帽子","米","面包","明白","拿","奶奶","南","难","难过","年级","年轻","鸟","努力","爬山","盘子","胖","皮鞋","啤酒","瓶子","其实","其他","奇怪","骑","起飞","起来","清楚","请假","秋","裙子","然后","热情","认为","认真","容易","如果","伞","上网","生气","声音","世界","试","瘦","叔叔","舒服","树","数学","刷牙","双","水平","司机","太阳","特别","疼","提高","体育","甜","条","同事","同意","头发","突然","图书馆","腿","完成","碗","万","忘记","为","为了","位","文化","西","习惯","洗手间","洗澡","夏","先","相信","香蕉","向","像","小心","校长","新闻","新鲜","信用卡","行李箱","熊猫","需要","选择","要求","爷爷","一般","一边","一定","一共","一会儿","一样","一直","以前","音乐","银行","饮料","应该","影响","用","游戏","有名","又","遇到","元","愿意","月亮","越","站","张","长","着急","照顾","照片","照相机","只","只有","才","中间","中文","终于","种","重要","周末","主要","注意","自己","自行车","总是","嘴","最后","最近","作业"];
 const IS_PWA = true;
 const XH = 0.5078;
-const BUILD = "4 octobre 2026 à 10 h 41";
+const BUILD = "4 octobre 2026 à 21 h 37";
 
 /* ---------- utilities ---------- */
 const $ = (s, r = document) => r.querySelector(s);
@@ -651,7 +691,7 @@ function dayOfISO(s) { const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(s || ""); retu
 const fmtLong = new Intl.DateTimeFormat("fr-FR", { weekday: "long", day: "numeric", month: "long" });
 const fmtShort = new Intl.DateTimeFormat("fr-FR", { weekday: "short" });
 const fmtTime = new Intl.DateTimeFormat("fr-FR", { hour: "numeric", minute: "2-digit" });
-function longDate(n) { return fmtLong.format(dateOfDay(n)).replace(/(^|\s)1 /, "$11er "); }
+function longDate(n) { return fmtLong.format(dateOfDay(n)).replace(/(^|\s)1 /, "$11er ").replace(/(\d|1er) /, "$1 "); }   // day and month kept together
 function dayLabel(n, today) {
   if (n === today) return "aujourd’hui";
   if (n === today + 1) return "demain";
@@ -777,9 +817,9 @@ function fold(s) {
 /* ---------- storage ---------- */
 const KEY = "xingyinyi.v2", KEY_V1 = "xingyinyi.v1", LKEY = "xingyinyi.listes";
 const KEY_OLD = "xingyinyi.avant-seaux";          // the progress as it was before the switch to buckets, kept once
-const DEFAULTS = { evalSize: 20, startFace: 0, autoAudio: true, rate: 0.8, toneColors: true, exDetails: false, exOnForm: true, exam: "2026-11-29" };
+const DEFAULTS = { evalSize: 20, learnSize: 20, startFace: 0, autoAudio: true, rate: 0.8, toneColors: true, exDetails: false, exOnForm: true, exam: "2026-11-29" };
 let storageOK = true, migratedV1 = false, migratedSched = false;
-function freshState() { return { v: 2, sched: SCHED, settings: { ...DEFAULTS, delays: [...DELAYS] }, cards: {}, edits: {}, custom: [], lists: [], decks: {}, log: {} }; }
+function freshState() { return { v: 2, sched: SCHED, settings: { ...DEFAULTS, delays: [...DELAYS] }, cards: {}, edits: {}, custom: [], lists: [], decks: {}, log: {}, test: null }; }
 function cleanDelays(a) {
   const d = (Array.isArray(a) ? a : []).map(x => Math.round(+x)).filter(x => x >= 1 && x <= 365).slice(0, MAX_BUCKETS - 1);
   return d.length ? d : [...DELAYS];
@@ -794,6 +834,7 @@ function normalizeState(s) {
   delete st.settings.newPerDay;
   st.settings.delays = cleanDelays(st.settings.delays);
   st.settings.evalSize = Math.max(5, Math.min(100, Math.round(+st.settings.evalSize) || DEFAULTS.evalSize));
+  st.settings.learnSize = Math.max(5, Math.min(50, Math.round(+st.settings.learnSize) || DEFAULTS.learnSize));
   st.log = s.log && typeof s.log === "object" ? s.log : {};
   const obj = o => (o && typeof o === "object" ? o : {});
   if ((s.v || 1) < 2) {
@@ -816,12 +857,29 @@ function normalizeState(s) {
     for (const c of Object.values(st.cards)) { c.b = 0; delete c.d; }
   }
   const top = st.settings.delays.length;
+  const f0 = st.settings.startFace === "r" ? 0 : Math.max(0, Math.min(2, +st.settings.startFace || 0));
   for (const c of Object.values(st.cards)) {
     c.b = Math.max(0, Math.min(top, Math.round(+c.b) || 0));
+    // kn: ways known, bit 1 << face the card started on when it was passed (1 形, 2 音, 4 义). A card passed before the
+    // ways were kept (or by an older version still open) counts as known by the face the cards start on.
+    c.kn = (Math.round(+c.kn) || 0) & 7;
+    if (!c.kn && c.b > 0) c.kn = 1 << f0;
     c.r = +c.r || 0; c.l = +c.l || 0; delete c.f;              // f: day of the last miss, no longer used
     if (c.b > 0 && !Number.isFinite(c.d)) c.d = Number.isFinite(c.t) ? c.t + st.settings.delays[c.b - 1] : dayNum();
   }
+  st.test = cleanTest(s.test);
   return st;
+}
+function cleanTest(t) {
+  // The full test in progress: {lists, n words at the start, queue of the words left (the one on screen first),
+  // ok and ko: [id, bucket before the answer, -1 = still waiting for its first pass]}. Null when there is none.
+  if (!t || typeof t !== "object" || !Array.isArray(t.queue)) return null;
+  const ids = a => (Array.isArray(a) ? a : []).filter(x => typeof x === "string");
+  const pairs = a => (Array.isArray(a) ? a : []).filter(p => Array.isArray(p) && typeof p[0] === "string")
+    .map(([id, b]) => [id, Math.max(-1, Math.round(+b) || 0)]);
+  const queue = ids(t.queue), ok = pairs(t.ok), ko = pairs(t.ko);
+  if (!queue.length) return null;                  // finished: its results were shown
+  return { lists: ids(t.lists), n: Math.max(+t.n || 0, queue.length + ok.length + ko.length), queue, ok, ko };
 }
 function loadState() {
   try {
@@ -932,11 +990,27 @@ function mergeTel() {
     const a = state.cards[t.id], b = state.cards[target.id];
     if (a && (!b || (a.r || 0) > (b.r || 0))) state.cards[target.id] = a;
     delete state.cards[t.id];
+    renameInStudy(t.id, target.id);
     moved.push(L.nom);
     return false;
   });
   state.lists = state.lists.filter(P => state.custom.some(w => w.l === P.id) || !repoTwin(P.id));
   return moved;
+}
+function renameInStudy(from, to) {
+  // A word that changes id keeps its place and its answers: in the saved test, and in the session on screen.
+  const ren = id => (id === from ? to : id), t = state.test;
+  if (t) { t.queue = [...new Set(t.queue.map(ren))]; for (const p of [...t.ok, ...t.ko]) p[0] = ren(p[0]); }
+  study.cur = ren(study.cur);
+  if (study.mode === "line") return;
+  // no word twice; nor the word on screen, unless it has been graded (a learning round puts it back in the queue)
+  const key = x => (x && typeof x === "object" ? x.id + "/" + x.face : x);
+  const met = new Set(study.cur && !study.busy ? [key(study.mode === "sens" ? { id: study.cur, face: study.curFace } : study.cur)] : []);
+  study.queue = study.queue.map(x => (x && typeof x === "object" ? { ...x, id: ren(x.id) } : ren(x)))
+    .filter(x => !met.has(key(x)) && met.add(key(x)));
+  if (study.res) for (const p of [...study.res.ok, ...study.res.ko]) p[0] = ren(p[0]);
+  const L = study.mode === "learn" && study.learn;
+  if (L) { L.ids = [...new Set(L.ids.map(ren))]; L.got = new Set([...L.got].map(ren)); }
 }
 function dropSameEdits() {
   for (const [id, e] of Object.entries(state.edits)) {
@@ -1119,22 +1193,26 @@ function logAdd(today, kind) {
   const L = state.log[today] || (state.log[today] = { n: 0, r: 0 });
   L[kind] = (L[kind] || 0) + 1;
 }
-function applyGrade(id, ok, test) {
-  // test (evaluation): a × sends the word back to bucket 0 as usual, a √ leaves its planning untouched.
+function applyGrade(id, ok, kind, face) {
+  // kind "eval" (evaluation), "test" (full test) or "sens" (new-way test): a × sends the word back to bucket 0 as usual,
+  // a √ leaves its planning untouched, except in a test for a word still waiting for its first pass: it goes straight
+  // to bucket 1. face: the face the card started on; a √ makes the word known by it, a × forgets every way.
   const today = dayNum();
-  const c = state.cards[id] || { b: 0, r: 0, l: 0 };
+  const c = state.cards[id] || { b: 0, r: 0, l: 0, kn: 0 };
   const first = !c.r, pass = inPass(id);
+  const keep = ok && !!kind && !(kind === "test" && pass);
   if (!ok) {
     if (c.b > 0) c.l++;
-    c.b = 0; c.k = Date.now(); delete c.d;
-  } else if (!test) {
+    c.b = 0; c.k = Date.now(); delete c.d; c.kn = 0;
+  } else if (face >= 0 && face <= 2) c.kn = (c.kn || 0) | (1 << face);
+  if (ok && !keep) {
     c.b = Math.min(topBucket(), c.b + 1); c.d = today + delayOf(c.b); delete c.k;
   }
   c.r++;
-  if (!(test && ok)) c.t = today;
+  if (!keep) c.t = today;
   if (first) c.s = today;
   state.cards[id] = c;
-  if (!test) { logAdd(today, first ? "n" : "r"); if (pass) logAdd(today, "p"); }   // after a grade the word has left the pass
+  if (!kind) { logAdd(today, first ? "n" : "r"); if (pass) logAdd(today, "p"); }   // after a grade the word has left the pass
 }
 
 /* ---------- speech ---------- */
@@ -1413,7 +1491,39 @@ function bindSlip(root, getWord) {
   });
 }
 
+/* ---------- ways known ---------- */
+const WAYS = ["le caractère", "le pinyin", "la traduction"];   // "connu par …": the face the card started on
+function knOf(id) { const c = state.cards[id]; return c ? c.kn || 0 : 0; }
+function andList(a) { return a.length < 2 ? a.join("") : a.slice(0, -1).join(", ") + " et " + a[a.length - 1]; }
+function knText(id) {
+  const k = knOf(id), ways = WAYS.filter((_, f) => k & (1 << f));
+  return ways.length === 3 ? "Connu dans les trois sens." : ways.length ? `Connu par ${andList(ways)}.` : "Pas encore connu dans un sens.";
+}
+function knHTML(id) {
+  const k = knOf(id), t = esc(knText(id));
+  return `<span class="kn" role="img" aria-label="${t}" title="${t}">` +
+    FACE_NAMES.map((n, f) => `<i${k & (1 << f) ? ' class="on"' : ""}>${n[0]}</i>`).join("") + "</span>";
+}
+
 /* ---------- study session ---------- */
+const qid = x => (x && typeof x === "object" ? x.id : x);   // a queue entry: an id, or {id, face} in the new-way test
+function learnPool() { return DECK.filter(w => deckOn(w.deck) && bucketOf(w.id) === 0).map(w => w.id); }
+function sensPool() { return DECK.filter(w => deckOn(w.deck) && knOf(w.id) && knOf(w.id) !== 7).map(w => w.id); }
+function spread(items, prev) {
+  // Items {id, face} in the same order, except that the same word never comes twice in a row when it can be avoided
+  // (prev: the word just seen); a word with two items left goes first when three items or fewer remain.
+  const left = [...items], out = [];
+  while (left.length) {
+    const last = out.length ? out[out.length - 1].id : prev;
+    let i = left.length <= 3 ? left.findIndex(x => x.id !== last && 2 * left.filter(y => y.id === x.id).length > left.length) : -1;
+    if (i < 0) i = Math.max(0, left.findIndex(x => x.id !== last));
+    out.push(left.splice(i, 1)[0]);
+  }
+  return out;
+}
+function sensPick(n) {                              // n words known in one or two ways, each with every way it lacks
+  return spread(shuffle(shuffle(sensPool()).slice(0, n).flatMap(id => [0, 1, 2].filter(f => !(knOf(id) & (1 << f))).map(face => ({ id, face })))), null);
+}
 function evalPick(n) {
   // Words already met, taken in turn from every bucket so that each one is represented, then shuffled.
   const groups = Array.from({ length: topBucket() + 1 }, () => []);
@@ -1424,14 +1534,29 @@ function evalPick(n) {
   return shuffle(out);
 }
 const study = {
-  queue: [], cur: null, curFace: 0, mode: "line", busy: false, ready: false, day: 0, res: null,   // mode: line, free, eval
+  queue: [], cur: null, curFace: 0, mode: "line", busy: false, ready: false, day: 0, res: null, run: 0, tok: 0, learn: null,
+  // mode: line, free, eval, test (full test), learn (learning round), sens (new-way test)
   build(keep) {
     // keep: the lists or the cards changed under the session; the word on screen stays if it still belongs to it
-    if (keep && this.mode !== "line") {             // a training or an evaluation carries on
-      const still = id => BYID.has(id) && deckOn(BYID.get(id).deck);
-      this.queue = this.queue.filter(still);
+    if (keep && this.mode !== "line") {             // a training, an evaluation or a test carries on
+      // a test keeps the lists chosen when it started, active or not
+      const still = id => BYID.has(id) && (this.mode === "test" || deckOn(BYID.get(id).deck));
+      this.queue = this.queue.filter(x => still(qid(x)));
+      if (this.mode === "learn") {
+        const L = this.learn;
+        L.ids = L.ids.filter(still); L.got = new Set([...L.got].filter(still));
+        if (!L.check && this.cur && L.ids.length && L.got.size === L.ids.length) {
+          this.toCheck(this.cur);
+          if (!this.busy) { this.next(true); return; }   // the card on screen belonged to the loop
+        }
+      }
+      if (this.mode === "test" && state.test) { state.test.queue = state.test.queue.filter(id => BYID.has(id)); save(); }
       if (this.cur && !still(this.cur) && !this.busy) this.next(true);   // the word moved (published) or its list is off
-      else renderCounts();
+      else {
+        renderCounts();
+        if (!this.cur && !$("#done").hidden) renderDoneBtns();
+        else if (this.cur && this.ready) { renderModeNote(); renderCardStatus(); }
+      }
       return;
     }
     this.day = dayNum();
@@ -1441,26 +1566,78 @@ const study = {
       renderCounts();
       return;
     }
-    this.mode = "line";
+    this.mode = "line"; this.run++;
     this.next(true);
   },
   startFree() {
     const active = DECK.filter(w => deckOn(w.deck));
     const pool = active.filter(w => seen(w.id)).map(w => w.id);
-    this.mode = "free";
+    this.mode = "free"; this.run++;
     this.queue = shuffle(pool.length >= 5 ? pool : active.map(w => w.id));
     this.next(true);
   },
   startEval() {
     const ids = evalPick(state.settings.evalSize);
     if (!ids.length) { toast("Rien à évaluer pour l’instant : l’évaluation porte sur les mots déjà vus."); return false; }
-    this.mode = "eval"; this.res = { ok: [], ko: [] };
+    this.mode = "eval"; this.res = { ok: [], ko: [] }; this.run++;
     this.queue = ids;
     this.next(true);
     return true;
   },
-  stop() {                                          // "Arrêter": an evaluation shows its results so far
-    if (this.mode === "eval" && (this.res.ok.length || this.res.ko.length)) { this.queue = []; this.next(true); }
+  startLearn() {
+    // A round of learning: words of bucket 0 picked at random come back in a loop, the ones passed too, until all of
+    // them are passed; then each one once more: a √ sends it to bucket 1, as in the line.
+    const ids = shuffle(learnPool()).slice(0, state.settings.learnSize);
+    if (!ids.length) { toast("Aucun mot au seau 0 dans les listes actives."); return false; }
+    this.mode = "learn"; this.run++;
+    this.learn = { ids, got: new Set(), check: false };
+    this.res = { ok: [], ko: [] };
+    this.queue = [...ids];
+    this.next(true);
+    return true;
+  },
+  toCheck(last) {                                   // every word of the round passed: the last check
+    const q = shuffle([...this.learn.ids]);
+    if (q.length > 1 && q[0] === last) [q[0], q[1]] = [q[1], q[0]];   // not the card just seen once more
+    this.learn.check = true;
+    this.queue = q;
+    this.res = { ok: [], ko: [] };
+    toast(q.length > 1 ? `Les ${plural(q.length, "mot", "mots")} sont appris${NB}: un dernier passage, et chaque mot réussi passe au seau 1.`
+      : `Le mot est appris${NB}: un dernier passage, et s’il est réussi, il passe au seau 1.`, 4000);
+  },
+  startSens() {
+    const items = sensPick(state.settings.evalSize);
+    if (!items.length) { toast("Aucun mot à tester dans un nouveau sens : il faut des mots déjà connus dans un ou deux sens."); return false; }
+    this.mode = "sens"; this.run++;
+    this.res = { ok: [], ko: [] };
+    this.queue = items;
+    this.next(true);
+    return true;
+  },
+  startTest(lists) {
+    const ids = shuffle(DECK.filter(w => lists.includes(w.deck)).map(w => w.id));
+    if (!ids.length) return false;
+    state.test = { lists: [...lists], n: ids.length, queue: ids, ok: [], ko: [] };
+    save();
+    return this.resumeTest();
+  },
+  resumeTest() {                                    // the test saved in the state, where it was left
+    const t = state.test;
+    if (!t) return false;
+    t.queue = t.queue.filter(id => BYID.has(id));
+    if (!t.queue.length) { state.test = null; save(); toast("Ce test n’a plus de mot à passer."); return false; }
+    this.mode = "test"; this.res = t; this.run++;
+    this.queue = [...t.queue];
+    this.next(true);
+    return true;
+  },
+  stop() {                                          // "Arrêter": an evaluation shows its results so far, a test pauses
+    if (this.mode === "test") { this.run++; this.tok++; this.cur = null; this.queue = []; this.ready = false; renderCounts(); showDone(); return; }
+    const answered = this.res && (this.res.ok.length || this.res.ko.length);
+    if (answered && (this.mode === "eval" || this.mode === "sens" || (this.mode === "learn" && this.learn.check))) {
+      this.res.cut = !!(this.queue.length || (this.cur && !this.busy));   // questions left without an answer
+      this.run++; this.queue = []; this.next(true);
+    }
     else this.build();
   },
   pickFace() {
@@ -1468,8 +1645,10 @@ const study = {
     return f === "r" ? Math.floor(Math.random() * 3) : +f;
   },
   next(instant) {
+    const tok = ++this.tok;                         // a card still sliding in from an earlier call is not drawn
     if (this.mode === "line") { this.day = dayNum(); this.queue = lineOf(this.day); }   // the line is read again for each card
-    this.cur = this.queue.shift() || null;
+    const item = this.queue.shift() || null;
+    this.cur = item ? qid(item) : null;
     this.ready = false;
     renderCounts();
     if (!this.cur) { showDone(); return; }
@@ -1479,9 +1658,10 @@ const study = {
     $("#study-card").hidden = false;
     if (first) prism.layout();
     const w = BYID.get(this.cur);
-    this.curFace = this.pickFace();
+    this.curFace = item && typeof item === "object" ? item.face : this.pickFace();   // the new-way test sets the face
     const stage = $("#stage");
     const put = () => {
+      renderStartFace();
       prism.show(w, this.curFace);
       renderSlip(w, "covered");
       setActions(false);
@@ -1493,18 +1673,36 @@ const study = {
     $("#grades").hidden = true;                          // nothing to grade while the next card slides in
     $("#turnbtn").hidden = false;
     stage.classList.add("swap");
-    setTimeout(() => { put(); stage.classList.remove("swap"); }, 170);
+    setTimeout(() => { if (tok === this.tok) put(); stage.classList.remove("swap"); }, 170);
   },
   grade(g) {
     if (!this.cur || this.busy || !this.ready || prism.seen.size < 2) return;
     this.busy = true;
     this.ready = false;
-    const id = this.cur, ok = g === 1, test = this.mode === "eval";
-    if (test) this.res[ok ? "ok" : "ko"].push([id, bucketOf(id)]);
+    const id = this.cur, ok = g === 1, face = this.curFace;
+    const kind = this.mode === "eval" || this.mode === "test" || this.mode === "sens" ? this.mode : null;
+    const loop = this.mode === "learn" && !this.learn.check;
+    if (this.res && (kind || this.mode === "learn") && !loop) this.res[ok ? "ok" : "ko"].push([id, kind === "test" && inPass(id) ? -1 : bucketOf(id), ...(kind === "sens" ? [face] : [])]);
     if (this.mode === "free") { if (!ok) this.queue.push(id); }   // training: a missed word comes back at the end
-    else { applyGrade(id, ok, test); save(); }                    // in the line, a missed word now ends the line
+    else if (loop) {                                               // learning: a missed word comes back soon, a passed one later
+      const L = this.learn;
+      if (ok) { L.got.add(id); this.queue.push(id); }
+      else { L.got.delete(id); this.queue.splice(Math.min(3, this.queue.length), 0, id); }
+      if (L.got.size === L.ids.length) this.toCheck(id);
+    }
+    else {                                                         // in the line, a missed word now ends the line
+      applyGrade(id, ok, kind, face);
+      if (kind === "sens" && !ok) {                               // its other ways leave the test, the ones it gained are lost
+        const r = this.res;
+        this.queue = spread(this.queue.filter(x => qid(x) !== id), id);
+        r.ko.push(...r.ok.filter(p => p[0] === id)); r.ok = r.ok.filter(p => p[0] !== id);
+      }
+      if (kind === "test" && state.test) state.test.queue = [...this.queue];   // saved after each answer
+      save();
+    }
     stampMark(g);
-    setTimeout(() => { this.busy = false; this.next(false); }, matchMedia("(prefers-reduced-motion: reduce)").matches ? 200 : 430);
+    const run = this.run;
+    setTimeout(() => { this.busy = false; if (run === this.run) this.next(false); }, matchMedia("(prefers-reduced-motion: reduce)").matches ? 200 : 430);
   }
 };
 
@@ -1525,8 +1723,12 @@ function setActions(turned) {
   $("#grades").hidden = !turned;
   if (!turned) return;
   const up = Math.min(topBucket(), bucketOf(study.cur) + 1);
+  const learning = study.mode === "learn" && !study.learn.check;
   const [g0, g1] = study.mode === "free" ? ["à revoir", "su"]
+    : learning ? ["revient bientôt", "appris, revient plus tard"]
+    : study.mode === "sens" ? ["seau 0, plus aucun sens", "connu par " + WAYS[study.curFace]]
     : study.mode === "eval" ? ["retour au seau 0", "rien ne change"]
+    : study.mode === "test" ? ["retour au seau 0", inPass(study.cur) ? `seau 1, ${daysText(delayOf(1))}` : "rien ne change"]
     : ["seau 0, fin de file", `seau ${up}, ${daysText(delayOf(up))}`];
   $("#gi0").textContent = g0; $("#gi1").textContent = g1;
 }
@@ -1535,45 +1737,79 @@ function renderCardStatus() {
   let chip;
   if (study.mode === "free") chip = '<span class="chip">Entraînement libre</span>';
   else if (study.mode === "eval") chip = `<span class="chip test">Évaluation</span><span class="chip">Seau ${b}</span>`;
+  else if (study.mode === "test") chip = '<span class="chip test">Test</span>' +
+    (inPass(id) ? '<span class="chip new">Nouveau mot</span>' : `<span class="chip">Seau ${b}${missed(id) ? ", raté" : ""}</span>`);
+  else if (study.mode === "sens") chip = `<span class="chip test">Par ${WAYS[study.curFace]}</span>`;   // the note says Nouveau sens
+  else if (study.mode === "learn") chip = `<span class="chip test">${study.learn.check ? "Dernier passage" : "Apprentissage"}</span>` +
+    (!study.learn.check && study.learn.got.has(id) ? '<span class="chip new">Appris</span>'
+      : inPass(id) ? '<span class="chip new">Nouveau mot</span>' : '<span class="chip">Seau 0, raté</span>');
   else if (!seen(id)) chip = '<span class="chip new">Nouveau mot</span>';
   else chip = `<span class="chip">Seau ${b}${missed(id) ? ", raté" : ""}</span>`;
-  $("#card-chip").innerHTML = chip + (L ? `<span class="chip deck">${esc(L.nom)}</span>` : "");
+  const box = $("#card-chip"), h = box.offsetHeight;
+  box.innerHTML = chip + (knOf(id) ? `<span class="chip">${knHTML(id)}</span>` : "") + (L ? `<span class="chip deck">${esc(L.nom)}</span>` : "");
+  if (box.offsetHeight !== h && prism && !$("#study-card").hidden) prism.layout();   // chips on two lines: less room
   $$("#dots i").forEach((d, i) => d.classList.toggle("on", prism.seen.has(i)));
 }
 function renderModeNote() {                     // called with a word on screen
-  const note = $("#free-note"), was = note.hidden;
+  const note = $("#free-note"), h0 = note.hidden ? -1 : note.offsetHeight;
   note.hidden = study.mode === "line";
+  const r = study.res, i = r ? r.ok.length + r.ko.length + 1 : 0, pos = r ? `${i} sur ${i + study.queue.length}` : "";   // the word on screen is i
   $("#free-text").textContent = frTypo(study.mode === "eval" ? "Évaluation : × renvoie au seau 0, √ ne change rien."
+    : study.mode === "test" ? `Test : mot ${pos}`
+    : study.mode === "sens" ? `Nouveau sens : ${pos}`
+    : study.mode === "learn" ? (study.learn.check ? `Dernier passage : mot ${pos}`
+      : `Apprentissage : ${study.learn.got.size} sur ${plural(study.learn.ids.length, "mot appris", "mots appris")}`)
     : "Entraînement libre : le planning ne bouge pas.");
-  if (was !== note.hidden && prism && !$("#study-card").hidden) prism.layout();
+  $("#free-stop").textContent = study.mode === "test" ? "Pause" : "Arrêter";
+  if ((note.hidden ? -1 : note.offsetHeight) !== h0 && prism && !$("#study-card").hidden) prism.layout();
 }
 function renderCounts() {
   if (!listsReady) { $("#counts").innerHTML = ""; return; }
   const ids = study.cur ? [study.cur, ...study.queue] : study.queue;
   if (study.mode !== "line") {
-    $("#counts").innerHTML = ids.length ? `<span class="count free"><b>${ids.length}</b>${study.mode === "eval" ? "à évaluer" : "en libre"}</span>` : "";
+    const what = study.mode === "eval" ? "à évaluer" : study.mode === "test" || study.mode === "sens" ? "à tester"
+      : study.mode === "learn" ? (study.learn.check ? "à vérifier" : "à apprendre") : "en libre";
+    const n = study.mode === "learn" && !study.learn.check ? study.learn.ids.length - study.learn.got.size : ids.length;
+    $("#counts").innerHTML = ids.length ? `<span class="count free"><b>${n}</b>${what}</span>` : "";
     return;
   }
   let pass = 0, rev = 0;
   for (const id of new Set(ids)) { if (inPass(id)) pass++; else rev++; }
   $("#counts").innerHTML = `<span class="count"><b>${pass}</b>à voir</span><span class="count"><b>${rev}</b>à revoir</span>`;
 }
-function evalSummary() {
-  const r = study.res, tot = r.ok.length + r.ko.length;
-  const per = Array.from({ length: topBucket() + 1 }, () => [0, 0]);
-  const at = b => per[Math.min(b, per.length - 1)];   // a bucket may have been removed meanwhile
-  for (const [, b] of r.ok) { at(b)[0]++; at(b)[1]++; }
-  for (const [, b] of r.ko) at(b)[1]++;
-  const rows = per.map(([ok, n], b) => (n ? `<span class="count">Seau ${b}<b>${ok}/${n}</b></span>` : "")).join("");
-  const lost = r.ko.map(([id]) => BYID.get(id)).filter(Boolean)
-    .map(w => `<span class="zh${covered(w.h) ? "" : " sysfont"}" lang="zh-Hans">${esc(w.h)}</span>`).join("、");
+function evalSummary(r = study.res, mode = study.mode) {
+  // Results of an evaluation, a test, a new-way test or the last check of a learning round: score, one chip per bucket
+  // (bucket before the answer; -1 = new word) or per way, the words gone to bucket 1, missed words.
+  const tot = r.ok.length + r.ko.length;
+  let rows = "";
+  if (mode === "sens") {
+    const per = [[0, 0], [0, 0], [0, 0]];
+    for (const [, , f] of r.ok) { per[f][0]++; per[f][1]++; }
+    for (const [, , f] of r.ko) per[f][1]++;
+    rows = per.map(([ok, n], f) => (n ? `<span class="count">Par ${WAYS[f]}<b>${ok}/${n}</b></span>` : "")).join("");
+  } else if (mode !== "learn") {
+    const per = Array.from({ length: topBucket() + 2 }, () => [0, 0]);   // per[0]: new words, per[b + 1]: bucket b
+    const at = b => per[Math.min(b + 1, per.length - 1)];   // a bucket may have been removed meanwhile
+    for (const [, b] of r.ok) { at(b)[0]++; at(b)[1]++; }
+    for (const [, b] of r.ko) at(b)[1]++;
+    rows = per.map(([ok, n], i) => (n ? `<span class="count">${i ? "Seau " + (i - 1) : "Nouveaux"}<b>${ok}/${n}</b></span>` : "")).join("");
+  }
+  const up = mode === "learn" ? r.ok.length : r.ok.filter(([, b]) => b < 0).length;
+  const zh = [...new Set(r.ko.map(([id]) => id))].map(id => BYID.get(id)).filter(Boolean)
+    .map(w => `<span class="zh${covered(w.h) ? "" : " sysfont"}" lang="zh-Hans">${esc(w.h)}</span>`);
+  const fold = zh.length > 24;                     // a long list: the first 20, the others folded
+  const lostLabel = mode === "test" ? "Ratés, au seau 0" : mode === "sens" ? "Ratés, au seau 0 et sans aucun sens"
+    : mode === "learn" ? "Restent au seau 0, à la fin de la file" : "Remis au seau 0, à la fin de la file";
   return {
     text: tot ? `${r.ok.length} sur ${plural(tot, "réussi", "réussis")} (${Math.round(100 * r.ok.length / tot)}${NB}%).` : "Aucune réponse.",
     html: (rows ? `<div class="evalres">${rows}</div>` : "") +
-      (r.ko.length ? `<p>Remis au seau 0, à la fin de la file${NB}: ${lost}.</p>` : tot ? "<p>Aucun mot raté.</p>" : ""),
+      (up ? `<p>${mode === "learn" ? plural(up, "mot réussi passe", "mots réussis passent") + " au seau 1." : plural(up, "nouveau mot réussi passe", "nouveaux mots réussis passent") + " directement au seau 1."}</p>` : "") +
+      (r.ko.length ? `<p>${lostLabel}${NB}: ${zh.slice(0, fold ? 20 : zh.length).join("、")}${fold ? "…" : "."}</p>` +
+        (fold ? `<details><summary>et ${zh.length - 20} autres</summary>${zh.slice(20).join("、")}.</details>` : "") : tot ? "<p>Aucun mot raté.</p>" : ""),
   };
 }
 function showDone() {                              // called by study.next, which has just drawn the counts
+  $("#main").scrollTop = 0;
   $("#study-card").hidden = true;
   $("#done").hidden = false;
   $("#free-note").hidden = true;
@@ -1581,12 +1817,12 @@ function showDone() {                              // called by study.next, whic
   const active = DECK.filter(w => deckOn(w.deck));
   const title = $("#done-title"), text = $("#done-text"), next = $("#done-next"), more = $("#done-more");
   more.innerHTML = "";
-  $("#done-back").hidden = m === "line";
-  $("#free-start").hidden = !active.length;
-  $("#eval-start").hidden = !active.some(w => seen(w.id));
-  if (!active.length) {
+  if (m === "test" && state.test && !state.test.queue.length) { state.test = null; save(); }
+  renderDoneBtns();
+  renderStartFace();
+  if (!active.length && m !== "test") {           // a test may run on lists left out of the line
     title.textContent = "Aucun mot à réviser";
-    text.textContent = BASE.length ? "Toutes les listes sont désactivées : active-en une dans Réglages." : "Aucune liste n’est chargée.";
+    text.textContent = BASE.length ? `Toutes les listes sont désactivées${NB}: active-en une dans Réglages.` : "Aucune liste n’est chargée.";
     next.textContent = "";
     return;
   }
@@ -1603,7 +1839,83 @@ function showDone() {                              // called by study.next, whic
   next.textContent = fresh || wait ? `Dans la file${NB}: ${[fresh && plural(fresh, "mot", "mots") + " à voir", wait && plural(wait, "mot", "mots") + " à revoir"].filter(Boolean).join(", ")}.`
     : "Rien n’attend dans la file pour l’instant.";
   if (m === "eval") { const e = evalSummary(); title.textContent = "Évaluation terminée"; text.textContent = e.text; more.innerHTML = e.html; }
+  else if (m === "sens") { const e = evalSummary(); title.textContent = study.res.cut ? "Test des sens arrêté" : "Test des sens terminé"; text.textContent = e.text; more.innerHTML = e.html; }
+  else if (m === "learn") {
+    const L = study.learn, e = evalSummary(), got = new Set([...study.res.ok, ...study.res.ko].map(([id]) => id));
+    title.textContent = L.check && L.ids.length && L.ids.every(id => got.has(id)) ? "Apprentissage terminé" : "Apprentissage arrêté";
+    text.textContent = L.check ? e.text : `Rien n’a changé dans tes seaux${NB}: un mot ne passe au seau 1 qu’au dernier passage.`;
+    more.innerHTML = study.learn.check ? e.html : "";
+  }
+  else if (m === "test") {
+    const e = evalSummary(), left = testLeft();
+    text.textContent = e.text; more.innerHTML = e.html;
+    if (left) {
+      title.textContent = "Test en pause";
+      next.textContent = `Encore ${plural(left, "mot", "mots")} à tester. Tu peux reprendre le test plus tard, même après avoir fermé l’appli.`;
+    } else title.textContent = "Test terminé";
+  }
   else { title.textContent = "Entraînement terminé"; text.textContent = "Tu as fait le tour des mots choisis."; }
+}
+function renderDoneBtns() {
+  const active = DECK.filter(w => deckOn(w.deck));
+  renderTestBtns();
+  $("#done-back").hidden = study.mode === "line";
+  $("#done-back").classList.toggle("primary", !state.test);   // a paused test: resuming it comes first
+  $("#free-start").hidden = !active.length;
+  $("#eval-start").hidden = !active.some(w => seen(w.id));
+  renderLearnStart();
+}
+function renderLearnStart() {
+  const pool = learnPool().length;
+  $("#learn-start").hidden = !pool;
+  $("#learn-start").textContent = `Apprendre ${plural(Math.min(pool, state.settings.learnSize), "mot", "mots")}`;
+}
+function testLeft() { return state.test ? state.test.queue.filter(id => BYID.has(id)).length : 0; }   // words still in the lists
+function testBtnsHTML() {
+  const t = state.test;
+  if (!t) return `<button type="button" class="btn" data-test="start">Faire un test complet</button>`;
+  return `<button type="button" class="btn primary" data-test="resume">Reprendre le test (${plural(testLeft(), "mot", "mots")})</button>` +
+    `<button type="button" class="btn ghost" data-test="drop">Abandonner le test</button>`;
+}
+function renderTestBtns() {
+  // In Progress and on the end screen: start a full test, or resume or drop the one in progress.
+  const t = state.test, words = DECK.length;
+  $("#done-test").innerHTML = $("#test-box").innerHTML = words ? testBtnsHTML() : "";
+  const done = t ? t.ok.length + t.ko.length : 0;
+  const names = t ? t.lists.map(id => LISTBYID.get(id)).filter(Boolean).map(L => L.nom).join(", ") : "";
+  $("#eval-go").classList.toggle("primary", !t);     // one primary button: resuming the test comes first
+  $("#test-info").textContent = frTypo(t
+    ? `Test en cours${names ? " (" + names + ")" : ""}${NB}: ${plural(done, "mot testé", "mots testés")} sur ${t.n}, dont ${plural(t.ok.length, "réussi", "réussis")}. Il reprend là où tu l’as laissé.`
+    : "Tous les mots des listes que tu choisis, même ceux pas encore vus. Un mot raté retourne au seau 0 ; un nouveau mot réussi passe au seau 1 ; les autres mots réussis gardent leur place.");
+}
+function testSheet() {
+  // Choose the lists of the test (the active ones at first); the lists of the line do not change.
+  const lists = LISTS.filter(L => L.words.length);
+  const row = L => {
+    const n = L.words.length, fresh = L.words.filter(w => inPass(w.id)).length;
+    const what = plural(n, "mot", "mots") + (fresh === n ? (n > 1 ? ", aucun encore vu" : ", pas encore vu") : fresh ? `, dont ${fresh} à voir` : "") +
+      (deckOn(L.id) ? "" : ", hors de la file");
+    return `<div class="set tl"><div class="t"><b id="tl-${esc(L.id)}">${esc(L.nom)}</b><small>${what}</small></div>` +
+      `<button type="button" class="switch" role="switch" data-tl="${esc(L.id)}" aria-labelledby="tl-${esc(L.id)}" aria-checked="${deckOn(L.id)}"></button></div>`;
+  };
+  const html = `<p class="explain" style="margin-top:0">Tous les mots des listes cochées, dans le désordre, même ceux pas encore vus. Tu peux faire une pause et reprendre plus tard. Ce choix ne change pas les listes de ta file.</p>` +
+    (lists.map(row).join("") || `<p class="explain">Aucune liste chargée.</p>`) +
+    `<div class="btnrow"><button type="button" class="btn primary" id="test-begin"></button></div>`;
+  openSheet("Test complet", frTypo(html), body => {
+    const chosen = () => $$("[data-tl]", body).filter(b => b.getAttribute("aria-checked") === "true").map(b => b.dataset.tl);
+    const count = () => {
+      const ids = chosen(), n = lists.filter(L => ids.includes(L.id)).reduce((a, L) => a + L.words.length, 0);
+      const go = $("#test-begin", body);
+      go.disabled = !n;
+      go.textContent = n ? `Commencer le test (${plural(n, "mot", "mots")})` : "Choisis au moins une liste";
+    };
+    body.addEventListener("click", e => {
+      const row = e.target.closest(".set.tl"), sw = row && $("[data-tl]", row);   // the whole row toggles
+      if (sw) { sw.setAttribute("aria-checked", String(sw.getAttribute("aria-checked") !== "true")); count(); return; }
+      if (e.target.closest("#test-begin")) { const ids = chosen(); closeSheet(); showView("study"); study.startTest(ids); }
+    });
+    count();
+  }, true);
 }
 
 /* ---------- views ---------- */
@@ -1662,7 +1974,7 @@ function renderWords() {
     const L = LISTBYID.get(w.deck);
     return `<li><button type="button" class="wrow" data-id="${esc(w.id)}"><span class="h${covered(w.h) ? "" : " sysfont"}" lang="zh-Hans">${esc(w.h)}</span>` +
       `<span class="m"><span class="p${tones}">${w.p ? pinyinHTML(w.p) : "—"}</span><span class="f">${esc(first)}</span></span>` +
-      `<span class="r">${meterHTML(bucketOf(w.id))}${showDeck ? `<span class="dk">${esc(L ? L.nom : "")}</span>` : ""}</span></button></li>`;
+      `<span class="r"><span class="km">${knHTML(w.id)}${meterHTML(bucketOf(w.id))}</span>${showDeck ? `<span class="dk">${esc(L ? L.nom : "")}</span>` : ""}</span></button></li>`;
   }).join("") : `<li class="empty">${q ? "Aucun mot ne correspond à « " + esc(q) + " »." + (listsReady ? `<br><button type="button" class="btn primary" id="add-q" style="margin-top:12px">Créer la fiche « ${esc(q)} »</button>` : "") : listsReady ? "Aucun mot dans cette catégorie." : "Les listes ne sont pas encore chargées."}</li>`;
   const L = wdeck !== "all" && LISTBYID.get(wdeck);
   $("#wcount").textContent = plural(list.length, "mot", "mots") + (L && L.phone ? ", sur ce téléphone" : L ? `, fichier decks/${L.fichier}` : "") + (L && !deckOn(L.id) ? ", liste désactivée" : "");
@@ -1726,6 +2038,25 @@ function renderProgress() {
     ? `Une évaluation prend ${plural(Math.min(state.settings.evalSize, met), "mot", "mots")} dans tous les seaux. Un mot raté retourne au seau 0 ; un mot réussi garde sa place.`
     : "L’évaluation porte sur les mots déjà vus : commence par en passer quelques-uns.");
 
+  renderTestBtns();
+  const pool = words.filter(w => bucketOf(w.id) === 0).length, ln = Math.min(pool, state.settings.learnSize);
+  $("#learn-go").disabled = !pool;
+  $("#learn-go").textContent = `Apprendre ${plural(ln || state.settings.learnSize, "mot", "mots")}`;
+  $("#learn-info").textContent = frTypo(ln > 1
+    ? `${plural(ln, "mot", "mots")} du seau 0 (jamais vus ou ratés), tirés au hasard, reviennent en boucle jusqu’à ce que tu les aies tous réussis ; un mot réussi revient lui aussi. Puis un dernier passage : chaque mot réussi passe au seau 1.`
+    : pool ? "1 mot du seau 0 (jamais vu ou raté) revient en boucle jusqu’à ce que tu l’aies réussi. Puis un dernier passage : réussi, il passe au seau 1."
+    : "Aucun mot au seau 0 dans les listes actives : tout a déjà été réussi au moins une fois.");
+  const kc = [0, 0, 0], all3 = words.filter(w => knOf(w.id) === 7).length;
+  for (const w of words) for (let f = 0; f < 3; f++) if (knOf(w.id) & (1 << f)) kc[f]++;
+  $("#kn-counts").innerHTML = WAYS.map((way, f) => `<span class="count">Par ${way}<b>${kc[f]}</b></span>`).join("") +
+    `<span class="count">Les trois<b>${all3}</b></span>`;
+  const sp = words.filter(w => knOf(w.id) && knOf(w.id) !== 7).length;
+  $("#sens-go").disabled = !sp;
+  $("#sens-info").textContent = frTypo(sp > 1
+    ? `Le test prend au hasard jusqu’à ${plural(Math.min(sp, state.settings.evalSize), "mot", "mots")} connus dans un ou deux sens et les teste dans ceux qui leur manquent. √ : le sens devient connu ; × : le mot retourne au seau 0 et perd tous ses sens.`
+    : sp ? "Un seul mot est connu dans un ou deux sens : le test le pose dans ceux qui lui manquent. √ : le sens devient connu ; × : le mot retourne au seau 0 et perd tous ses sens."
+    : "Aucun mot n’est connu dans un ou deux sens pour l’instant.");
+
   const fc = Array(7).fill(0);                    // today: missed and due words; then the words due that day
   for (const w of words) {
     if (missed(w.id)) fc[0]++;
@@ -1759,7 +2090,7 @@ function updateVoiceInfo() {
   const el = $("#voice-info"); if (!el) return;
   if (!tts.ok) el.textContent = "Ce navigateur ne propose pas de synthèse vocale.";
   else if (tts.voice) el.textContent = `Voix${NB}: ${tts.voice.name}.`;
-  else el.textContent = "Aucune voix chinoise trouvée. Sur iPhone : Réglages › Accessibilité › Contenu énoncé › Voix › Chinois.";
+  else el.textContent = "Aucune voix chinoise trouvée. Sur iPhone : Réglages › Accessibilité › Contenu énoncé › Voix › Chinois.";
 }
 function deckRowHTML(L) {
   const n = L.words.length;
@@ -1817,6 +2148,7 @@ function renderSettings() {
   $("#bucket-settings").innerHTML = bucketRowsHTML();
   $("#bucket-btns").innerHTML = bucketBtnsHTML();
   $("#eval-val").textContent = s.evalSize;
+  $("#learn-val").textContent = s.learnSize;
   $("#deck-settings").innerHTML = LISTS.filter(showList).map(deckRowHTML).join("") ||
     `<p class="explain">Aucune liste chargée.</p>`;
   $("#lists-check-row").hidden = !!EMBEDDED;
@@ -1833,13 +2165,13 @@ function renderSettings() {
   updateVoiceInfo();
   $("#storage-note").textContent = !storageOK
     ? "Ce navigateur bloque l’enregistrement : ta progression sera perdue à la fermeture. Copie la sauvegarde avant de partir."
-    : IS_PWA ? "Ta progression est enregistrée sur ce téléphone seulement : elle n’est ni dans le dépôt GitHub ni dans un compte. Exporte un fichier de temps en temps."
+    : IS_PWA ? "Ta progression est enregistrée sur ce téléphone seulement : elle n’est ni dans le dépôt GitHub ni dans un compte. Exporte un fichier de temps en temps."
              : "Ta progression est enregistrée dans ce navigateur. Garde une copie de temps en temps.";
   $("#bk-file").hidden = !IS_PWA;
   $("#reset-confirm").hidden = true;
   const names = BASE.map(L => L.nom);
   $("#about-lists").textContent = names.length
-    ? `Listes${NB}: ${names.join(", ")}. HSK 1 à 3 : listes officielles HSK 2.0 (révision de 2012), présentées du mot le plus fréquent au plus rare.`
+    ? `Listes${NB}: ${names.join(", ")}. HSK 1 à 3 : listes officielles HSK 2.0 (révision de 2012), présentées du mot le plus fréquent au plus rare.`
     : "Aucune liste chargée.";
 }
 
@@ -1869,6 +2201,7 @@ function wordSheet(id) {
   let meta = L ? (L.phone ? `Liste ${L.nom}, sur ce téléphone. ` : `Liste ${L.nom}. `) : "";
   meta += !seen(id) ? "Pas encore vu." : inPass(id) ? "Seau 0, attend son passage au premier tour." : missed(id) ? `Seau 0${NB}: raté, il revient à la fin de la file.`
     : `Seau ${bucketOf(id)}, prochaine révision ${dayLabel(Math.max(c.d, today), today)}.`;
+  if (seen(id)) meta += " " + knText(id);
   if (w.edited) meta += " Corrigé sur ce téléphone.";
   openSheet(w.h, `
     <div class="stage" id="sheet-stage" tabindex="0" aria-label="Carte : touche pour tourner"></div>
@@ -2216,7 +2549,7 @@ function renderGh() {
     box.innerHTML = `<p class="explain" style="margin-top:0">Connecté au dépôt <b>${esc(c.repo)}</b>. ${n ? `${plural(n, "changement attend", "changements attendent")} d’être publié${n > 1 ? "s" : ""} : mots et listes créés sur le téléphone, corrections de mots.` : "Rien à publier pour l’instant."}</p>
       <div class="btnrow"><button type="button" class="btn primary" data-gh="publish"${n ? "" : " disabled"}>Publier sur GitHub</button><button type="button" class="btn ghost" data-gh="logout">Déconnecter</button></div>`;
   } else {
-    box.innerHTML = `<p class="explain" style="margin-top:0">Pour ranger dans le dépôt les mots, listes et corrections faits ici, sans passer par l’ordinateur. Il faut un jeton GitHub limité à ce dépôt (voir LISEZMOI, section 4) ; il reste sur ce téléphone.</p>
+    box.innerHTML = `<p class="explain" style="margin-top:0">Pour ranger dans le dépôt les mots, listes et corrections faits ici, sans passer par l’ordinateur. Il faut un jeton GitHub limité à ce dépôt (voir LISEZMOI, section 4) ; il reste sur ce téléphone.</p>
       <div class="field"><label for="gh-repo">Dépôt</label><input id="gh-repo" value="${esc((c && c.repo) || guessRepo())}" placeholder="identifiant/xingyinyi" autocomplete="off" autocapitalize="off" spellcheck="false"></div>
       <div class="field"><label for="gh-token">Jeton</label><input id="gh-token" type="password" placeholder="github_pat_…" autocomplete="off" autocapitalize="off" spellcheck="false"></div>
       <p class="field err" id="gh-err" hidden></p>
@@ -2418,13 +2751,15 @@ function studyRoom() {
     outer($(".status")) - slotH - Math.max(76, $("#actions").offsetHeight) - ($("#free-note").hidden ? 0 : outer($("#free-note"))) - 2;
 }
 function renderStartFace() {
-  $$("#startface button").forEach(b => b.setAttribute("aria-checked", String(String(state.settings.startFace) === b.dataset.face)));
+  const lock = study.mode === "sens" && !!study.cur, f = String(lock ? study.curFace : state.settings.startFace);
+  $("#startface").setAttribute("aria-disabled", String(lock));
+  $$("#startface button").forEach(b => b.setAttribute("aria-checked", String(f === b.dataset.face)));
 }
 function redrawCurrent() {
   if (!study.cur) return;
   const w = BYID.get(study.cur);
   if (!w) return;
-  study.curFace = study.pickFace();
+  if (study.mode !== "sens") study.curFace = study.pickFace();
   prism.show(w, study.curFace);
   renderSlip(w, "covered");
   setActions(false);
@@ -2445,15 +2780,39 @@ function init() {
   $("#grades").addEventListener("click", e => { const b = e.target.closest(".grade"); if (b) study.grade(+b.dataset.g); });
   $("#startface").addEventListener("click", e => {
     const b = e.target.closest("button"); if (!b) return;
+    if (study.mode === "sens" && study.cur) { toast("Pendant le test des sens, chaque carte part de la face à tester."); return; }
     const v = b.dataset.face; state.settings.startFace = v === "r" ? "r" : +v; save(); renderStartFace();
     redrawCurrent();
   });
   $("#free-start").addEventListener("click", () => study.startFree());
   $("#eval-start").addEventListener("click", () => study.startEval());
+  $("#learn-start").addEventListener("click", () => study.startLearn());
+  $("#learn-go").addEventListener("click", () => { showView("study"); study.startLearn(); });
+  $("#sens-go").addEventListener("click", () => { showView("study"); study.startSens(); });
   $("#done-back").addEventListener("click", () => study.build());
   $("#free-stop").addEventListener("click", () => study.stop());
   $("#eval-go").addEventListener("click", () => { showView("study"); study.startEval(); });
   $("#free-go").addEventListener("click", () => { showView("study"); study.startFree(); });
+  for (const box of [$("#test-box"), $("#done-test")]) box.addEventListener("click", e => {
+    const b = e.target.closest("[data-test]"); if (!b) return;
+    const a = b.dataset.test;
+    if (a === "start") testSheet();
+    else if (a === "resume") {
+      if (study.resumeTest()) showView("study");
+      else { renderTestBtns(); if (current === "progress") renderProgress(); }
+    }
+    else if (a === "drop") {
+      const left = testLeft();
+      box.innerHTML = `<div class="confirm"><p>Abandonner le test${NB}? Les mots déjà testés gardent leur nouveau seau${left > 1 ? `${NB}; les ${left} mots restants ne seront pas testés` : left ? `${NB}; le dernier mot ne sera pas testé` : ""}.</p><div class="btnrow"><button type="button" class="btn danger" data-test="drop-yes">Abandonner le test</button><button type="button" class="btn" data-test="cancel">Garder le test</button></div></div>`;
+      box.querySelector(".confirm").scrollIntoView({ block: "nearest", behavior: "smooth" });
+    }
+    else if (a === "cancel") renderTestBtns();
+    else if (a === "drop-yes") {
+      state.test = null; save(); toast("Test abandonné");
+      if (study.mode === "test") study.build(); else renderTestBtns();
+      if (current === "progress") renderProgress();
+    }
+  });
   $("#loading-retry").addEventListener("click", () => { $("#loading-text").textContent = "Chargement des listes…"; $("#loading-retry").hidden = true; refreshLists(true, false); });
 
   $$(".tab").forEach(t => t.addEventListener("click", () => showView(t.dataset.view)));
@@ -2493,6 +2852,9 @@ function init() {
 
   const stepEval = dir => { const s = state.settings; s.evalSize = Math.max(5, Math.min(100, s.evalSize + 5 * dir)); save(); $("#eval-val").textContent = s.evalSize; };
   $("#eval-minus").addEventListener("click", () => stepEval(-1));
+  const stepLearn = dir => { const s = state.settings; s.learnSize = Math.max(5, Math.min(50, s.learnSize + 5 * dir)); save(); $("#learn-val").textContent = s.learnSize; renderLearnStart(); };
+  $("#learn-minus").addEventListener("click", () => stepLearn(-1));
+  $("#learn-plus").addEventListener("click", () => stepLearn(1));
   $("#eval-plus").addEventListener("click", () => stepEval(1));
   $("#bucket-settings").addEventListener("click", e => {
     const b = e.target.closest("[data-delay]"); if (!b) return;
@@ -2584,6 +2946,7 @@ function init() {
   bootLists();
   if (migratedV1) toast("Progression de la première version reprise. Nouveau planning en seaux : tous les mots repartent du seau 0.", 6000, true);
   else if (migratedSched) toast("Nouveau planning en seaux : tous les mots repartent du seau 0 pour un premier tour complet.", 6000, true);
+  if (state.test) toast(`Test en pause${NB}: encore ${plural(state.test.queue.length, "mot", "mots")}. Reprends-le depuis Progrès.`, 4000);
   if ("serviceWorker" in navigator) {
     navigator.serviceWorker.register("sw.js").then(reg => {
       swReg = reg;
