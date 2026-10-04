@@ -27,7 +27,8 @@ def main():
 
     def deploy():
         for path, content in repo.items():
-            open(os.path.join(site, *path.split("/")), "w", encoding="utf-8").write(content)
+            # newline="": the files served must be byte for byte what was published (no \r\n on Windows)
+            open(os.path.join(site, *path.split("/")), "w", encoding="utf-8", newline="").write(content)
         for n in os.listdir(os.path.join(site, "decks")):
             if "decks/" + n not in repo:
                 os.remove(os.path.join(site, "decks", n))
