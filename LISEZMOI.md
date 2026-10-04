@@ -2,7 +2,8 @@
 
 Chaque carte est un prisme à trois faces : 形 le caractère, 音 le pinyin, 义 le sens en français.
 Une fois la carte tournée, une phrase d’exemple (例) apparaît dessous, écrite avec les seuls
-caractères des niveaux 1 à 3, avec son pinyin et sa traduction à la demande.
+caractères des niveaux 1 à 3, avec sa traduction à la demande ; son pinyin est sur la face 音,
+où tu peux aussi l’écouter.
 
 L’appli tourne sur l’iPhone, hors ligne, depuis l’écran d’accueil. Les listes de mots vivent dans
 ce dossier, sur ton ordinateur : tu les modifies, tu publies avec git, et le téléphone se met à jour
@@ -115,8 +116,10 @@ et télécharge une voix de bonne qualité.
 ## 2. Sur l’iPhone, au quotidien
 
 - **Réviser** : touche la carte ou fais-la glisser pour la tourner. La face 形 montre déjà la
-  phrase d’exemple en caractères (réglable). Dès que la carte a tourné, la phrase se découvre
-  sous la carte (例) ; « Pinyin et traduction » affiche le reste.
+  phrase d’exemple en caractères, la face 音 la montre en pinyin (réglable) ; sur 音, **Mot** et
+  **Phrase** lisent à voix haute le mot ou la phrase. Dès que la carte a tourné, la phrase en
+  caractères se découvre sous la carte (例) ; « Traduction » affiche sa traduction. Pendant la révision, le pinyin de
+  la phrase n’est que sur la face 音 ; la fiche du mot (onglet Mots) montre tout.
   Note-toi ensuite : × **Raté** ou √ **Réussi** (au clavier : 1 et 2). Sous chaque bouton, l’appli
   écrit où ira le mot, par exemple « seau 0, fin de file » sous × et « seau 2, 3 jours » sous √.
   Sous la carte, une étiquette indique « Nouveau mot » ou le seau du mot.

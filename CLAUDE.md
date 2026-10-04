@@ -67,7 +67,8 @@ l'iPhone : Réglages › Appli › Vérifier. Le téléphone peut lui aussi écr
 - **État** : `{v:2, sched:1, settings, cards, edits, custom, lists, decks, log}`.
   `settings` : `delays` (délai de chaque seau à partir du seau 1 ; `delays.length` = numéro du
   dernier seau, `topBucket()` ; 1 à 9 délais), `evalSize` (mots par évaluation, 20, de 5 à 100),
-  `startFace`, `autoAudio`, `rate`, `toneColors`, `exDetails`, `exOnForm`, `exam`.
+  `startFace`, `autoAudio`, `rate`, `toneColors`, `exDetails` (traduction de l'exemple ouverte d'office
+  sous la carte), `exOnForm` (phrase sur les faces : caractères sur 形, pinyin sur 音 ; le nom est resté), `exam`.
   `decks[id] = {on, cfgOn}` (interrupteur du téléphone ; `cfgOn` = dernier `actif` lu dans
   decks.json, qui l'emporte quand il change : `syncDeckSettings`). `log[jour] = {n premières vues,
   r autres révisions, p mots sortis du premier tour}` ; une évaluation n'y écrit rien.
@@ -121,8 +122,11 @@ l'iPhone : Réglages › Appli › Vérifier. Le téléphone peut lui aussi écr
   rien ; `res = {ok, ko}` de paires `[id, seau avant]`). `stop()` (« Arrêter ») : une évaluation
   entamée montre ses résultats partiels, sinon retour à la file. `grade(g)` : 0 = ×, 1 = √ (touches
   1 et 2) ; il n'y a plus de 3e note.
-- **Interface** : classe `Prism` (rotation 3D, `fit()` ajuste les tailles), bandeau 例
-  (`slipHTML`, `renderSlip`, `revealSlip`), vues `study`/`words`/`progress`/`settings`,
+- **Interface** : classe `Prism` (rotation 3D, `fit()` ajuste les tailles ; face 音 : pinyin du mot,
+  phrase en pinyin `.sound-ex` par `markPinyin` qui souligne les syllabes du mot sans tenir compte des tons,
+  boutons `[data-say]` « Mot » et `[data-say-ex]` « Phrase », ou « Écouter » seul sans exemple), bandeau 例
+  (`slipHTML`, `renderSlip`, `revealSlip` ; en révision il montre la phrase en caractères et, sous
+  « Traduction », sa traduction seulement ; la fiche du mot, mode `full`, y ajoute le pinyin), vues `study`/`words`/`progress`/`settings`,
   bouton ＋ de l'en-tête (`#btn-new`) et recherche sans résultat → `addSheet` (`prefillFrom`),
   feuilles (`openSheet`, `wordSheet` qui indique le seau), `toast(msg, ms, hold)` (applique `frTypo` ; `hold` garde un message important
   à l'écran, le dernier message arrivé entre-temps s'affiche ensuite).

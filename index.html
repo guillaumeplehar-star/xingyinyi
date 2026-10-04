@@ -142,15 +142,19 @@ main{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .form-ex.sysfont{font-family:var(--zh-sys)}
 
 /* 音 : pinyin staff (四线三格) */
-.staff{position:relative;width:100%;display:flex;justify-content:center}
+.staff{flex:none;position:relative;width:100%;display:flex;justify-content:center}
 .staff .lines{position:absolute;left:0;right:0;top:0;height:0}
 .staff .lines i{position:absolute;left:0;right:0;height:1px;background:var(--grid);opacity:.75}
 .staff .lines i.base{height:1.5px;opacity:1}
 .py{position:relative;white-space:nowrap;line-height:2.1;padding:0 4px;font-weight:400}
 .py .sep{color:var(--faint)}
 .tones .t1{color:var(--t1)} .tones .t2{color:var(--t2)} .tones .t3{color:var(--t3)} .tones .t4{color:var(--t4)} .tones .t5{color:var(--t5)}
+.sound-ex{flex:none;margin:10px 0 0;padding-bottom:3px;max-width:100%;font-size:var(--sxs,16px);line-height:1.4;color:var(--pencil);white-space:nowrap;overflow:hidden;text-align:center}
+.sound-ex.wrap{white-space:normal;text-wrap:balance}
+.sound-ex .sep{color:var(--faint)}
+.speaks{flex:none;display:flex;justify-content:center;gap:8px;margin-top:10px}
 .speak{appearance:none;border:1px solid var(--rule);background:var(--bg);border-radius:999px;display:flex;align-items:center;gap:6px;
-  padding:6px 12px 6px 10px;font-size:13px;color:var(--pencil);margin-top:6px}
+  min-height:34px;padding:6px 12px 6px 10px;font-size:13px;color:var(--pencil)}
 .speak svg{width:18px;height:18px}
 .speak.playing{color:var(--ink);border-color:var(--grid)}
 
@@ -175,7 +179,7 @@ main{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch}
 
 /* 例 : example slip */
 .exslot{--exh:74px;min-height:var(--exh);margin:0 0 12px;display:flex;flex-direction:column}
-.exslot.open{--exh:116px}
+.exslot.open{--exh:94px}
 .ex{position:relative;flex:1;display:grid;grid-template-columns:auto minmax(0,1fr) auto;column-gap:10px;align-items:start;
   background:var(--page);border:1px solid var(--rule);border-radius:10px;padding:8px 8px 6px 10px}
 .ex .tag{margin-top:7px}
@@ -183,7 +187,7 @@ main{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .ex-zh{margin:0;align-self:stretch;font-family:var(--zh);font-size:var(--exfs,22px);line-height:1.45;white-space:nowrap;overflow:hidden}
 .ex-zh.wrap{white-space:normal}
 .ex-zh.sysfont{font-family:var(--zh-sys)}
-.ex-zh mark,.form-ex mark{background:none;color:var(--pen);text-decoration-line:underline;text-decoration-thickness:2px;text-decoration-color:var(--pen);text-underline-offset:.22em}
+.ex-zh mark,.form-ex mark,.sound-ex mark,.ex-py mark{background:none;color:var(--pen);text-decoration-line:underline;text-decoration-thickness:2px;text-decoration-color:var(--pen);text-underline-offset:.22em}
 .ex-more{display:none;align-self:stretch}
 .ex.open .ex-more{display:flex;flex-direction:column;gap:1px}
 .ex-py{margin:0;font-size:15px;line-height:1.35}
@@ -537,11 +541,11 @@ textarea.mono{white-space:pre;overflow-x:auto}
 
       <p class="group-title">Cartes</p>
       <div class="set">
-        <div class="t"><b id="lbl-exform">Exemple sur la face <span class="zh">形</span></b><small>La phrase en caractères s’affiche sous le mot, sans pinyin ni traduction.</small></div>
+        <div class="t"><b id="lbl-exform">Exemple sur les faces <span class="zh">形</span> et <span class="zh">音</span></b><small>La phrase s’affiche en caractères sur <span class="zh">形</span> et en pinyin sur <span class="zh">音</span>, sans traduction. Sans ce réglage, son pinyin ne se voit que dans la fiche du mot.</small></div>
         <button type="button" class="switch" role="switch" id="sw-exform" aria-labelledby="lbl-exform" aria-checked="true"></button>
       </div>
       <div class="set">
-        <div class="t"><b id="lbl-ex">Pinyin et traduction des exemples</b><small>Affichés d’office sous la phrase quand la carte est tournée.</small></div>
+        <div class="t"><b id="lbl-ex">Traduction des exemples</b><small>Affichée d’office sous la phrase quand la carte est tournée.</small></div>
         <button type="button" class="switch" role="switch" id="sw-ex" aria-labelledby="lbl-ex" aria-checked="false"></button>
       </div>
       <div class="set">
@@ -621,7 +625,7 @@ const SYLL = new Set(("chuang shuang zhuang biang chang cheng chong chuai chuan 
 const LEGACY = ["阿姨","啊","矮","爱好","安静","把","班","搬","办法","办公室","半","帮忙","包","饱","北方","被","鼻子","比较","比赛","笔记本","必须","变化","别人","冰箱","不但","而且","菜单","参加","草","层","差","超市","衬衫","成绩","城市","迟到","除了","船","春","词典","聪明","打扫","打算","带","担心","蛋糕","当然","地","灯","地方","地铁","地图","电梯","电子邮件","东","冬","动物","短","段","锻炼","多么","饿","耳朵","发","发烧","发现","方便","放","放心","分","附近","复习","干净","感冒","感兴趣","刚才","个子","根据","跟","更","公斤","公园","故事","刮风","关","关系","关心","关于","国家","过","过去","还是","害怕","黑板","后来","护照","花","画","坏","欢迎","还","环境","换","黄河","回答","会议","或者","几乎","机会","极","记得","季节","检查","简单","见面","健康","讲","教","角","脚","接","街道","节目","节日","结婚","结束","解决","借","经常","经过","经理","久","旧","句子","决定","可爱","渴","刻","客人","空调","口","哭","裤子","筷子","蓝","老","离开","礼物","历史","脸","练习","辆","聊天","了解","邻居","留学","楼","绿","马","马上","满意","帽子","米","面包","明白","拿","奶奶","南","难","难过","年级","年轻","鸟","努力","爬山","盘子","胖","皮鞋","啤酒","瓶子","其实","其他","奇怪","骑","起飞","起来","清楚","请假","秋","裙子","然后","热情","认为","认真","容易","如果","伞","上网","生气","声音","世界","试","瘦","叔叔","舒服","树","数学","刷牙","双","水平","司机","太阳","特别","疼","提高","体育","甜","条","同事","同意","头发","突然","图书馆","腿","完成","碗","万","忘记","为","为了","位","文化","西","习惯","洗手间","洗澡","夏","先","相信","香蕉","向","像","小心","校长","新闻","新鲜","信用卡","行李箱","熊猫","需要","选择","要求","爷爷","一般","一边","一定","一共","一会儿","一样","一直","以前","音乐","银行","饮料","应该","影响","用","游戏","有名","又","遇到","元","愿意","月亮","越","站","张","长","着急","照顾","照片","照相机","只","只有","才","中间","中文","终于","种","重要","周末","主要","注意","自己","自行车","总是","嘴","最后","最近","作业"];
 const IS_PWA = true;
 const XH = 0.5078;
-const BUILD = "4 octobre 2026 à 10 h 04";
+const BUILD = "4 octobre 2026 à 10 h 41";
 
 /* ---------- utilities ---------- */
 const $ = (s, r = document) => r.querySelector(s);
@@ -1237,14 +1241,20 @@ class Prism {
     const head = k => `<div class="face-head"><span class="face-tag"><span class="zh">${FACE_NAMES[k][0]}</span>${FACE_NAMES[k][1]}</span>${triSVG(k)}</div>`;
     const fex = w.e && state.settings.exOnForm ? `<p class="form-ex${covered(w.e) ? "" : " sysfont"}" lang="zh-Hans">${markHead(w.e, w.h)}</p>` : "";
     this.faces[0].innerHTML = head(0) + `<div class="face-body"><div class="tzg-row">${cells}</div>${fex}</div>`;
+    const sex = w.ep && state.settings.exOnForm ? `<p class="sound-ex${tones}">${markPinyin(w.ep, w.p, w.e, w.h)}</p>` : "";
+    const say = w.e ? `<button type="button" class="speak" data-say aria-label="Écouter le mot">${SPEAKER}Mot</button>` +
+      `<button type="button" class="speak" data-say-ex aria-label="Écouter la phrase">${SPEAKER}Phrase</button>`
+      : `<button type="button" class="speak" data-say>${SPEAKER}Écouter</button>`;
     this.faces[1].innerHTML = head(1) +
       `<div class="face-body"><div class="staff"><div class="lines"><i></i><i></i><i class="base"></i><i></i></div>` +
-      `<div class="py${tones}">${w.p ? pinyinHTML(w.p) : "—"}</div></div>` +
-      (tts.ok ? `<button type="button" class="speak" data-say>${SPEAKER}Écouter</button>` : "") + "</div>";
+      `<div class="py${tones}">${w.p ? pinyinHTML(w.p) : "—"}</div></div>${sex}` +
+      (tts.ok ? `<div class="speaks">${say}</div>` : "") + "</div>";
     const note = w.n ? `<p class="note" data-note><span class="tag">注</span><span>${esc(w.n)}</span></p>` : "";
     this.faces[2].innerHTML = head(2) + `<div class="face-body"><ol class="senses">${senseItems(w)}</ol>${note}</div>`;
     const sb = $("[data-say]", this.faces[1]);
     if (sb) sb.addEventListener("click", e => { e.stopPropagation(); tts.say(w.s || w.h, sb); });
+    const se = $("[data-say-ex]", this.faces[1]);
+    if (se) se.addEventListener("click", e => { e.stopPropagation(); tts.say(w.e, se); });
     this.noteState();
     this.apply(false);
     this.fit();
@@ -1277,12 +1287,21 @@ class Prism {
     const innerW = this.w - 30, innerH = this.h - 70 - exH;
     const cell = Math.floor(Math.min(156, innerH, (innerW + (n - 1) * 1.5) / n));
     $(".tzg-row", this.faces[0]).style.setProperty("--cell", cell + "px");
-    // 音: pinyin sized to the width, staff lines drawn on its metrics
-    const py = $(".py", this.faces[1]);
+    // 音: pinyin sized to the width (and to the height left by the sentence), staff lines drawn on its metrics
+    const py = $(".py", this.faces[1]), sx = $(".sound-ex", this.faces[1]), body1 = $(".face-body", this.faces[1]);
+    if (sx) {
+      let xs = 16;
+      sx.classList.remove("wrap");
+      sx.style.setProperty("--sxs", xs + "px");
+      while (sx.scrollWidth > this.w - 34 && xs > 15) { xs -= 1; sx.style.setProperty("--sxs", xs + "px"); }
+      if (sx.scrollWidth > this.w - 34) sx.classList.add("wrap");
+    }
     let fs = 46;
     py.style.fontSize = fs + "px";
     const room = this.w - 44;
-    while (py.scrollWidth > room && fs > 18) { fs -= 2; py.style.fontSize = fs + "px"; }
+    const tall = () => body1.clientHeight > 0 && [...body1.children].reduce((a, el) => a + outer(el), 0) > body1.clientHeight;
+    while ((py.scrollWidth > room || tall()) && fs > 18) { fs -= 2; py.style.fontSize = fs + "px"; }
+    if (sx) for (let xs = 14; tall() && xs >= 13; xs--) sx.style.setProperty("--sxs", xs + "px");
     const probe = document.createElement("span");
     probe.style.cssText = "display:inline-block;width:0;height:0;vertical-align:baseline";
     py.insertBefore(probe, py.firstChild);
@@ -1309,13 +1328,47 @@ function markHead(e, h) {
   if (!h || !e.includes(h)) return esc(e);
   return e.split(h).map(esc).join(`<mark>${esc(h)}</mark>`);
 }
+function markPinyin(ep, p, e, h) {
+  // The sentence's pinyin with the word's syllables underlined, compared without tones (一 and 不 change theirs).
+  // With the sentence in characters (e, h), each occurrence of the word is placed by its position among the
+  // characters, so that a homophone earlier in the sentence (要 before 药) is left alone; otherwise, first match.
+  const toks = parsePinyin(ep), at = [];
+  toks.forEach((t, i) => { if (!t.sep) at.push(i); });
+  const syl = at.map(i => fold(toks[i].s));
+  const reads = String(p || "").split("/").map(r => parsePinyin(r).filter(t => !t.sep).map(t => fold(t.s))).filter(r => r.length);
+  const fits = (k, want) => k + want.length <= syl.length && want.every((x, j) => syl[k + j] === x || syl[k + j] === x + "r");
+  const runs = [];                                 // [first, last] syllable of each underlined occurrence
+  const zh = [...String(e || "")].filter(c => HAN.test(c));
+  if (h && zh.length) {
+    const pos = [];                                // syllable of each character; a 儿 glued as …r shares the one before
+    for (const c of zh) {
+      const k = pos.length ? pos[pos.length - 1] : -1;
+      pos.push(c === "儿" && k >= 0 && syl[k] !== "er" && syl[k].endsWith("r") && pos[pos.length - 2] !== k ? k : k + 1);
+    }
+    if (pos.length && pos[pos.length - 1] === syl.length - 1) {
+      const hw = [...h].filter(c => HAN.test(c));
+      for (let i = 0; i + hw.length <= zh.length; i++) {
+        if (zh.slice(i, i + hw.length).join("") !== hw.join("")) continue;
+        const k = pos[i], want = reads.find(r => fits(k, r));
+        if (want && !(runs.length && runs[runs.length - 1][1] >= k)) runs.push([k, k + want.length - 1]);
+      }
+    }
+  }
+  if (!runs.length) for (const want of reads) {
+    const k = syl.findIndex((_, i) => fits(i, want));
+    if (k >= 0) { runs.push([k, k + want.length - 1]); break; }
+  }
+  const span = t => t.sep ? `<span class="sep">${esc(t.sep)}</span>` : `<span class="t${t.t}">${esc(t.s)}</span>`;
+  const open = new Set(runs.map(r => at[r[0]])), shut = new Set(runs.map(r => at[r[1]]));
+  return toks.map((t, i) => (open.has(i) ? "<mark>" : "") + span(t) + (shut.has(i) ? "</mark>" : "")).join("");
+}
 function slipHTML(w, mode) {                      // mode: "covered" (card not turned yet), "shown", "full" (word sheet)
   if (!w || !w.e) return `<div class="ex empty"><span class="tag" aria-hidden="true">例</span><p class="ex-none">Pas encore de phrase d’exemple pour ce mot.</p></div>`;
   const open = mode === "full" || !!state.settings.exDetails;
   const tones = state.settings.toneColors ? " tones" : "";
-  const extra = (w.ep ? `<p class="ex-py${tones}">${pinyinHTML(w.ep)}</p>` : "") + (w.ef ? `<p class="ex-fr" lang="fr">${esc(w.ef)}</p>` : "");
+  const extra = (w.ep && mode === "full" ? `<p class="ex-py${tones}">${markPinyin(w.ep, w.p, w.e, w.h)}</p>` : "") + (w.ef ? `<p class="ex-fr" lang="fr">${esc(w.ef)}</p>` : "");
   const toggle = mode !== "full" && extra
-    ? `<button type="button" class="ex-toggle" data-ex-toggle aria-expanded="${open}">${CHEVRON}${open ? "Masquer" : "Pinyin et traduction"}</button>` : "";
+    ? `<button type="button" class="ex-toggle" data-ex-toggle aria-expanded="${open}">${CHEVRON}${open ? "Masquer" : "Traduction"}</button>` : "";
   return `<div class="ex${mode === "covered" ? " covered" : ""}${open ? " open" : ""}">` +
     `<span class="tag" aria-hidden="true">例</span>` +
     `<div class="ex-text"><p class="ex-zh${covered(w.e) ? "" : " sysfont"}" lang="zh-Hans">${markHead(w.e, w.h)}</p>` +
@@ -1334,7 +1387,7 @@ function fitSlip(root) {
 }
 function renderSlip(w, mode) {
   const slot = $("#example");
-  slot.classList.toggle("open", !!state.settings.exDetails && !!(w && w.e && (w.ep || w.ef)));
+  slot.classList.toggle("open", !!state.settings.exDetails && !!(w && w.e && w.ef));
   slot.innerHTML = slipHTML(w, mode);
   fitSlip(slot);
 }
@@ -1354,7 +1407,7 @@ function bindSlip(root, getWord) {
       const ex = $(".ex", root);
       ex.classList.toggle("open", state.settings.exDetails);
       tg.setAttribute("aria-expanded", String(state.settings.exDetails));
-      tg.innerHTML = CHEVRON + (state.settings.exDetails ? "Masquer" : "Pinyin et traduction");
+      tg.innerHTML = CHEVRON + (state.settings.exDetails ? "Masquer" : "Traduction");
       if (root.id === "example") { root.classList.toggle("open", state.settings.exDetails); prism.layout(); }
     }
   });

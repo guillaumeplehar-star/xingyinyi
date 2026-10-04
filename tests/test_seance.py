@@ -122,8 +122,8 @@ def main():
                 page.click("#example [data-ex-toggle]")
                 page.wait_for_timeout(450)
                 shot(page, "%s-03-example-open" % scheme)
-                check(page.evaluate("() => document.querySelector('#example .ex').classList.contains('open') && state.settings.exDetails"),
-                      "%s: pinyin and translation shown" % scheme)
+                check(page.evaluate("() => document.querySelector('#example .ex').classList.contains('open') && state.settings.exDetails && !document.querySelector('#example .ex-py')"),
+                      "%s: translation shown, the pinyin stays on the 音 face" % scheme)
                 # grades still on screen?
                 box = page.evaluate("() => { const g = document.querySelector('#grades').getBoundingClientRect(); const m = document.querySelector('#main').getBoundingClientRect(); return [g.bottom, m.bottom]; }")
                 check(box[0] <= box[1] + 1, "%s: grade buttons visible with example open" % scheme, box)
