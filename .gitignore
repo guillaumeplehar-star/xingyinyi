@@ -3,3 +3,5 @@ __pycache__/
 *.pyc
 .vscode/
 .idea/
+tests/sortie/
+.claude/settings.local.json

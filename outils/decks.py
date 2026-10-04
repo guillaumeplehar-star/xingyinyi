@@ -15,7 +15,7 @@
 
   python3 outils/decks.py nouvelle-liste hsk30-3 "HSK 3.0 niveau 3"
       Crée decks/hsk30-3.tsv (avec l'en-tête) et l'ajoute à decks/decks.json.
-      Options : --rappel 3 (liste de rappel, 3 mots par jour), --inactive, --fichier nom.tsv
+      Options : --inactive, --fichier nom.tsv. L'ordre des listes dans decks.json est l'ordre du premier tour.
 
 Le pinyin automatique demande pypinyin :  python3 -m pip install pypinyin
 Le pinyin calculé reste à relire, surtout pour les caractères à plusieurs lectures.
@@ -269,10 +269,9 @@ def verifier(_args):
         if not re.fullmatch(r"[A-Za-z0-9_.-]+", lid):
             report(where, "avertissement", "identifiant « %s » : garde lettres, chiffres, - et _ (il sert à retrouver la progression)" % lid)
         ids.add(lid)
-        if lst.get("mode", "apprendre") not in ("apprendre", "rappel"):
-            report(where, "avertissement", "mode « %s » inconnu : « apprendre » ou « rappel » (l'appli prendra « apprendre »)" % lst.get("mode"))
-        if "parJour" in lst and not (isinstance(lst["parJour"], int) and lst["parJour"] >= 0):
-            report(where, "avertissement", "parJour doit être un nombre entier positif")
+        for old in ("mode", "parJour"):
+            if old in lst:
+                report(where, "info", "« %s » ne sert plus (planning par seaux) : l'appli l'ignore, tu peux l'enlever" % old)
         if "actif" in lst and not isinstance(lst["actif"], bool):
             report(where, "avertissement", "actif doit valoir true ou false (sans guillemets)")
         path = os.path.join(DECKS, fichier)
@@ -463,17 +462,19 @@ def nouvelle_liste(args):
         with open(path, "w", encoding="utf-8") as fh:
             fh.write(HEADER.format(name=args.nom) + "\t".join(COLUMNS) + "\n")
         print("Créé : decks/%s" % fichier)
-    entry = {"id": lid, "nom": args.nom, "fichier": fichier, "mode": "rappel" if args.rappel else "apprendre"}
-    if args.rappel:
-        entry["parJour"] = args.rappel
-    entry["actif"] = not args.inactive
+    entry = {"id": lid, "nom": args.nom, "fichier": fichier, "actif": not args.inactive}
     cfg.setdefault("listes", []).append(entry)
     save_config(cfg)
-    print("Ajoutée à decks/decks.json, en dernière position (l'ordre des listes est l'ordre de priorité des nouveaux mots).")
+    print("Ajoutée à decks/decks.json, en dernière position (l'ordre des listes est l'ordre du premier tour).")
     print("Remplis le fichier, vérifie avec  %s verifier  puis publie avec git." % CMD)
 
 
 def main():
+    for stream in (sys.stdout, sys.stderr):   # sortie en tube sous Windows (Claude Code, redirection) : UTF-8
+        try:
+            stream.reconfigure(encoding="utf-8", errors="replace")
+        except Exception:
+            pass
     ap = argparse.ArgumentParser(prog="decks.py", description="Outils pour les listes de mots de 形音义 (dossier decks/).",
                                  formatter_class=argparse.RawDescriptionHelpFormatter, epilog=__doc__.split("\n\n", 1)[1])
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -497,7 +498,6 @@ def main():
     n.add_argument("id")
     n.add_argument("nom")
     n.add_argument("--fichier")
-    n.add_argument("--rappel", type=int, metavar="N", help="liste de rappel, N mots par jour")
     n.add_argument("--inactive", action="store_true", help="inscrite mais désactivée")
     n.set_defaults(func=nouvelle_liste)
     args = ap.parse_args()

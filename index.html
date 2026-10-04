@@ -81,7 +81,9 @@ button{cursor:pointer}
 .top{flex:none;display:flex;align-items:center;justify-content:space-between;gap:12px;
   padding:10px 16px 6px;max-width:560px;width:100%;margin:0 auto}
 .brand{font-family:var(--zh);font-size:26px;line-height:1;letter-spacing:.06em;margin:0;font-weight:400}
-.counts{display:flex;gap:6px}
+.counts{display:flex;gap:6px;margin-left:auto}
+.newcard{appearance:none;flex:none;width:36px;height:36px;border-radius:50%;border:1.5px solid var(--rule);background:var(--page);
+  color:var(--ink);font-size:22px;line-height:1;display:grid;place-items:center;padding:0}
 .count{display:flex;align-items:baseline;gap:5px;padding:4px 10px;border:1px solid var(--rule);border-radius:999px;
   background:var(--page);font-size:13px;color:var(--pencil);white-space:nowrap}
 .count b{font-size:16px;color:var(--ink);font-weight:700;font-variant-numeric:tabular-nums}
@@ -165,7 +167,7 @@ main{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .chips{display:flex;gap:6px;min-width:0;flex-wrap:wrap}
 .chip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--rule);border-radius:999px;padding:2px 9px;background:var(--page);white-space:nowrap}
 .chip.new{border-color:var(--grid);color:var(--ink)}
-.chip.rappel{border-color:var(--grid);border-style:dashed;color:var(--ink)}
+.chip.test{border-color:var(--grid);border-style:dashed;color:var(--ink)}
 .chip.deck{background:none;border-color:transparent;padding-left:2px;color:var(--faint)}
 .dots{display:flex;gap:6px;align-items:center}
 .dots i{width:7px;height:7px;border-radius:50%;border:1.5px solid var(--grid)}
@@ -208,12 +210,11 @@ main{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .turnbtn{width:100%;height:64px;border-radius:14px;border:1.5px solid var(--ink);background:var(--page);font-size:17px;font-weight:700;
   display:flex;align-items:center;justify-content:center;gap:10px}
 .turnbtn svg{width:22px;height:22px}
-.grades{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.grades{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
 .grade{appearance:none;border:1.5px solid var(--rule);background:var(--page);border-radius:14px;height:76px;padding:6px 4px;
   display:grid;grid-template-rows:30px auto auto;justify-items:center;align-content:center;gap:0}
 .grade:active{transform:translateY(1px)}
 .grade .mk{width:30px;height:30px;color:var(--pen)}
-.grade .mk.you{font-family:var(--zh);font-size:26px;line-height:30px;text-align:center;width:auto}
 .grade .gl{font-size:15px;font-weight:700;line-height:1.2}
 .grade .gi{font-size:12px;color:var(--faint);font-variant-numeric:tabular-nums}
 .grade[data-g="1"]{border-color:var(--ink)}
@@ -221,7 +222,6 @@ main{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch}
   opacity:0;transform:rotate(-9deg) scale(1.3);z-index:5}
 .stamp.show{animation:stamp .42s cubic-bezier(.2,.9,.3,1.2) forwards}
 .stamp svg{width:100%;height:100%}
-.stamp .you{font-family:var(--zh);font-size:118px;line-height:132px;display:block;text-align:center}
 @keyframes stamp{0%{opacity:0;transform:rotate(-9deg) scale(1.35)}45%{opacity:.95;transform:rotate(-9deg) scale(.98)}100%{opacity:.92;transform:rotate(-9deg) scale(1)}}
 
 /* session finished, loading */
@@ -229,6 +229,8 @@ main{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .done h2{font-size:22px;margin:0 0 6px;text-wrap:balance}
 .done p{margin:0 0 10px;color:var(--pencil)}
 .done .row-btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.done .zh{color:var(--ink);font-size:19px}
+.evalres{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 12px}
 .loading{padding:40px 4px;color:var(--pencil)}
 .loading p{margin:0 0 12px;max-width:44ch}
 
@@ -309,16 +311,17 @@ main{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch}
 
 /* ---------- settings ---------- */
 .set{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px 0;border-bottom:1px solid var(--rule)}
-.view > .set:first-child,.group-title + .set,.decks > .set:first-child{border-top:1px solid var(--rule)}
-.set.sub{padding:8px 0 10px 16px}
+.group-title + .set,.decks > .set:first-child{border-top:1px solid var(--rule)}
 .set .t{min-width:0}
 .set .t b{display:block;font-size:15px}
 .set .t small{display:block;color:var(--pencil);font-size:13px;line-height:1.35}
 .set .t small.warn{color:var(--pen)}
 .set input[type=date]{border:1.5px solid var(--rule);background:var(--page);border-radius:10px;padding:6px 8px;font-size:16px;min-width:0}
 .stepper{display:flex;align-items:center;gap:6px;flex:none}
+.ctl{display:flex;align-items:center;gap:8px;flex:none}
 .stepper button{width:34px;height:34px;border-radius:10px;border:1.5px solid var(--rule);background:var(--page);font-size:18px;line-height:1}
 .stepper output{min-width:2.2ch;text-align:center;font-weight:700;font-variant-numeric:tabular-nums}
+.stepper output.wide{min-width:5.4ch}
 .switch{appearance:none;width:48px;height:28px;border-radius:999px;background:var(--rule);position:relative;flex:none;border:0;transition:background .15s}
 .switch::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:var(--page);box-shadow:0 1px 2px var(--shadow);transition:transform .15s}
 .switch[aria-checked="true"]{background:var(--accent)}
@@ -385,6 +388,7 @@ textarea.mono{white-space:pre;overflow-x:auto}
   <header class="top">
     <h1 class="brand" lang="zh-Hans">形音义</h1>
     <div class="counts" id="counts" aria-live="polite"></div>
+    <button type="button" class="newcard" id="btn-new" aria-label="Nouvelle fiche">＋</button>
   </header>
 
   <main id="main">
@@ -420,15 +424,11 @@ textarea.mono{white-space:pre;overflow-x:auto}
           <div class="grades" id="grades" hidden>
             <button type="button" class="grade" data-g="0" aria-describedby="gi0">
               <svg class="mk" viewBox="0 0 64 64" aria-hidden="true"><path d="M17 17c10 9 19 19 30 30M47 16c-9 10-18 20-30 31" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/></svg>
-              <span class="gl">Raté</span><span class="gi" id="gi0">à revoir</span>
+              <span class="gl">Raté</span><span class="gi" id="gi0">seau 0</span>
             </button>
             <button type="button" class="grade" data-g="1" aria-describedby="gi1">
               <svg class="mk" viewBox="0 0 64 64" aria-hidden="true"><path d="M12 34c6 4 10 9 14 15 8-15 16-27 27-38" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              <span class="gl">Bon</span><span class="gi" id="gi1">1 jour</span>
-            </button>
-            <button type="button" class="grade" data-g="2" aria-describedby="gi2">
-              <span class="mk you" aria-hidden="true">优</span>
-              <span class="gl">Facile</span><span class="gi" id="gi2">8 jours</span>
+              <span class="gl">Réussi</span><span class="gi" id="gi1">seau 1</span>
             </button>
           </div>
         </div>
@@ -437,13 +437,15 @@ textarea.mono{white-space:pre;overflow-x:auto}
       <div class="done" id="done" hidden>
         <h2 id="done-title">Séance terminée</h2>
         <p id="done-text"></p>
+        <div id="done-more"></div>
         <p id="done-next"></p>
         <div class="row-btns">
-          <button type="button" class="btn primary" id="more-new">Apprendre 5 mots de plus</button>
+          <button type="button" class="btn primary" id="done-back" hidden>Reprendre la file</button>
+          <button type="button" class="btn" id="eval-start">Faire une évaluation</button>
           <button type="button" class="btn" id="free-start">S’entraîner librement</button>
         </div>
       </div>
-      <p class="explain" id="free-note" hidden>Entraînement libre : tes réponses ne changent pas le planning. <button type="button" class="btn ghost" id="free-stop">Arrêter</button></p>
+      <p class="explain" id="free-note" hidden><span id="free-text"></span> <button type="button" class="btn ghost" id="free-stop">Arrêter</button></p>
     </section>
 
     <!-- WORDS -->
@@ -456,7 +458,7 @@ textarea.mono{white-space:pre;overflow-x:auto}
       <div class="ltabs" id="wdeck" role="group" aria-label="Liste"></div>
       <div class="filters" id="filters" role="group" aria-label="Avancement">
         <button type="button" data-f="all" aria-pressed="true">Tous</button>
-        <button type="button" data-f="new" aria-pressed="false">Pas encore vus</button>
+        <button type="button" data-f="new" aria-pressed="false">À voir</button>
         <button type="button" data-f="learn" aria-pressed="false">En cours</button>
         <button type="button" data-f="known" aria-pressed="false">Acquis</button>
       </div>
@@ -475,7 +477,7 @@ textarea.mono{white-space:pre;overflow-x:auto}
     <!-- PROGRESS -->
     <section class="view" id="view-progress" aria-label="Progrès" hidden>
       <div class="section">
-        <div class="seen"><b class="num" id="seen-n">0</b><span id="seen-of">mots vus</span></div>
+        <div class="seen"><b class="num" id="seen-n">0</b><span id="seen-of">mots passés</span></div>
         <div class="bar" aria-hidden="true"><i id="seen-bar" style="width:0"></i></div>
         <p class="explain" id="projection"></p>
       </div>
@@ -484,37 +486,45 @@ textarea.mono{white-space:pre;overflow-x:auto}
         <table class="dt" id="decktable"></table>
       </div>
       <div class="section">
-        <h2>Les boîtes de révision</h2>
-        <p class="sub">Les mots déjà vus, rangés selon leur délai de retour.</p>
-        <div class="cols" id="boxes" style="--n:6"></div>
-        <div class="axis" id="boxes-axis" style="--n:6"></div>
+        <h2>Les seaux</h2>
+        <p class="sub">Les mots déjà passés, rangés selon leur délai de retour.</p>
+        <div class="cols" id="boxes"></div>
+        <div class="axis" id="boxes-axis"></div>
         <p class="detail" id="boxes-detail"></p>
-        <p class="explain">Un <span class="zh">√</span> fait passer le mot dans la boîte suivante, où l’intervalle double. Un <span class="zh">优</span> le fait monter de deux boîtes. Un <span class="zh">×</span> le renvoie en boîte 1 et il revient plus tard dans la séance. Un rappel réussi part directement en boîte 4 (<span class="zh">√</span>) ou 6 (<span class="zh">优</span>).</p>
+        <p class="explain">Chaque mot commence au seau 0. Un <span class="zh">√</span> le fait monter d’un seau : il revient après le délai de ce seau, réglable dans Réglages. Un <span class="zh">×</span> le renvoie au seau 0, à la fin de la file : il revient quand tous les autres mots sont passés.</p>
+        <div class="btnrow"><button type="button" class="btn primary" id="eval-go">Faire une évaluation</button><button type="button" class="btn" id="free-go">S’entraîner librement</button></div>
+        <p class="explain" id="eval-info" style="margin-top:0"></p>
       </div>
       <div class="section">
         <h2>Révisions prévues</h2>
-        <p class="sub">Mots déjà vus et rappels qui reviendront chaque jour de la semaine.</p>
-        <div class="cols" id="forecast" style="--n:7"></div>
-        <div class="axis" id="forecast-axis" style="--n:7"></div>
+        <p class="sub">Mots des seaux 1 et plus qui reviendront chaque jour de la semaine, plus les mots ratés aujourd’hui.</p>
+        <div class="cols" id="forecast"></div>
+        <div class="axis" id="forecast-axis"></div>
         <p class="detail" id="forecast-detail"></p>
       </div>
     </section>
 
     <!-- SETTINGS -->
     <section class="view" id="view-settings" aria-label="Réglages" hidden>
-      <div class="set">
-        <div class="t"><b id="lbl-new">Nouveaux mots par jour</b><small id="new-order"></small></div>
-        <div class="stepper" role="group" aria-labelledby="lbl-new">
-          <button type="button" id="new-minus" aria-label="Moins">−</button>
-          <output id="new-val" class="num">10</output>
-          <button type="button" id="new-plus" aria-label="Plus">+</button>
-        </div>
-      </div>
-
-      <p class="group-title">Listes</p>
+      <p class="group-title" style="margin-top:8px">Listes</p>
+      <p class="explain" id="new-order" style="margin:0 0 10px"></p>
       <div class="decks" id="deck-settings"></div>
       <div class="btnrow" id="lists-check-row"><button type="button" class="btn" id="lists-check">Chercher une mise à jour des listes</button></div>
       <p class="explain" id="lists-info"></p>
+
+      <p class="group-title">Seaux</p>
+      <div class="decks" id="bucket-settings"></div>
+      <div class="btnrow" id="bucket-btns"></div>
+
+      <p class="group-title">Évaluation</p>
+      <div class="set">
+        <div class="t"><b id="lbl-eval">Mots par évaluation</b><small>Tirés dans tous les seaux, parmi les mots déjà vus.</small></div>
+        <div class="stepper" role="group" aria-labelledby="lbl-eval">
+          <button type="button" id="eval-minus" aria-label="Moins">−</button>
+          <output id="eval-val" class="num">20</output>
+          <button type="button" id="eval-plus" aria-label="Plus">+</button>
+        </div>
+      </div>
 
       <p class="group-title">Examen</p>
       <div class="set">
@@ -611,7 +621,7 @@ const SYLL = new Set(("chuang shuang zhuang biang chang cheng chong chuai chuan 
 const LEGACY = ["阿姨","啊","矮","爱好","安静","把","班","搬","办法","办公室","半","帮忙","包","饱","北方","被","鼻子","比较","比赛","笔记本","必须","变化","别人","冰箱","不但","而且","菜单","参加","草","层","差","超市","衬衫","成绩","城市","迟到","除了","船","春","词典","聪明","打扫","打算","带","担心","蛋糕","当然","地","灯","地方","地铁","地图","电梯","电子邮件","东","冬","动物","短","段","锻炼","多么","饿","耳朵","发","发烧","发现","方便","放","放心","分","附近","复习","干净","感冒","感兴趣","刚才","个子","根据","跟","更","公斤","公园","故事","刮风","关","关系","关心","关于","国家","过","过去","还是","害怕","黑板","后来","护照","花","画","坏","欢迎","还","环境","换","黄河","回答","会议","或者","几乎","机会","极","记得","季节","检查","简单","见面","健康","讲","教","角","脚","接","街道","节目","节日","结婚","结束","解决","借","经常","经过","经理","久","旧","句子","决定","可爱","渴","刻","客人","空调","口","哭","裤子","筷子","蓝","老","离开","礼物","历史","脸","练习","辆","聊天","了解","邻居","留学","楼","绿","马","马上","满意","帽子","米","面包","明白","拿","奶奶","南","难","难过","年级","年轻","鸟","努力","爬山","盘子","胖","皮鞋","啤酒","瓶子","其实","其他","奇怪","骑","起飞","起来","清楚","请假","秋","裙子","然后","热情","认为","认真","容易","如果","伞","上网","生气","声音","世界","试","瘦","叔叔","舒服","树","数学","刷牙","双","水平","司机","太阳","特别","疼","提高","体育","甜","条","同事","同意","头发","突然","图书馆","腿","完成","碗","万","忘记","为","为了","位","文化","西","习惯","洗手间","洗澡","夏","先","相信","香蕉","向","像","小心","校长","新闻","新鲜","信用卡","行李箱","熊猫","需要","选择","要求","爷爷","一般","一边","一定","一共","一会儿","一样","一直","以前","音乐","银行","饮料","应该","影响","用","游戏","有名","又","遇到","元","愿意","月亮","越","站","张","长","着急","照顾","照片","照相机","只","只有","才","中间","中文","终于","种","重要","周末","主要","注意","自己","自行车","总是","嘴","最后","最近","作业"];
 const IS_PWA = true;
 const XH = 0.5078;
-const BUILD = "3 octobre 2026 à 16 h 57";
+const BUILD = "4 octobre 2026 à 10 h 04";
 
 /* ---------- utilities ---------- */
 const $ = (s, r = document) => r.querySelector(s);
@@ -619,7 +629,10 @@ const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const HAN = /[㐀-鿿豈-﫿]/;
 const isHan = ch => HAN.test(ch);
-const INTERVALS = [0, 1, 2, 4, 8, 16, 32];
+const DELAYS = [1, 3, 7, 14, 30, 60];             // days before a word of bucket 1, 2… comes back (bucket 0: end of the line)
+const DELAY_STEPS = [1, 2, 3, 4, 5, 6, 7, 10, 14, 21, 30, 45, 60, 90, 120, 180, 270, 365];
+const MAX_BUCKETS = 10;
+const SCHED = 1;                                  // planning format: 1 = buckets and line (before: boxes and daily quotas)
 const CIRCLED = "①②③④⑤⑥⑦⑧⑨";
 const FACE_NAMES = [["形", "forme"], ["音", "son"], ["义", "sens"]];
 const NB = " "; // narrow no-break space, before : ; ! ? in French
@@ -629,13 +642,12 @@ function dayNum(t = Date.now()) {               // the day starts at 4:00, like 
   return Math.floor(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()) / 864e5);
 }
 function dateOfDay(n) { const u = new Date(n * 864e5); return new Date(u.getUTCFullYear(), u.getUTCMonth(), u.getUTCDate(), 12); }
+function dayStart(n) { return dateOfDay(n).setHours(4, 0, 0, 0); }   // the moment day n begins
 function dayOfISO(s) { const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(s || ""); return m ? Math.floor(Date.UTC(+m[1], +m[2] - 1, +m[3]) / 864e5) : null; }
 const fmtLong = new Intl.DateTimeFormat("fr-FR", { weekday: "long", day: "numeric", month: "long" });
-const fmtDM = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "short" });
 const fmtShort = new Intl.DateTimeFormat("fr-FR", { weekday: "short" });
 const fmtTime = new Intl.DateTimeFormat("fr-FR", { hour: "numeric", minute: "2-digit" });
 function longDate(n) { return fmtLong.format(dateOfDay(n)).replace(/(^|\s)1 /, "$11er "); }
-function shortDate(n) { return fmtDM.format(dateOfDay(n)).replace(/^1 /, "1er "); }
 function dayLabel(n, today) {
   if (n === today) return "aujourd’hui";
   if (n === today + 1) return "demain";
@@ -649,14 +661,6 @@ function whenText(t) {                            // "aujourd’hui à 14 h 05",
 }
 function shuffle(a) { for (let k = a.length - 1; k > 0; k--) { const r = Math.floor(Math.random() * (k + 1)); [a[k], a[r]] = [a[r], a[k]]; } return a; }
 function plural(n, one, many) { return n + " " + (n > 1 ? many : one); }   // no-break space
-function spread(a, b) {                          // b's items spaced out evenly among a's
-  const out = []; let i = 0, j = 0;
-  while (i < a.length || j < b.length) {
-    if (j >= b.length || (i < a.length && (i + 1) / (a.length + 1) <= (j + 1) / (b.length + 1))) out.push(a[i++]);
-    else out.push(b[j++]);
-  }
-  return out;
-}
 function newId() { return "u-" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6); }
 
 /* ---------- pinyin ---------- */
@@ -768,16 +772,25 @@ function fold(s) {
 
 /* ---------- storage ---------- */
 const KEY = "xingyinyi.v2", KEY_V1 = "xingyinyi.v1", LKEY = "xingyinyi.listes";
-const DEFAULTS = { newPerDay: 10, startFace: 0, autoAudio: true, rate: 0.8, toneColors: true, exDetails: false, exOnForm: true, exam: "2026-11-29" };
-let storageOK = true, migratedV1 = false;
-function freshState() { return { v: 2, settings: { ...DEFAULTS }, cards: {}, edits: {}, custom: [], lists: [], decks: {}, log: {}, extra: null }; }
+const KEY_OLD = "xingyinyi.avant-seaux";          // the progress as it was before the switch to buckets, kept once
+const DEFAULTS = { evalSize: 20, startFace: 0, autoAudio: true, rate: 0.8, toneColors: true, exDetails: false, exOnForm: true, exam: "2026-11-29" };
+let storageOK = true, migratedV1 = false, migratedSched = false;
+function freshState() { return { v: 2, sched: SCHED, settings: { ...DEFAULTS, delays: [...DELAYS] }, cards: {}, edits: {}, custom: [], lists: [], decks: {}, log: {} }; }
+function cleanDelays(a) {
+  const d = (Array.isArray(a) ? a : []).map(x => Math.round(+x)).filter(x => x >= 1 && x <= 365).slice(0, MAX_BUCKETS - 1);
+  return d.length ? d : [...DELAYS];
+}
 function normalizeState(s) {
   // Accepts a saved state of this version or of the first one (single HSK 3 list, ids h3-000…h3-299).
+  // migratedSched tells whether this call reset an older planning to bucket 0.
+  migratedSched = false;
   const st = freshState();
   if (!s || typeof s !== "object") return st;
   st.settings = { ...DEFAULTS, ...(s.settings || {}) };
+  delete st.settings.newPerDay;
+  st.settings.delays = cleanDelays(st.settings.delays);
+  st.settings.evalSize = Math.max(5, Math.min(100, Math.round(+st.settings.evalSize) || DEFAULTS.evalSize));
   st.log = s.log && typeof s.log === "object" ? s.log : {};
-  st.extra = s.extra || null;
   const obj = o => (o && typeof o === "object" ? o : {});
   if ((s.v || 1) < 2) {
     const mapId = id => { const m = /^h3-(\d{3})$/.exec(id); return m && LEGACY[+m[1]] ? "hsk3:" + LEGACY[+m[1]] : id; };
@@ -790,15 +803,31 @@ function normalizeState(s) {
     st.custom = (Array.isArray(s.custom) ? s.custom : []).filter(w => w && w.h && w.id);
     st.lists = (Array.isArray(s.lists) ? s.lists : []).filter(x => x && x.id && x.nom);
   }
+  for (const [id, c] of Object.entries(st.cards)) if (!c || typeof c !== "object") delete st.cards[id];
+  for (const d of Object.values(st.decks)) if (d && typeof d === "object") { delete d.perDay; delete d.cfgPer; }
+  if (s.sched !== SCHED && !(s.settings && Array.isArray(s.settings.delays))) {
+    // Boxes and daily quotas of the first versions -> buckets: every word goes back to bucket 0 and the first
+    // pass starts again, in list order. Review and lapse counts stay, as history.
+    if (Object.keys(st.cards).length) migratedSched = true;
+    for (const c of Object.values(st.cards)) { c.b = 0; delete c.d; }
+  }
+  const top = st.settings.delays.length;
+  for (const c of Object.values(st.cards)) {
+    c.b = Math.max(0, Math.min(top, Math.round(+c.b) || 0));
+    c.r = +c.r || 0; c.l = +c.l || 0; delete c.f;              // f: day of the last miss, no longer used
+    if (c.b > 0 && !Number.isFinite(c.d)) c.d = Number.isFinite(c.t) ? c.t + st.settings.delays[c.b - 1] : dayNum();
+  }
   return st;
 }
 function loadState() {
   try {
     const raw = localStorage.getItem(KEY);
-    if (raw) return normalizeState(JSON.parse(raw));
-    const old = localStorage.getItem(KEY_V1);
-    if (old) { migratedV1 = true; return normalizeState(JSON.parse(old)); }
-    return freshState();
+    const old = raw || localStorage.getItem(KEY_V1);
+    if (!old) return freshState();
+    migratedV1 = !raw;
+    const st = normalizeState(JSON.parse(old));
+    if (migratedSched) try { if (!localStorage.getItem(KEY_OLD)) localStorage.setItem(KEY_OLD, old); } catch (e) {}
+    return st;
   } catch (e) { storageOK = false; return freshState(); }
 }
 let state = loadState();
@@ -852,9 +881,7 @@ function buildLists(src) {
       const k = (count[r.h] = (count[r.h] || 0) + 1);
       return { ...r, id: id + ":" + r.h + (k > 1 ? "#" + k : ""), deck: id, o: i };
     });
-    const per = Math.round(+raw.parJour);
-    lists.push({ id, nom: String(raw.nom || id), fichier: String(raw.fichier), mode: raw.mode === "rappel" ? "rappel" : "apprendre",
-      parJour: Number.isFinite(per) ? Math.max(0, Math.min(50, per)) : 3, actif: raw.actif !== false, words, missing: typeof text !== "string" });
+    lists.push({ id, nom: String(raw.nom || id), fichier: String(raw.fichier), actif: raw.actif !== false, words, missing: typeof text !== "string" });
   }
   return lists;
 }
@@ -867,7 +894,7 @@ function showList(L) { return L.id !== TEL || L.words.length > 0; }
 function phoneLists() {
   // "Ajoutés ici" for words without a list of their own, then the lists created on the phone
   const all = [{ id: TEL, nom: "Ajoutés ici" }, ...state.lists];
-  return all.map(P => ({ id: P.id, nom: P.nom, fichier: "", mode: "apprendre", parJour: 0, actif: true, phone: true,
+  return all.map(P => ({ id: P.id, nom: P.nom, fichier: "", actif: true, phone: true,
     words: state.custom.filter(w => listIdOf(w) === P.id).map((w, i) => ({ ...w, deck: P.id, o: i })) }));
 }
 function rebuildDeck() {
@@ -879,13 +906,11 @@ function rebuildDeck() {
 }
 function original(id) { const w = BYID.get(id); const L = w && LISTBYID.get(w.deck); return L ? L.words.find(x => x.id === id) : null; }
 function deckOn(id) { const d = state.decks[id]; return !d || d.on !== false; }
-function deckPerDay(id) { const d = state.decks[id], L = LISTBYID.get(id); return d && Number.isFinite(d.perDay) ? d.perDay : (L ? L.parJour : 3); }
 function syncDeckSettings() {
   // What decks.json says wins whenever it changes; otherwise the phone's own switch stays.
   for (const L of BASE) {
     const d = state.decks[L.id] || (state.decks[L.id] = {});
     if (d.cfgOn !== L.actif) { d.cfgOn = L.actif; d.on = L.actif; }
-    if (d.cfgPer !== L.parJour) { d.cfgPer = L.parJour; d.perDay = L.parJour; }
   }
 }
 function repoTwin(phoneId) {
@@ -1048,54 +1073,65 @@ function showLoadError(e) {
 /* ---------- cards ---------- */
 const card = id => state.cards[id];
 const seen = id => { const c = state.cards[id]; return !!(c && c.r); };
-const boxOf = id => (seen(id) ? state.cards[id].b : 0);
+const topBucket = () => state.settings.delays.length;    // buckets 0…top; normalizeState, recomputeDue and applyGrade keep b ≤ top
+const bucketOf = id => { const c = state.cards[id]; return c ? c.b : 0; };
+const delayOf = b => state.settings.delays[b - 1];        // b ≥ 1
 function listOf(id) { const w = BYID.get(id); return w ? LISTBYID.get(w.deck) : null; }
-function isRappel(id) { const L = listOf(id); return !!L && L.mode === "rappel" && !seen(id); }
 function covered(h) { for (const ch of String(h || "")) if (isHan(ch) && !COVER.has(ch)) return false; return true; }
 
-/* ---------- scheduling (Leitner boxes) ---------- */
-function outcome(c, today, rappel) {
-  if (rappel) return { good: 4, easy: 6 };       // a known word met again: back in 8 or 32 days
-  const b = c ? c.b : 0;
-  const failedToday = !!c && c.f === today;
-  const good = failedToday ? 1 : Math.min(6, Math.max(1, b + 1));
-  const easy = failedToday ? 2 : (b === 0 ? 4 : Math.min(6, b + 2));
-  return { good, easy };
-}
-function logAdd(today, kind, deck) {
-  const L = state.log[today] || (state.log[today] = { n: 0, r: 0 });
-  if (kind === "k") { L.k = L.k || {}; L.k[deck] = (L.k[deck] || 0) + 1; }
-  else L[kind] = (L[kind] || 0) + 1;
-}
-function applyGrade(id, g) {
-  const today = dayNum();
-  const rappel = isRappel(id);
-  const c = state.cards[id] || { b: 0, d: today, r: 0, l: 0 };
-  const first = !c.r;
-  if (g === 0) {
-    if (c.b > 0 && c.f !== today) c.l++;
-    c.b = 1; c.d = today; c.f = today;
-  } else {
-    const o = outcome(c, today, rappel);
-    c.b = g === 1 ? o.good : o.easy;
-    c.d = today + INTERVALS[c.b];
+/* ---------- scheduling (buckets and line) ---------- */
+// Every word starts in bucket 0. The line goes first through every word not yet passed (list order), then takes the
+// missed words (bucket 0, in the order they were missed) and the words of buckets 1… whose delay is over (oldest first).
+// √ moves a word up one bucket; × sends it back to bucket 0, at the end of the line.
+function inPass(id) { const c = state.cards[id]; return !c || (c.b === 0 && !c.k); }    // waiting for the first pass
+function missed(id) { const c = state.cards[id]; return !!c && c.b === 0 && !!c.k; }    // bucket 0 after a ×
+function isDue(id, today) { const c = state.cards[id]; return !!c && c.b > 0 && c.d <= today; }
+function lineKey(c) { return c.b > 0 ? dayStart(c.d) : c.k; }                          // when the word joined the line
+function lineOf(today) {
+  // DECK is in list order, then file order: the first pass keeps it. The other words are sorted by the moment they
+  // joined the line, then by their last review; the sort is stable, so list order settles the remaining ties.
+  const pass = [], back = [];
+  for (const w of DECK) {
+    if (!deckOn(w.deck)) continue;
+    if (inPass(w.id)) pass.push(w.id);
+    else if (missed(w.id) || isDue(w.id, today)) { const c = card(w.id); back.push([lineKey(c), c.t || 0, w.id]); }
   }
-  c.r++; c.t = today;
+  back.sort((a, b) => a[0] - b[0] || a[1] - b[1]);
+  return pass.concat(back.map(x => x[2]));
+}
+function bucketCounts() {                          // words of the active lists already passed, per bucket
+  const n = Array(topBucket() + 1).fill(0);
+  for (const w of DECK) if (deckOn(w.deck) && !inPass(w.id)) n[bucketOf(w.id)]++;
+  return n;
+}
+function recomputeDue() {                          // after a change of the delays or of the number of buckets
+  const today = dayNum();
+  for (const c of Object.values(state.cards)) {
+    if (c.b > topBucket()) c.b = topBucket();
+    if (c.b > 0) c.d = (Number.isFinite(c.t) ? c.t : today) + delayOf(c.b);
+  }
+}
+function logAdd(today, kind) {
+  const L = state.log[today] || (state.log[today] = { n: 0, r: 0 });
+  L[kind] = (L[kind] || 0) + 1;
+}
+function applyGrade(id, ok, test) {
+  // test (evaluation): a × sends the word back to bucket 0 as usual, a √ leaves its planning untouched.
+  const today = dayNum();
+  const c = state.cards[id] || { b: 0, r: 0, l: 0 };
+  const first = !c.r, pass = inPass(id);
+  if (!ok) {
+    if (c.b > 0) c.l++;
+    c.b = 0; c.k = Date.now(); delete c.d;
+  } else if (!test) {
+    c.b = Math.min(topBucket(), c.b + 1); c.d = today + delayOf(c.b); delete c.k;
+  }
+  c.r++;
+  if (!(test && ok)) c.t = today;
   if (first) c.s = today;
   state.cards[id] = c;
-  const w = BYID.get(id);
-  logAdd(today, first ? (rappel ? "k" : "n") : "r", w && w.deck);
+  if (!test) { logAdd(today, first ? "n" : "r"); if (pass) logAdd(today, "p"); }   // after a grade the word has left the pass
 }
-function newQuota(today) {
-  const extra = state.extra && state.extra.day === today ? state.extra.n : 0;
-  const done = (state.log[today] && state.log[today].n) || 0;
-  return Math.max(0, state.settings.newPerDay + extra - done);
-}
-function rappelQuota(deck, today) {
-  const L = state.log[today];
-  return Math.max(0, deckPerDay(deck) - ((L && L.k && L.k[deck]) || 0));
-}
-function unseenOf(L) { return L.words.filter(w => !seen(w.id)); }
 
 /* ---------- speech ---------- */
 const tts = {
@@ -1325,60 +1361,66 @@ function bindSlip(root, getWord) {
 }
 
 /* ---------- study session ---------- */
+function evalPick(n) {
+  // Words already met, taken in turn from every bucket so that each one is represented, then shuffled.
+  const groups = Array.from({ length: topBucket() + 1 }, () => []);
+  for (const w of DECK) if (deckOn(w.deck) && seen(w.id)) groups[bucketOf(w.id)].push(w.id);
+  groups.forEach(shuffle);
+  const out = [];
+  while (out.length < n && groups.some(g => g.length)) for (const g of groups) if (g.length && out.length < n) out.push(g.pop());
+  return shuffle(out);
+}
 const study = {
-  queue: [], cur: null, curFace: 0, free: false, busy: false, ready: false, day: 0,
+  queue: [], cur: null, curFace: 0, mode: "line", busy: false, ready: false, day: 0, res: null,   // mode: line, free, eval
   build(keep) {
-    const today = dayNum();
-    this.day = today;
-    const active = DECK.filter(w => deckOn(w.deck));
-    const due = shuffle(active.filter(w => { const c = card(w.id); return c && c.r && c.d <= today; }))
-      .sort((a, b) => card(a.id).d - card(b.id).d || card(a.id).b - card(b.id).b)
-      .map(w => w.id);
-    const rappel = [];
-    for (const L of LISTS) if (L.mode === "rappel" && deckOn(L.id)) {
-      const q = rappelQuota(L.id, today);
-      if (q > 0) rappel.push(...unseenOf(L).slice(0, q).map(w => w.id));
+    // keep: the lists or the cards changed under the session; the word on screen stays if it still belongs to it
+    if (keep && this.mode !== "line") {             // a training or an evaluation carries on
+      const still = id => BYID.has(id) && deckOn(BYID.get(id).deck);
+      this.queue = this.queue.filter(still);
+      if (this.cur && !still(this.cur) && !this.busy) this.next(true);   // the word moved (published) or its list is off
+      else renderCounts();
+      return;
     }
-    const fresh = [];
-    let quota = newQuota(today);
-    for (const L of LISTS) if (L.mode === "apprendre" && deckOn(L.id) && quota > 0) {
-      const pick = unseenOf(L).slice(0, quota);
-      fresh.push(...pick.map(w => w.id));
-      quota -= pick.length;
-    }
-    const known = spread(due, shuffle(rappel));
-    const q = [];
-    let i = 0, j = 0;
-    while (i < known.length || j < fresh.length) {        // one new word after every two known ones
-      if (i < known.length) q.push(known[i++]);
-      if (i < known.length) q.push(known[i++]);
-      if (j < fresh.length) q.push(fresh[j++]);
-    }
-    if (keep && this.cur && BYID.has(this.cur) && !this.free) {
+    this.day = dayNum();
+    const q = lineOf(this.day);
+    if (keep && this.cur && (this.busy || q.includes(this.cur))) {   // busy: next() reads the line again anyway
       this.queue = q.filter(id => id !== this.cur);
       renderCounts();
       return;
     }
-    this.free = false;
-    this.queue = q;
+    this.mode = "line";
     this.next(true);
   },
   startFree() {
     const active = DECK.filter(w => deckOn(w.deck));
     const pool = active.filter(w => seen(w.id)).map(w => w.id);
-    this.queue = shuffle(pool.length >= 5 ? pool : active.map(w => w.id)); this.free = true;
+    this.mode = "free";
+    this.queue = shuffle(pool.length >= 5 ? pool : active.map(w => w.id));
     this.next(true);
+  },
+  startEval() {
+    const ids = evalPick(state.settings.evalSize);
+    if (!ids.length) { toast("Rien à évaluer pour l’instant : l’évaluation porte sur les mots déjà vus."); return false; }
+    this.mode = "eval"; this.res = { ok: [], ko: [] };
+    this.queue = ids;
+    this.next(true);
+    return true;
+  },
+  stop() {                                          // "Arrêter": an evaluation shows its results so far
+    if (this.mode === "eval" && (this.res.ok.length || this.res.ko.length)) { this.queue = []; this.next(true); }
+    else this.build();
   },
   pickFace() {
     const f = state.settings.startFace;
     return f === "r" ? Math.floor(Math.random() * 3) : +f;
   },
   next(instant) {
+    if (this.mode === "line") { this.day = dayNum(); this.queue = lineOf(this.day); }   // the line is read again for each card
     this.cur = this.queue.shift() || null;
     this.ready = false;
     renderCounts();
-    $("#free-note").hidden = !this.free;
     if (!this.cur) { showDone(); return; }
+    renderModeNote();
     $("#done").hidden = true;
     const first = $("#study-card").hidden;
     $("#study-card").hidden = false;
@@ -1404,14 +1446,10 @@ const study = {
     if (!this.cur || this.busy || !this.ready || prism.seen.size < 2) return;
     this.busy = true;
     this.ready = false;
-    const id = this.cur;
-    if (!this.free) {
-      applyGrade(id, g);
-      save();
-      if (g === 0) this.queue.splice(Math.min(2, this.queue.length), 0, id);
-    } else if (g === 0) {
-      this.queue.splice(Math.min(4, this.queue.length), 0, id);
-    }
+    const id = this.cur, ok = g === 1, test = this.mode === "eval";
+    if (test) this.res[ok ? "ok" : "ko"].push([id, bucketOf(id)]);
+    if (this.mode === "free") { if (!ok) this.queue.push(id); }   // training: a missed word comes back at the end
+    else { applyGrade(id, ok, test); save(); }                    // in the line, a missed word now ends the line
     stampMark(g);
     setTimeout(() => { this.busy = false; this.next(false); }, matchMedia("(prefers-reduced-motion: reduce)").matches ? 200 : 430);
   }
@@ -1419,95 +1457,100 @@ const study = {
 
 function stampMark(g) {
   const st = $("#stamp") || (() => { const d = document.createElement("div"); d.id = "stamp"; d.className = "stamp"; $("#stage").appendChild(d); return d; })();
-  const src = $(`.grade[data-g="${g}"] .mk`);
-  st.innerHTML = g === 2 ? '<span class="you">优</span>' : src.outerHTML;
+  st.innerHTML = $(`.grade[data-g="${g}"] .mk`).outerHTML;
   st.classList.remove("show"); void st.offsetWidth; st.classList.add("show");
   setTimeout(() => st.classList.remove("show"), 520);
 }
-
+function daysText(n, short) {                      // 1 jour, 3 jours, 1 semaine, 2 mois, 1 an; short: 1 j, 1 sem., 2 mois
+  if (n === 365) return "1 an";
+  if (n >= 30 && n % 30 === 0) return n / 30 + " mois";
+  if (n >= 7 && n < 30 && n % 7 === 0) return short ? n / 7 + " sem." : plural(n / 7, "semaine", "semaines");
+  return short ? n + " j" : plural(n, "jour", "jours");
+}
 function setActions(turned) {
   $("#turnbtn").hidden = turned;
   $("#grades").hidden = !turned;
-  if (turned) {
-    const today = dayNum();
-    const o = outcome(card(study.cur), today, isRappel(study.cur));
-    const days = n => (n === 1 ? "1 jour" : n + " jours");
-    if (study.free) { $("#gi0").textContent = "à revoir"; $("#gi1").textContent = "su"; $("#gi2").textContent = "facile"; }
-    else { $("#gi0").textContent = "à revoir"; $("#gi1").textContent = days(INTERVALS[o.good]); $("#gi2").textContent = days(INTERVALS[o.easy]); }
-  }
+  if (!turned) return;
+  const up = Math.min(topBucket(), bucketOf(study.cur) + 1);
+  const [g0, g1] = study.mode === "free" ? ["à revoir", "su"]
+    : study.mode === "eval" ? ["retour au seau 0", "rien ne change"]
+    : ["seau 0, fin de file", `seau ${up}, ${daysText(delayOf(up))}`];
+  $("#gi0").textContent = g0; $("#gi1").textContent = g1;
 }
 function renderCardStatus() {
-  const id = study.cur, c = card(id), L = listOf(id);
+  const id = study.cur, L = listOf(id), b = bucketOf(id);
   let chip;
-  if (study.free) chip = '<span class="chip">Entraînement libre</span>';
-  else if (isRappel(id)) chip = '<span class="chip rappel">Rappel</span>';
+  if (study.mode === "free") chip = '<span class="chip">Entraînement libre</span>';
+  else if (study.mode === "eval") chip = `<span class="chip test">Évaluation</span><span class="chip">Seau ${b}</span>`;
   else if (!seen(id)) chip = '<span class="chip new">Nouveau mot</span>';
-  else chip = `<span class="chip">Boîte ${c.b}${c.f === dayNum() ? ", à revoir" : ""}</span>`;
+  else chip = `<span class="chip">Seau ${b}${missed(id) ? ", raté" : ""}</span>`;
   $("#card-chip").innerHTML = chip + (L ? `<span class="chip deck">${esc(L.nom)}</span>` : "");
   $$("#dots i").forEach((d, i) => d.classList.toggle("on", prism.seen.has(i)));
+}
+function renderModeNote() {                     // called with a word on screen
+  const note = $("#free-note"), was = note.hidden;
+  note.hidden = study.mode === "line";
+  $("#free-text").textContent = frTypo(study.mode === "eval" ? "Évaluation : × renvoie au seau 0, √ ne change rien."
+    : "Entraînement libre : le planning ne bouge pas.");
+  if (was !== note.hidden && prism && !$("#study-card").hidden) prism.layout();
 }
 function renderCounts() {
   if (!listsReady) { $("#counts").innerHTML = ""; return; }
   const ids = study.cur ? [study.cur, ...study.queue] : study.queue;
-  if (study.free) {
-    $("#counts").innerHTML = `<span class="count free"><b>${ids.length}</b>en libre</span>`;
+  if (study.mode !== "line") {
+    $("#counts").innerHTML = ids.length ? `<span class="count free"><b>${ids.length}</b>${study.mode === "eval" ? "à évaluer" : "en libre"}</span>` : "";
     return;
   }
-  let rev = 0, nw = 0;
-  for (const id of new Set(ids)) { if (seen(id) || isRappel(id)) rev++; else nw++; }
-  $("#counts").innerHTML = `<span class="count"><b>${rev}</b>à revoir</span><span class="count"><b>${nw}</b>${nw > 1 ? "nouveaux" : "nouveau"}</span>`;
+  let pass = 0, rev = 0;
+  for (const id of new Set(ids)) { if (inPass(id)) pass++; else rev++; }
+  $("#counts").innerHTML = `<span class="count"><b>${pass}</b>à voir</span><span class="count"><b>${rev}</b>à revoir</span>`;
 }
-function rappelsPlanned(dayOffset) {               // rappels waiting on a given day (0 = today)
-  let n = 0;
-  for (const L of LISTS) if (L.mode === "rappel" && deckOn(L.id)) {
-    let left = unseenOf(L).length;
-    for (let d = 0; d <= dayOffset && left > 0; d++) {
-      const take = Math.min(left, d === 0 ? rappelQuota(L.id, dayNum()) : deckPerDay(L.id));
-      left -= take;
-      if (d === dayOffset) n += take;
-    }
-  }
-  return n;
+function evalSummary() {
+  const r = study.res, tot = r.ok.length + r.ko.length;
+  const per = Array.from({ length: topBucket() + 1 }, () => [0, 0]);
+  const at = b => per[Math.min(b, per.length - 1)];   // a bucket may have been removed meanwhile
+  for (const [, b] of r.ok) { at(b)[0]++; at(b)[1]++; }
+  for (const [, b] of r.ko) at(b)[1]++;
+  const rows = per.map(([ok, n], b) => (n ? `<span class="count">Seau ${b}<b>${ok}/${n}</b></span>` : "")).join("");
+  const lost = r.ko.map(([id]) => BYID.get(id)).filter(Boolean)
+    .map(w => `<span class="zh${covered(w.h) ? "" : " sysfont"}" lang="zh-Hans">${esc(w.h)}</span>`).join("、");
+  return {
+    text: tot ? `${r.ok.length} sur ${plural(tot, "réussi", "réussis")} (${Math.round(100 * r.ok.length / tot)}${NB}%).` : "Aucune réponse.",
+    html: (rows ? `<div class="evalres">${rows}</div>` : "") +
+      (r.ko.length ? `<p>Remis au seau 0, à la fin de la file${NB}: ${lost}.</p>` : tot ? "<p>Aucun mot raté.</p>" : ""),
+  };
 }
-function showDone() {
+function showDone() {                              // called by study.next, which has just drawn the counts
   $("#study-card").hidden = true;
   $("#done").hidden = false;
-  const today = dayNum();
-  const L = state.log[today] || { n: 0, r: 0 };
-  const k = L.k ? Object.values(L.k).reduce((a, b) => a + b, 0) : 0;
+  $("#free-note").hidden = true;
+  const today = dayNum(), m = study.mode;
   const active = DECK.filter(w => deckOn(w.deck));
-  const tomorrow = active.filter(w => { const c = card(w.id); return c && c.r && c.d <= today + 1; }).length;
-  const tomorrowRap = rappelsPlanned(1);
-  const leftNew = LISTS.some(D => D.mode === "apprendre" && deckOn(D.id) && D.words.some(w => !seen(w.id)));
-  const title = $("#done-title"), text = $("#done-text"), next = $("#done-next");
+  const title = $("#done-title"), text = $("#done-text"), next = $("#done-next"), more = $("#done-more");
+  more.innerHTML = "";
+  $("#done-back").hidden = m === "line";
+  $("#free-start").hidden = !active.length;
+  $("#eval-start").hidden = !active.some(w => seen(w.id));
   if (!active.length) {
     title.textContent = "Aucun mot à réviser";
     text.textContent = BASE.length ? "Toutes les listes sont désactivées : active-en une dans Réglages." : "Aucune liste n’est chargée.";
     next.textContent = "";
-    $("#more-new").hidden = true; $("#free-start").hidden = true;
-    renderCounts();
     return;
   }
-  $("#free-start").hidden = false;
-  if (study.free) {
-    title.textContent = "Entraînement terminé";
-    text.textContent = "Tu as fait le tour des mots choisis.";
-  } else if (!L.n && !L.r && !k) {
-    title.textContent = "Rien à revoir pour l’instant";
-    text.textContent = leftNew ? "Aucun mot n’est dû aujourd’hui et le quota de nouveaux mots est atteint." : "Aucun mot n’est dû aujourd’hui.";
-  } else {
-    title.textContent = "Séance terminée";
-    const bits = [plural(L.r || 0, "révision", "révisions"), plural(L.n || 0, "nouveau mot", "nouveaux mots")];
-    if (k) bits.push(plural(k, "rappel", "rappels"));
-    text.textContent = `Aujourd’hui${NB}: ${bits.join(", ")}.`;
+  if (m === "line") {
+    const L = state.log[today] || {}, tomorrow = active.filter(w => isDue(w.id, today + 1)).length;
+    title.textContent = L.n || L.r ? "File terminée" : "Rien à revoir pour l’instant";
+    text.textContent = L.n || L.r ? `Aujourd’hui${NB}: ${plural(L.r || 0, "révision", "révisions")}, ${plural(L.n || 0, "nouveau mot", "nouveaux mots")}.`
+      : "Tous les mots sont passés et aucun n’est à revoir aujourd’hui.";
+    next.textContent = tomorrow ? `Demain${NB}: ${plural(tomorrow, "mot", "mots")} à revoir.` : `Demain${NB}: aucun mot à revoir pour l’instant.`;
+    return;
   }
-  const tot = tomorrow + tomorrowRap;
-  next.textContent = tot
-    ? `Demain${NB}: ${plural(tot, "mot", "mots")} à revoir${tomorrowRap ? `, dont ${plural(tomorrowRap, "rappel", "rappels")}` : ""}.`
-    : `Demain${NB}: aucun mot à revoir pour l’instant.`;
-  $("#more-new").hidden = !leftNew;
-  $("#free-note").hidden = true;
-  renderCounts();
+  let fresh = 0, wait = 0;                         // what waits in the line now
+  for (const w of active) { if (inPass(w.id)) fresh++; else if (missed(w.id) || isDue(w.id, today)) wait++; }
+  next.textContent = fresh || wait ? `Dans la file${NB}: ${[fresh && plural(fresh, "mot", "mots") + " à voir", wait && plural(wait, "mot", "mots") + " à revoir"].filter(Boolean).join(", ")}.`
+    : "Rien n’attend dans la file pour l’instant.";
+  if (m === "eval") { const e = evalSummary(); title.textContent = "Évaluation terminée"; text.textContent = e.text; more.innerHTML = e.html; }
+  else { title.textContent = "Entraînement terminé"; text.textContent = "Tu as fait le tour des mots choisis."; }
 }
 
 /* ---------- views ---------- */
@@ -1532,7 +1575,7 @@ function wordMatches(w, q) {
   const fq = fold(q);
   return fold(w.p).includes(fq) || fold(w.f).includes(fq);
 }
-function meterHTML(b) { let s = ""; for (let i = 1; i <= 6; i++) s += `<i${i <= b ? ' class="on"' : ""}></i>`; return `<span class="meter" aria-label="Boîte ${b} sur 6">${s}</span>`; }
+function meterHTML(b) { const top = topBucket(); let s = ""; for (let i = 1; i <= top; i++) s += `<i${i <= b ? ' class="on"' : ""}></i>`; return `<span class="meter" aria-label="Seau ${b} sur ${top}">${s}</span>`; }
 function renderDeckTabs() {
   const lists = LISTS.filter(showList);
   if (wdeck !== "all" && !lists.some(L => L.id === wdeck)) wdeck = "all";
@@ -1551,12 +1594,13 @@ function renderWords() {
   const q = $("#q").value.trim();
   const tones = state.settings.toneColors ? " tones" : "";
   const rank = new Map(LISTS.map((L, i) => [L.id, i]));
+  const known = Math.max(1, topBucket() - 1);       // "acquis": the last two buckets
   const list = DECK.filter(w => {
     if (wdeck !== "all" && w.deck !== wdeck) return false;
-    const c = card(w.id), s = c && c.r;
-    if (wfilter === "new" && s) return false;
-    if (wfilter === "learn" && !(s && c.b < 5)) return false;
-    if (wfilter === "known" && !(s && c.b >= 5)) return false;
+    const p = inPass(w.id), b = bucketOf(w.id);
+    if (wfilter === "new" && !p) return false;
+    if (wfilter === "learn" && (p || b >= known)) return false;
+    if (wfilter === "known" && (p || b < known)) return false;
     return wordMatches(w, q);
   }).sort((a, b) => rank.get(a.deck) - rank.get(b.deck) || a.o - b.o);
   const showDeck = wdeck === "all";
@@ -1565,8 +1609,8 @@ function renderWords() {
     const L = LISTBYID.get(w.deck);
     return `<li><button type="button" class="wrow" data-id="${esc(w.id)}"><span class="h${covered(w.h) ? "" : " sysfont"}" lang="zh-Hans">${esc(w.h)}</span>` +
       `<span class="m"><span class="p${tones}">${w.p ? pinyinHTML(w.p) : "—"}</span><span class="f">${esc(first)}</span></span>` +
-      `<span class="r">${meterHTML(boxOf(w.id))}${showDeck ? `<span class="dk">${esc(L ? L.nom : "")}</span>` : ""}</span></button></li>`;
-  }).join("") : `<li class="empty">${q ? "Aucun mot ne correspond à « " + esc(q) + " »." : listsReady ? "Aucun mot dans cette catégorie." : "Les listes ne sont pas encore chargées."}</li>`;
+      `<span class="r">${meterHTML(bucketOf(w.id))}${showDeck ? `<span class="dk">${esc(L ? L.nom : "")}</span>` : ""}</span></button></li>`;
+  }).join("") : `<li class="empty">${q ? "Aucun mot ne correspond à « " + esc(q) + " »." + (listsReady ? `<br><button type="button" class="btn primary" id="add-q" style="margin-top:12px">Créer la fiche « ${esc(q)} »</button>` : "") : listsReady ? "Aucun mot dans cette catégorie." : "Les listes ne sont pas encore chargées."}</li>`;
   const L = wdeck !== "all" && LISTBYID.get(wdeck);
   $("#wcount").textContent = plural(list.length, "mot", "mots") + (L && L.phone ? ", sur ce téléphone" : L ? `, fichier decks/${L.fichier}` : "") + (L && !deckOn(L.id) ? ", liste désactivée" : "");
   $("#btn-export").hidden = !state.custom.length;
@@ -1574,92 +1618,73 @@ function renderWords() {
 }
 
 /* progress */
-function finishDays() {
-  // Day on which each list's last unseen word will come up, at the current pace (-1 = all seen, Infinity = never).
-  const today = dayNum(), per = state.settings.newPerDay, q0 = newQuota(today);
-  const out = {};
-  let cum = 0;
-  for (const L of LISTS) {
-    if (!deckOn(L.id) || !L.words.length) continue;
-    const left = unseenOf(L).length;
-    if (L.mode === "apprendre") {
-      cum += left;
-      out[L.id] = !left ? -1 : cum <= q0 ? today : per ? today + Math.ceil((cum - q0) / per) : Infinity;
-    } else {
-      const p = deckPerDay(L.id), q = rappelQuota(L.id, today);
-      out[L.id] = !left ? -1 : left <= q ? today : p ? today + Math.ceil((left - q) / p) : Infinity;
-    }
-  }
-  return { out, cum };
+function passPace(today) {                          // words leaving the first pass per day, over the last 7 days of use
+  const days = Object.keys(state.log).map(Number).filter(d => d >= today - 6 && d <= today);
+  if (!days.length) return 0;
+  let sum = 0;
+  for (const d of days) sum += state.log[d].p || 0;
+  return sum / (today - Math.min(...days) + 1);
 }
 function renderProgress() {
   const today = dayNum();
   const active = LISTS.filter(L => deckOn(L.id) && L.words.length);
   const words = active.flatMap(L => L.words);
-  const total = words.length, seenN = words.filter(w => seen(w.id)).length;
-  $("#seen-n").textContent = seenN;
-  $("#seen-of").textContent = `mots vus sur ${total}${active.length > 1 ? ", toutes listes actives" : ""}`;
-  $("#seen-bar").style.width = (total ? (100 * seenN / total) : 0).toFixed(1) + "%";
+  const total = words.length, left = words.filter(w => inPass(w.id)).length, passed = total - left;
+  $("#seen-n").textContent = passed;
+  $("#seen-of").textContent = `${passed > 1 ? "mots passés" : "mot passé"} sur ${total}${active.length > 1 ? ", toutes listes actives" : ""}`;
+  $("#seen-bar").style.width = (total ? (100 * passed / total) : 0).toFixed(1) + "%";
 
-  const { out: fin, cum } = finishDays();
-  const learn = active.filter(L => L.mode === "apprendre");
-  const per = state.settings.newPerDay;
-  const lastNew = Math.max(-1, ...learn.map(L => fin[L.id]));
-  const exam = dayOfISO(state.settings.exam);
-  let proj = [];
-  if (!learn.length) proj.push("Aucune liste de nouveaux mots n’est active.");
-  else if (lastNew === -1) proj.push("Tous les nouveaux mots ont été vus au moins une fois.");
-  else if (!per) proj.push("Aucun nouveau mot n’est prévu : règle le nombre de nouveaux mots par jour dans Réglages.");
-  else proj.push(`À ${per} nouveaux mots par jour, le dernier arrivera ${lastNew === today ? "aujourd’hui" : lastNew === today + 1 ? "demain" : "le " + longDate(lastNew)}.`);
+  const proj = [];
+  const pace = passPace(today), exam = dayOfISO(state.settings.exam);
+  if (!active.length) proj.push("Aucune liste n’est active.");
+  else if (!left) proj.push("Premier tour terminé : chaque mot est passé au moins une fois.");
+  else {
+    proj.push(`Premier tour : encore ${plural(left, "mot", "mots")} à voir avant de reprendre les mots ratés et ceux dont le délai est passé.`);
+    if (pace >= 1) {
+      const end = today + Math.ceil(left / pace) - 1;
+      proj.push(`À ton rythme des derniers jours (${plural(Math.round(pace), "mot", "mots")} par jour), il sera fini ${end > today + 1 ? "le " : ""}${dayLabel(end, today)}.`);
+    }
+  }
   if (exam != null && exam >= today) {
     const dleft = exam - today;
     proj.push(`Examen ${dleft === 0 ? "aujourd’hui" : "le " + longDate(exam) + ", dans " + plural(dleft, "jour", "jours")}.`);
     const target = exam - 7;                       // aim to have met every word a week before
-    if (learn.length && lastNew > target && Number.isFinite(lastNew) && cum > 0) {
-      const days = target - today + 1;
-      if (days > 0) proj.push(`Pour tout voir une semaine avant, il faudrait ${Math.ceil(cum / days)} nouveaux mots par jour.`);
-    } else if (learn.length && lastNew === Infinity && target >= today && cum > 0) {
-      proj.push(`Pour tout voir une semaine avant, il faudrait ${Math.ceil(cum / (target - today + 1))} nouveaux mots par jour.`);
-    }
+    if (left && target >= today) proj.push(`Pour finir le premier tour une semaine avant, compte ${plural(Math.ceil(left / (target - today + 1)), "mot", "mots")} par jour.`);
   }
-  $("#projection").textContent = proj.join(" ");
+  $("#projection").textContent = frTypo(proj.join(" "));
 
-  const finText = (L) => {
-    if (!deckOn(L.id)) return "désactivée";
-    const f = fin[L.id];
-    if (f === -1 || f === undefined) return L.words.length ? "terminé" : "vide";
-    if (f === Infinity) return "en pause";
-    return f === today ? "aujourd’hui" : f === today + 1 ? "demain" : shortDate(f);
-  };
   const rows = LISTS.filter(showList).map(L => {
-    const n = L.words.length, s = L.words.filter(w => seen(w.id)).length;
-    const mode = L.mode === "rappel" ? `rappel, ${deckPerDay(L.id)} par jour` : L.phone ? "sur ce téléphone" : "nouveaux mots";
-    const pct = n ? (100 * s / n).toFixed(1) : 0;
-    return `<tr${deckOn(L.id) ? "" : ' class="off"'}><td class="nm"><b>${esc(L.nom)}</b><small>${esc(mode)}</small></td>` +
-      `<td class="sn">${s} / ${n}<span class="mini" aria-hidden="true"><i style="width:${pct}%"></i></span></td><td>${esc(finText(L))}</td></tr>`;
+    const n = L.words.length, p = L.words.filter(w => !inPass(w.id)).length;
+    const pct = n ? (100 * p / n).toFixed(1) : 0;
+    const rest = !deckOn(L.id) ? "désactivée" : !n ? "vide" : p === n ? "fini" : String(n - p);
+    return `<tr${deckOn(L.id) ? "" : ' class="off"'}><td class="nm"><b>${esc(L.nom)}</b><small>${esc(L.phone ? "sur ce téléphone" : "fichier " + L.fichier)}</small></td>` +
+      `<td class="sn">${p} / ${n}<span class="mini" aria-hidden="true"><i style="width:${pct}%"></i></span></td><td>${esc(rest)}</td></tr>`;
   }).join("");
-  $("#decktable").innerHTML = `<thead><tr><th scope="col">Liste</th><th scope="col">Vus</th><th scope="col">Fin prévue</th></tr></thead><tbody>${rows}</tbody>`;
+  $("#decktable").innerHTML = `<thead><tr><th scope="col">Liste</th><th scope="col">Passés</th><th scope="col">À voir</th></tr></thead><tbody>${rows}</tbody>`;
 
-  const counts = [0, 0, 0, 0, 0, 0, 0];
-  words.forEach(w => { const c = card(w.id); if (c && c.r) counts[c.b]++; });
-  const inBoxes = counts.slice(1);
-  const labels = ["1 j", "2 j", "4 j", "8 j", "16 j", "32 j"];
-  const names = ["Boîte 1, revus le lendemain", "Boîte 2, tous les 2 jours", "Boîte 3, tous les 4 jours", "Boîte 4, tous les 8 jours", "Boîte 5, tous les 16 jours", "Boîte 6, tous les 32 jours"];
-  drawCols($("#boxes"), $("#boxes-axis"), $("#boxes-detail"), inBoxes, labels, i => `${names[i]}${NB}: ${plural(inBoxes[i], "mot", "mots")}`);
+  const counts = bucketCounts();
+  const labels = counts.map((_, b) => (b ? daysText(delayOf(b), true) : "ratés"));
+  const names = counts.map((_, b) => (b ? `Seau ${b}, de retour après ${daysText(delayOf(b))}` : "Seau 0, mots ratés, à la fin de la file"));
+  drawCols($("#boxes"), $("#boxes-axis"), $("#boxes-detail"), counts, labels, i => `${names[i]}${NB}: ${plural(counts[i], "mot", "mots")}`);
+  const met = words.filter(w => seen(w.id)).length;
+  $("#eval-go").disabled = !met;
+  $("#free-go").disabled = !words.length;
+  $("#eval-info").textContent = frTypo(met
+    ? `Une évaluation prend ${plural(Math.min(state.settings.evalSize, met), "mot", "mots")} dans tous les seaux. Un mot raté retourne au seau 0 ; un mot réussi garde sa place.`
+    : "L’évaluation porte sur les mots déjà vus : commence par en passer quelques-uns.");
 
-  const fc = [], fr = [];
-  for (let d = 0; d < 7; d++) {
-    const day = today + d;
-    const due = words.filter(w => { const c = card(w.id); return c && c.r && (d === 0 ? c.d <= day : c.d === day); }).length;
-    const rap = rappelsPlanned(d);
-    fc.push(due + rap); fr.push(rap);
+  const fc = Array(7).fill(0);                    // today: missed and due words; then the words due that day
+  for (const w of words) {
+    if (missed(w.id)) fc[0]++;
+    else if (bucketOf(w.id) > 0) { const d = card(w.id).d - today; if (d < 7) fc[Math.max(0, d)]++; }
   }
   const fl = fc.map((_, d) => d === 0 ? "auj." : d === 1 ? "dem." : fmtShort.format(dateOfDay(today + d)));
   drawCols($("#forecast"), $("#forecast-axis"), $("#forecast-detail"), fc, fl,
-    d => `${dayLabel(today + d, today).replace(/^./, c => c.toUpperCase())}${NB}: ${plural(fc[d], "mot", "mots")} à revoir${fr[d] ? `, dont ${plural(fr[d], "rappel", "rappels")}` : ""}`);
+    d => `${dayLabel(today + d, today).replace(/^./, c => c.toUpperCase())}${NB}: ${plural(fc[d], "mot", "mots")} à revoir`);
 }
 function drawCols(cols, axis, detail, vals, labels, describe) {
   const max = Math.max(1, ...vals);
+  for (const el of [cols, axis]) el.style.setProperty("--n", vals.length);
   cols.innerHTML = vals.map((v, i) =>
     `<button type="button" class="col" data-i="${i}" aria-pressed="false" aria-label="${esc(describe(i))}"><i style="height:${v ? Math.max(3, Math.round(100 * v / max)) : 0}%"></i></button>`).join("");
   axis.innerHTML = vals.map((v, i) => `<span>${esc(labels[i])}<b>${v}</b></span>`).join("");
@@ -1686,24 +1711,35 @@ function updateVoiceInfo() {
 function deckRowHTML(L) {
   const n = L.words.length;
   const on = deckOn(L.id);
-  if (L.phone) return `<div class="set"><div class="t"><b id="dl-${esc(L.id)}">${esc(L.nom)}</b><small>${n ? plural(n, "mot", "mots") : "Vide pour l’instant"}, sur ce téléphone, appris en premier.</small></div>` +
+  if (L.phone) return `<div class="set"><div class="t"><b id="dl-${esc(L.id)}">${esc(L.nom)}</b><small>${n ? plural(n, "mot", "mots") : "Vide pour l’instant"}, sur ce téléphone, parcourue en premier.</small></div>` +
     `<button type="button" class="switch" role="switch" data-deck="${esc(L.id)}" aria-labelledby="dl-${esc(L.id)}" aria-checked="${on}"></button></div>`;
-  const what = !n ? "Vide pour l’instant" : L.mode === "rappel" ? plural(n, "mot", "mots") + " en rappel" : plural(n, "mot", "mots") + " à apprendre";
+  const what = !n ? "Vide pour l’instant" : plural(n, "mot", "mots");
   const warn = L.missing ? `<small class="warn">Fichier decks/${esc(L.fichier)} introuvable.</small>` : "";
-  let row = `<div class="set"><div class="t"><b id="dl-${esc(L.id)}">${esc(L.nom)}</b><small>${what}, fichier ${esc(L.fichier)}</small>${warn}</div>` +
-    `<span class="stepper">${ghReady() ? `<button type="button" class="btn small ghost" data-gdel="${esc(L.id)}">Supprimer</button>` : ""}` +
+  return `<div class="set"><div class="t"><b id="dl-${esc(L.id)}">${esc(L.nom)}</b><small>${what}, fichier ${esc(L.fichier)}</small>${warn}</div>` +
+    `<span class="ctl">${ghReady() ? `<button type="button" class="btn small ghost" data-gdel="${esc(L.id)}">Supprimer</button>` : ""}` +
     `<button type="button" class="switch" role="switch" data-deck="${esc(L.id)}" aria-labelledby="dl-${esc(L.id)}" aria-checked="${on}"></button></span></div>` +
     `<div id="gdel-${esc(L.id)}"></div>`;
-  if (L.mode === "rappel" && on) {
-    const fin = finishDays().out[L.id];
-    const today = dayNum();
-    const end = fin === -1 ? "Tous les mots de la liste ont été revus." : fin === Infinity ? "En pause." :
-      `Dernier rappel ${fin === today ? "aujourd’hui" : fin === today + 1 ? "demain" : "le " + longDate(fin)}.`;
-    row += `<div class="set sub"><div class="t"><b id="dp-${esc(L.id)}">Rappels par jour</b><small>${end}</small></div>` +
-      `<div class="stepper" role="group" aria-labelledby="dp-${esc(L.id)}"><button type="button" data-per="-1" data-deck="${esc(L.id)}" aria-label="Moins">−</button>` +
-      `<output class="num">${deckPerDay(L.id)}</output><button type="button" data-per="1" data-deck="${esc(L.id)}" aria-label="Plus">+</button></div></div>`;
-  }
-  return row;
+}
+function stepDelay(n, dir) {                       // −/+ walk through 1, 2, 3… 7, 10, 14, 21, 30, 45, 60… 365 days
+  if (dir > 0) return DELAY_STEPS.find(x => x > n) || 365;
+  return [...DELAY_STEPS].reverse().find(x => x < n) || 1;
+}
+function bucketRowsHTML() {
+  const d = state.settings.delays, counts = bucketCounts();
+  let h = `<div class="set"><div class="t"><b>Seau 0</b><small>Départ de chaque mot, et retour après un ×${NB}: le mot revient quand toute la file est passée. ${plural(counts[0], "mot raté", "mots ratés")} en ce moment.</small></div></div>`;
+  d.forEach((n, i) => {
+    const b = i + 1;
+    h += `<div class="set"><div class="t"><b id="bk-${b}">Seau ${b}</b><small>De retour après ${daysText(n)}${b === d.length ? ", dernier seau" : ""}. ${plural(counts[b], "mot", "mots")}.</small></div>` +
+      `<div class="stepper" role="group" aria-labelledby="bk-${b}"><button type="button" data-delay="-1" data-b="${b}" aria-label="Délai plus court">−</button>` +
+      `<output class="num wide">${esc(daysText(n, true))}</output><button type="button" data-delay="1" data-b="${b}" aria-label="Délai plus long">+</button></div></div>`;
+  });
+  return h;
+}
+function bucketBtnsHTML() {
+  const d = state.settings.delays;
+  return (d.length < MAX_BUCKETS - 1 && d[d.length - 1] < 365 ? `<button type="button" class="btn" data-bk="add">Ajouter un seau</button>` : "") +   // a new bucket waits longer than the last one
+    (d.length > 1 ? `<button type="button" class="btn" data-bk="remove">Retirer le seau ${d.length}</button>` : "") +
+    (d.join() !== DELAYS.join() ? `<button type="button" class="btn ghost" data-bk="reset">Revenir aux ${DELAYS.length + 1} seaux d’origine</button>` : "");
 }
 function renderListsInfo() {
   const el = $("#lists-info");
@@ -1722,10 +1758,12 @@ function renderListsInfo() {
 }
 function renderSettings() {
   const s = state.settings;
-  $("#new-val").textContent = s.newPerDay;
-  const order = LISTS.filter(L => L.mode === "apprendre" && deckOn(L.id) && L.words.length).map(L => L.nom);
-  $("#new-order").textContent = !order.length ? "Aucune liste de nouveaux mots n’est active."
-    : order.length === 1 ? `Pris dans la liste ${order[0]}.` : "Pris dans cet ordre" + NB + ": " + order.join(", puis ") + ".";
+  const order = LISTS.filter(L => deckOn(L.id) && L.words.length).map(L => L.nom);
+  $("#new-order").textContent = frTypo("Active les listes à parcourir. " + (!order.length ? "Aucune n’est active pour l’instant."
+    : order.length === 1 ? `Le premier tour parcourt la liste ${order[0]}.` : "Le premier tour les parcourt dans cet ordre : " + order.join(", puis ") + "."));
+  $("#bucket-settings").innerHTML = bucketRowsHTML();
+  $("#bucket-btns").innerHTML = bucketBtnsHTML();
+  $("#eval-val").textContent = s.evalSize;
   $("#deck-settings").innerHTML = LISTS.filter(showList).map(deckRowHTML).join("") ||
     `<p class="explain">Aucune liste chargée.</p>`;
   $("#lists-check-row").hidden = !!EMBEDDED;
@@ -1776,7 +1814,8 @@ function wordSheet(id) {
   const L = LISTBYID.get(w.deck);
   const c = card(id), today = dayNum();
   let meta = L ? (L.phone ? `Liste ${L.nom}, sur ce téléphone. ` : `Liste ${L.nom}. `) : "";
-  meta += c && c.r ? `Boîte ${c.b}, prochaine révision ${dayLabel(Math.max(c.d, today), today)}.` : (L && L.mode === "rappel" ? "Pas encore revu." : "Pas encore vu.");
+  meta += !seen(id) ? "Pas encore vu." : inPass(id) ? "Seau 0, attend son passage au premier tour." : missed(id) ? `Seau 0${NB}: raté, il revient à la fin de la file.`
+    : `Seau ${bucketOf(id)}, prochaine révision ${dayLabel(Math.max(c.d, today), today)}.`;
   if (w.edited) meta += " Corrigé sur ce téléphone.";
   openSheet(w.h, `
     <div class="stage" id="sheet-stage" tabindex="0" aria-label="Carte : touche pour tourner"></div>
@@ -1875,16 +1914,21 @@ function bindForm(body, w, onSave) {
 }
 function deckWordOf(w) { return !!w.id && !isPhone(w.deck); }
 function compact(v) { const o = {}; for (const [k, x] of Object.entries(v)) if (x) o[k] = x; return o; }
-function addSheet(target) {
+function addSheet(target, pre) {
   if (!target) target = wdeck !== "all" && isPhone(wdeck) ? wdeck : (state.settings.lastList && isPhone(state.settings.lastList) ? state.settings.lastList : TEL);
-  openSheet("Ajouter un mot", formHTML({ target }), body => bindForm(body, {}, v => {
+  openSheet("Ajouter un mot", formHTML({ ...pre, target }), body => bindForm(body, {}, v => {
     if (v.l === TEL) delete v.l;
     state.custom.push({ id: newId(), ...compact(v) });
     state.settings.lastList = v.l || TEL;
     const L = LISTBYID.get(v.l || TEL);
     save(); rebuildDeck(); closeSheet(); afterDeckChange();
-    toast(`Mot ajouté à ${L ? L.nom : "Ajoutés ici"} : il arrive parmi les prochains nouveaux mots`);
+    toast(`Mot ajouté à ${L ? L.nom : "Ajoutés ici"} : il passe au premier tour, dans l’ordre des listes`);
   }), true);
+}
+function prefillFrom(q) {                         // a search with no result becomes the start of a new card
+  if (HAN.test(q)) return { h: q };
+  if (/[1-5]/.test(q) || [...q.toLowerCase()].some(ch => ch === "ü" || TONED.includes(ch))) return { p: q };
+  return { f: q };
 }
 function createList(nom) {
   const id = "p-" + Date.now().toString(36) + Math.random().toString(36).slice(2, 5);
@@ -1897,7 +1941,7 @@ function listNameSheet(id) {
     <form id="lform" novalidate>
       <div class="field"><label for="l-n">Nom</label><input id="l-n" value="${esc(P ? P.nom : "")}" autocomplete="off" autofocus placeholder="Par exemple : Cours du mardi"></div>
       <p class="field err" id="l-err" hidden></p>
-      <p class="meta" style="margin-top:0">La liste vit sur ce téléphone. Ses mots passent en tête des nouveaux mots. « Publier sur GitHub » (Réglages) la range dans le dépôt, sous le même nom.</p>
+      <p class="meta" style="margin-top:0">La liste vit sur ce téléphone. Ses mots passent en tête du premier tour. « Publier sur GitHub » (Réglages) la range dans le dépôt, sous le même nom.</p>
       <div class="btnrow"><button type="submit" class="btn primary">${P ? "Renommer" : "Créer la liste"}</button></div>
     </form>`, body => {
       $("#lform", body).addEventListener("submit", e => {
@@ -2069,7 +2113,9 @@ function restoreSheet() {
           if (!s || typeof s.cards !== "object" || !s.settings) throw new Error("format");
           state = normalizeState(s);
           syncDeckSettings(); mergeTel(); dropSameEdits(); rebuildDeck(); save();
-          closeSheet(); afterDeckChange(); renderSettings(); toast("Sauvegarde restaurée");
+          closeSheet(); renderSettings(); study.build();      // a new state: the session starts again from its line
+          if (migratedSched) toast("Sauvegarde restaurée. Elle date de l’ancien planning : tous les mots repartent du seau 0.", 5000, true);
+          else toast("Sauvegarde restaurée");
         } catch (e) { err.hidden = false; err.textContent = "Ce texte n’est pas une sauvegarde de cette appli. Vérifie qu’il commence par {\"app\":\"xingyinyi\"."; }
       });
     }, true);
@@ -2206,7 +2252,7 @@ async function publishGitHub(deleteIds = []) {
       target = target || config.listes.find(l => String(l.nom || "").toLowerCase() === nom.toLowerCase());
       if (!target) {
         const id = slugify(nom, taken); taken.add(id);
-        target = { id, nom, fichier: id + ".tsv", mode: "apprendre", actif: deckOn(P.id) };
+        target = { id, nom, fichier: id + ".tsv", actif: deckOn(P.id) };
         config.listes.unshift(target);
         texts[target.fichier] = TSV_HEAD(nom);
       }
@@ -2286,14 +2332,24 @@ async function updateApp() {
 /* toast */
 let toastT = 0;
 function frTypo(s) { return String(s).replace(/ ([:;!?»])/g, NB + "$1").replace(/« /g, "«" + NB); }
-function toast(msg, ms = 2600) { const t = $("#toast"); t.textContent = frTypo(msg); t.hidden = false; clearTimeout(toastT); toastT = setTimeout(() => { t.hidden = true; }, ms); }
+let toastHold = 0, toastLater = null;              // an important message stays on screen; the last message waiting follows it
+function toast(msg, ms = 2600, hold) {
+  const wait = toastHold - Date.now();
+  if (!hold && wait > 0) {
+    if (!toastLater) setTimeout(() => { const [m, d] = toastLater; toastLater = null; toast(m, d); }, wait);
+    toastLater = [msg, ms];
+    return;
+  }
+  if (hold) toastHold = Date.now() + ms;
+  const t = $("#toast"); t.textContent = frTypo(msg); t.hidden = false; clearTimeout(toastT); toastT = setTimeout(() => { t.hidden = true; }, ms);
+}
 function showUpdateBar() { $("#updatebar").hidden = false; }
 
 function afterDeckChange() {
   if (current === "words") renderWords();
   if (current === "progress") renderProgress();
   if (current === "settings") renderSettings();
-  study.build();
+  study.build(true);
 }
 
 /* ---------- wiring ---------- */
@@ -2306,7 +2362,7 @@ function studyRoom() {
   const slot = $("#example");
   const slotH = parseFloat(getComputedStyle(slot).minHeight) + parseFloat(getComputedStyle(slot).marginBottom);
   return main.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom) - outer($(".startface")) -
-    outer($(".status")) - slotH - Math.max(76, $("#actions").offsetHeight) - 2;
+    outer($(".status")) - slotH - Math.max(76, $("#actions").offsetHeight) - ($("#free-note").hidden ? 0 : outer($("#free-note"))) - 2;
 }
 function renderStartFace() {
   $$("#startface button").forEach(b => b.setAttribute("aria-checked", String(String(state.settings.startFace) === b.dataset.face)));
@@ -2339,13 +2395,12 @@ function init() {
     const v = b.dataset.face; state.settings.startFace = v === "r" ? "r" : +v; save(); renderStartFace();
     redrawCurrent();
   });
-  $("#more-new").addEventListener("click", () => {
-    const today = dayNum();
-    state.extra = { day: today, n: (state.extra && state.extra.day === today ? state.extra.n : 0) + 5 };
-    save(); study.build();
-  });
   $("#free-start").addEventListener("click", () => study.startFree());
-  $("#free-stop").addEventListener("click", () => study.build());
+  $("#eval-start").addEventListener("click", () => study.startEval());
+  $("#done-back").addEventListener("click", () => study.build());
+  $("#free-stop").addEventListener("click", () => study.stop());
+  $("#eval-go").addEventListener("click", () => { showView("study"); study.startEval(); });
+  $("#free-go").addEventListener("click", () => { showView("study"); study.startFree(); });
   $("#loading-retry").addEventListener("click", () => { $("#loading-text").textContent = "Chargement des listes…"; $("#loading-retry").hidden = true; refreshLists(true, false); });
 
   $$(".tab").forEach(t => t.addEventListener("click", () => showView(t.dataset.view)));
@@ -2361,8 +2416,12 @@ function init() {
     $$("#filters button").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
     renderWords();
   });
-  $("#wlist").addEventListener("click", e => { const r = e.target.closest(".wrow"); if (r) wordSheet(r.dataset.id); });
+  $("#wlist").addEventListener("click", e => {
+    if (e.target.closest("#add-q")) { addSheet(null, prefillFrom($("#q").value.trim())); return; }
+    const r = e.target.closest(".wrow"); if (r) wordSheet(r.dataset.id);
+  });
   $("#btn-add").addEventListener("click", () => addSheet());
+  $("#btn-new").addEventListener("click", () => addSheet());
   $("#btn-publish").addEventListener("click", () => publishGitHub());
   $("#listbar").addEventListener("click", e => {
     const b = e.target.closest("[data-la]"); if (!b) return;
@@ -2379,8 +2438,31 @@ function init() {
   $("#btn-import").addEventListener("click", importSheet);
   $("#btn-export").addEventListener("click", exportSheet);
 
-  $("#new-minus").addEventListener("click", () => { state.settings.newPerDay = Math.max(0, state.settings.newPerDay - 1); save(); renderSettings(); study.build(); });
-  $("#new-plus").addEventListener("click", () => { state.settings.newPerDay = Math.min(60, state.settings.newPerDay + 1); save(); renderSettings(); study.build(); });
+  const stepEval = dir => { const s = state.settings; s.evalSize = Math.max(5, Math.min(100, s.evalSize + 5 * dir)); save(); $("#eval-val").textContent = s.evalSize; };
+  $("#eval-minus").addEventListener("click", () => stepEval(-1));
+  $("#eval-plus").addEventListener("click", () => stepEval(1));
+  $("#bucket-settings").addEventListener("click", e => {
+    const b = e.target.closest("[data-delay]"); if (!b) return;
+    const d = state.settings.delays, k = +b.dataset.b - 1;
+    d[k] = stepDelay(d[k], +b.dataset.delay);
+    recomputeDue(); save(); afterDeckChange();
+  });
+  $("#bucket-btns").addEventListener("click", e => {
+    const b = e.target.closest("[data-bk]"); if (!b) return;
+    const d = state.settings.delays, top = d.length;
+    if (b.dataset.bk === "add") { d.push(DELAY_STEPS.find(x => x >= d[top - 1] * 2) || 365); toast(`Seau ${top + 1} ajouté`); }
+    if (b.dataset.bk === "remove") {
+      const n = DECK.filter(w => bucketOf(w.id) === top).length;
+      if (n && !b.dataset.sure) {
+        $("#bucket-btns").innerHTML = `<div class="confirm" style="flex-basis:100%"><p>${n > 1 ? `Les ${plural(n, "mot", "mots")} du seau ${top} passeront au seau ${top - 1}, et y resteront` : `Le mot du seau ${top} passera au seau ${top - 1}, et y restera`} même si tu rajoutes un seau.</p><div class="btnrow"><button type="button" class="btn danger" data-bk="remove" data-sure="1">Retirer le seau ${top}</button><button type="button" class="btn" data-bk="cancel">Annuler</button></div></div>`;
+        return;
+      }
+      d.pop(); toast(`Seau ${top} retiré : ses mots passent au seau ${top - 1}`);
+    }
+    if (b.dataset.bk === "cancel") { renderSettings(); return; }
+    if (b.dataset.bk === "reset") { state.settings.delays = [...DELAYS]; toast("Seaux et délais d’origine rétablis"); }
+    recomputeDue(); save(); afterDeckChange();
+  });
   $("#deck-settings").addEventListener("click", e => {
     const del = e.target.closest("[data-gdel]"), yes = e.target.closest("[data-gdel-yes]"), no = e.target.closest("[data-gdel-no]");
     if (del) {
@@ -2391,15 +2473,10 @@ function init() {
     if (no) { no.closest(".confirm").remove(); return; }
     if (yes) { publishGitHub([yes.dataset.gdelYes]); return; }
     const sw = e.target.closest(".switch[data-deck]");
-    const st = e.target.closest("[data-per]");
-    if (sw) {
-      const d = state.decks[sw.dataset.deck] || (state.decks[sw.dataset.deck] = {});
-      d.on = !deckOn(sw.dataset.deck);
-    } else if (st) {
-      const d = state.decks[st.dataset.deck] || (state.decks[st.dataset.deck] = {});
-      d.perDay = Math.max(0, Math.min(30, deckPerDay(st.dataset.deck) + +st.dataset.per));
-    } else return;
-    save(); renderSettings(); study.build();
+    if (!sw) return;
+    const d = state.decks[sw.dataset.deck] || (state.decks[sw.dataset.deck] = {});
+    d.on = !deckOn(sw.dataset.deck);
+    save(); afterDeckChange();
   });
   $("#lists-check").addEventListener("click", () => refreshLists(false, true));
   $("#exam").addEventListener("change", e => { state.settings.exam = e.target.value || ""; save(); });
@@ -2436,7 +2513,7 @@ function init() {
   document.addEventListener("keydown", e => {
     if (e.key === "Escape" && !$("#sheet").hidden) { closeSheet(); return; }
     if (current !== "study" || !$("#sheet").hidden || /INPUT|TEXTAREA|SELECT/.test((e.target && e.target.tagName) || "")) return;
-    if (!$("#grades").hidden && ["1", "2", "3"].includes(e.key)) study.grade(+e.key - 1);
+    if (!$("#grades").hidden && ["1", "2"].includes(e.key)) study.grade(+e.key - 1);
     else if ((e.key === " " || e.key === "Enter") && e.target === document.body) { e.preventDefault(); prism.turn(1); }
     else if (e.key === "a" && study.cur) { const w = BYID.get(study.cur); tts.say(w.s || w.h); }
     else if (e.key === "e" && study.cur && prism.seen.size >= 2) { const w = BYID.get(study.cur); if (w.e) tts.say(w.e); }
@@ -2446,13 +2523,14 @@ function init() {
   window.addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(() => { prism.layout(); fitSlip($("#example")); if (sheetPrism) sheetPrism.layout(); }, 120); });
   document.addEventListener("visibilitychange", () => {
     if (document.visibilityState !== "visible") return;
-    if (listsReady && study.day !== dayNum() && !study.free) study.build();
+    if (listsReady && study.day !== dayNum() && study.mode === "line") study.build();
     if (!EMBEDDED && Date.now() - listsChecked > 30 * 60e3) refreshLists(false, false);
     if (swReg && Date.now() - swChecked > 30 * 60e3) { swChecked = Date.now(); swReg.update().catch(() => {}); }
   });
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { prism.layout(); fitSlip($("#example")); });
   bootLists();
-  if (migratedV1) toast("Progression de la première version reprise.", 4000);
+  if (migratedV1) toast("Progression de la première version reprise. Nouveau planning en seaux : tous les mots repartent du seau 0.", 6000, true);
+  else if (migratedSched) toast("Nouveau planning en seaux : tous les mots repartent du seau 0 pour un premier tour complet.", 6000, true);
   if ("serviceWorker" in navigator) {
     navigator.serviceWorker.register("sw.js").then(reg => {
       swReg = reg;

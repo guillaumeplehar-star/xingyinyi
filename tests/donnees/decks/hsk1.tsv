@@ -1,0 +1,158 @@
+# 形音义 : liste HSK 1 (HSK 2.0, révision 2012)
+# Une ligne par mot, colonnes séparées par une tabulation. Les lignes qui commencent par # sont ignorées.
+# hanzi : le mot en caractères (obligatoire, sert d'identifiant : le modifier crée un nouveau mot)
+# pinyin : avec accents (túshūguǎn) ou chiffres (tu2shu1guan3) ; deux lectures : « zhǐ / zhī »
+# francais : sens séparés par « ; »
+# note, audio (texte lu par la voix si le mot seul se lit mal), exemple, exemple_pinyin, exemple_fr : facultatifs
+# L'ordre des lignes est l'ordre d'arrivée des mots.
+hanzi	pinyin	francais	note	audio	exemple	exemple_pinyin	exemple_fr
+的	de	particule de détermination (我的书 = mon livre)		我的	这是我的书。	Zhè shì wǒ de shū.	C’est mon livre.
+了	le	particule : action accomplie ou changement	liǎo dans 了解 (comprendre)	走了	我吃饭了。	Wǒ chī fàn le.	J’ai mangé.
+我	wǒ	je, moi			我叫小明。	Wǒ jiào Xiǎomíng.	Je m’appelle Xiaoming.
+是	shì	être			我是法国人。	Wǒ shì Fǎguó rén.	Je suis français.
+你	nǐ	tu, toi			你好吗？	Nǐ hǎo ma?	Comment vas-tu ?
+在	zài	être (à un endroit) ; à, dans ; en train de			我在家。	Wǒ zài jiā.	Je suis à la maison.
+不	bù	ne… pas, non	bú devant un 4e ton : 不是 búshì		我不喝咖啡。	Wǒ bù hē kāfēi.	Je ne bois pas de café.
+有	yǒu	avoir ; il y a			我有一个问题。	Wǒ yǒu yí ge wèntí.	J’ai une question.
+他	tā	il, lui			他是我哥哥。	Tā shì wǒ gēge.	C’est mon grand frère.
+这	zhè	ceci, ce…-ci			这是我的朋友。	Zhè shì wǒ de péngyou.	Voici mon ami.
+个	gè	classif. général (一个人 = une personne)	souvent neutre : 一个 yí ge		我有一个哥哥。	Wǒ yǒu yí ge gēge.	J’ai un grand frère.
+和	hé	et, avec			我和妈妈去商店。	Wǒ hé māma qù shāngdiàn.	Je vais au magasin avec ma mère.
+人	rén	personne, gens			那个人是谁？	Nàge rén shì shéi?	Qui est cette personne ?
+说	shuō	dire, parler			他说他明天来。	Tā shuō tā míngtiān lái.	Il dit qu’il vient demain.
+我们	wǒmen	nous			我们一起去吧。	Wǒmen yìqǐ qù ba.	Allons-y ensemble.
+好	hǎo	bien, bon			这本书很好。	Zhè běn shū hěn hǎo.	Ce livre est très bien.
+一	yī	un	yí devant un 4e ton, yì devant les autres : 一个 yí ge, 一起 yìqǐ		今天是一月一号。	Jīntiān shì yīyuè yī hào.	Aujourd’hui, c’est le 1er janvier.
+会	huì	savoir (faire) ; (futur probable)			你会说汉语吗？	Nǐ huì shuō Hànyǔ ma?	Tu sais parler chinois ?
+都	dōu	tous, tout		都是	我们都是学生。	Wǒmen dōu shì xuésheng.	Nous sommes tous étudiants.
+上	shàng	sur, en haut ; monter ; précédent (上个月)			书在桌子上。	Shū zài zhuōzi shàng.	Le livre est sur la table.
+来	lái	venir			你什么时候来？	Nǐ shénme shíhou lái?	Quand est-ce que tu viens ?
+很	hěn	très			今天很冷。	Jīntiān hěn lěng.	Il fait très froid aujourd’hui.
+去	qù	aller			我明天去医院。	Wǒ míngtiān qù yīyuàn.	Je vais à l’hôpital demain.
+她	tā	elle			她是我的老师。	Tā shì wǒ de lǎoshī.	C’est ma professeure.
+想	xiǎng	penser ; vouloir ; manquer à (想家 = avoir le mal du pays)			我想去中国。	Wǒ xiǎng qù Zhōngguó.	Je voudrais aller en Chine.
+没有	méiyǒu	ne pas avoir ; il n’y a pas			我没有钱了。	Wǒ méiyǒu qián le.	Je n’ai plus d’argent.
+能	néng	pouvoir, être capable de			你明天能来吗？	Nǐ míngtiān néng lái ma?	Tu peux venir demain ?
+那	nà	cela, ce…-là ; alors			那是我的书。	Nà shì wǒ de shū.	Ça, c’est mon livre.
+看	kàn	regarder, voir ; lire			我喜欢看书。	Wǒ xǐhuan kàn shū.	J’aime lire.
+做	zuò	faire			你今天做什么？	Nǐ jīntiān zuò shénme?	Que fais-tu aujourd’hui ?
+什么	shénme	quoi, quel			你在做什么？	Nǐ zài zuò shénme?	Qu’est-ce que tu fais ?
+点	diǎn	heure (三点 = 3 h) ; un peu ; point			现在几点？	Xiànzài jǐ diǎn?	Quelle heure est-il ?
+大	dà	grand			他家很大。	Tā jiā hěn dà.	Sa maison est grande.
+下	xià	sous, en bas ; descendre ; suivant (下个月)			猫在桌子下面。	Māo zài zhuōzi xiàmian.	Le chat est sous la table.
+里	lǐ	dans, à l’intérieur			他在房间里。	Tā zài fángjiān lǐ.	Il est dans la chambre.
+现在	xiànzài	maintenant			现在几点了？	Xiànzài jǐ diǎn le?	Quelle heure est-il maintenant ?
+年	nián	année, an			我在北京住了两年。	Wǒ zài Běijīng zhù le liǎng nián.	J’ai habité deux ans à Pékin.
+多	duō	beaucoup, nombreux			这里人很多。	Zhèlǐ rén hěn duō.	Il y a beaucoup de monde ici.
+吗	ma	particule interrogative (question oui/non)		好吗	你是学生吗？	Nǐ shì xuésheng ma?	Tu es étudiant ?
+太	tài	trop (太…了)			这个太贵了。	Zhège tài guì le.	C’est trop cher.
+呢	ne	particule : et… ? (你呢 = et toi ?)		你呢	我很好，你呢？	Wǒ hěn hǎo, nǐ ne?	Je vais bien, et toi ?
+小	xiǎo	petit			我的房间很小。	Wǒ de fángjiān hěn xiǎo.	Ma chambre est petite.
+时候	shíhou	moment (…的时候 = quand…)			你什么时候回家？	Nǐ shénme shíhou huí jiā?	Quand rentres-tu à la maison ?
+工作	gōngzuò	travailler ; travail			他在医院工作。	Tā zài yīyuàn gōngzuò.	Il travaille à l’hôpital.
+家	jiā	maison, famille, foyer			我家在北京。	Wǒ jiā zài Běijīng.	J’habite à Pékin.
+怎么	zěnme	comment			这个字怎么读？	Zhège zì zěnme dú?	Comment se lit ce caractère ?
+爱	ài	aimer			我爱我的家。	Wǒ ài wǒ de jiā.	J’aime ma famille.
+喜欢	xǐhuan	aimer (bien), apprécier			我喜欢吃苹果。	Wǒ xǐhuan chī píngguǒ.	J’aime les pommes.
+吃	chī	manger			你吃饭了吗？	Nǐ chī fàn le ma?	Tu as mangé ?
+谁	shéi	qui			他是谁？	Tā shì shéi?	Qui est-ce ?
+今天	jīntiān	aujourd’hui			今天星期几？	Jīntiān xīngqī jǐ?	Quel jour sommes-nous aujourd’hui ?
+月	yuè	mois ; lune			我下个月去北京。	Wǒ xià ge yuè qù Běijīng.	Je vais à Pékin le mois prochain.
+几	jǐ	combien (petit nombre) ; quelques			你几点下课？	Nǐ jǐ diǎn xiàkè?	À quelle heure finis-tu les cours ?
+听	tīng	écouter, entendre			请听我说。	Qǐng tīng wǒ shuō.	Écoute-moi, s’il te plaît.
+开	kāi	ouvrir ; allumer ; conduire (开车)			请开门。	Qǐng kāi mén.	Ouvre la porte, s’il te plaît.
+叫	jiào	s’appeler ; appeler			你叫什么名字？	Nǐ jiào shénme míngzi?	Comment tu t’appelles ?
+请	qǐng	s’il vous plaît ; inviter			请坐！	Qǐng zuò!	Asseyez-vous, je vous en prie !
+钱	qián	argent			我没带钱。	Wǒ méi dài qián.	Je n’ai pas pris d’argent.
+本	běn	classif. : livres, cahiers			我买了三本书。	Wǒ mǎi le sān běn shū.	J’ai acheté trois livres.
+回	huí	retourner, rentrer			我六点回家。	Wǒ liù diǎn huí jiā.	Je rentre à la maison à 6 h.
+东西	dōngxi	chose, objet, truc			你想买什么东西？	Nǐ xiǎng mǎi shénme dōngxi?	Qu’est-ce que tu veux acheter ?
+三	sān	trois			我学了三年汉语。	Wǒ xué le sān nián Hànyǔ.	J’ai étudié le chinois pendant trois ans.
+买	mǎi	acheter			我去商店买水果。	Wǒ qù shāngdiàn mǎi shuǐguǒ.	Je vais au magasin acheter des fruits.
+岁	suì	an (âge)			我今年二十岁。	Wǒ jīnnián èrshí suì.	J’ai vingt ans cette année.
+号	hào	numéro ; jour du mois (五号 = le 5)			我的生日是五月九号。	Wǒ de shēngrì shì wǔyuè jiǔ hào.	Mon anniversaire est le 9 mai.
+朋友	péngyou	ami			他是我的好朋友。	Tā shì wǒ de hǎo péngyou.	C’est un bon ami à moi.
+住	zhù	habiter, loger			你住在哪儿？	Nǐ zhù zài nǎr?	Où habites-tu ?
+水	shuǐ	eau			这里的水很干净。	Zhèlǐ de shuǐ hěn gānjìng.	L’eau d’ici est très propre.
+写	xiě	écrire			你会写这个字吗？	Nǐ huì xiě zhège zì ma?	Tu sais écrire ce caractère ?
+喝	hē	boire			我每天喝很多水。	Wǒ měitiān hē hěn duō shuǐ.	Je bois beaucoup d’eau tous les jours.
+学校	xuéxiào	école			我们学校很大。	Wǒmen xuéxiào hěn dà.	Notre école est grande.
+坐	zuò	s’asseoir ; prendre (un transport)			我们坐飞机去北京。	Wǒmen zuò fēijī qù Běijīng.	Nous allons à Pékin en avion.
+认识	rènshi	connaître (qqn), reconnaître			我认识他。	Wǒ rènshi tā.	Je le connais.
+分钟	fēnzhōng	minute			请等我五分钟。	Qǐng děng wǒ wǔ fēnzhōng.	Attends-moi cinq minutes, s’il te plaît.
+明天	míngtiān	demain			明天见！	Míngtiān jiàn!	À demain !
+四	sì	quatre			我们班有四十个学生。	Wǒmen bān yǒu sìshí ge xuésheng.	Il y a quarante élèves dans notre classe.
+块	kuài	kuai (yuan, à l’oral) ; morceau			这个苹果三块钱。	Zhège píngguǒ sān kuài qián.	Cette pomme coûte trois yuans.
+谢谢	xièxie	merci			谢谢你的帮助！	Xièxie nǐ de bāngzhù!	Merci pour ton aide !
+多少	duōshao	combien			这个多少钱？	Zhège duōshao qián?	Combien ça coûte ?
+妈妈	māma	maman			妈妈在做饭。	Māma zài zuò fàn.	Maman prépare le repas.
+少	shǎo	peu			今天人很少。	Jīntiān rén hěn shǎo.	Il y a peu de monde aujourd’hui.
+电影	diànyǐng	film			我们去看电影吧。	Wǒmen qù kàn diànyǐng ba.	Allons voir un film.
+哪	nǎ	quel, lequel			你是哪国人？	Nǐ shì nǎ guó rén?	De quel pays es-tu ?
+昨天	zuótiān	hier			昨天下雨了。	Zuótiān xiàyǔ le.	Il a plu hier.
+书	shū	livre			这本书很有意思。	Zhè běn shū hěn yǒu yìsi.	Ce livre est très intéressant.
+五	wǔ	cinq			我五点下班。	Wǒ wǔ diǎn xiàbān.	Je finis le travail à 5 h.
+先生	xiānsheng	monsieur			李先生是我们的经理。	Lǐ xiānsheng shì wǒmen de jīnglǐ.	M. Li est notre directeur.
+医院	yīyuàn	hôpital			我去医院看朋友。	Wǒ qù yīyuàn kàn péngyou.	Je vais voir un ami à l’hôpital.
+些	xiē	quelques (一些, 这些)			这些书都是我的。	Zhèxiē shū dōu shì wǒ de.	Ces livres sont tous à moi.
+狗	gǒu	chien			我家有一只狗。	Wǒ jiā yǒu yì zhī gǒu.	Nous avons un chien.
+学生	xuésheng	élève, étudiant			他是北京大学的学生。	Tā shì Běijīng Dàxué de xuésheng.	Il est étudiant à l’université de Pékin.
+二	èr	deux			今天是二月二号。	Jīntiān shì èryuè èr hào.	Aujourd’hui, c’est le 2 février.
+儿子	érzi	fils			他儿子三岁了。	Tā érzi sān suì le.	Son fils a trois ans.
+中国	Zhōngguó	Chine			我想去中国旅游。	Wǒ xiǎng qù Zhōngguó lǚyóu.	Je voudrais voyager en Chine.
+电视	diànshì	télévision			爸爸在看电视。	Bàba zài kàn diànshì.	Papa regarde la télévision.
+下午	xiàwǔ	après-midi			下午我们去公园。	Xiàwǔ wǒmen qù gōngyuán.	Cet après-midi, on va au parc.
+学习	xuéxí	étudier, apprendre			我每天学习汉语。	Wǒ měitiān xuéxí Hànyǔ.	J’étudie le chinois tous les jours.
+老师	lǎoshī	professeur			我们的老师很好。	Wǒmen de lǎoshī hěn hǎo.	Notre professeur est très bien.
+六	liù	six			我们六个人一起去。	Wǒmen liù ge rén yìqǐ qù.	Nous y allons à six.
+医生	yīshēng	médecin			我妈妈是医生。	Wǒ māma shì yīshēng.	Ma mère est médecin.
+名字	míngzi	nom, prénom			他的名字很好听。	Tā de míngzi hěn hǎotīng.	Son nom sonne bien.
+十	shí	dix			我十点睡觉。	Wǒ shí diǎn shuì jiào.	Je me couche à 10 h.
+看见	kànjiàn	voir, apercevoir			你看见我的手机了吗？	Nǐ kànjiàn wǒ de shǒujī le ma?	Tu as vu mon téléphone ?
+女儿	nǚ'ér	fille (enfant)			他女儿很漂亮。	Tā nǚ'ér hěn piàoliang.	Sa fille est très jolie.
+爸爸	bàba	papa			我爸爸是医生。	Wǒ bàba shì yīshēng.	Mon père est médecin.
+字	zì	caractère (écrit)			这个字我不认识。	Zhège zì wǒ bú rènshi.	Je ne connais pas ce caractère.
+漂亮	piàoliang	joli, beau			这件衣服很漂亮。	Zhè jiàn yīfu hěn piàoliang.	Ce vêtement est très joli.
+高兴	gāoxìng	content, heureux			认识你很高兴。	Rènshi nǐ hěn gāoxìng.	Ravi de te connaître.
+热	rè	chaud			今天很热。	Jīntiān hěn rè.	Il fait chaud aujourd’hui.
+睡觉	shuì jiào	dormir, se coucher			我十一点睡觉。	Wǒ shíyī diǎn shuì jiào.	Je me couche à 23 h.
+电脑	diànnǎo	ordinateur			我的电脑坏了。	Wǒ de diànnǎo huài le.	Mon ordinateur est en panne.
+读	dú	lire (à voix haute) ; étudier			请读这个字。	Qǐng dú zhège zì.	Lis ce caractère, s’il te plaît.
+冷	lěng	froid			今天太冷了。	Jīntiān tài lěng le.	Il fait trop froid aujourd’hui.
+飞机	fēijī	avion			飞机下午三点到。	Fēijī xiàwǔ sān diǎn dào.	L’avion arrive à 15 h.
+猫	māo	chat			那只猫很漂亮。	Nà zhī māo hěn piàoliang.	Ce chat est très beau.
+打电话	dǎ diànhuà	téléphoner			晚上我给妈妈打电话。	Wǎnshang wǒ gěi māma dǎ diànhuà.	Le soir, j’appelle ma mère.
+后面	hòumian	derrière			学校后面有一个公园。	Xuéxiào hòumian yǒu yí ge gōngyuán.	Il y a un parc derrière l’école.
+喂	wèi	allô			喂，你在哪儿？	Wèi, nǐ zài nǎr?	Allô, tu es où ?
+八	bā	huit			我早上八点起床。	Wǒ zǎoshang bā diǎn qǐchuáng.	Je me lève à 8 h du matin.
+怎么样	zěnmeyàng	comment est… ? qu’en penses-tu ?			你觉得这个菜怎么样？	Nǐ juéde zhège cài zěnmeyàng?	Que penses-tu de ce plat ?
+七	qī	sept			我七点吃早饭。	Wǒ qī diǎn chī zǎofàn.	Je prends le petit déjeuner à 7 h.
+菜	cài	plat (cuisiné) ; légume			这个菜很好吃。	Zhège cài hěn hǎochī.	Ce plat est très bon.
+衣服	yīfu	vêtement			我去买衣服。	Wǒ qù mǎi yīfu.	Je vais acheter des vêtements.
+小姐	xiǎojie	mademoiselle			小姐，请给我一杯水。	Xiǎojie, qǐng gěi wǒ yì bēi shuǐ.	Mademoiselle, un verre d’eau s’il vous plaît.
+对不起	duìbuqǐ	pardon, désolé			对不起，我来晚了。	Duìbuqǐ, wǒ lái wǎn le.	Désolé, je suis en retard.
+天气	tiānqì	temps (météo)			今天天气很好。	Jīntiān tiānqì hěn hǎo.	Il fait beau aujourd’hui.
+前面	qiánmiàn	devant			前面有一个商店。	Qiánmiàn yǒu yí ge shāngdiàn.	Il y a un magasin devant.
+同学	tóngxué	camarade de classe			他是我的同学。	Tā shì wǒ de tóngxué.	C’est mon camarade de classe.
+茶	chá	thé			我想喝茶。	Wǒ xiǎng hē chá.	Je voudrais boire du thé.
+星期	xīngqī	semaine (星期一 = lundi)			星期天我不上班。	Xīngqītiān wǒ bú shàngbān.	Le dimanche, je ne travaille pas.
+九	jiǔ	neuf (9)			我九点上课。	Wǒ jiǔ diǎn shàngkè.	J’ai cours à 9 h.
+上午	shàngwǔ	matinée			我上午有课。	Wǒ shàngwǔ yǒu kè.	J’ai cours le matin.
+再见	zàijiàn	au revoir			老师，再见！	Lǎoshī, zàijiàn!	Au revoir, professeur !
+哪儿	nǎr	où			你去哪儿？	Nǐ qù nǎr?	Où vas-tu ?
+苹果	píngguǒ	pomme			我每天吃一个苹果。	Wǒ měitiān chī yí ge píngguǒ.	Je mange une pomme par jour.
+中午	zhōngwǔ	midi			中午我们一起吃饭吧。	Zhōngwǔ wǒmen yìqǐ chī fàn ba.	Déjeunons ensemble à midi.
+出租车	chūzūchē	taxi			我们坐出租车去吧。	Wǒmen zuò chūzūchē qù ba.	Allons-y en taxi.
+水果	shuǐguǒ	fruit			你喜欢吃什么水果？	Nǐ xǐhuan chī shénme shuǐguǒ?	Quels fruits aimes-tu ?
+商店	shāngdiàn	magasin			商店几点开门？	Shāngdiàn jǐ diǎn kāi mén?	À quelle heure le magasin ouvre-t-il ?
+没关系	méi guānxi	ce n’est rien, pas grave			对不起！——没关系。	Duìbuqǐ! – Méi guānxi.	Pardon ! – Ce n’est rien.
+桌子	zhuōzi	table, bureau			你的书在桌子上。	Nǐ de shū zài zhuōzi shàng.	Ton livre est sur la table.
+饭店	fàndiàn	restaurant ; hôtel			我们在饭店吃饭。	Wǒmen zài fàndiàn chī fàn.	Nous mangeons au restaurant.
+椅子	yǐzi	chaise			请坐在这把椅子上。	Qǐng zuò zài zhè bǎ yǐzi shàng.	Assieds-toi sur cette chaise.
+北京	Běijīng	Pékin			我想去北京。	Wǒ xiǎng qù Běijīng.	Je voudrais aller à Pékin.
+下雨	xiàyǔ	pleuvoir			外面在下雨。	Wàimian zài xiàyǔ.	Il pleut dehors.
+杯子	bēizi	verre, tasse			这个杯子是我的。	Zhège bēizi shì wǒ de.	Ce verre est à moi.
+一点儿	yìdiǎnr	un peu			我会说一点儿汉语。	Wǒ huì shuō yìdiǎnr Hànyǔ.	Je parle un peu chinois.
+米饭	mǐfàn	riz cuit			我想吃米饭。	Wǒ xiǎng chī mǐfàn.	Je voudrais manger du riz.
+汉语	Hànyǔ	chinois (langue)			我在学习汉语。	Wǒ zài xuéxí Hànyǔ.	J’apprends le chinois.
+不客气	bú kèqi	de rien, je t’en prie			谢谢你！——不客气。	Xièxie nǐ! – Bú kèqi.	Merci ! – De rien.
