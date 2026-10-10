@@ -232,7 +232,7 @@ def run(browser, errors, scheme):
     # ------------------------------------------------------------ first pass
     st = page.evaluate("""() => ({ lists: LISTS.map(L => [L.id, L.words.length, deckOn(L.id)]), top: topBucket(),
         delays: state.settings.delays, evalSize: state.settings.evalSize, sched: state.sched,
-        lineOf: lineOf(dayNum()), pass: DECK.filter(w => deckOn(w.deck)).every(w => inPass(w.id)) })""")
+        lineOf: lineOf(dayNum()), pass: DECK.filter(onLine).every(w => inPass(w.id)) })""")
     check(line() == W and st["lineOf"] == W and st["pass"], S + "first pass: the six words of Perso, in file order", line())
     check(["hsk1", 150, False] in st["lists"], S + "inactive list left out of the line", st["lists"])
     check(st["top"] == 6 and st["delays"] == DELAYS and st["evalSize"] == 20 and st["sched"] == 1,
@@ -1042,6 +1042,7 @@ SEED_LEARN = """(W) => {
 }"""
 LSTATE = """() => ({ mode: study.mode, cur: study.cur, line: [study.cur, ...study.queue].filter(Boolean),
   ids: study.learn ? [...study.learn.ids] : null, got: study.learn ? [...study.learn.got] : null, check: !!(study.learn && study.learn.check),
+  round: study.learn ? study.learn.round : null,
   snap: JSON.stringify([state.cards, state.log]), note: document.querySelector('#free-text').textContent,
   noteShown: !document.querySelector('#free-note').hidden, stop: document.querySelector('#free-stop').textContent,
   kn: !!document.querySelector('#card-chip .kn'), face: study.curFace, toast: document.querySelector('#toast').textContent,
@@ -1049,24 +1050,38 @@ LSTATE = """() => ({ mode: study.mode, cur: study.cur, line: [study.cur, ...stud
   now: Date.now(), pool: learnPool(), lineOf: lineOf(dayNum()) })"""
 LPOST = """(id) => ({ card: state.cards[id] || null, missed: missed(id), log: state.log[dayNum()] || null, lineOf: lineOf(dayNum()),
   now: Date.now(), toast: document.querySelector('#toast').textContent })"""
-# every word of the round learned but X, a learned word on screen; X leaves the lists (build(keep)): the last check
-# starts at once, on another card
-LEARN_VANISH = """() => {
+# the word on screen is the last of its round, every other one passed (miss: but one); it leaves the lists (build(keep)):
+# the round ends there, on another card: the last check (miss: a new round)
+LEARN_VANISH = """(miss) => {
   const L = study.learn, cur = study.cur, X = L.ids.find(id => id !== cur);
-  for (const id of L.ids) if (id !== X) L.got.add(id);
-  const w = BYID.get(X); BYID.delete(X);
+  for (const id of L.ids) if (id !== cur && !(miss && id === X)) L.got.add(id);
+  study.queue = [];
+  const w = BYID.get(cur); BYID.delete(cur);
   study.build(true);
-  BYID.set(X, w);
-  return { cur, X, check: L.check, now: study.cur, ready: study.ready, ids: [...L.ids], line: [study.cur, ...study.queue],
+  BYID.set(cur, w);
+  return { cur, X, check: L.check, round: L.round, got: [...L.got], now: study.cur, ready: study.ready, ids: [...L.ids], line: [study.cur, ...study.queue],
     chips: [...document.querySelectorAll('#card-chip .chip')].filter(c => !c.querySelector('.kn')).map(c => c.textContent),
     note: document.querySelector('#free-text').textContent, cards: JSON.stringify(state.cards) };
+}"""
+# the lists change in the 430 ms after an answer (busy) and take the rest of the round: the round ends there; the word
+# answered √ was the only one left, so the last check starts with it
+LEARN_BUSY = """async () => {
+  const L = study.learn, cur = study.cur, rest = [...study.queue];
+  prism.turn(1); study.grade(1);
+  const saved = rest.map(id => [id, BYID.get(id)]); rest.forEach(id => BYID.delete(id));
+  study.build(true);
+  saved.forEach(([id, w]) => BYID.set(id, w));
+  await new Promise(r => { const t = setInterval(() => { if (!study.busy && (study.ready || !document.querySelector('#done').hidden)) { clearInterval(t); r(); } }, 5); });
+  return { cur, n: rest.length, check: L.check, ids: [...L.ids], now: study.cur, done: !document.querySelector('#done').hidden,
+    chips: [...document.querySelectorAll('#card-chip .chip')].filter(c => !c.querySelector('.kn')).map(c => c.textContent) };
 }"""
 # a phone word that changes id (mergeTel) during a round keeps its place, and its "learned" mark
 LEARN_RENAME = """() => {
   const L = study.learn, cur = study.cur, nxt = study.queue[0];
   L.got.add(nxt);
   renameInStudy(nxt, 'perso:新'); renameInStudy(cur, 'perso:今');
-  return { had: [cur, nxt], cur: study.cur, q0: study.queue[0], n: study.queue.length, ids: [...L.ids], got: [...L.got] };
+  return { had: [cur, nxt], cur: study.cur, q0: study.queue[0], n: study.queue.length, ids: [...L.ids], got: [...L.got],
+    saved: state.learn ? [...state.learn.queue] : null };
 }"""
 LINFO = """() => ({ go: document.querySelector('#learn-go').textContent, off: document.querySelector('#learn-go').disabled,
   info: document.querySelector('#learn-info').textContent })"""
@@ -1126,33 +1141,35 @@ def run_learning(browser, errors, scheme):
         page.wait_for_function("() => study.mode === 'line' && (study.ready || !document.querySelector('#done').hidden)")
 
     def loop_step(g, label):
-        """One answer in the loop: chips, hints, note before; then the place of the word in the loop, cards untouched."""
+        """One answer in a round: chips, hints, note before; then the rest of the round, or the next round, cards untouched."""
         pre = ls()
-        cur, got, n = pre["cur"], set(pre["got"]), len(pre["ids"])
-        want_chip = "Appris" if cur in got else "Seau 0, raté" if pre["missed"] else "Nouveau mot"
+        cur, got, n, rnd = pre["cur"], set(pre["got"]), len(pre["ids"]), pre["round"]
+        j = n - len(pre["line"]) + 1                 # the word on screen is the j-th of its round
+        miss = j - 1 - len(got)
+        want_chip = "Seau 0, raté" if pre["missed"] else "Nouveau mot"
+        want_note = "Apprentissage, tour %d : mot %d sur %d" % (rnd, j, n) + (", %d raté%s" % (miss, "s" if miss > 1 else "") if miss else "")
         ch, h, co = chips(), hints(), counts()
-        check(ch == ["Apprentissage", want_chip, "Perso"] and not pre["kn"] and co == [[n - len(got), "à apprendre"]]
-              and h == ["revient bientôt", "appris, revient plus tard"]
-              and nb(pre["note"]) == "Apprentissage : %d sur %d mots appris" % (len(got), n) and nb(pre["stop"]) == "Arrêter",
-              S + "%s: chips (%s), header, hints and note in the loop" % (label, want_chip), (ch, co, h, pre["note"]))
+        check(ch == ["Apprentissage", want_chip, "Perso"] and not pre["kn"] and co == [[len(pre["line"]), "dans ce tour"]]
+              and h == ["un tour de plus", "réussi dans ce tour"] and nb(pre["note"]) == want_note and nb(pre["stop"]) == "Arrêter",
+              S + "%s: chips (%s), header, hints and note in the round" % (label, want_chip), (ch, co, h, pre["note"], want_note))
         a = answer(page, g)
         post = ls()
         rest = pre["line"][1:]
         if g:
             got.add(cur)
-            rest.append(cur)
+        check(a == cur and post["snap"] == pre["snap"], S + "%s: the round leaves cards and log untouched" % label)
+        if rest:
+            check(not post["check"] and post["line"] == rest and set(post["got"]) == got and post["round"] == rnd,
+                  S + "%s: %s, the round goes on in its order (%d passed)" % (label, "√" if g else "×", len(got)), (pre["line"], post["line"]))
+        elif len(got) == n:
+            check(post["check"] and sorted(post["line"]) == sorted(pre["ids"]) and (n == 1 or post["line"][0] != cur),
+                  S + "%s: every word passed in the same round: the last check starts with the %d words" % (label, n), post)
         else:
-            got.discard(cur)
-            rest.insert(min(3, len(rest)), cur)
-        check(a == cur and post["snap"] == pre["snap"], S + "%s: the loop leaves cards and log untouched" % label)
-        if len(got) == n:
-            check(post["check"] and sorted(post["line"]) == sorted(pre["ids"]) and set(post["got"]) == got,
-                  S + "%s: every word learned at once: the last check starts with the %d words" % (label, n), post)
-        else:
-            check(not post["check"] and post["line"] == rest and set(post["got"]) == got,
-                  S + "%s: %s %s" % (label, "√: learned, back at the end of the loop" if g else "×: not learned, back 3 cards later",
-                                     "(%d learned)" % len(got)), (pre["line"], post["line"], rest, sorted(post["got"])))
-        return cur, want_chip
+            check(not post["check"] and post["round"] == rnd + 1 and post["got"] == [] and sorted(post["line"]) == sorted(pre["ids"])
+                  and (n == 1 or post["line"][0] != cur) and nb(post["toast"]).startswith("Tour %d : %d sur %d mot" % (rnd, len(got), n)),
+                  S + "%s: a word missed in the round: a new round of the %d words in a new order, not the same card twice in a row"
+                  % (label, n), (post["round"], post["line"], post["toast"]))
+        return cur
 
     # ------------------------------------------------------------ Progrès and the size of a round
     view("progress")
@@ -1176,8 +1193,8 @@ def run_learning(browser, errors, scheme):
           and not any(i.startswith("extra:") for i in ids) and page.evaluate("(ids) => ids.map(bucketOf)", ids) == [0] * 20,
           S + "round of 20 words, all in bucket 0 of the active lists", ids)
     check(len(st["pool"]) == 155 and ids != st["pool"][:20] and st["line"] == ids and st["got"] == [] and not st["check"]
-          and page.evaluate("() => current") == "study" and counts() == [[20, "à apprendre"]],
-          S + "the 20 words are picked at random; header: 20 to learn", (len(st["pool"]), counts()))
+          and st["round"] == 1 and page.evaluate("() => current") == "study" and counts() == [[20, "dans ce tour"]],
+          S + "the 20 words are picked at random, in a random order; header: 20 in this round", (len(st["pool"]), counts()))
     answer(page, 1)
     answer(page, 0)
     stop_to_line()
@@ -1207,7 +1224,7 @@ def run_learning(browser, errors, scheme):
     check(linfo()["go"] == "Apprendre 5 mots", S + "Progrès: 5 words per round", linfo())
     go_learn()
     st = ls()
-    check(len(st["ids"]) == 5 and set(st["ids"]) <= set(st["pool"]) and counts() == [[5, "à apprendre"]], S + "round of 5 words (learnSize 5)", st["ids"])
+    check(len(st["ids"]) == 5 and set(st["ids"]) <= set(st["pool"]) and counts() == [[5, "dans ce tour"]], S + "round of 5 words (learnSize 5)", st["ids"])
     stop_to_line()
     view("settings")
     page.click('#deck-settings .switch[data-deck="hsk1"]')
@@ -1223,14 +1240,22 @@ def run_learning(browser, errors, scheme):
     st = ls()
     check(sorted(st["ids"]) == sorted(POOL) and st["line"] == st["ids"] and not st["check"] and st["noteShown"],
           S + "pool smaller than a round: every word of bucket 0 of the active lists", st["ids"])
-    check(st["note"] == "Apprentissage : 0 sur 5 mots appris", S + "typography of the note (fine space before :, 5 mots bound)", st["note"])
+    check(st["note"] == "Apprentissage, tour 1\u202f: mot 1 sur 5", S + "typography of the note (fine space before :)", st["note"])
     shot(page, "seaux-%s-12-learn-loop" % scheme)
+    # a new round: a new random order each time, never the card just seen first
+    rr = page.evaluate("""() => { const L = study.learn, keep = [L.round, [...L.got], [...study.queue]], seen = new Set(); let same = 0;
+        for (let k = 0; k < 60; k++) { L.got = new Set(); study.endRound(L.ids[0]); seen.add(study.queue.join()); if (study.queue[0] === L.ids[0]) same++; }
+        L.round = keep[0]; L.got = new Set(keep[1]); study.queue = keep[2]; return { orders: seen.size, same }; }""")
+    check(rr["orders"] > 20 and rr["same"] == 0, S + "a new round: a new random order each time, not starting with the card just seen", rr)
     steps = []
-    for k, g in enumerate([1, 0, 1, 1, 1, 0, 0, 1, 1, 1, 1]):
-        steps.append(loop_step(g, "loop %d (%s)" % (k + 1, "√" if g else "×")))
-    check(steps[6][1] == "Appris" and steps[6][0] == steps[0][0] and steps[1][0] == steps[5][0] == steps[9][0],
-          S + "loop: a learned word comes back (Appris) and a × un-learns it; the check waits for all five learned at once",
-          [s[1] for s in steps])
+    for k, g in enumerate([1, 0, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1]):
+        steps.append(loop_step(g, "round %d, word %d (%s)" % (k // 5 + 1, k % 5 + 1, "√" if g else "×")))
+        if k == 6:
+            check(nb(ls()["note"]) == "Apprentissage, tour 2 : mot 3 sur 5", S + "the note of a round with no miss yet", ls()["note"])
+        if k == 7:
+            check(nb(ls()["note"]) == "Apprentissage, tour 2 : mot 4 sur 5, 1 raté", S + "the note counts the misses of the round", ls()["note"])
+    check(all(sorted(steps[5 * r:5 * r + 5]) == sorted(st["ids"]) for r in range(3)) and steps[5] != steps[4] and steps[10] != steps[9],
+          S + "three rounds: each shows the five words once; a round with a miss starts again, the round with none ends the loop", steps)
     st = ls()
     check(nb(st["toast"]) == "Les 5 mots sont appris : un dernier passage, et chaque mot réussi passe au seau 1.", S + "toast before the last check", st["toast"])
     check(st["toast"].startswith("Les 5 mots sont appris :"),
@@ -1288,11 +1313,12 @@ def run_learning(browser, errors, scheme):
     page.click("#learn-start")
     page.wait_for_function("() => study.mode === 'learn' && study.ready && !!study.cur")
     st = ls()
-    check(sorted(st["ids"]) == sorted(ko) and counts() == [[2, "à apprendre"]] and chips() == ["Apprentissage", "Seau 0, raté", "Perso"],
+    check(sorted(st["ids"]) == sorted(ko) and counts() == [[2, "dans ce tour"]] and chips() == ["Apprentissage", "Seau 0, raté", "Perso"],
           S + "Apprendre 2 mots from the end screen: the two missed words", (st["ids"], counts(), chips()))
     first = answer(page, 1)
     st = ls()
-    check(st["got"] == [first] and st["line"][-1] == first and counts() == [[1, "à apprendre"]], S + "round 2: one word learned", st["got"])
+    check(st["got"] == [first] and st["line"] == [x for x in ko if x != first] and counts() == [[1, "dans ce tour"]],
+          S + "round 2: one word passed, the other one left in the round", st["got"])
     stop_to_line()
     st = ls()
     check(st["mode"] == "line" and st["snap"] == snap1 and not st["noteShown"] and st["line"] == st["lineOf"],
@@ -1379,11 +1405,20 @@ def run_learning(browser, errors, scheme):
     page.evaluate(SEED_LEARN, W)
     c0 = page.evaluate("() => state.cards")
     go_learn()
-    v = page.evaluate(LEARN_VANISH)
-    check(v["check"] and v["ready"] and len(v["ids"]) == 4 and v["X"] not in v["ids"] and v["now"] != v["cur"]
+    v = page.evaluate(LEARN_VANISH, True)
+    check(not v["check"] and v["ready"] and v["round"] == 2 and v["got"] == [] and len(v["ids"]) == 4 and v["cur"] not in v["ids"]
+          and sorted(v["line"]) == sorted(v["ids"]) and v["chips"][0] == "Apprentissage" and nb(v["note"]) == "Apprentissage, tour 2 : mot 1 sur 4"
+          and json.loads(v["cards"]) == c0,
+          S + "the last card of a round with a miss leaves the lists: a new round of the four others at once", v)
+    stop_to_line()
+    page.evaluate(SEED_LEARN, W)
+    c0 = page.evaluate("() => state.cards")
+    go_learn()
+    v = page.evaluate(LEARN_VANISH, False)
+    check(v["check"] and v["ready"] and len(v["ids"]) == 4 and v["cur"] not in v["ids"] and v["now"] != v["cur"]
           and sorted(v["line"]) == sorted(v["ids"]) and v["chips"][0] == "Dernier passage" and nb(v["note"]) == "Dernier passage : mot 1 sur 4"
           and json.loads(v["cards"]) == c0,
-          S + "the only word not learned leaves the lists: the last check starts at once, the loop card on screen dropped", v)
+          S + "the last card of a round where all others passed leaves the lists: the last check starts at once", v)
     got = [answer(page, 1) for _ in range(4)]
     d = done()
     cs = page.evaluate("(ids) => ids.map(id => state.cards[id])", v["ids"])
@@ -1393,13 +1428,86 @@ def run_learning(browser, errors, scheme):
     page.click("#done-back")
     page.wait_for_function("() => study.mode === 'line'")
 
+    page.evaluate(SEED_LEARN, W)
+    go_learn()
+    lb = page.evaluate(LEARN_BUSY)
+    check(lb["n"] == 4 and lb["check"] and lb["ids"] == [lb["cur"]] and lb["now"] == lb["cur"] and not lb["done"]
+          and lb["chips"][0] == "Dernier passage",
+          S + "the rest of the round leaves the lists right after a √: the round ends, the last check starts", lb)
+    stop_to_line()
+
+    # ------------------------------------------------------------ the learning in progress is saved: closing the app loses nothing
+    SAVED = "() => ({ st: state.learn, ls: JSON.parse(localStorage.getItem('xingyinyi.v2')).learn || null })"
+    page.evaluate(SEED_LEARN, W)
+    go_learn()
+    answer(page, 1)
+    answer(page, 0)
+    st = ls()
+    sv = page.evaluate(SAVED)
+    check(sv["st"] == sv["ls"] and sv["st"]["ids"] == st["ids"] and sv["st"]["queue"] == st["line"] and sv["st"]["got"] == st["got"]
+          and sv["st"]["round"] == 1 and not sv["st"]["check"] and sv["st"]["res"] is None and len(st["line"]) == 3,
+          S + "saved after each answer: the words of the round left, the word on screen first", sv)
+    page.reload()
+    wait_ready(page)
+    page.wait_for_function("() => study.mode === 'learn' && study.ready")
+    st2 = ls()
+    check(st2["ids"] == st["ids"] and st2["line"] == st["line"] and sorted(st2["got"]) == sorted(st["got"]) and st2["round"] == 1
+          and not st2["check"] and nb(st2["note"]) == "Apprentissage, tour 1 : mot 3 sur 5, 1 raté"
+          and "Apprentissage repris au tour 1, là où tu l’avais laissé." in nb(st2["toast"]),
+          S + "after a reload: the learning comes back where it was", (st2["line"], st2["note"], st2["toast"]))
+    while not ls()["check"]:
+        answer(page, 1)
+    a = answer(page, 1)
+    sv = page.evaluate(SAVED)["st"]
+    check(sv["check"] and [p[0] for p in sv["res"]["ok"]] == [a] and sv["res"]["ko"] == [] and len(sv["queue"]) == 4 and a not in sv["queue"],
+          S + "the last check is saved too, with its answers", sv)
+    page.reload()
+    wait_ready(page)
+    page.wait_for_function("() => study.mode === 'learn' && study.ready")
+    st3 = ls()
+    check(st3["check"] and st3["line"] == sv["queue"] and nb(st3["note"]) == "Dernier passage : mot 2 sur 5"
+          and "Apprentissage repris au dernier passage" in nb(st3["toast"]),
+          S + "after a reload in the last check: its answer kept, the next word", (st3["line"], st3["note"], st3["toast"]))
+    page.click("#free-stop")
+    d = done()
+    sv = page.evaluate(SAVED)
+    check(d["title"] == "Apprentissage arrêté" and nb(d["text"]) == "1 sur 1 réussi (100 %)." and sv == {"st": None, "ls": None},
+          S + "Arrêter in the last check: its results, nothing saved any more", (d["title"], d["text"], sv))
+    page.click("#done-back")
+    page.wait_for_function("() => study.mode === 'line'")
+    # Arrêter in a round, or another mode started: the learning is over
+    page.evaluate(SEED_LEARN, W)
+    go_learn()
+    answer(page, 1)
+    stop_to_line()
+    check(page.evaluate(SAVED) == {"st": None, "ls": None}, S + "Arrêter in a round: nothing saved any more")
+    page.reload()
+    wait_ready(page)
+    check(page.evaluate("() => study.mode") == "line", S + "after a reload: the line, no learning")
+    go_learn()
+    answer(page, 1)
+    view("progress")
+    page.click("#eval-go")
+    page.wait_for_function("() => study.mode === 'eval'")
+    check(page.evaluate(SAVED) == {"st": None, "ls": None}, S + "an evaluation started: the learning left is dropped")
+    page.click("#free-stop")
+    page.wait_for_function("() => study.mode === 'line'")
+    cl = page.evaluate("""() => [null, 5, { ids: 'x' }, { ids: ['a'], queue: [] },
+        { ids: ['a', 'b'], queue: ['b', 'z'], got: ['a', 3], round: 'x', check: 1, res: { ok: [['a', 0], 7] } },
+        { ids: ['a'], queue: ['a'], round: 3, res: { ok: [['a', 1]] } }]
+        .map(x => normalizeState({ v: 2, sched: 1, settings: { delays: [1, 3] }, cards: {}, learn: x }).learn)""")
+    check(cl[:4] == [None] * 4 and cl[4] == {"ids": ["a", "b"], "got": ["a"], "round": 1, "check": True, "queue": ["b"], "res": {"ok": [["a", 0]], "ko": []}}
+          and cl[5] == {"ids": ["a"], "got": [], "round": 3, "check": False, "queue": ["a"], "res": None},
+          S + "normalizeState: a saved learning cleaned, or dropped when it has nothing left", cl)
+
     # ------------------------------------------------------------ a word that changes id during a round
     page.evaluate(SEED_LEARN, W)
     go_learn()
     rn = page.evaluate(LEARN_RENAME)
     cur, nxt = rn["had"]
     check(rn["cur"] == "perso:今" and rn["q0"] == "perso:新" and rn["n"] == 4 and "perso:今" in rn["ids"] and "perso:新" in rn["ids"]
-          and cur not in rn["ids"] and nxt not in rn["ids"] and rn["got"] == ["perso:新"],
+          and cur not in rn["ids"] and nxt not in rn["ids"] and rn["got"] == ["perso:新"]
+          and rn["saved"][:2] == ["perso:今", "perso:新"] and cur not in rn["saved"],
           S + "a word that changes id keeps its place in the round and its mark (renameInStudy)", rn)
     page.click("#free-stop")
     page.wait_for_function("() => study.mode === 'line'")

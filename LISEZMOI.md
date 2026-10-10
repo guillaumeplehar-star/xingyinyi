@@ -20,10 +20,17 @@ Ce que contient le dossier :
 | `fonts/` | polices LXGW WenKai et Andika (licence libre, voir `fonts/OFL.txt`) |
 | `CLAUDE.md`, `tests/`, `outils/version_appli.py` | pour faire évoluer l’appli avec Claude Code (section 9) |
 
-Listes fournies : HSK 3 (300 mots), HSK 2 et HSK 1 (151 et 150 mots), Perso (vide, pour tes
-mots). Les trois listes HSK sont les listes officielles HSK 2.0 (révision de 2012), celles de
-l’examen de novembre. Toutes sont actives au départ : pour te concentrer sur le HSK 3, désactive
-HSK 1 et HSK 2 (voir section 5).
+Listes fournies : HSK 1 à 6 (2.0), les listes officielles HSK 2.0 de 2012, celles de l’examen de
+novembre ; HSK 1 à 6 (3.0), le programme d’examen HSK 3.0 de 2026 ; Perso (vide, pour tes mots).
+HSK 1 à 3 (2.0) sont actives au départ, les autres attendent dans Réglages (section 5). Les listes
+HSK 4 à 6 et HSK 3.0 arrivent au fur et à mesure que leurs fiches sont rédigées et relues.
+
+**Un mot n’existe qu’une fois** dans le dictionnaire (mêmes caractères, même pinyin, même sens) et
+appartient à toutes les listes qui le contiennent : 爱 est dans HSK 1 (2.0) et dans HSK 1 (3.0),
+avec une seule carte et une seule progression. Deux mots qui s’écrivent pareil mais se lisent
+autrement (还 hái, 还 huán) ou n’ont pas le même sens (点 diǎn « heure », 点 diǎn « commander ») sont
+deux mots. Les listes HSK sont figées ; tes listes à toi peuvent contenir des mots HSK et des mots
+nouveaux.
 
 
 ## 1. Installation (une seule fois)
@@ -126,23 +133,27 @@ et télécharge une voix de bonne qualité.
   Le haut de l’écran compte les mots **à voir** (pas encore passés au premier tour) et les mots
   **à revoir** (ratés, ou dont le délai est écoulé). Comment avance la file : section 5.
 - **＋** (en haut à droite, depuis n’importe quel écran) : créer une nouvelle fiche tout de suite.
-- **Mots** : chercher (caractères, pinyin sans accents ou français), filtrer par liste ou par
-  avancement (À voir, En cours, Acquis : les deux derniers seaux), ajouter un mot. La fiche d’un
-  mot indique son seau et sa prochaine révision.
+- **Mots** : le dictionnaire. L’onglet **Toutes** montre, une seule fois chacun, les mots des
+  listes que tu as choisi d’afficher (Réglages › Listes › Afficher), puis les mots qui ne sont dans
+  aucune liste ; un onglet par liste, et **Sans liste**. La recherche (caractères, pinyin sans
+  accents ou français) parcourt tout le dictionnaire, listes masquées comprises. Filtres
+  d’avancement : À voir, En cours, Acquis (les deux derniers seaux). La fiche d’un mot indique ses
+  listes, son seau et sa prochaine révision ; **Listes…** l’ajoute à une de tes listes ou l’en retire.
   Si la recherche ne trouve rien, **Créer la fiche « … »** ouvre le formulaire déjà rempli avec ce
   que tu as tapé.
 - **Progrès** : mots passés, en tout et par liste, ce qu’il reste à voir au premier tour et quand
   il sera fini à ton rythme, le rythme à tenir avant l’examen, le nombre de mots dans chaque seau
   et les révisions prévues sur la semaine. C’est aussi là que tu lances un **apprentissage**, une **évaluation**, un
   **test complet**, un test **nouveau sens** ou un **entraînement libre** (section 5).
-- **Réglages** : listes actives, seaux et délais, nombre de mots par évaluation, date de l’examen,
+- **Réglages** : pour chaque liste, **Réviser** (elle entre dans la file) et **Afficher** (ses mots
+  apparaissent dans Mots › Toutes) ; seaux et délais, nombre de mots par apprentissage et par évaluation, date de l’examen,
   publication sur GitHub, affichage des cartes et voix, mise à jour de l’appli (Appli › Vérifier),
   sauvegarde.
 
 Le premier tour suit l’ordre des listes actives : d’abord celles créées sur le téléphone (dont
 « Ajoutés ici »), puis Perso, HSK 3, HSK 2 et HSK 1, dans l’ordre de `decks/decks.json`. Dans
 chaque liste, les mots arrivent dans l’ordre des lignes du fichier (pour les listes HSK : du plus
-fréquent au plus rare).
+fréquent au plus rare). Un mot de deux listes actives ne passe qu’une fois, avec la première.
 
 
 ## 3. Ajouter ou corriger des mots depuis l’ordinateur
@@ -161,6 +172,12 @@ Chaque fichier `decks/*.tsv` contient un mot par ligne, colonnes séparées par 
 | exemple | phrase en caractères contenant le mot | non |
 | exemple_pinyin | pinyin de la phrase | non |
 | exemple_fr | traduction de la phrase | non |
+
+Une ligne **sans traduction** ne crée pas de mot : elle renvoie à un mot défini dans une autre
+liste. Pour mettre 图书馆 du HSK 3 dans ta liste Perso, écris seulement `图书馆` ; si plusieurs mots
+s’écrivent ainsi, ajoute le pinyin (`还	huán`) ; pour deux homographes de même pinyin, écris
+l’identifiant du mot (`hsk30-2:点`). `verifier` signale un renvoi qui ne mène à rien, et un mot
+défini deux fois.
 
 Les lignes qui commencent par `#` sont des commentaires. Un éditeur de texte comme VS Code (ou
 TextEdit, qui ouvre ces fichiers en texte brut) convient. Évite Excel : en enregistrant, il abîme
@@ -223,10 +240,14 @@ le téléphone et prend le pas sur la liste. Reporte-la dans le fichier pour la 
 ### Créer, remplir, supprimer une liste
 
 - Mots › **＋ Nouvelle liste** : donne-lui un nom (« Cours du mardi »). Elle s’ouvre aussitôt.
-- Dans une liste du téléphone : **Ajouter un mot ici**, **Renommer**, **Supprimer la liste**
-  (ses mots et leur progression partent avec elle).
+- Dans une liste du téléphone : **Ajouter un mot ici**, **Partager la liste**, **Renommer**,
+  **Supprimer la liste** (ses mots restent dans le dictionnaire, avec leur progression).
 - Le formulaire **Ajouter** (ou le bouton **＋** en haut de l’écran) a aussi un champ « Liste »,
-  avec l’option « Nouvelle liste… ».
+  avec « Aucune liste » et « Nouvelle liste… ». Si le mot tapé est déjà dans le dictionnaire, le
+  formulaire le montre avec **Ajouter celui-ci à la liste** : un mot n’est jamais écrit deux fois.
+- Un mot HSK entre dans une de tes listes par sa fiche (Mots › le mot › **Listes…**). Les listes
+  HSK, elles, ne changent pas ; Perso et les listes du dépôt qui ne sont pas HSK peuvent aussi
+  recevoir des mots depuis le téléphone (en attente de publication).
 
 Les listes du téléphone passent en tête du premier tour. Tant qu’elles ne sont pas publiées,
 elles n’existent que sur ce téléphone.
@@ -234,9 +255,11 @@ elles n’existent que sur ce téléphone.
 ### Publier depuis le téléphone, sans l’ordinateur
 
 L’appli peut écrire elle-même dans ton dépôt GitHub : chaque liste du téléphone devient un fichier
-`decks/<nom>.tsv` déclaré dans `decks.json`, les mots de « Ajoutés ici » vont dans `perso.tsv`,
-et les corrections faites sur des mots HSK sont reportées dans leur fichier. La progression est
-gardée. Il lui faut un **jeton d’accès** limité à ce dépôt :
+`decks/<nom>.tsv` déclaré dans `decks.json`, les mots de « Ajoutés ici » vont dans `perso.tsv`, les
+mots ajoutés à Perso ou retirés y sont reportés, les mots sans liste vont dans `mots.tsv`, et les
+corrections faites sur des mots HSK sont reportées dans leur fichier. Un mot HSK n’y est écrit
+qu’en renvoi (ses caractères). La progression est gardée. Il lui faut un **jeton d’accès** limité
+à ce dépôt :
 
 1. Sur github.com : avatar › **Settings** › **Developer settings** › **Personal access tokens** ›
    **Fine-grained tokens** › **Generate new token**.
@@ -264,10 +287,31 @@ le fichier où les mettre : `decks/perso.tsv` pour « Ajoutés ici » ; 
 fichier créé avec `py outils\decks.py nouvelle-liste <id> "<nom>"` (la commande exacte est
 affichée). Lance ensuite `py outils\decks.py completer` sur le fichier, puis publie avec git. À la
 mise à jour suivante, ces mots passent dans la liste du dépôt du même nom en gardant leur
-progression.
+progression. Un mot créé sur le téléphone et présent dans deux de tes listes n’est écrit en entier
+qu’une fois (l’autre liste y renvoie), et les mots que la liste du dépôt a déjà ne sont pas
+répétés. Un mot corrigé sur le téléphone après la copie garde ta correction quand sa ligne arrive.
 
-Un même mot peut figurer dans plusieurs listes (par exemple un mot du HSK 3 dans ta liste
-« Cours du mardi ») : chaque liste a alors sa propre carte pour ce mot.
+Un mot peut figurer dans plusieurs listes (par exemple un mot du HSK 3 dans ta liste « Cours du
+mardi ») : il garde une seule carte. Un mot créé sur le téléphone qui a les caractères et le
+pinyin d’un mot HSK devient ce mot HSK, avec sa progression ; un mot de mêmes caractères mais d’une
+autre lecture (行 háng à côté de 行 xíng) reste un mot à part.
+
+Réglages › Listes › **Supprimer du dépôt** retire une de tes listes du dépôt GitHub. Si elle
+définit des mots, ils restent dans le dictionnaire (sans liste), avec leur progression, et les
+autres listes qui les contiennent les gardent.
+
+### Partager une liste avec quelqu’un d’autre
+
+Dans une de tes listes : **Partager la liste**. L’appli prépare un petit fichier texte (quelques
+centaines d’octets pour une liste de cent mots HSK : seuls leurs caractères y sont écrits ; un mot
+qui n’est pas dans les listes HSK y est écrit en entier) et ouvre le menu de partage de l’iPhone
+(Messages, AirDrop, mail…). L’autre personne l’ouvre dans son appli avec Mots › **Importer des
+mots** › le fichier : la liste arrive comme une nouvelle liste de son téléphone, les mots qu’elle a
+déjà ne sont pas écrits deux fois. Un mot noté autrement est reconnu : yīqǐ pour yìqǐ, le pinyin
+en chiffres (na3r pour nǎr), et péngyǒu pour péngyou quand le sens est le même (东西 dōngxī « est et
+ouest » reste un autre mot que 东西 dōngxi « chose »). Parmi deux homographes (花 « dépenser »,
+花 « fleur »), l’import prend celui dont le sens correspond, et le signale quand il ne peut pas
+choisir. Le formulaire ＋ suit la même règle.
 
 
 ## 5. Les seaux et la file
@@ -306,7 +350,7 @@ Les mots passent un par un, comme dans une file d’attente :
 Un mot ajouté plus tard à une liste active passe lui aussi par le premier tour, avant les révisions.
 Quand la file est vide, l’écran « File terminée » indique combien de mots reviendront demain.
 
-**Pour te concentrer sur le HSK 3** : dans Réglages › Listes, désactive HSK 1 et HSK 2. Sinon le
+**Pour te concentrer sur le HSK 3** : dans Réglages › Listes, coupe **Réviser** pour HSK 1 et HSK 2. Sinon le
 premier tour passe aussi par leurs 301 mots avant que les révisions commencent. Tu pourras les
 réactiver plus tard : leurs mots entreront alors dans le premier tour, devant les révisions,
 jusqu’à ce qu’ils soient tous passés.
@@ -342,14 +386,15 @@ en 5).
 
 Progrès › **Apprendre 20 mots** (le même bouton apparaît sur les écrans de fin) : l’appli tire
 au hasard 20 mots du seau 0 des listes actives (mots jamais vus ou ratés ; le nombre se règle
-dans Réglages › Apprentissage, de 5 à 50). Ils reviennent en boucle : un mot raté revient trois
-cartes plus loin, un mot réussi est marqué « Appris » et revient lui aussi, plus tard. Un mot
-appris puis raté redevient à apprendre. La boucle ne touche pas à tes seaux.
+dans Réglages › Apprentissage, de 5 à 50). Ils passent par **tours** : à chaque tour, chacun des
+20 mots passe une fois, dans un ordre tiré au hasard. Si tu en as raté au moins un, un nouveau tour
+recommence avec les 20 mots, dans un nouvel ordre. Les tours ne touchent pas à tes seaux.
 
-Quand les 20 mots sont appris en même temps, un **dernier passage** pose chaque mot une fois :
+Quand tu as réussi les 20 mots dans un même tour, un **dernier passage** pose chaque mot une fois :
 un mot réussi passe au seau 1 (il revient demain), un mot raté reste au seau 0, à la fin de la
-file. **Arrêter** pendant la boucle ne change rien ; pendant le dernier passage, il montre les
-résultats déjà obtenus.
+file. **Arrêter** pendant les tours ne change rien ; pendant le dernier passage, il montre les
+résultats déjà obtenus. Si l’appli se ferme pendant un apprentissage (l’iPhone la ferme parfois en
+arrière-plan), elle le reprend à la réouverture, là où tu l’avais laissé.
 
 ### Les sens connus
 
@@ -407,13 +452,17 @@ dans `decks/decks.json` :
 | `id` | identifiant court, à ne plus changer : la progression y est attachée |
 | `nom` | nom affiché dans l’appli |
 | `fichier` | fichier de la liste dans `decks/` |
-| `actif` | `false` pour garder une liste sans l’utiliser ; quand tu changes cette valeur, elle l’emporte sur l’interrupteur du téléphone |
+| `actif` | `false` pour garder une liste hors de la file ; quand tu changes cette valeur, elle l’emporte sur l’interrupteur Réviser du téléphone |
+| `afficher` | `false` pour ne pas montrer ses mots dans Mots › Toutes (par défaut : affichée) ; même règle face à l’interrupteur Afficher |
+| `fixe` | `true` pour une liste que le téléphone ne modifie pas (les listes HSK) ; ses mots restent corrigeables |
+| `dictionnaire` | `true` pour un fichier de mots qui ne sont dans aucune liste (`mots.tsv`) |
 
 L’ordre des listes dans `decks.json` est l’ordre du premier tour (après les listes du téléphone).
 Les champs `mode` et `parJour` des anciennes versions (listes de rappel, mots par jour) ne servent
 plus : un ancien fichier peut les garder, l’appli les ignore et `verifier` te signale que tu peux
-les enlever. Un même mot présent dans deux listes donne deux cartes distinctes : c’est voulu, car
-le sens peut différer (还 hái dans HSK 2, 还 huán dans HSK 3).
+les enlever. Un mot n’est défini qu’une fois (dans la première liste qui le contient) ; les autres
+listes y renvoient par une ligne sans traduction (section 3). Les listes HSK 4 à 6 et HSK 3.0 sont
+produites par `outils/hsk/` (voir `outils/hsk/LISEZMOI.md`).
 
 
 ## 7. Sauvegarder la progression

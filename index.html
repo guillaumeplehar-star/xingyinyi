@@ -287,6 +287,13 @@ main{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .list-foot{display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;align-items:center;margin-top:14px;color:var(--faint);font-size:13px}
 .list-foot .btnrow{margin:0}
 .listbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:-2px 0 10px}
+.more-row{list-style:none;padding:14px 0;text-align:center}
+.sws{display:flex;flex-direction:column;gap:6px;align-items:flex-end;flex:none}
+.sws .sw{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--pencil)}
+.inlists{margin:12px 0 0;padding:0;list-style:none;border-top:1px solid var(--rule)}
+.inlists li{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid var(--rule)}
+.inlists li span{min-width:0}
+.dupl{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:6px}
 .listbar .btn{padding:6px 12px;font-size:14px}
 .ghbox .field{margin-bottom:10px}
 .ghbox .btnrow{margin:6px 0}
@@ -665,7 +672,7 @@ const SYLL = new Set(("chuang shuang zhuang biang chang cheng chong chuai chuan 
 const LEGACY = ["阿姨","啊","矮","爱好","安静","把","班","搬","办法","办公室","半","帮忙","包","饱","北方","被","鼻子","比较","比赛","笔记本","必须","变化","别人","冰箱","不但","而且","菜单","参加","草","层","差","超市","衬衫","成绩","城市","迟到","除了","船","春","词典","聪明","打扫","打算","带","担心","蛋糕","当然","地","灯","地方","地铁","地图","电梯","电子邮件","东","冬","动物","短","段","锻炼","多么","饿","耳朵","发","发烧","发现","方便","放","放心","分","附近","复习","干净","感冒","感兴趣","刚才","个子","根据","跟","更","公斤","公园","故事","刮风","关","关系","关心","关于","国家","过","过去","还是","害怕","黑板","后来","护照","花","画","坏","欢迎","还","环境","换","黄河","回答","会议","或者","几乎","机会","极","记得","季节","检查","简单","见面","健康","讲","教","角","脚","接","街道","节目","节日","结婚","结束","解决","借","经常","经过","经理","久","旧","句子","决定","可爱","渴","刻","客人","空调","口","哭","裤子","筷子","蓝","老","离开","礼物","历史","脸","练习","辆","聊天","了解","邻居","留学","楼","绿","马","马上","满意","帽子","米","面包","明白","拿","奶奶","南","难","难过","年级","年轻","鸟","努力","爬山","盘子","胖","皮鞋","啤酒","瓶子","其实","其他","奇怪","骑","起飞","起来","清楚","请假","秋","裙子","然后","热情","认为","认真","容易","如果","伞","上网","生气","声音","世界","试","瘦","叔叔","舒服","树","数学","刷牙","双","水平","司机","太阳","特别","疼","提高","体育","甜","条","同事","同意","头发","突然","图书馆","腿","完成","碗","万","忘记","为","为了","位","文化","西","习惯","洗手间","洗澡","夏","先","相信","香蕉","向","像","小心","校长","新闻","新鲜","信用卡","行李箱","熊猫","需要","选择","要求","爷爷","一般","一边","一定","一共","一会儿","一样","一直","以前","音乐","银行","饮料","应该","影响","用","游戏","有名","又","遇到","元","愿意","月亮","越","站","张","长","着急","照顾","照片","照相机","只","只有","才","中间","中文","终于","种","重要","周末","主要","注意","自己","自行车","总是","嘴","最后","最近","作业"];
 const IS_PWA = true;
 const XH = 0.5078;
-const BUILD = "4 octobre 2026 à 21 h 37";
+const BUILD = "10 octobre 2026 à 16 h 08";
 
 /* ---------- utilities ---------- */
 const $ = (s, r = document) => r.querySelector(s);
@@ -765,10 +772,17 @@ function parseNumeric(p) {                       // "tu2shu1guan3", "yi2hui4r5",
   const toks = []; let buf = "";
   const isSyl = t => t && !t.sep;
   const pushSyl = tok => {
-    if (isSyl(toks[toks.length - 1]) && /^[aeoāáǎàēéěèōóǒò]/i.test(tok.s) && tok.s.toLowerCase() !== "r") toks.push({ sep: "’" });
+    const last = toks[toks.length - 1];
+    if (isSyl(last) && tok.s.toLowerCase() === "r") { last.s += tok.s; return; }      // erhua: na3r, yi2hui4r5 = nǎr, yíhuìr
+    if (isSyl(last) && /^[aeoāáǎàēéěèōóǒò]/i.test(tok.s)) toks.push({ sep: "’" });
     toks.push(tok);
   };
-  const flush = () => { if (buf) { toks.push({ s: buf.replace(/u:|v/g, "ü"), t: 0 }); buf = ""; } };
+  const flush = () => {
+    if (!buf) return;
+    const last = toks[toks.length - 1];
+    if (isSyl(last) && buf.toLowerCase() === "r") last.s += buf; else toks.push({ s: buf.replace(/u:|v/g, "ü"), t: 0 });
+    buf = "";
+  };
   for (let i = 0; i < p.length; i++) {
     const ch = p[i];
     if (/[1-5]/.test(ch) && buf && /[a-zü:]$/i.test(buf)) { pushSyl({ s: markSyllable(buf, +ch), t: +ch }); buf = ""; continue; }
@@ -819,7 +833,21 @@ const KEY = "xingyinyi.v2", KEY_V1 = "xingyinyi.v1", LKEY = "xingyinyi.listes";
 const KEY_OLD = "xingyinyi.avant-seaux";          // the progress as it was before the switch to buckets, kept once
 const DEFAULTS = { evalSize: 20, learnSize: 20, startFace: 0, autoAudio: true, rate: 0.8, toneColors: true, exDetails: false, exOnForm: true, exam: "2026-11-29" };
 let storageOK = true, migratedV1 = false, migratedSched = false;
-function freshState() { return { v: 2, sched: SCHED, settings: { ...DEFAULTS, delays: [...DELAYS] }, cards: {}, edits: {}, custom: [], lists: [], decks: {}, log: {}, test: null }; }
+function freshState() { return { v: 2, sched: SCHED, settings: { ...DEFAULTS, delays: [...DELAYS] }, cards: {}, edits: {}, custom: [], lists: [], tel: [], listEdits: {}, sent: {}, decks: {}, log: {}, test: null, learn: null }; }
+const strs = a => (Array.isArray(a) ? a.filter(x => typeof x === "string") : []);
+function cleanListEdits(e) {                     // words added to or taken out of a list of decks/ on this phone, not yet published
+  const out = {};
+  for (const [id, x] of Object.entries(e && typeof e === "object" ? e : {})) {
+    const add = strs(x && x.add), del = strs(x && x.del);
+    if (add.length || del.length) out[id] = { add, del };
+  }
+  return out;
+}
+function cleanSent(x) {                           // the ids each phone list sent to its twin list (publication, copy)
+  const out = {};
+  for (const [id, a] of Object.entries(x && typeof x === "object" ? x : {})) { const ids = strs(a); if (ids.length) out[id] = ids; }
+  return out;
+}
 function cleanDelays(a) {
   const d = (Array.isArray(a) ? a : []).map(x => Math.round(+x)).filter(x => x >= 1 && x <= 365).slice(0, MAX_BUCKETS - 1);
   return d.length ? d : [...DELAYS];
@@ -846,7 +874,28 @@ function normalizeState(s) {
   } else {
     st.cards = obj(s.cards); st.edits = obj(s.edits); st.decks = obj(s.decks);
     st.custom = (Array.isArray(s.custom) ? s.custom : []).filter(w => w && w.h && w.id);
-    st.lists = (Array.isArray(s.lists) ? s.lists : []).filter(x => x && x.id && x.nom);
+    st.lists = (Array.isArray(s.lists) ? s.lists : []).filter(x => x && x.id && x.nom).map(x => ({ id: x.id, nom: x.nom, ids: strs(x.ids) }));
+    st.tel = strs(s.tel);
+    st.listEdits = cleanListEdits(s.listEdits);
+    st.sent = cleanSent(s.sent);
+  }
+  // a correction saved by an older version with an empty voice text (s: "", which the form never writes): the file's stays
+  for (const [id, e] of Object.entries(st.edits)) {
+    if (!e || typeof e !== "object") { delete st.edits[id]; continue; }
+    if (e.s === "") delete e.s;
+    if (!Object.keys(e).length) delete st.edits[id];
+  }
+  // Words of the phone: their list was their field l (« Ajoutés ici » without one); the lists now hold the ids, and a
+  // word may be in several lists, or in none.
+  const inSome = new Set([...st.tel, ...st.lists.flatMap(P => P.ids)]);
+  for (const w of st.custom) {
+    if ((!Array.isArray(s.tel) || w.l) && !inSome.has(w.id)) {
+      const P = w.l && st.lists.find(x => x.id === w.l);
+      (P ? P.ids : st.tel).push(w.id);
+      inSome.add(w.id);
+    }
+    delete w.l;
+    if (/[a-zü:][1-5]/i.test((w.p || "") + (w.ep || ""))) tidyPinyin(w);      // pinyin in digits (imports of older versions)
   }
   for (const [id, c] of Object.entries(st.cards)) if (!c || typeof c !== "object") delete st.cards[id];
   for (const d of Object.values(st.decks)) if (d && typeof d === "object") { delete d.perDay; delete d.cfgPer; }
@@ -868,6 +917,7 @@ function normalizeState(s) {
     if (c.b > 0 && !Number.isFinite(c.d)) c.d = Number.isFinite(c.t) ? c.t + st.settings.delays[c.b - 1] : dayNum();
   }
   st.test = cleanTest(s.test);
+  st.learn = cleanLearn(s.learn);
   return st;
 }
 function cleanTest(t) {
@@ -880,6 +930,18 @@ function cleanTest(t) {
   const queue = ids(t.queue), ok = pairs(t.ok), ko = pairs(t.ko);
   if (!queue.length) return null;                  // finished: its results were shown
   return { lists: ids(t.lists), n: Math.max(+t.n || 0, queue.length + ok.length + ko.length), queue, ok, ko };
+}
+function cleanLearn(x) {
+  // The learning in progress: {ids, got (passed in this round), round, check (last check), queue (words left, the one on
+  // screen first), res (answers of the last check)}. Null when there is none.
+  if (!x || typeof x !== "object" || !Array.isArray(x.ids)) return null;
+  const ids = strs(x.ids), queue = strs(x.queue).filter(id => ids.includes(id));
+  if (!ids.length || !queue.length) return null;
+  const pairs = a => (Array.isArray(a) ? a : []).filter(p => Array.isArray(p) && typeof p[0] === "string")
+    .map(([id, b]) => [id, Math.max(-1, Math.round(+b) || 0)]);
+  const check = !!x.check, res = x.res && typeof x.res === "object" ? x.res : {};
+  return { ids, got: strs(x.got).filter(id => ids.includes(id)), round: Math.max(1, Math.round(+x.round) || 1), check, queue,
+    res: check ? { ok: pairs(res.ok), ko: pairs(res.ko) } : null };
 }
 function loadState() {
   try {
@@ -904,22 +966,30 @@ function save() {
 if (IS_PWA && navigator.storage && navigator.storage.persist) { navigator.storage.persist().catch(() => {}); }
 
 /* ---------- lists (decks/decks.json + one TSV file per list) ---------- */
-const TEL = "tel";                                 // words added on this phone
+const TEL = "tel";                                 // « Ajoutés ici » : words added on this phone without a list
+const NOLIST = "sans";                             // the words of no list, in the Mots tab (state.decks[NOLIST].show)
 const FIELDS = ["p", "f", "n", "s", "e", "ep", "ef"];
 const COLMAP = { hanzi: "h", "汉字": "h", "caractères": "h", caracteres: "h", pinyin: "p", francais: "f", "français": "f",
   traduction: "f", sens: "f", note: "n", audio: "s", voix: "s", exemple: "e", phrase: "e", exemple_pinyin: "ep",
-  pinyin_exemple: "ep", exemple_fr: "ef", exemple_francais: "ef", "exemple_français": "ef", traduction_exemple: "ef" };
+  pinyin_exemple: "ep", exemple_fr: "ef", exemple_francais: "ef", "exemple_français": "ef", traduction_exemple: "ef", hors_liste: "x" };
 const DEFAULT_COLS = ["h", "p", "f", "n", "s", "e", "ep", "ef"];
+function cellsOf(line) {
+  const cells = line.split("\t");
+  return cells.length === 1 && / {2,}/.test(line.trim()) ? line.trim().split(/ {2,}/) : cells;   // tabs turned into spaces by an editor
+}
+function headerKeys(cells) {
+  // a header names the columns; a lone 汉字 is a word (the first one of a shared list), not a header
+  const keys = cells.map(c => COLMAP[c.trim().toLowerCase()] || null);
+  return keys.includes("h") && (cells.length > 1 || !HAN.test(cells[0])) ? keys : null;
+}
 function parseTSV(text) {
   const rows = []; let cols = null;
   String(text || "").replace(/^﻿/, "").split(/\r?\n/).forEach(line => {
     if (!line.trim() || /^\s*#/.test(line)) return;
-    let cells = line.split("\t");
-    if (cells.length === 1 && / {2,}/.test(line.trim())) cells = line.trim().split(/ {2,}/);   // tabs turned into spaces by an editor
-    cells = cells.map(c => c.trim());
+    const cells = cellsOf(line).map(c => c.trim());
     if (!cols) {
-      const keys = cells.map(c => COLMAP[c.toLowerCase()] || null);
-      if (keys.includes("h")) { cols = keys; return; }
+      const keys = headerKeys(cells);
+      if (keys) { cols = keys; return; }
       cols = DEFAULT_COLS;
     }
     const w = {};
@@ -929,78 +999,209 @@ function parseTSV(text) {
   return rows;
 }
 function buildLists(src) {
+  // A list file holds one row per word. A row with a translation defines a word, whose id is <list>:<hanzi> (#2, #3 for
+  // the same characters further down the file); a row without one points to a word defined elsewhere: by its characters,
+  // with its pinyin when several words share them, or by its id (hsk30-2:点). hors_liste (x) : the row defines a word
+  // that is not in this list. "dictionnaire" : a file whose words belong to no list. "fixe" : an HSK list, which the
+  // phone cannot change (its words can still be corrected).
   const cfg = src && src.config && Array.isArray(src.config.listes) ? src.config.listes : [];
   const texts = (src && src.texts) || {};
   const lists = [], ids = new Set();
   for (const raw of cfg) {
     if (!raw || !raw.id || !raw.fichier) continue;
     const id = String(raw.id).trim();
-    if (!id || ids.has(id) || id === TEL) continue;
+    if (!id || ids.has(id) || id === TEL || id === NOLIST) continue;
     ids.add(id);
     const text = texts[raw.fichier];
     const count = {};
-    const words = (typeof text === "string" ? parseTSV(text) : []).map((r, i) => {
-      const k = (count[r.h] = (count[r.h] || 0) + 1);
-      return { ...r, id: id + ":" + r.h + (k > 1 ? "#" + k : ""), deck: id, o: i };
+    const items = (typeof text === "string" ? parseTSV(text) : []).map((r, i) => {
+      const { x, ...w } = r;
+      if (!w.f) return { ref: w };
+      const k = (count[w.h] = (count[w.h] || 0) + 1);
+      return { def: { ...w, id: id + ":" + w.h + (k > 1 ? "#" + k : ""), home: id, o: i }, out: !!x };
     });
-    lists.push({ id, nom: String(raw.nom || id), fichier: String(raw.fichier), actif: raw.actif !== false, words, missing: typeof text !== "string" });
+    const actif = raw.actif !== false;
+    lists.push({ id, nom: String(raw.nom || id), fichier: String(raw.fichier), actif, fixe: raw.fixe === true,
+      afficher: raw.afficher !== false, dico: raw.dictionnaire === true, items, missing: typeof text !== "string" });
   }
   return lists;
 }
-let BASE = [];                                   // lists of decks.json, in priority order
-let LISTS = [], DECK = [], BYID = new Map(), LISTBYID = new Map();
+let BASE = [];                                   // the files of decks.json, in priority order
+let LISTS = [], DECK = [], BYID = new Map(), LISTBYID = new Map(), DEFS = new Map(), FIXED = new Set();
 let listsAt = 0, listsChecked = 0, listsReady = false;
-function listIdOf(w) { return w.l && state.lists.some(x => x.id === w.l) ? w.l : TEL; }
+function listsWhole() { return listsReady && !BASE.some(L => L.missing); }   // every file of decks.json is here
 function isPhone(id) { return id === TEL || state.lists.some(x => x.id === id); }
 function showList(L) { return L.id !== TEL || L.words.length > 0; }
 function phoneLists() {
-  // "Ajoutés ici" for words without a list of their own, then the lists created on the phone
-  const all = [{ id: TEL, nom: "Ajoutés ici" }, ...state.lists];
-  return all.map(P => ({ id: P.id, nom: P.nom, fichier: "", actif: true, phone: true,
-    words: state.custom.filter(w => listIdOf(w) === P.id).map((w, i) => ({ ...w, deck: P.id, o: i })) }));
+  // "Ajoutés ici", then the lists created on the phone: ids of words of the dictionary or added on the phone
+  return [{ id: TEL, nom: "Ajoutés ici", ids: state.tel }, ...state.lists].map(P => ({ id: P.id, nom: P.nom, fichier: "", actif: true,
+    afficher: true, phone: true, ids: P.ids || [] }));
+}
+function pyKey(p) { return parsePinyin(p).filter(t => t.s).map(t => fold(t.s) + (t.t || 5)).join(""); }   // tu2shu1guan3, from either spelling
+function fixedWord(w) { return !!w && FIXED.has(w.home); }
+function wordIndex() { const m = new Map(); for (const w of DECK) { const a = m.get(w.h); if (a) a.push(w); else m.set(w.h, [w]); } return m; }
+function resolveRef(r, index) {
+  // A row that points to a word: its id, or its characters (and pinyin); a word of an HSK list comes first.
+  if (r.h.includes(":")) return BYID.has(r.h) ? r.h : null;
+  let c = index.get(r.h) || [];
+  if (r.p && c.length > 1) { const k = pyKey(r.p), m = c.filter(w => pyKey(w.p) === k); if (m.length) c = m; }
+  return c.length ? (c.find(fixedWord) || c[0]).id : null;
+}
+function refText(w, index = wordIndex()) {
+  // The shortest pointer that cannot mean another word: its characters when no other word of the dictionary has them
+  // (words of the phone included), then with the pinyin, else its id.
+  const c = index.get(w.h) || [];
+  if (c.length === 1 && c[0].id === w.id) return w.h;
+  const k = pyKey(w.p), same = c.filter(x => pyKey(x.p) === k);
+  if (same.length === 1 && same[0].id === w.id) return w.h + "\t" + pinyinText(w.p);
+  return w.id;
 }
 function rebuildDeck() {
-  LISTS = [...phoneLists(), ...BASE];
-  DECK = [];
-  for (const L of LISTS) for (const w of L.words) DECK.push(state.edits[w.id] ? { ...w, ...state.edits[w.id], edited: true } : w);
+  // DECK : the dictionary, one entry per word (corrections applied): the words defined in decks/, then those added on
+  // the phone. LISTS : the lists of the phone, then those of decks.json; each word knows its lists (w.lists, in LISTS order).
+  FIXED = new Set(BASE.filter(L => L.fixe).map(L => L.id));
+  DEFS = new Map();
+  for (const L of BASE) for (const it of L.items) if (it.def && !DEFS.has(it.def.id)) DEFS.set(it.def.id, it.def);
+  for (const w of state.custom) if (!DEFS.has(w.id)) DEFS.set(w.id, { ...w, home: null, phone: true, o: 0 });
+  DECK = [...DEFS.values()].map(w => (state.edits[w.id] && !w.phone ? { ...w, ...state.edits[w.id], edited: true, lists: [] } : { ...w, lists: [] }));
   BYID = new Map(DECK.map(w => [w.id, w]));
+  const index = wordIndex();
+  LISTS = [...phoneLists(), ...BASE.filter(L => !L.dico).map(L => ({ ...L }))];
+  for (const L of LISTS) {
+    let ids = L.phone ? L.ids : L.items.filter(it => !it.out).map(it => (it.def ? it.def.id : resolveRef(it.ref, index)));
+    if (!L.phone) L.fileIds = new Set(ids.filter(Boolean));
+    const ed = !L.phone && !L.fixe && state.listEdits[L.id];
+    if (ed) ids = ids.filter(id => !ed.del.includes(id)).concat(ed.add);
+    const met = new Set();
+    L.words = [];
+    for (const id of ids) {
+      const w = id && BYID.get(id);
+      if (!w || met.has(id)) continue;
+      met.add(id); L.words.push(w); w.lists.push(L.id);
+    }
+  }
   LISTBYID = new Map(LISTS.map(L => [L.id, L]));
 }
-function original(id) { const w = BYID.get(id); const L = w && LISTBYID.get(w.deck); return L ? L.words.find(x => x.id === id) : null; }
+function original(id) { return DEFS.get(id) || null; }
 function deckOn(id) { const d = state.decks[id]; return !d || d.on !== false; }
+function deckShown(id) { const d = state.decks[id]; return !d || d.show !== false; }
+function onLine(w) { return !!w && w.lists.some(deckOn); }                       // in an active list: the line, the evaluation…
+function mainList(w) { return w ? LISTBYID.get(w.lists.find(deckOn) || w.lists[0]) || null : null; }
+function shownWord(w) { return w.lists.length ? w.lists.some(deckShown) : deckShown(NOLIST); }   // Mots › Tous
+function isPhoneWord(w) { return !!w && !!w.phone; }
+function editable(L) { return !!L && !L.fixe; }                                 // the phone may add words to it, or take some out
 function syncDeckSettings() {
-  // What decks.json says wins whenever it changes; otherwise the phone's own switch stays.
+  // What decks.json says wins whenever it changes; otherwise the phone's own switches stay.
   for (const L of BASE) {
+    if (L.dico) continue;
     const d = state.decks[L.id] || (state.decks[L.id] = {});
     if (d.cfgOn !== L.actif) { d.cfgOn = L.actif; d.on = L.actif; }
+    if (d.cfgShow !== L.afficher) { d.cfgShow = L.afficher; d.show = L.afficher; }
   }
 }
 function repoTwin(phoneId) {
   // The list of decks.json a phone list turns into once published: Perso for "Ajoutés ici", the same name otherwise.
-  if (phoneId === TEL) return BASE.find(L => L.id === "perso") || BASE.find(L => L.nom.toLowerCase() === "perso") || null;
+  const ok = L => !L.fixe && !L.dico;
+  if (phoneId === TEL) return BASE.find(L => L.id === "perso" && ok(L)) || BASE.find(L => L.nom.toLowerCase() === "perso" && ok(L)) || null;
   const P = state.lists.find(x => x.id === phoneId);
-  return P ? BASE.find(L => L.nom.toLowerCase() === P.nom.toLowerCase()) || null : null;
+  return P ? BASE.find(L => L.nom.toLowerCase() === P.nom.toLowerCase() && ok(L)) || null : null;
+}
+function moveWord(from, to) {                     // a word of the phone becomes a word of decks/: its card and its places follow
+  const a = state.cards[from], b = state.cards[to];
+  if (a && (!b || (a.r || 0) > (b.r || 0))) state.cards[to] = a;
+  delete state.cards[from];
+  const ren = ids => [...new Set(ids.map(i => (i === from ? to : i)))];
+  state.tel = ren(state.tel);
+  for (const P of state.lists) P.ids = ren(P.ids);
+  for (const e of Object.values(state.listEdits)) { e.add = ren(e.add); e.del = ren(e.del); }
+  for (const [k, a] of Object.entries(state.sent)) state.sent[k] = ren(a);
+  renameInStudy(from, to);
 }
 function mergeTel() {
-  // A phone word that now exists in its twin list (copied into perso.tsv, or published) moves there with its progress.
+  // A word added on the phone that now has its line in decks/ (its list published, or copied into perso.tsv) moves
+  // there with its progress; so does one that an HSK list holds too (same characters, same pinyin: the same word).
+  // Called after rebuildDeck; rebuilds again when something changed. Nothing before the lists are loaded.
+  if (!listsReady) return [];
   const moved = [];
-  state.custom = state.custom.filter(t => {
-    const L = repoTwin(listIdOf(t)), target = L && L.words.find(w => w.h === t.h);
-    if (!target) return true;
-    const a = state.cards[t.id], b = state.cards[target.id];
-    if (a && (!b || (a.r || 0) > (b.r || 0))) state.cards[target.id] = a;
-    delete state.cards[t.id];
-    renameInStudy(t.id, target.id);
-    moved.push(L.nom);
-    return false;
-  });
-  state.lists = state.lists.filter(P => state.custom.some(w => w.l === P.id) || !repoTwin(P.id));
+  const defsIn = new Map(), fixedBy = new Map();
+  for (const L of BASE) for (const it of L.items) {
+    if (!it.def) continue;
+    const m = defsIn.get(L.id) || defsIn.set(L.id, new Map()).get(L.id);
+    (m.get(it.def.h) || m.set(it.def.h, []).get(it.def.h)).push(it.def);
+    if (L.fixe) (fixedBy.get(it.def.h) || fixedBy.set(it.def.h, []).get(it.def.h)).push(it.def);
+  }
+  const homes = t => {                            // the files where the word may have been published
+    const out = [], tw = id => { const L = repoTwin(id); if (L) out.push(L.id); };
+    if (state.tel.includes(t.id)) tw(TEL);
+    for (const P of state.lists) if (P.ids.includes(t.id)) tw(P.id);
+    for (const [lid, e] of Object.entries(state.listEdits)) if (e.add.includes(t.id)) out.push(lid);
+    for (const L of BASE) if (L.dico) out.push(L.id);
+    return out;
+  };
+  const key = pyKey, first = f => String(f || "").split(/[;；]/)[0].trim().toLowerCase();
+  for (const t of [...state.custom]) {
+    const ds = homes(t).map(lid => (defsIn.get(lid) || new Map()).get(t.h) || []);
+    // the same reading: in a file where it may have been published, else in an HSK list (one word only)
+    let target = ds.flat().find(x => key(x.p) === key(t.p)) || null, own = !!target;
+    if (!target) { const f = (fixedBy.get(t.h) || []).filter(x => key(x.p) === key(t.p)); if (f.length === 1) target = f[0]; }
+    // else the only line of these characters in such a file, with the same first sense (pinyin corrected on the
+    // computer), when no other word of the dictionary has the reading of the phone
+    if (!target && first(t.f) && !DECK.some(x => x.id !== t.id && x.h === t.h && key(x.p) === key(t.p))) {
+      const d = ds.find(d => d.length === 1 && first(d[0].f) === first(t.f));
+      if (d) { target = d[0]; own = true; }
+    }
+    if (!target) continue;
+    // corrected here after it was copied for the computer: what it says now stays, as a correction of its line
+    if (own && t.c && t.m > t.c) {
+      const diff = {};
+      for (const k of FIELDS) if (cellOf(t, k) && cellOf(t, k) !== cellOf(target, k)) diff[k] = t[k];
+      if (Object.keys(diff).length) state.edits[target.id] = { ...(state.edits[target.id] || {}), ...diff };
+    }
+    state.custom = state.custom.filter(x => x !== t);
+    moveWord(t.id, target.id);
+    const L = BASE.find(x => x.id === target.home);
+    moved.push(L ? L.nom : target.home);
+  }
+  if (moved.length) rebuildDeck();
+  if (listsWhole()) {                             // words that are no more (a line changed on the computer)
+    const here = id => BYID.has(id);
+    state.tel = state.tel.filter(here);
+    for (const P of state.lists) P.ids = P.ids.filter(here);
+    for (const e of Object.values(state.listEdits)) e.add = e.add.filter(here);
+  }
+  // published: the words a phone list sent to its twin list (publication, copy for the computer) and that it now holds;
+  // the changes of a list of decks/ now in its file (a file that did not arrive tells nothing: what waits for it stays)
+  const tel = { id: TEL, ids: state.tel };
+  for (const P of [tel, ...state.lists]) {
+    const L = repoTwin(P.id), R = L && !L.missing && LISTBYID.get(L.id), sent = new Set(state.sent[P.id] || []);
+    if (R) P.ids = P.ids.filter(id => !(sent.has(id) && R.fileIds.has(id)));
+  }
+  state.tel = tel.ids;
+  state.lists = state.lists.filter(P => P.ids.length || !repoTwin(P.id));
+  for (const k of Object.keys(state.sent)) {      // what was sent and still waits for its file
+    const P = k === TEL ? tel : state.lists.find(x => x.id === k), a = P ? state.sent[k].filter(id => P.ids.includes(id)) : [];
+    if (a.length) state.sent[k] = a; else delete state.sent[k];
+  }
+  for (const [lid, e] of Object.entries(state.listEdits)) {
+    const R = LISTBYID.get(lid);
+    if (R && R.missing) continue;
+    if (!R || R.fixe) { delete state.listEdits[lid]; continue; }
+    e.add = e.add.filter(id => !R.fileIds.has(id));
+    e.del = e.del.filter(id => R.fileIds.has(id));
+    if (!e.add.length && !e.del.length) delete state.listEdits[lid];
+  }
+  rebuildDeck();
   return moved;
 }
 function renameInStudy(from, to) {
   // A word that changes id keeps its place and its answers: in the saved test, and in the session on screen.
   const ren = id => (id === from ? to : id), t = state.test;
   if (t) { t.queue = [...new Set(t.queue.map(ren))]; for (const p of [...t.ok, ...t.ko]) p[0] = ren(p[0]); }
+  const sl = state.learn;
+  if (sl) {
+    sl.ids = [...new Set(sl.ids.map(ren))]; sl.got = [...new Set(sl.got.map(ren))]; sl.queue = [...new Set(sl.queue.map(ren))];
+    if (sl.res) for (const p of [...sl.res.ok, ...sl.res.ko]) p[0] = ren(p[0]);
+  }
   study.cur = ren(study.cur);
   if (study.mode === "line") return;
   // no word twice; nor the word on screen, unless it has been graded (a learning round puts it back in the queue)
@@ -1012,24 +1213,23 @@ function renameInStudy(from, to) {
   const L = study.mode === "learn" && study.learn;
   if (L) { L.ids = [...new Set(L.ids.map(ren))]; L.got = new Set([...L.got].map(ren)); }
 }
-function dropSameEdits() {
+function dropSameEdits() {                        // a correction that the file now has
   for (const [id, e] of Object.entries(state.edits)) {
-    const L = BASE.find(x => id.startsWith(x.id + ":"));
-    const w = L && L.words.find(x => x.id === id);
-    if (w && Object.keys(e).every(k => (e[k] || "") === (w[k] || ""))) delete state.edits[id];
+    const w = DEFS.get(id);
+    if (w && !w.phone && Object.keys(e).every(k => cellOf(e, k) === cellOf(w, k))) delete state.edits[id];
   }
 }
 function diffLists(before, after) {
-  const old = new Map();
-  before.forEach(L => L.words.forEach(w => old.set(w.id, w)));
+  const old = new Map(), keyOf = it => (it.def ? it.def.id : "→" + it.ref.h + "|" + (it.ref.p || ""));
+  before.forEach(L => L.items.forEach(it => it.def && old.set(it.def.id, it.def)));
   const parts = [];
   for (const L of after) {
-    if (!before.some(x => x.id === L.id)) { parts.push(`nouvelle liste ${L.nom} (${plural(L.words.length, "mot", "mots")})`); continue; }
+    if (!before.some(x => x.id === L.id)) { parts.push(`nouvelle liste ${L.nom} (${plural(L.items.length, "mot", "mots")})`); continue; }
+    const had = new Set(before.find(x => x.id === L.id).items.map(keyOf));
     let add = 0, chg = 0;
-    for (const w of L.words) {
-      const o = old.get(w.id);
-      if (!o) add++;
-      else if (FIELDS.some(k => (o[k] || "") !== (w[k] || ""))) chg++;
+    for (const it of L.items) {
+      if (!had.has(keyOf(it))) add++;
+      else if (it.def) { const o = old.get(it.def.id); if (o && FIELDS.some(k => (o[k] || "") !== (it.def[k] || ""))) chg++; }
     }
     const bits = [];
     if (add) bits.push(plural(add, "mot ajouté", "mots ajoutés"));
@@ -1039,21 +1239,45 @@ function diffLists(before, after) {
   for (const L of before) if (!after.some(x => x.id === L.id)) parts.push(`${L.nom} retirée`);
   return parts;
 }
-function readCache() { try { const raw = localStorage.getItem(LKEY); return raw ? JSON.parse(raw) : null; } catch (e) { return null; } }
+const LCACHE = "listes-xingyinyi", LURL = "__listes__.json";   // sw.js only clears its own caches (xingyinyi-…)
+async function readCache() {
+  try { if (window.caches) { const r = await (await caches.open(LCACHE)).match(LURL); if (r) return await r.json(); } } catch (e) {}
+  try { const raw = localStorage.getItem(LKEY); return raw ? JSON.parse(raw) : null; } catch (e) { return null; }
+}
 const PKEY = "xingyinyi.publie";
 function hashStr(s) { let h = 2166136261; for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return (h >>> 0).toString(36); }
-function stalePages(src) {
-  // Right after a publication from the phone, GitHub Pages serves the old files for a minute or two:
-  // ignore them until the published ones show up (or 15 minutes have passed).
+function stalePages(src, manual) {
+  // After a publication from the phone, GitHub Pages serves the old files for a minute or two, and the copy of the
+  // service worker (offline) until the app loads the lists again: ignore any version with a file of before the
+  // publication until the published files show up. A version changed since on the computer is taken after 15 minutes;
+  // so is any version on a manual check, online.
   let g = null;
   try { g = JSON.parse(localStorage.getItem(PKEY) || "null"); } catch (e) {}
-  if (!g) return false;
-  const fresh = hashStr(JSON.stringify(src.config)) === g.cfg &&
-    Object.entries(g.files || {}).every(([f, h]) => typeof src.texts[f] === "string" && hashStr(src.texts[f]) === h);
-  if (fresh || Date.now() - g.at > 15 * 60e3) { try { localStorage.removeItem(PKEY); } catch (e) {} return false; }
+  if (!g || !g.files) return false;
+  const files = g.cfg ? { ...g.files, "": g.cfg } : g.files;     // "" = decks.json (g.cfg: guard of an older version)
+  const hashOf = f => (f === "" ? hashStr(JSON.stringify(src.config)) : typeof src.texts[f] === "string" ? hashStr(src.texts[f]) : "-");
+  let old = false, other = false;
+  for (const [f, h] of Object.entries(files)) {
+    const x = hashOf(f);
+    if (x !== h) { if ((g.old || []).some(o => o[f] === x)) old = true; else other = true; }
+  }
+  const late = Date.now() - g.at > 15 * 60e3;
+  if ((!old && !other) || (!old && late) || (manual && late && navigator.onLine !== false)) {
+    try { localStorage.removeItem(PKEY); } catch (e) {}
+    return false;
+  }
   return true;
 }
-function writeCache(src) { try { localStorage.setItem(LKEY, JSON.stringify(src)); } catch (e) {} }
+async function writeCache(src) {
+  try {
+    if (window.caches) {
+      await (await caches.open(LCACHE)).put(LURL, new Response(JSON.stringify(src), { headers: { "Content-Type": "application/json" } }));
+      try { localStorage.removeItem(LKEY); } catch (e) {}
+      return;
+    }
+  } catch (e) {}
+  try { localStorage.setItem(LKEY, JSON.stringify(src)); } catch (e) {}
+}
 function sameSrc(a, b) {
   if (!a || !b || JSON.stringify(a.config) !== JSON.stringify(b.config)) return false;
   const ka = Object.keys(a.texts || {}).sort(), kb = Object.keys(b.texts || {}).sort();
@@ -1081,20 +1305,22 @@ function useLists(src, why, prevSrc) {
   listsAt = src.at || 0;
   listsReady = true;
   syncDeckSettings();
+  rebuildDeck();
   const moved = mergeTel();
   dropSameEdits();
   rebuildDeck();
   save();
   if (why === "update") {
     const parts = diffLists(before, BASE);
-    if (moved.length) parts.push(`${plural(moved.length, "mot ajouté ici est passé", "mots ajoutés ici sont passés")} dans ${[...new Set(moved)].join(", ")}`);
+    if (moved.length) parts.push(`${plural(moved.length, "mot ajouté sur le téléphone est passé", "mots ajoutés sur le téléphone sont passés")} dans ${[...new Set(moved)].join(", ")}`);
     if (parts.length) toast("Listes mises à jour" + NB + ": " + parts.join(" ; ") + ".", 5600);
   }
   $("#loading").hidden = true;
   if (current === "words") renderWords();
   if (current === "progress") renderProgress();
   if (current === "settings") renderSettings();
-  study.build(why !== "first" && !!study.cur);
+  // the learning in progress when the app was closed comes back where it was
+  if (!(why === "first" && state.learn && study.mode === "line" && study.resumeLearn())) study.build(why !== "first" && !!study.cur);
 }
 let checking = false;
 async function refreshLists(first, manual) {
@@ -1104,20 +1330,24 @@ async function refreshLists(first, manual) {
   try {
     const src = await fetchLists();
     listsChecked = Date.now();
-    if (listsReady && stalePages(src)) {
+    if (listsReady && stalePages(src, manual)) {
       if (manual) toast("GitHub n’a pas encore mis en ligne ta dernière publication : réessaie dans une minute.", 4000);
       return;
     }
-    const cached = readCache();
+    const cached = await readCache();
+    // a file that did not arrive this time keeps the copy of before: its words, and the test that has them, stay
+    const lost = src.missing.slice();
+    if (cached && cached.texts) for (const f of lost) if (typeof cached.texts[f] === "string") src.texts[f] = cached.texts[f];
+    src.missing = lost.filter(f => typeof src.texts[f] !== "string");
     if (cached && sameSrc(cached, src)) {
       if (!listsReady) useLists(cached, "first");
       else if (manual) toast("Les listes sont à jour.");
     } else {
-      writeCache(src);
+      await writeCache(src);
       useLists(src, cached && listsReady ? "update" : "first", cached);
       if (manual && cached && !diffLists(buildLists(cached), BASE).length) toast("Listes rechargées.");
     }
-    if (src.missing.length && (manual || first)) toast(`Fichier introuvable dans decks/${NB}: ${src.missing.join(", ")}`, 5600);
+    if (lost.length && (manual || first)) toast(`Fichier introuvable dans decks/${NB}: ${lost.join(", ")}`, 5600);
   } catch (e) {
     if (!listsReady) showLoadError(e);
     else if (manual) toast(navigator.onLine === false ? "Pas de connexion : les listes restent celles d’avant." : "Mise à jour impossible (" + (e && e.message || e) + ").", 5000);
@@ -1127,8 +1357,8 @@ async function refreshLists(first, manual) {
     if (current === "settings") renderListsInfo();
   }
 }
-function bootLists() {
-  const cached = readCache();
+async function bootLists() {
+  const cached = await readCache();
   if (EMBEDDED) {
     const src = { config: EMBEDDED.config, texts: EMBEDDED.texts, at: EMBEDDED.at || 0 };
     const changed = cached && !sameSrc(cached, src);
@@ -1154,7 +1384,7 @@ const seen = id => { const c = state.cards[id]; return !!(c && c.r); };
 const topBucket = () => state.settings.delays.length;    // buckets 0…top; normalizeState, recomputeDue and applyGrade keep b ≤ top
 const bucketOf = id => { const c = state.cards[id]; return c ? c.b : 0; };
 const delayOf = b => state.settings.delays[b - 1];        // b ≥ 1
-function listOf(id) { const w = BYID.get(id); return w ? LISTBYID.get(w.deck) : null; }
+function listOf(id) { return mainList(BYID.get(id)); }                          // the list shown with a word: its first active one
 function covered(h) { for (const ch of String(h || "")) if (isHan(ch) && !COVER.has(ch)) return false; return true; }
 
 /* ---------- scheduling (buckets and line) ---------- */
@@ -1166,20 +1396,25 @@ function missed(id) { const c = state.cards[id]; return !!c && c.b === 0 && !!c.
 function isDue(id, today) { const c = state.cards[id]; return !!c && c.b > 0 && c.d <= today; }
 function lineKey(c) { return c.b > 0 ? dayStart(c.d) : c.k; }                          // when the word joined the line
 function lineOf(today) {
-  // DECK is in list order, then file order: the first pass keeps it. The other words are sorted by the moment they
-  // joined the line, then by their last review; the sort is stable, so list order settles the remaining ties.
-  const pass = [], back = [];
-  for (const w of DECK) {
-    if (!deckOn(w.deck)) continue;
-    if (inPass(w.id)) pass.push(w.id);
-    else if (missed(w.id) || isDue(w.id, today)) { const c = card(w.id); back.push([lineKey(c), c.t || 0, w.id]); }
+  // The first pass goes through the active lists in order, each in its own order (a word of two lists comes with the
+  // first one). The other words are sorted by the moment they joined the line, then by their last review; the sort is
+  // stable, so list order settles the remaining ties.
+  const pass = [], back = [], met = new Set();
+  for (const L of LISTS) {
+    if (!deckOn(L.id)) continue;
+    for (const w of L.words) {
+      if (met.has(w.id)) continue;
+      met.add(w.id);
+      if (inPass(w.id)) pass.push(w.id);
+      else if (missed(w.id) || isDue(w.id, today)) { const c = card(w.id); back.push([lineKey(c), c.t || 0, w.id]); }
+    }
   }
   back.sort((a, b) => a[0] - b[0] || a[1] - b[1]);
   return pass.concat(back.map(x => x[2]));
 }
 function bucketCounts() {                          // words of the active lists already passed, per bucket
   const n = Array(topBucket() + 1).fill(0);
-  for (const w of DECK) if (deckOn(w.deck) && !inPass(w.id)) n[bucketOf(w.id)]++;
+  for (const w of DECK) if (onLine(w) && !inPass(w.id)) n[bucketOf(w.id)]++;
   return n;
 }
 function recomputeDue() {                          // after a change of the delays or of the number of buckets
@@ -1507,8 +1742,8 @@ function knHTML(id) {
 
 /* ---------- study session ---------- */
 const qid = x => (x && typeof x === "object" ? x.id : x);   // a queue entry: an id, or {id, face} in the new-way test
-function learnPool() { return DECK.filter(w => deckOn(w.deck) && bucketOf(w.id) === 0).map(w => w.id); }
-function sensPool() { return DECK.filter(w => deckOn(w.deck) && knOf(w.id) && knOf(w.id) !== 7).map(w => w.id); }
+function learnPool() { return DECK.filter(w => onLine(w) && bucketOf(w.id) === 0).map(w => w.id); }
+function sensPool() { return DECK.filter(w => onLine(w) && knOf(w.id) && knOf(w.id) !== 7).map(w => w.id); }
 function spread(items, prev) {
   // Items {id, face} in the same order, except that the same word never comes twice in a row when it can be avoided
   // (prev: the word just seen); a word with two items left goes first when three items or fewer remain.
@@ -1527,7 +1762,7 @@ function sensPick(n) {                              // n words known in one or t
 function evalPick(n) {
   // Words already met, taken in turn from every bucket so that each one is represented, then shuffled.
   const groups = Array.from({ length: topBucket() + 1 }, () => []);
-  for (const w of DECK) if (deckOn(w.deck) && seen(w.id)) groups[bucketOf(w.id)].push(w.id);
+  for (const w of DECK) if (onLine(w) && seen(w.id)) groups[bucketOf(w.id)].push(w.id);
   groups.forEach(shuffle);
   const out = [];
   while (out.length < n && groups.some(g => g.length)) for (const g of groups) if (g.length && out.length < n) out.push(g.pop());
@@ -1540,17 +1775,20 @@ const study = {
     // keep: the lists or the cards changed under the session; the word on screen stays if it still belongs to it
     if (keep && this.mode !== "line") {             // a training, an evaluation or a test carries on
       // a test keeps the lists chosen when it started, active or not
-      const still = id => BYID.has(id) && (this.mode === "test" || deckOn(BYID.get(id).deck));
+      const still = id => BYID.has(id) && (this.mode === "test" || onLine(BYID.get(id)));
       this.queue = this.queue.filter(x => still(qid(x)));
       if (this.mode === "learn") {
         const L = this.learn;
         L.ids = L.ids.filter(still); L.got = new Set([...L.got].filter(still));
-        if (!L.check && this.cur && L.ids.length && L.got.size === L.ids.length) {
-          this.toCheck(this.cur);
-          if (!this.busy) { this.next(true); return; }   // the card on screen belonged to the loop
+        // the rest of the round leaves the lists: the round ends there, after the answer on screen (busy: next() comes
+        // with the timer of grade) or without the card on screen if it leaves too
+        if (!L.check && this.cur && !this.queue.length && L.ids.length && (this.busy || !still(this.cur))) {
+          this.endRound(this.cur);
+          if (!this.busy) { this.next(true); learnSave(); return; }
         }
+        learnSave();
       }
-      if (this.mode === "test" && state.test) { state.test.queue = state.test.queue.filter(id => BYID.has(id)); save(); }
+      if (this.mode === "test" && state.test) { testQueue(state.test); save(); }
       if (this.cur && !still(this.cur) && !this.busy) this.next(true);   // the word moved (published) or its list is off
       else {
         renderCounts();
@@ -1570,7 +1808,8 @@ const study = {
     this.next(true);
   },
   startFree() {
-    const active = DECK.filter(w => deckOn(w.deck));
+    dropLearn();
+    const active = DECK.filter(onLine);
     const pool = active.filter(w => seen(w.id)).map(w => w.id);
     this.mode = "free"; this.run++;
     this.queue = shuffle(pool.length >= 5 ? pool : active.map(w => w.id));
@@ -1579,24 +1818,54 @@ const study = {
   startEval() {
     const ids = evalPick(state.settings.evalSize);
     if (!ids.length) { toast("Rien à évaluer pour l’instant : l’évaluation porte sur les mots déjà vus."); return false; }
+    dropLearn();
     this.mode = "eval"; this.res = { ok: [], ko: [] }; this.run++;
     this.queue = ids;
     this.next(true);
     return true;
   },
   startLearn() {
-    // A round of learning: words of bucket 0 picked at random come back in a loop, the ones passed too, until all of
-    // them are passed; then each one once more: a √ sends it to bucket 1, as in the line.
+    // Learning: learnSize words of bucket 0 picked at random. Each round shows every one of them once, in a random order;
+    // the rounds go on until one where all of them are passed. Then each one once more (the last check): a √ sends it to
+    // bucket 1, as in the line.
     const ids = shuffle(learnPool()).slice(0, state.settings.learnSize);
     if (!ids.length) { toast("Aucun mot au seau 0 dans les listes actives."); return false; }
     this.mode = "learn"; this.run++;
-    this.learn = { ids, got: new Set(), check: false };
+    this.learn = { ids, got: new Set(), round: 1, check: false };   // got: the words passed in this round
     this.res = { ok: [], ko: [] };
     this.queue = [...ids];
     this.next(true);
+    learnSave();
     return true;
   },
-  toCheck(last) {                                   // every word of the round passed: the last check
+  resumeLearn() {                                   // the learning saved in the state when the app was closed, where it was
+    const s = state.learn;
+    if (!s) return false;
+    const here = id => BYID.has(id) && onLine(BYID.get(id));
+    const ids = s.ids.filter(here), queue = s.queue.filter(id => ids.includes(id));
+    if (!queue.length) { dropLearn(); return false; }
+    this.mode = "learn"; this.run++;
+    this.learn = { ids, got: new Set(s.got.filter(id => ids.includes(id))), round: s.round, check: s.check };
+    this.res = s.check && s.res ? { ok: s.res.ok, ko: s.res.ko } : { ok: [], ko: [] };
+    this.queue = queue;
+    this.next(true);
+    learnSave();
+    toast(s.check ? "Apprentissage repris au dernier passage, là où tu l’avais laissé."
+      : `Apprentissage repris au tour ${s.round}, là où tu l’avais laissé.`, 3500);
+    return true;
+  },
+  endRound(last) {
+    // the round is over: every word passed in it, the last check; else all the words again, in a new random order
+    const L = this.learn;
+    if (L.got.size === L.ids.length) { this.toCheck(last); return; }
+    const q = shuffle([...L.ids]);
+    if (q.length > 1 && q[0] === last) [q[0], q[1]] = [q[1], q[0]];   // not the card just seen once more
+    toast(`Tour ${L.round}${NB}: ${L.got.size} sur ${plural(L.ids.length, "mot réussi", "mots réussis")}. Un tour de plus, ` +
+      (L.ids.length > 1 ? "jusqu’à les réussir tous dans le même tour." : "jusqu’à le réussir."), 4000);
+    L.round++; L.got = new Set();
+    this.queue = q;
+  },
+  toCheck(last) {                                   // every word passed in the same round: the last check
     const q = shuffle([...this.learn.ids]);
     if (q.length > 1 && q[0] === last) [q[0], q[1]] = [q[1], q[0]];   // not the card just seen once more
     this.learn.check = true;
@@ -1608,6 +1877,7 @@ const study = {
   startSens() {
     const items = sensPick(state.settings.evalSize);
     if (!items.length) { toast("Aucun mot à tester dans un nouveau sens : il faut des mots déjà connus dans un ou deux sens."); return false; }
+    dropLearn();
     this.mode = "sens"; this.run++;
     this.res = { ok: [], ko: [] };
     this.queue = items;
@@ -1615,7 +1885,7 @@ const study = {
     return true;
   },
   startTest(lists) {
-    const ids = shuffle(DECK.filter(w => lists.includes(w.deck)).map(w => w.id));
+    const ids = shuffle(DECK.filter(w => w.lists.some(l => lists.includes(l))).map(w => w.id));   // a word of two lists: once
     if (!ids.length) return false;
     state.test = { lists: [...lists], n: ids.length, queue: ids, ok: [], ko: [] };
     save();
@@ -1624,15 +1894,20 @@ const study = {
   resumeTest() {                                    // the test saved in the state, where it was left
     const t = state.test;
     if (!t) return false;
-    t.queue = t.queue.filter(id => BYID.has(id));
-    if (!t.queue.length) { state.test = null; save(); toast("Ce test n’a plus de mot à passer."); return false; }
+    const q = testQueue(t);
+    if (!q.length) {
+      if (t.queue.length) { toast("Les mots de ce test sont dans une liste qui n’est pas arrivée : réessaie plus tard.", 4000); return false; }
+      state.test = null; save(); toast("Ce test n’a plus de mot à passer."); return false;
+    }
+    dropLearn();
     this.mode = "test"; this.res = t; this.run++;
-    this.queue = [...t.queue];
+    this.queue = [...q];
     this.next(true);
     return true;
   },
   stop() {                                          // "Arrêter": an evaluation shows its results so far, a test pauses
     if (this.mode === "test") { this.run++; this.tok++; this.cur = null; this.queue = []; this.ready = false; renderCounts(); showDone(); return; }
+    if (this.mode === "learn") dropLearn();
     const answered = this.res && (this.res.ok.length || this.res.ko.length);
     if (answered && (this.mode === "eval" || this.mode === "sens" || (this.mode === "learn" && this.learn.check))) {
       this.res.cut = !!(this.queue.length || (this.cur && !this.busy));   // questions left without an answer
@@ -1684,11 +1959,10 @@ const study = {
     const loop = this.mode === "learn" && !this.learn.check;
     if (this.res && (kind || this.mode === "learn") && !loop) this.res[ok ? "ok" : "ko"].push([id, kind === "test" && inPass(id) ? -1 : bucketOf(id), ...(kind === "sens" ? [face] : [])]);
     if (this.mode === "free") { if (!ok) this.queue.push(id); }   // training: a missed word comes back at the end
-    else if (loop) {                                               // learning: a missed word comes back soon, a passed one later
+    else if (loop) {                                               // learning: each word once a round; its end decides
       const L = this.learn;
-      if (ok) { L.got.add(id); this.queue.push(id); }
-      else { L.got.delete(id); this.queue.splice(Math.min(3, this.queue.length), 0, id); }
-      if (L.got.size === L.ids.length) this.toCheck(id);
+      if (ok) L.got.add(id); else L.got.delete(id);
+      if (!this.queue.length) this.endRound(id);
     }
     else {                                                         // in the line, a missed word now ends the line
       applyGrade(id, ok, kind, face);
@@ -1697,9 +1971,10 @@ const study = {
         this.queue = spread(this.queue.filter(x => qid(x) !== id), id);
         r.ko.push(...r.ok.filter(p => p[0] === id)); r.ok = r.ok.filter(p => p[0] !== id);
       }
-      if (kind === "test" && state.test) state.test.queue = [...this.queue];   // saved after each answer
+      if (kind === "test" && state.test) state.test.queue = [...this.queue, ...state.test.queue.filter(id => !BYID.has(id))];   // saved after each answer
       save();
     }
+    if (this.mode === "learn") learnSave();          // the word answered leaves the saved queue
     stampMark(g);
     const run = this.run;
     setTimeout(() => { this.busy = false; if (run === this.run) this.next(false); }, matchMedia("(prefers-reduced-motion: reduce)").matches ? 200 : 430);
@@ -1725,7 +2000,7 @@ function setActions(turned) {
   const up = Math.min(topBucket(), bucketOf(study.cur) + 1);
   const learning = study.mode === "learn" && !study.learn.check;
   const [g0, g1] = study.mode === "free" ? ["à revoir", "su"]
-    : learning ? ["revient bientôt", "appris, revient plus tard"]
+    : learning ? ["un tour de plus", "réussi dans ce tour"]
     : study.mode === "sens" ? ["seau 0, plus aucun sens", "connu par " + WAYS[study.curFace]]
     : study.mode === "eval" ? ["retour au seau 0", "rien ne change"]
     : study.mode === "test" ? ["retour au seau 0", inPass(study.cur) ? `seau 1, ${daysText(delayOf(1))}` : "rien ne change"]
@@ -1741,8 +2016,7 @@ function renderCardStatus() {
     (inPass(id) ? '<span class="chip new">Nouveau mot</span>' : `<span class="chip">Seau ${b}${missed(id) ? ", raté" : ""}</span>`);
   else if (study.mode === "sens") chip = `<span class="chip test">Par ${WAYS[study.curFace]}</span>`;   // the note says Nouveau sens
   else if (study.mode === "learn") chip = `<span class="chip test">${study.learn.check ? "Dernier passage" : "Apprentissage"}</span>` +
-    (!study.learn.check && study.learn.got.has(id) ? '<span class="chip new">Appris</span>'
-      : inPass(id) ? '<span class="chip new">Nouveau mot</span>' : '<span class="chip">Seau 0, raté</span>');
+    (inPass(id) ? '<span class="chip new">Nouveau mot</span>' : '<span class="chip">Seau 0, raté</span>');
   else if (!seen(id)) chip = '<span class="chip new">Nouveau mot</span>';
   else chip = `<span class="chip">Seau ${b}${missed(id) ? ", raté" : ""}</span>`;
   const box = $("#card-chip"), h = box.offsetHeight;
@@ -1754,11 +2028,12 @@ function renderModeNote() {                     // called with a word on screen
   const note = $("#free-note"), h0 = note.hidden ? -1 : note.offsetHeight;
   note.hidden = study.mode === "line";
   const r = study.res, i = r ? r.ok.length + r.ko.length + 1 : 0, pos = r ? `${i} sur ${i + study.queue.length}` : "";   // the word on screen is i
+  const L = study.learn, n = L ? L.ids.length : 0, j = n - study.queue.length, miss = L ? j - 1 - L.got.size : 0;   // in a round: word j
   $("#free-text").textContent = frTypo(study.mode === "eval" ? "Évaluation : × renvoie au seau 0, √ ne change rien."
     : study.mode === "test" ? `Test : mot ${pos}`
     : study.mode === "sens" ? `Nouveau sens : ${pos}`
     : study.mode === "learn" ? (study.learn.check ? `Dernier passage : mot ${pos}`
-      : `Apprentissage : ${study.learn.got.size} sur ${plural(study.learn.ids.length, "mot appris", "mots appris")}`)
+      : `Apprentissage, tour ${L.round} : mot ${j} sur ${n}` + (miss > 0 ? `, ${plural(miss, "raté", "ratés")}` : ""))
     : "Entraînement libre : le planning ne bouge pas.");
   $("#free-stop").textContent = study.mode === "test" ? "Pause" : "Arrêter";
   if ((note.hidden ? -1 : note.offsetHeight) !== h0 && prism && !$("#study-card").hidden) prism.layout();
@@ -1768,9 +2043,8 @@ function renderCounts() {
   const ids = study.cur ? [study.cur, ...study.queue] : study.queue;
   if (study.mode !== "line") {
     const what = study.mode === "eval" ? "à évaluer" : study.mode === "test" || study.mode === "sens" ? "à tester"
-      : study.mode === "learn" ? (study.learn.check ? "à vérifier" : "à apprendre") : "en libre";
-    const n = study.mode === "learn" && !study.learn.check ? study.learn.ids.length - study.learn.got.size : ids.length;
-    $("#counts").innerHTML = ids.length ? `<span class="count free"><b>${n}</b>${what}</span>` : "";
+      : study.mode === "learn" ? (study.learn.check ? "à vérifier" : "dans ce tour") : "en libre";
+    $("#counts").innerHTML = ids.length ? `<span class="count free"><b>${ids.length}</b>${what}</span>` : "";
     return;
   }
   let pass = 0, rev = 0;
@@ -1814,7 +2088,7 @@ function showDone() {                              // called by study.next, whic
   $("#done").hidden = false;
   $("#free-note").hidden = true;
   const today = dayNum(), m = study.mode;
-  const active = DECK.filter(w => deckOn(w.deck));
+  const active = DECK.filter(onLine);
   const title = $("#done-title"), text = $("#done-text"), next = $("#done-next"), more = $("#done-more");
   more.innerHTML = "";
   if (m === "test" && state.test && !state.test.queue.length) { state.test = null; save(); }
@@ -1841,6 +2115,7 @@ function showDone() {                              // called by study.next, whic
   if (m === "eval") { const e = evalSummary(); title.textContent = "Évaluation terminée"; text.textContent = e.text; more.innerHTML = e.html; }
   else if (m === "sens") { const e = evalSummary(); title.textContent = study.res.cut ? "Test des sens arrêté" : "Test des sens terminé"; text.textContent = e.text; more.innerHTML = e.html; }
   else if (m === "learn") {
+    dropLearn();
     const L = study.learn, e = evalSummary(), got = new Set([...study.res.ok, ...study.res.ko].map(([id]) => id));
     title.textContent = L.check && L.ids.length && L.ids.every(id => got.has(id)) ? "Apprentissage terminé" : "Apprentissage arrêté";
     text.textContent = L.check ? e.text : `Rien n’a changé dans tes seaux${NB}: un mot ne passe au seau 1 qu’au dernier passage.`;
@@ -1857,7 +2132,7 @@ function showDone() {                              // called by study.next, whic
   else { title.textContent = "Entraînement terminé"; text.textContent = "Tu as fait le tour des mots choisis."; }
 }
 function renderDoneBtns() {
-  const active = DECK.filter(w => deckOn(w.deck));
+  const active = DECK.filter(onLine);
   renderTestBtns();
   $("#done-back").hidden = study.mode === "line";
   $("#done-back").classList.toggle("primary", !state.test);   // a paused test: resuming it comes first
@@ -1869,6 +2144,20 @@ function renderLearnStart() {
   const pool = learnPool().length;
   $("#learn-start").hidden = !pool;
   $("#learn-start").textContent = `Apprendre ${plural(Math.min(pool, state.settings.learnSize), "mot", "mots")}`;
+}
+function learnSave() {                            // the learning in progress, kept in the state (the app may be closed)
+  const L = study.learn;
+  if (study.mode !== "learn" || !L) return;
+  const onScreen = study.cur && !study.busy ? [study.cur] : [];   // a word answered is no more on screen
+  state.learn = { ids: [...L.ids], got: [...L.got], round: L.round, check: L.check, queue: [...onScreen, ...study.queue],
+    res: L.check && study.res ? { ok: study.res.ok, ko: study.res.ko } : null };
+  save();
+}
+function dropLearn() { if (state.learn) { state.learn = null; save(); } }
+function testQueue(t) {
+  // the words of the saved test that are here; one of a list that did not arrive waits for it, one that is no more leaves
+  if (listsWhole()) t.queue = t.queue.filter(id => BYID.has(id));
+  return t.queue.filter(id => BYID.has(id));
 }
 function testLeft() { return state.test ? state.test.queue.filter(id => BYID.has(id)).length : 0; }   // words still in the lists
 function testBtnsHTML() {
@@ -1904,7 +2193,7 @@ function testSheet() {
   openSheet("Test complet", frTypo(html), body => {
     const chosen = () => $$("[data-tl]", body).filter(b => b.getAttribute("aria-checked") === "true").map(b => b.dataset.tl);
     const count = () => {
-      const ids = chosen(), n = lists.filter(L => ids.includes(L.id)).reduce((a, L) => a + L.words.length, 0);
+      const ids = chosen(), n = new Set(lists.filter(L => ids.includes(L.id)).flatMap(L => L.words.map(w => w.id))).size;
       const go = $("#test-begin", body);
       go.disabled = !n;
       go.textContent = n ? `Commencer le test (${plural(n, "mot", "mots")})` : "Choisis au moins une liste";
@@ -1942,43 +2231,72 @@ function wordMatches(w, q) {
 }
 function meterHTML(b) { const top = topBucket(); let s = ""; for (let i = 1; i <= top; i++) s += `<i${i <= b ? ' class="on"' : ""}></i>`; return `<span class="meter" aria-label="Seau ${b} sur ${top}">${s}</span>`; }
 function renderDeckTabs() {
-  const lists = LISTS.filter(showList);
-  if (wdeck !== "all" && !lists.some(L => L.id === wdeck)) wdeck = "all";
-  const tab = (id, label, off) => `<button type="button" data-deck="${esc(id)}" aria-pressed="${wdeck === id}"${off ? ' class="off" title="Liste désactivée"' : ""}>${esc(label)}</button>`;
-  $("#wdeck").innerHTML = tab("all", "Toutes") + lists.map(L => tab(L.id, L.nom, !deckOn(L.id))).join("") +
+  const lists = LISTS.filter(showList), free = DECK.some(w => !w.lists.length);
+  if (wdeck !== "all" && !(wdeck === NOLIST ? free : lists.some(L => L.id === wdeck))) wdeck = "all";
+  const tab = (id, label, off) => `<button type="button" data-deck="${esc(id)}" aria-pressed="${wdeck === id}"${off ? ' class="off" title="Liste hors de la file"' : ""}>${esc(label)}</button>`;
+  $("#wdeck").innerHTML = tab("all", "Toutes") + lists.map(L => tab(L.id, L.nom, !deckOn(L.id))).join("") + (free ? tab(NOLIST, "Sans liste") : "") +
     `<button type="button" class="add" data-newlist>＋ Nouvelle liste</button>`;
   const L = wdeck !== "all" && LISTBYID.get(wdeck);
   const bar = $("#listbar");
-  bar.hidden = !(L && L.phone);
-  bar.innerHTML = L && L.phone ? `<button type="button" class="btn" data-la="add">Ajouter un mot ici</button>` +
-    (L.id !== TEL ? `<button type="button" class="btn" data-la="rename">Renommer</button>` : "") +
-    `<button type="button" class="btn danger" data-la="delete">Supprimer la liste</button><div id="list-confirm" style="flex-basis:100%"></div>` : "";
+  bar.hidden = !editable(L);
+  bar.innerHTML = editable(L) ? `<button type="button" class="btn" data-la="add">Ajouter un mot ici</button>` +
+    (L.words.length ? `<button type="button" class="btn" data-la="share">Partager la liste</button>` : "") +
+    (L.phone && L.id !== TEL ? `<button type="button" class="btn" data-la="rename">Renommer</button>` : "") +
+    (L.phone && L.id !== TEL ? `<button type="button" class="btn danger" data-la="delete">Supprimer la liste</button>` : "") + `<div id="list-confirm" style="flex-basis:100%"></div>` : "";
+}
+let wlist = [], wshown = 0, wmore = null;           // the rows of the Mots tab, drawn a few at a time
+function wordRowHTML(w, tones) {
+  const first = String(w.f || "").split(/\s*;\s*/)[0];
+  let where = "";
+  if (wdeck === "all") {
+    const ls = w.lists.filter(deckShown), L = LISTBYID.get(ls[0] || w.lists[0]);
+    where = L ? L.nom + (w.lists.length > 1 ? " +" + (w.lists.length - 1) : "") : "sans liste";
+  }
+  return `<li><button type="button" class="wrow" data-id="${esc(w.id)}"><span class="h${covered(w.h) ? "" : " sysfont"}" lang="zh-Hans">${esc(w.h)}</span>` +
+    `<span class="m"><span class="p${tones}">${w.p ? pinyinHTML(w.p) : "—"}</span><span class="f">${esc(first)}</span></span>` +
+    `<span class="r"><span class="km">${knHTML(w.id)}${meterHTML(bucketOf(w.id))}</span>${where ? `<span class="dk">${esc(where)}</span>` : ""}</span></button></li>`;
+}
+function moreWords() {
+  const ul = $("#wlist"), tones = state.settings.toneColors ? " tones" : "";
+  const old = $("#wmore", ul); if (old) old.remove();
+  const end = Math.min(wlist.length, wshown + (wshown ? 300 : 150));
+  ul.insertAdjacentHTML("beforeend", wlist.slice(wshown, end).map(w => wordRowHTML(w, tones)).join(""));
+  wshown = end;
+  if (wmore) { wmore.disconnect(); wmore = null; }
+  if (wshown >= wlist.length) return;
+  ul.insertAdjacentHTML("beforeend", `<li class="more-row" id="wmore"><button type="button" class="btn ghost" data-more>Afficher la suite (${plural(wlist.length - wshown, "mot", "mots")})</button></li>`);
+  if ("IntersectionObserver" in window) {           // the next rows come by themselves near the bottom
+    wmore = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) moreWords(); }, { root: $("#main"), rootMargin: "600px" });
+    wmore.observe($("#wmore", ul));
+  }
 }
 function renderWords() {
   renderDeckTabs();
   const q = $("#q").value.trim();
-  const tones = state.settings.toneColors ? " tones" : "";
-  const rank = new Map(LISTS.map((L, i) => [L.id, i]));
   const known = Math.max(1, topBucket() - 1);       // "acquis": the last two buckets
-  const list = DECK.filter(w => {
-    if (wdeck !== "all" && w.deck !== wdeck) return false;
+  const keep = w => {
     const p = inPass(w.id), b = bucketOf(w.id);
     if (wfilter === "new" && !p) return false;
     if (wfilter === "learn" && (p || b >= known)) return false;
     if (wfilter === "known" && (p || b < known)) return false;
     return wordMatches(w, q);
-  }).sort((a, b) => rank.get(a.deck) - rank.get(b.deck) || a.o - b.o);
-  const showDeck = wdeck === "all";
-  $("#wlist").innerHTML = list.length ? list.map(w => {
-    const first = String(w.f || "").split(/\s*;\s*/)[0];
-    const L = LISTBYID.get(w.deck);
-    return `<li><button type="button" class="wrow" data-id="${esc(w.id)}"><span class="h${covered(w.h) ? "" : " sysfont"}" lang="zh-Hans">${esc(w.h)}</span>` +
-      `<span class="m"><span class="p${tones}">${w.p ? pinyinHTML(w.p) : "—"}</span><span class="f">${esc(first)}</span></span>` +
-      `<span class="r"><span class="km">${knHTML(w.id)}${meterHTML(bucketOf(w.id))}</span>${showDeck ? `<span class="dk">${esc(L ? L.nom : "")}</span>` : ""}</span></button></li>`;
-  }).join("") : `<li class="empty">${q ? "Aucun mot ne correspond à « " + esc(q) + " »." + (listsReady ? `<br><button type="button" class="btn primary" id="add-q" style="margin-top:12px">Créer la fiche « ${esc(q)} »</button>` : "") : listsReady ? "Aucun mot dans cette catégorie." : "Les listes ne sont pas encore chargées."}</li>`;
+  };
+  let list = [];
+  if (wdeck === "all") {
+    // the dictionary: the words of the lists shown (Réglages), each once, in the order of those lists, then the words of
+    // no list; a search goes through every word
+    const met = new Set(), add = w => { if (!met.has(w.id)) { met.add(w.id); if (keep(w)) list.push(w); } };
+    for (const L of LISTS) if (deckShown(L.id)) L.words.forEach(add);
+    if (deckShown(NOLIST)) DECK.forEach(w => { if (!w.lists.length) add(w); });
+    if (q) { LISTS.forEach(L => L.words.forEach(add)); DECK.forEach(add); }
+  } else if (wdeck === NOLIST) list = DECK.filter(w => !w.lists.length && keep(w));
+  else list = (LISTBYID.get(wdeck) || { words: [] }).words.filter(keep);
+  wlist = list; wshown = 0;
+  $("#wlist").innerHTML = list.length ? "" : `<li class="empty">${q ? "Aucun mot ne correspond à « " + esc(q) + " »." + (listsReady ? `<br><button type="button" class="btn primary" id="add-q" style="margin-top:12px">Créer la fiche « ${esc(q)} »</button>` : "") : listsReady ? "Aucun mot dans cette catégorie." : "Les listes ne sont pas encore chargées."}</li>`;
+  if (list.length) moreWords();
   const L = wdeck !== "all" && LISTBYID.get(wdeck);
-  $("#wcount").textContent = plural(list.length, "mot", "mots") + (L && L.phone ? ", sur ce téléphone" : L ? `, fichier decks/${L.fichier}` : "") + (L && !deckOn(L.id) ? ", liste désactivée" : "");
-  $("#btn-export").hidden = !state.custom.length;
+  $("#wcount").textContent = plural(list.length, "mot", "mots") + (L && L.phone ? ", sur ce téléphone" : L ? `, fichier decks/${L.fichier}${L.fixe ? ", liste figée" : ""}` : "") + (L && !deckOn(L.id) ? ", hors de la file" : "");
+  $("#btn-export").hidden = !phoneLists().some(P => P.ids.length);
   $("#btn-publish").hidden = !(ghReady() && pendingCount());
 }
 
@@ -1993,7 +2311,7 @@ function passPace(today) {                          // words leaving the first p
 function renderProgress() {
   const today = dayNum();
   const active = LISTS.filter(L => deckOn(L.id) && L.words.length);
-  const words = active.flatMap(L => L.words);
+  const words = DECK.filter(onLine);                // a word of two lists counts once
   const total = words.length, left = words.filter(w => inPass(w.id)).length, passed = total - left;
   $("#seen-n").textContent = passed;
   $("#seen-of").textContent = `${passed > 1 ? "mots passés" : "mot passé"} sur ${total}${active.length > 1 ? ", toutes listes actives" : ""}`;
@@ -2043,7 +2361,7 @@ function renderProgress() {
   $("#learn-go").disabled = !pool;
   $("#learn-go").textContent = `Apprendre ${plural(ln || state.settings.learnSize, "mot", "mots")}`;
   $("#learn-info").textContent = frTypo(ln > 1
-    ? `${plural(ln, "mot", "mots")} du seau 0 (jamais vus ou ratés), tirés au hasard, reviennent en boucle jusqu’à ce que tu les aies tous réussis ; un mot réussi revient lui aussi. Puis un dernier passage : chaque mot réussi passe au seau 1.`
+    ? `${plural(ln, "mot", "mots")} du seau 0 (jamais vus ou ratés), tirés au hasard, passent chacun une fois par tour, dans un ordre au hasard ; les tours recommencent jusqu’à un tour où tu les réussis tous. Puis un dernier passage : chaque mot réussi passe au seau 1.`
     : pool ? "1 mot du seau 0 (jamais vu ou raté) revient en boucle jusqu’à ce que tu l’aies réussi. Puis un dernier passage : réussi, il passe au seau 1."
     : "Aucun mot au seau 0 dans les listes actives : tout a déjà été réussi au moins une fois.");
   const kc = [0, 0, 0], all3 = words.filter(w => knOf(w.id) === 7).length;
@@ -2093,16 +2411,20 @@ function updateVoiceInfo() {
   else el.textContent = "Aucune voix chinoise trouvée. Sur iPhone : Réglages › Accessibilité › Contenu énoncé › Voix › Chinois.";
 }
 function deckRowHTML(L) {
-  const n = L.words.length;
-  const on = deckOn(L.id);
-  if (L.phone) return `<div class="set"><div class="t"><b id="dl-${esc(L.id)}">${esc(L.nom)}</b><small>${n ? plural(n, "mot", "mots") : "Vide pour l’instant"}, sur ce téléphone, parcourue en premier.</small></div>` +
-    `<button type="button" class="switch" role="switch" data-deck="${esc(L.id)}" aria-labelledby="dl-${esc(L.id)}" aria-checked="${on}"></button></div>`;
-  const what = !n ? "Vide pour l’instant" : plural(n, "mot", "mots");
+  const n = L.words.length, id = esc(L.id);
+  const what = (n ? plural(n, "mot", "mots") : "Vide pour l’instant") + (L.phone ? ", sur ce téléphone" : `, fichier ${esc(L.fichier)}${L.fixe ? ", liste figée" : ""}`) + ".";
   const warn = L.missing ? `<small class="warn">Fichier decks/${esc(L.fichier)} introuvable.</small>` : "";
-  return `<div class="set"><div class="t"><b id="dl-${esc(L.id)}">${esc(L.nom)}</b><small>${what}, fichier ${esc(L.fichier)}</small>${warn}</div>` +
-    `<span class="ctl">${ghReady() ? `<button type="button" class="btn small ghost" data-gdel="${esc(L.id)}">Supprimer</button>` : ""}` +
-    `<button type="button" class="switch" role="switch" data-deck="${esc(L.id)}" aria-labelledby="dl-${esc(L.id)}" aria-checked="${on}"></button></span></div>` +
-    `<div id="gdel-${esc(L.id)}"></div>`;
+  const del = !L.phone && !L.fixe && ghReady() ? `<button type="button" class="btn small ghost" data-gdel="${id}" style="margin-top:6px">Supprimer du dépôt</button>` : "";
+  return `<div class="set"><div class="t"><b id="dl-${id}">${esc(L.nom)}</b><small>${what}</small>${warn}${del}</div><div class="sws">` +
+    `<span class="sw"><span id="dr-${id}">Réviser</span><button type="button" class="switch" role="switch" data-deck="${id}" aria-labelledby="dr-${id} dl-${id}" aria-checked="${deckOn(L.id)}"></button></span>` +
+    `<span class="sw"><span id="da-${id}">Afficher</span><button type="button" class="switch" role="switch" data-show="${id}" aria-labelledby="da-${id} dl-${id}" aria-checked="${deckShown(L.id)}"></button></span>` +
+    `</div></div>` + (L.phone ? "" : `<div id="gdel-${id}"></div>`);
+}
+function freeRowHTML() {                           // the words of no list, in the Mots tab or not
+  const n = DECK.filter(w => !w.lists.length).length;
+  if (!n) return "";
+  return `<div class="set"><div class="t"><b id="dl-${NOLIST}">Mots sans liste</b><small>${plural(n, "mot", "mots")} du dictionnaire dans aucune liste, jamais dans la file.</small></div><div class="sws">` +
+    `<span class="sw"><span id="da-${NOLIST}">Afficher</span><button type="button" class="switch" role="switch" data-show="${NOLIST}" aria-labelledby="da-${NOLIST} dl-${NOLIST}" aria-checked="${deckShown(NOLIST)}"></button></span></div></div>`;
 }
 function stepDelay(n, dir) {                       // −/+ walk through 1, 2, 3… 7, 10, 14, 21, 30, 45, 60… 365 days
   if (dir > 0) return DELAY_STEPS.find(x => x > n) || 365;
@@ -2143,13 +2465,13 @@ function renderListsInfo() {
 function renderSettings() {
   const s = state.settings;
   const order = LISTS.filter(L => deckOn(L.id) && L.words.length).map(L => L.nom);
-  $("#new-order").textContent = frTypo("Active les listes à parcourir. " + (!order.length ? "Aucune n’est active pour l’instant."
+  $("#new-order").textContent = frTypo("« Réviser » met une liste dans la file ; « Afficher » montre ses mots dans Mots › Toutes. " + (!order.length ? "Aucune liste n’est dans la file pour l’instant."
     : order.length === 1 ? `Le premier tour parcourt la liste ${order[0]}.` : "Le premier tour les parcourt dans cet ordre : " + order.join(", puis ") + "."));
   $("#bucket-settings").innerHTML = bucketRowsHTML();
   $("#bucket-btns").innerHTML = bucketBtnsHTML();
   $("#eval-val").textContent = s.evalSize;
   $("#learn-val").textContent = s.learnSize;
-  $("#deck-settings").innerHTML = LISTS.filter(showList).map(deckRowHTML).join("") ||
+  $("#deck-settings").innerHTML = (LISTS.filter(showList).map(deckRowHTML).join("") + freeRowHTML()) ||
     `<p class="explain">Aucune liste chargée.</p>`;
   $("#lists-check-row").hidden = !!EMBEDDED;
   renderListsInfo();
@@ -2196,9 +2518,9 @@ let sheetPrism = null;
 
 function wordSheet(id) {
   const w = BYID.get(id); if (!w) return;
-  const L = LISTBYID.get(w.deck);
   const c = card(id), today = dayNum();
-  let meta = L ? (L.phone ? `Liste ${L.nom}, sur ce téléphone. ` : `Liste ${L.nom}. `) : "";
+  const names = w.lists.map(l => LISTBYID.get(l).nom);
+  let meta = names.length ? `${names.length > 1 ? "Listes" : "Liste"} ${names.join(", ")}${isPhoneWord(w) ? ", sur ce téléphone" : ""}. ` : "Dans aucune liste. ";
   meta += !seen(id) ? "Pas encore vu." : inPass(id) ? "Seau 0, attend son passage au premier tour." : missed(id) ? `Seau 0${NB}: raté, il revient à la fin de la file.`
     : `Seau ${bucketOf(id)}, prochaine révision ${dayLabel(Math.max(c.d, today), today)}.`;
   if (seen(id)) meta += " " + knText(id);
@@ -2209,8 +2531,9 @@ function wordSheet(id) {
     <p class="meta">${esc(meta)}</p>
     <div class="btnrow">
       <button type="button" class="btn" data-act="edit">Modifier</button>
+      ${editableLists().length ? '<button type="button" class="btn" data-act="lists">Listes…</button>' : ""}
       ${c && c.r ? '<button type="button" class="btn" data-act="reset">Remettre à zéro</button>' : ""}
-      ${isPhone(w.deck) ? '<button type="button" class="btn danger" data-act="delete">Supprimer</button>' : ""}
+      ${isPhoneWord(w) ? '<button type="button" class="btn danger" data-act="delete">Supprimer</button>' : ""}
     </div>
     <div id="word-confirm"></div>`, body => {
       sheetPrism = new Prism($("#sheet-stage", body), { maxW: 340 });
@@ -2221,26 +2544,44 @@ function wordSheet(id) {
         const a = e.target.closest("[data-act]"); if (!a) return;
         const box = $("#word-confirm", body);
         if (a.dataset.act === "edit") editSheet(id);
+        if (a.dataset.act === "lists") {               // the lists the phone may change: one switch each
+          box.innerHTML = `<ul class="inlists">${editableLists().map(L => `<li><span>${esc(L.nom)}${L.phone ? "" : ` <small class="meta">(decks/${esc(L.fichier)})</small>`}</span><button type="button" class="switch" role="switch" data-inl="${esc(L.id)}" aria-label="Dans ${esc(L.nom)}" aria-checked="${inList(L.id, id)}"></button></li>`).join("")}</ul>`;
+        }
+        if (a.dataset.inl !== undefined) return;
         if (a.dataset.act === "reset") box.innerHTML = `<div class="confirm"><p>Ce mot repartira comme un mot jamais vu.</p><div class="btnrow"><button type="button" class="btn danger" data-act="reset-yes">Remettre à zéro</button><button type="button" class="btn" data-act="cancel">Annuler</button></div></div>`;
         if (a.dataset.act === "delete") box.innerHTML = `<div class="confirm"><p>Supprimer « ${esc(w.h)} » et sa progression${NB}?</p><div class="btnrow"><button type="button" class="btn danger" data-act="delete-yes">Supprimer</button><button type="button" class="btn" data-act="cancel">Annuler</button></div></div>`;
         if (a.dataset.act === "cancel") box.innerHTML = "";
         if (a.dataset.act === "reset-yes") { delete state.cards[id]; save(); closeSheet(); afterDeckChange(); toast("Mot remis à zéro"); }
-        if (a.dataset.act === "delete-yes") { state.custom = state.custom.filter(x => x.id !== id); delete state.cards[id]; save(); rebuildDeck(); closeSheet(); afterDeckChange(); toast("Mot supprimé"); }
+        if (a.dataset.act === "delete-yes") {
+          state.custom = state.custom.filter(x => x.id !== id); delete state.cards[id];
+          state.tel = state.tel.filter(x => x !== id); for (const P of state.lists) P.ids = P.ids.filter(x => x !== id);
+          for (const e of Object.values(state.listEdits)) e.add = e.add.filter(x => x !== id);
+          save(); rebuildDeck(); closeSheet(); afterDeckChange(); toast("Mot supprimé");
+        }
+      });
+      body.addEventListener("click", e => {
+        const sw = e.target.closest("[data-inl]"); if (!sw) return;
+        const on = sw.getAttribute("aria-checked") !== "true", L = LISTBYID.get(sw.dataset.inl);
+        setInList(sw.dataset.inl, id, on); save(); rebuildDeck(); afterDeckChange();
+        sw.setAttribute("aria-checked", String(inList(sw.dataset.inl, id)));
+        toast(on ? `« ${w.h} » ajouté à ${L.nom}` : `« ${w.h} » retiré de ${L.nom}`);
       });
     });
 }
 
 function formHTML(w) {
-  const deckWord = !!w.id && !isPhone(w.deck);
-  const L = deckWord ? LISTBYID.get(w.deck) : null;
-  const cur = w.id ? w.deck : (w.target || TEL);
-  const opts = phoneLists().map(P => `<option value="${esc(P.id)}"${P.id === cur ? " selected" : ""}>${esc(P.nom)}</option>`).join("");
-  const listField = deckWord ? "" : `<div class="field"><label for="f-l">Liste</label><select id="f-l">${opts}<option value="__new">＋ Nouvelle liste…</option></select>
+  // a new word: its list (one the phone may change, or none); a word of decks/: a correction kept on this phone
+  const deckWord = !!w.id && !isPhoneWord(w);
+  const L = deckWord ? BASE.find(x => x.id === w.home) : null;
+  const want = w.target === undefined ? TEL : w.target;
+  const cur = want === "" || editableLists().some(P => P.id === want) ? want : TEL;   // a list gone, or not loaded yet
+  const opts = editableLists().map(P => `<option value="${esc(P.id)}"${P.id === cur ? " selected" : ""}>${esc(P.nom)}</option>`).join("");
+  const listField = w.id ? "" : `<div class="field"><label for="f-l">Liste</label><select id="f-l">${opts}<option value=""${cur === "" ? " selected" : ""}>Aucune liste</option><option value="__new">＋ Nouvelle liste…</option></select>
       <input id="f-ln" placeholder="Nom de la nouvelle liste" autocomplete="off" hidden style="margin-top:6px"></div>`;
   return `
   <form id="wform" novalidate>
     ${listField}
-    ${deckWord ? `<p class="meta" style="margin-top:0">Mot de la liste ${esc(L.nom)}. La correction reste sur ce téléphone${NB}; pour la garder partout, corrige aussi la ligne dans <span class="mono">decks/${esc(L.fichier)}</span> sur l’ordinateur.</p>` : ""}
+    ${deckWord && L ? `<p class="meta" style="margin-top:0">Mot du fichier ${esc(L.fichier)}. La correction reste sur ce téléphone${NB}; pour la garder partout, publie-la (Réglages) ou corrige aussi la ligne dans <span class="mono">decks/${esc(L.fichier)}</span> sur l’ordinateur.</p>` : ""}
     <div class="field"><label for="f-h">汉字</label><input id="f-h" lang="zh-Hans" value="${esc(w.h || "")}" ${deckWord ? "readonly" : "autofocus"} autocomplete="off" required><span class="hint" id="f-hh" hidden></span></div>
     <div class="field"><label for="f-p">Pinyin</label><input id="f-p" value="${esc(w.p || "")}" autocomplete="off" autocapitalize="off" spellcheck="false" required ${deckWord ? "autofocus" : ""}>
       <span class="hint">Avec accents, ou tons en chiffres${NB}: <span class="mono">tu2shu1guan3</span> donne túshūguǎn.</span>
@@ -2266,31 +2607,56 @@ function bindForm(body, w, onSave) {
     hint.textContent = bad ? `La phrase ne contient pas « ${h} ».` : "Elle doit contenir le mot.";
   };
   const ls = $("#f-l", body);
-  const target = () => (ls ? ls.value : w.deck);
-  const hh = () => {                                 // the same word may live in several lists, each with its own card
-    const h = $("#f-h", body).value.trim(), hint = $("#f-hh", body);
-    const others = h ? [...new Set(DECK.filter(x => x.h === h && x.id !== w.id && x.deck !== target()).map(x => LISTBYID.get(x.deck).nom))] : [];
-    hint.hidden = !others.length;
-    hint.textContent = others.length ? `Aussi dans ${others.join(", ")} : ce sera une carte à part.` : "";
+  const err = $("#f-err", body);
+  const fail = msg => { err.hidden = false; err.textContent = frTypo(msg); };
+  const listName = () => {                           // the name of the new list, or null (and the reason) if it cannot be
+    const nom = $("#f-ln", body).value.trim().replace(/\s+/g, " ");
+    if (!nom) { fail("Donne un nom à la nouvelle liste."); return null; }
+    if (LISTS.some(L => L.nom.toLowerCase() === nom.toLowerCase())) { fail(`Une liste s’appelle déjà « ${nom} ».`); return null; }
+    return nom;
   };
+  const hh = () => {                                 // a word of the dictionary is added to the list, not written again
+    const h = $("#f-h", body).value.trim(), hint = $("#f-hh", body);
+    const same = h && !w.id ? DECK.filter(x => x.h === h) : [];
+    hint.hidden = !same.length;
+    hint.innerHTML = same.length ? `Déjà dans le dictionnaire${NB}:<span class="dupl">${same.slice(0, 4).map(x => `<span>${esc(x.h)} ${esc(pinyinText(x.p))} (${esc(String(x.f || "").split(/\s*;\s*/)[0])})</span>` +
+      (ls && ls.value && (ls.value === "__new" || !inList(ls.value, x.id)) ? `<button type="button" class="btn small" data-take="${esc(x.id)}">Ajouter celui-ci à la liste</button>` : "")).join("")}</span>` : "";
+  };
+  body.addEventListener("click", e => {
+    const b = e.target.closest("[data-take]"); if (!b || !ls) return;
+    const x = BYID.get(b.dataset.take);
+    let lid = ls.value;
+    if (lid === "__new") {                           // the new list first, then the word in it
+      const nom = listName(); if (nom === null) return;
+      lid = createList(nom);
+    }
+    const L = LISTBYID.get(lid);
+    setInList(lid, x.id, true); save(); rebuildDeck(); closeSheet(); afterDeckChange();
+    toast(`« ${x.h} » ajouté à ${L.nom}`);
+  });
   $("#f-p", body).addEventListener("input", pv); pv();
   if (ls) ls.addEventListener("change", () => { $("#f-ln", body).hidden = ls.value !== "__new"; if (ls.value === "__new") $("#f-ln", body).focus(); hh(); });
   $("#f-e", body).addEventListener("input", eh); $("#f-h", body).addEventListener("input", () => { eh(); hh(); }); eh(); hh();
   $("#wform", body).addEventListener("submit", e => {
     e.preventDefault();
     const val = k => $("#f-" + k, body).value.trim().replace(/[\t\r\n]+/g, " ").replace(/\s{2,}/g, " ");
-    const v = { h: val("h"), p: val("p"), f: val("f"), n: val("n"), e: val("e"), ep: val("ep"), ef: val("ef") };
-    const err = $("#f-err", body);
-    const fail = msg => { err.hidden = false; err.textContent = msg; };
+    // the pinyin as the files write it: tones in digits become accents
+    const v = { h: val("h"), p: pinyinText(val("p")), f: val("f"), n: val("n"), e: val("e"), ep: pinyinText(val("ep")), ef: val("ef") };
     const miss = [!v.h && "汉字", !v.p && "pinyin", !v.f && "traduction"].filter(Boolean);
-    if (miss.length) return fail("Il manque" + NB + ": " + miss.join(", ") + ".");
-    const newName = ls && ls.value === "__new" ? $("#f-ln", body).value.trim().replace(/\s+/g, " ") : "";
-    if (ls && ls.value === "__new") {
-      if (!newName) return fail("Donne un nom à la nouvelle liste.");
-      if (LISTS.some(L => L.nom.toLowerCase() === newName.toLowerCase())) return fail(`Une liste s’appelle déjà « ${newName} ».`);
-    } else if (!deckWordOf(w)) {
-      const dup = DECK.find(x => x.h === v.h && x.id !== w.id && x.deck === target());
-      if (dup) return fail(`« ${v.h} » est déjà dans la liste ${LISTBYID.get(dup.deck).nom}.`);
+    if (miss.length) return fail("Il manque : " + miss.join(", ") + ".");
+    const newName = ls && ls.value === "__new" ? listName() : "";
+    if (newName === null) return;
+    // a word appears once: same characters and same pinyin, the same word (only checked when they change)
+    const changed = !w.id || v.h !== w.h || pyKey(v.p) !== pyKey(w.p);
+    if (changed && (!w.id || isPhoneWord(w))) {
+      const dup = sameWords(v.h, v.p, w.id)[0] || sameWords(v.h, v.p, w.id, true).find(x => senseFits(v.f, x.f));
+      if (dup) {
+        const where = dup.lists.length ? " (" + dup.lists.map(l => LISTBYID.get(l).nom).join(", ") + ")" : "";
+        const what = w.id ? "" : !ls || ls.value === "" ? " : il n’y a rien à ajouter"
+          : ls.value !== "__new" && inList(ls.value, dup.id) ? " et déjà dans cette liste"
+          : " : ajoute-le à la liste (bouton ci-dessus) plutôt que de l’écrire à nouveau";
+        return fail(`« ${v.h} » ${pinyinText(dup.p)} est déjà dans le dictionnaire${where}${what}.`);
+      }
     }
     if (ls) v.l = newName ? createList(newName) : ls.value;
     onSave(v);
@@ -2298,17 +2664,76 @@ function bindForm(body, w, onSave) {
   const r = $("#f-restore", body);
   if (r) r.addEventListener("click", () => { delete state.edits[w.id]; save(); rebuildDeck(); closeSheet(); afterDeckChange(); toast("Version de la liste rétablie"); });
 }
-function deckWordOf(w) { return !!w.id && !isPhone(w.deck); }
+function inList(listId, wordId) { const L = LISTBYID.get(listId); return !!L && L.words.some(w => w.id === wordId); }
+function setInList(listId, wordId, on) {
+  // A phone list holds ids; a list of decks/ (not HSK) keeps the changes of this phone until they are published.
+  const L = LISTBYID.get(listId); if (!editable(L) || inList(listId, wordId) === on) return;
+  if (L.phone) {
+    const P = listId === TEL ? { ids: state.tel } : state.lists.find(x => x.id === listId);
+    if (on) P.ids.push(wordId); else P.ids.splice(P.ids.indexOf(wordId), 1);
+  } else {
+    const e = state.listEdits[listId] || (state.listEdits[listId] = { add: [], del: [] });
+    if (on) { e.del = e.del.filter(x => x !== wordId); if (!L.fileIds.has(wordId)) e.add.push(wordId); }
+    else { e.add = e.add.filter(x => x !== wordId); if (L.fileIds.has(wordId)) e.del.push(wordId); }
+    if (!e.add.length && !e.del.length) delete state.listEdits[listId];
+  }
+}
+function editableLists() { return LISTS.filter(editable); }
+function sylls(p) { return parsePinyin(p).filter(t => t.s).map(t => [fold(t.s), t.t || 5]); }
+function sameReading(h, a, b, loose) {
+  // one reading noted two ways: 一 and 不 have no tone of their own (yīqǐ = yìqǐ). loose: a neutral tone also matches any
+  // tone, which may be the same word (朋友 péngyou, péngyǒu) or another one (东西 dōngxi « chose », dōngxī « est et ouest »)
+  const x = sylls(a), y = sylls(b), c = [...h];
+  return x.length === y.length && x.every(([s, t], i) => s === y[i][0]
+    && (t === y[i][1] || c[i] === "一" || c[i] === "不" || !!loose && (t === 5 || y[i][1] === 5)));
+}
+function sameWords(h, p, not, loose) {
+  // the words of the dictionary with these characters and this reading (noted the same way, else another way);
+  // loose: also a reading that differs by a neutral tone, to be checked with the sense (senseFits)
+  const c = DECK.filter(x => x.h === h && x.id !== not);
+  if (!p) return c;
+  const k = pyKey(p), strict = c.filter(x => pyKey(x.p) === k);
+  return strict.length ? strict : c.filter(x => sameReading(h, x.p, p, loose));
+}
+function senseKey(f) {                             // the first sense of a translation, to compare two of them
+  return String(f || "").split(/[;；]/)[0].replace(/\(.*?\)|（.*?）/g, "").replace(/[:=].*$/, "").toLowerCase()
+    .normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, " ").trim();
+}
+function senseFits(f, g) {                         // two translations share a sense
+  const keys = x => String(x || "").split(/[;；]/).map(senseKey).filter(Boolean), mine = keys(f);
+  return keys(g).some(s => mine.some(m => m === s || (m.length > 3 && s.length > 3 && (m.includes(s) || s.includes(m)))));
+}
+function bestSame(h, p, f) {
+  // the word of the dictionary a line stands for: the same reading, and among homographs (花 dépenser, 花 fleur) the one
+  // with this sense; a reading that differs by a neutral tone must have this sense too (朋友 péngyǒu « ami » is 朋友
+  // péngyou, 东西 dōngxī « est et ouest » is not 东西 dōngxi « chose »)
+  const c = sameWords(h, p);
+  if (c.length) {
+    if (c.length < 2) return { w: c[0], amb: false };
+    const hit = c.find(x => senseFits(f, x.f));
+    return { w: hit || c[0], amb: !hit };
+  }
+  const near = sameWords(h, p, null, true).filter(x => !f || senseFits(f, x.f));
+  return { w: near[0] || null, amb: near.length > 1 };
+}
+function tidyPinyin(w) {                            // pinyin typed in digits written with accents, as the files write it
+  for (const k of ["p", "ep"]) if (w[k]) w[k] = pinyinText(w[k]);
+  return w;
+}
 function compact(v) { const o = {}; for (const [k, x] of Object.entries(v)) if (x) o[k] = x; return o; }
 function addSheet(target, pre) {
-  if (!target) target = wdeck !== "all" && isPhone(wdeck) ? wdeck : (state.settings.lastList && isPhone(state.settings.lastList) ? state.settings.lastList : TEL);
+  const ok = id => id === "" || editable(LISTBYID.get(id));
+  if (target === undefined || target === null) target = wdeck !== "all" && ok(wdeck) ? wdeck : ok(state.settings.lastList) && state.settings.lastList !== undefined ? state.settings.lastList : TEL;
   openSheet("Ajouter un mot", formHTML({ ...pre, target }), body => bindForm(body, {}, v => {
-    if (v.l === TEL) delete v.l;
-    state.custom.push({ id: newId(), ...compact(v) });
-    state.settings.lastList = v.l || TEL;
-    const L = LISTBYID.get(v.l || TEL);
+    const into = v.l; delete v.l;
+    const id = newId();
+    state.custom.push({ id, ...compact(v) });
+    state.settings.lastList = into;
+    rebuildDeck();
+    if (into) setInList(into, id, true);
+    const L = into && LISTBYID.get(into);
     save(); rebuildDeck(); closeSheet(); afterDeckChange();
-    toast(`Mot ajouté à ${L ? L.nom : "Ajoutés ici"} : il passe au premier tour, dans l’ordre des listes`);
+    toast(L ? `Mot ajouté à ${L.nom}${deckOn(L.id) ? " : il passe au premier tour, dans l’ordre des listes" : ""}` : "Mot ajouté au dictionnaire, dans aucune liste");
   }), true);
 }
 function prefillFrom(q) {                         // a search with no result becomes the start of a new card
@@ -2318,7 +2743,8 @@ function prefillFrom(q) {                         // a search with no result bec
 }
 function createList(nom) {
   const id = "p-" + Date.now().toString(36) + Math.random().toString(36).slice(2, 5);
-  state.lists.push({ id, nom });
+  state.lists.push({ id, nom, ids: [] });
+  rebuildDeck();
   return id;
 }
 function listNameSheet(id) {
@@ -2341,40 +2767,60 @@ function listNameSheet(id) {
       });
     }, true);
 }
-function deleteList(id) {
-  const words = state.custom.filter(w => listIdOf(w) === id);
-  for (const w of words) delete state.cards[w.id];
-  state.custom = state.custom.filter(w => listIdOf(w) !== id);
+function deleteList(id) {                          // its words stay in the dictionary, with their progress
   state.lists = state.lists.filter(x => x.id !== id);
   delete state.decks[id];
   wdeck = "all";
-  save(); rebuildDeck(); afterDeckChange(); toast("Liste supprimée");
+  save(); rebuildDeck(); afterDeckChange(); toast("Liste supprimée : ses mots restent dans le dictionnaire");
 }
 function editSheet(id) {
   const w = BYID.get(id);
   openSheet("Modifier " + w.h, formHTML(w), body => bindForm(body, w, v => {
-    if (!isPhone(w.deck)) {
+    if (!isPhoneWord(w)) {
       const o = original(id) || {};
       const diff = {};
-      for (const k of FIELDS) if ((v[k] || "") !== (o[k] || "")) diff[k] = v[k] || "";
+      for (const k of FIELDS) if (k in v && cellOf(v, k) !== cellOf(o, k)) diff[k] = v[k] || "";
       if (Object.keys(diff).length) state.edits[id] = diff; else delete state.edits[id];
     } else {
       const k = state.custom.findIndex(x => x.id === id);
-      if (v.l === TEL) delete v.l;
-      state.custom[k] = { id, ...compact(v) };
+      delete v.l;
+      state.custom[k] = { ...compact({ ...state.custom[k], ...v }), id, m: Date.now() };   // m: corrected (mergeTel)
     }
     save(); rebuildDeck(); closeSheet(); afterDeckChange(); toast("Modifications enregistrées");
   }), true);
 }
 
 /* words of the phone lists -> files of decks/ */
-function customTSV(id = TEL) {
-  const P = phoneLists().find(x => x.id === id);
-  return P ? P.words.map(w => rowOf(w, DEFAULT_COLS)).join("\n") : "";
+function exportRows() {
+  // The rows of each phone list for its file of decks/, as the publication writes them: a word added on the phone in full
+  // once (in the first list that has it; a pointer to that line elsewhere), a pointer for a word of decks/; not the words
+  // its twin list holds already.
+  const index = wordIndex(), placed = new Set(), out = new Map();
+  for (const P of phoneLists()) {
+    const L = LISTBYID.get(P.id); if (!L) continue;
+    const T = repoTwin(P.id), R = T && !T.missing && LISTBYID.get(T.id);
+    const words = L.words.filter(w => !(R && R.fileIds.has(w.id)));
+    if (!words.length) continue;
+    out.set(P.id, { L, words, rows: words.map(w => {
+      if (!isPhoneWord(w)) return refText(w, index);
+      if (!placed.has(w.id)) { placed.add(w.id); return rowOf(w, DEFAULT_COLS); }
+      const r = refText(w, index);
+      return r === w.id ? w.h + "\t" + pinyinText(w.p) : r;
+    }) });
+  }
+  return out;
 }
+function customTSV(id = TEL) { const x = exportRows().get(id); return x ? x.rows.join("\n") : ""; }
 function exportSheet() {
-  const taken = new Set(BASE.map(L => L.id));
-  const blocks = phoneLists().filter(P => P.words.length).map((P, i) => {
+  const taken = new Set(BASE.map(L => L.id)), all = exportRows(), now = Date.now();
+  // these words go to the computer: once in its twin list they leave the phone list (mergeTel), and a word corrected
+  // here afterwards keeps its correction (c: copied, m: corrected)
+  for (const [pid, x] of all) {
+    state.sent[pid] = [...new Set([...(state.sent[pid] || []), ...x.words.map(w => w.id)])];
+    for (const w of x.words) { const c = isPhoneWord(w) && state.custom.find(y => y.id === w.id); if (c) c.c = now; }
+  }
+  save();
+  const blocks = [...all.values()].map(({ L: P, words, rows }, i) => {
     const twin = repoTwin(P.id);
     let how;
     if (twin) how = `Colle ces lignes à la fin de <span class="mono">decks/${esc(twin.fichier)}</span>.`;
@@ -2383,8 +2829,8 @@ function exportSheet() {
       const slug = slugify(P.nom, taken); taken.add(slug);
       how = `Crée d’abord la liste${NB}: <span class="mono">py outils\\decks.py nouvelle-liste ${slug} "${esc(P.nom)}"</span>, puis colle ces lignes à la fin de <span class="mono">decks/${slug}.tsv</span>.`;
     }
-    return `<h3 class="exh">${esc(P.nom)} (${plural(P.words.length, "mot", "mots")})</h3><p class="meta" style="margin-top:0">${how}</p>
-      <div class="field"><label class="sr" for="ex-t${i}">Lignes de ${esc(P.nom)}</label><textarea id="ex-t${i}" rows="4" class="mono" readonly>${esc(customTSV(P.id))}</textarea></div>
+    return `<h3 class="exh">${esc(P.nom)} (${plural(words.length, "mot", "mots")})</h3><p class="meta" style="margin-top:0">${how}</p>
+      <div class="field"><label class="sr" for="ex-t${i}">Lignes de ${esc(P.nom)}</label><textarea id="ex-t${i}" rows="4" class="mono" readonly>${esc(rows.join("\n"))}</textarea></div>
       <div class="btnrow"><button type="button" class="btn" data-copy="${i}">Copier</button></div>`;
   }).join("");
   openSheet("Copier pour l’ordinateur", `
@@ -2418,25 +2864,84 @@ function parseImport(text) {
   });
   return { ok, bad };
 }
+const SHARED = /^#\s*形音义\s*:\s*liste\s*«\s*(.+?)\s*»/;   // first line of a list shared from the app
+function listFileText(L) {
+  // A shared list: a list file of decks/, as small as can be: one pointer per word of the HSK lists, one full line per
+  // word that the other phone may not have.
+  const index = wordIndex();
+  return `# 形音义 : liste « ${L.nom} » (${plural(L.words.length, "mot", "mots")}), partagée depuis l’appli : Mots › Importer des mots pour l’ajouter.\n` +
+    "hanzi\tpinyin\tfrancais\tnote\taudio\texemple\texemple_pinyin\texemple_fr\n" +
+    L.words.map(w => (fixedWord(w) ? refText(w, index) : rowOf(w, DEFAULT_COLS))).join("\n") + "\n";
+}
+async function shareList(L) {
+  const text = listFileText(L), name = `形音义 - ${L.nom.replace(/[\\/:*?"<>|]+/g, "-")}.txt`;
+  try {
+    const file = new File([text], name, { type: "text/plain" });
+    if (navigator.canShare && navigator.canShare({ files: [file] })) { await navigator.share({ files: [file], title: L.nom }); return; }
+  } catch (e) { if (e && e.name === "AbortError") return; }
+  const url = URL.createObjectURL(new Blob([text], { type: "text/plain" }));
+  openSheet("Partager «" + NB + L.nom + NB + "»", `<p class="meta" style="margin-top:0">Un fichier de ${(new Blob([text]).size / 1024).toFixed(1).replace(".", ",")}${NB}Ko. L’autre personne l’ouvre avec Mots › Importer des mots.</p>
+    <div class="field"><label for="sh-t">Liste à envoyer</label><textarea id="sh-t" rows="6" class="mono" readonly>${esc(text)}</textarea></div>
+    <div class="btnrow"><a class="btn primary" href="${url}" download="${esc(name)}">Télécharger le fichier</a><button type="button" class="btn" id="sh-copy">Copier le texte</button></div>`, body => {
+      $("#sh-copy", body).addEventListener("click", () => {
+        const t = $("#sh-t", body), fallback = () => { t.focus(); t.select(); toast("Texte sélectionné : copie-le avec le menu Copier"); };
+        try { navigator.clipboard.writeText(t.value).then(() => toast("Copié"), fallback); } catch (x) { fallback(); }
+      });
+    }, true);
+}
+function importShared(text) {
+  // A list shared from another phone: a new list of this phone; its words of the HSK lists are found by their pointers,
+  // the others are added to the dictionary, unless it has them already (same characters, same pinyin).
+  const m = SHARED.exec(String(text).split(/\r?\n/)[0] || "");
+  let nom = m ? m[1] : "Liste importée", k = 2;
+  while (LISTS.some(L => L.nom.toLowerCase() === nom.toLowerCase())) nom = (m ? m[1] : "Liste importée") + " (" + k++ + ")";
+  const id = createList(nom), P = state.lists.find(x => x.id === id), index = wordIndex();
+  let lost = 0, fresh = 0;
+  for (const r of parseTSV(text)) {
+    let wid = null;
+    if (!r.f) wid = resolveRef(r, index);
+    else {
+      const same = bestSame(r.h, r.p || "", r.f).w;
+      if (same) wid = same.id;
+      else { wid = newId() + fresh; const { x, ...w } = r; state.custom.push({ id: wid, ...tidyPinyin(compact(w)) }); fresh++; }
+    }
+    if (!wid) { lost++; continue; }
+    if (!P.ids.includes(wid)) P.ids.push(wid);
+  }
+  wdeck = id;
+  save(); rebuildDeck(); afterDeckChange();
+  toast(`Liste « ${nom} » ajoutée : ${plural(P.ids.length, "mot", "mots")}${fresh ? `, dont ${plural(fresh, "nouveau mot", "nouveaux mots")} dans le dictionnaire` : ""}${lost ? `${NB}; ${plural(lost, "mot introuvable ignoré", "mots introuvables ignorés")}` : ""}.`, 5000);
+}
 function importSheet() {
-  const into = wdeck !== "all" && isPhone(wdeck) ? wdeck : TEL;
-  const intoName = (phoneLists().find(P => P.id === into) || {}).nom || "Ajoutés ici";
+  const into = wdeck !== "all" && editable(LISTBYID.get(wdeck)) ? wdeck : TEL;
+  const intoName = (LISTBYID.get(into) || {}).nom || "Ajoutés ici";
   openSheet("Importer des mots", `
-    <p class="meta" style="margin-top:0">Une ligne par mot${NB}: <span class="mono">汉字 ; pinyin ; français</span>. Les lignes d’un fichier de liste (colonnes séparées par des tabulations) marchent aussi. Les mots arrivent dans « ${esc(intoName)} » (ouvre une autre liste du téléphone avant d’importer pour changer).</p>
+    <p class="meta" style="margin-top:0">Une liste partagée depuis l’appli (fichier .txt) devient une nouvelle liste. Sinon, une ligne par mot${NB}: <span class="mono">汉字 ; pinyin ; français</span>${NB}; les lignes d’un fichier de liste (colonnes séparées par des tabulations) marchent aussi. Ces mots arrivent dans «${NB}${esc(intoName)}${NB}» (ouvre une autre liste avant d’importer pour changer)${NB}; un mot déjà dans le dictionnaire n’est pas écrit deux fois.</p>
     <div class="field"><label for="imp-t">Liste à importer</label><textarea id="imp-t" rows="6" placeholder="打印 ; da3yin4 ; imprimer&#10;安排 ; ānpái ; organiser"></textarea></div>
     <div class="field"><label for="imp-f">Ou un fichier texte</label><input type="file" id="imp-f" accept=".txt,.csv,.tsv,text/plain,text/csv,text/tab-separated-values"></div>
     <p class="meta" id="imp-info" aria-live="polite"></p>
     <div class="btnrow"><button type="button" class="btn primary" id="imp-go" disabled>Importer</button></div>`, body => {
       let parsed = { ok: [], bad: [] };
       const refresh = () => {
-        parsed = parseImport($("#imp-t", body).value);
-        const dup = parsed.ok.filter(x => DECK.some(w => w.h === x.h && w.deck === into)).length;
+        const text = $("#imp-t", body).value;
+        if (SHARED.test(text.split(/\r?\n/)[0] || "")) {
+          const n = parseTSV(text).length;
+          $("#imp-info", body).textContent = `Liste partagée « ${SHARED.exec(text)[1]} », ${plural(n, "mot", "mots")}.`;
+          $("#imp-go", body).disabled = !n;
+          $("#imp-go", body).textContent = "Ajouter cette liste";
+          return;
+        }
+        parsed = parseImport(text);
+        const found = parsed.ok.map(x => bestSame(x.h, x.p, x.f));
+        const dup = found.filter(m => m.w && inList(into, m.w.id)).length;
+        const amb = parsed.ok.filter((x, i) => found[i].amb).map((x, i) => x.h);
         const fresh = parsed.ok.length - dup;
         const bits = [];
         if (parsed.ok.length) bits.push(plural(fresh, "mot à ajouter", "mots à ajouter"));
         if (dup) bits.push(plural(dup, "déjà dans cette liste", "déjà dans cette liste"));
-        if (parsed.bad.length) bits.push(`lignes ignorées (il manque une colonne)${NB}: ${parsed.bad.slice(0, 6).join(", ")}${parsed.bad.length > 6 ? "…" : ""}`);
-        $("#imp-info", body).textContent = bits.join(" ; ");
+        if (parsed.bad.length) bits.push(`lignes ignorées (il manque une colonne) : ${parsed.bad.slice(0, 6).join(", ")}${parsed.bad.length > 6 ? "…" : ""}`);
+        if (amb.length) bits.push(`plusieurs mots s’écrivent ${amb.slice(0, 4).join(", ")} : le premier est pris, vérifie-le après l’import`);
+        $("#imp-info", body).textContent = frTypo(bits.join(" ; "));
         $("#imp-go", body).disabled = !fresh;
         $("#imp-go", body).textContent = fresh ? `Importer ${plural(fresh, "mot", "mots")}` : "Importer";
       };
@@ -2448,12 +2953,13 @@ function importSheet() {
         rd.readAsText(file);
       });
       $("#imp-go", body).addEventListener("click", () => {
-        let n = 0;
-        const have = new Set(DECK.filter(w => w.deck === into).map(w => w.h));
+        const text = $("#imp-t", body).value;
+        if (SHARED.test(text.split(/\r?\n/)[0] || "")) { closeSheet(); importShared(text); return; }
+        let n = 0, k = 0;
         for (const x of parsed.ok) {
-          if (have.has(x.h)) continue;
-          have.add(x.h);
-          state.custom.push({ id: newId() + n++, ...x, ...(into !== TEL ? { l: into } : {}) });
+          let wid = (bestSame(x.h, x.p, x.f).w || {}).id;
+          if (!wid) { wid = newId() + k++; state.custom.push(tidyPinyin({ id: wid, ...x })); rebuildDeck(); }
+          if (!inList(into, wid)) { setInList(into, wid, true); rebuildDeck(); n++; }
         }
         save(); rebuildDeck(); closeSheet(); afterDeckChange(); toast(plural(n, "mot importé", "mots importés"));
       });
@@ -2498,7 +3004,8 @@ function restoreSheet() {
           const s = data && data.state;
           if (!s || typeof s.cards !== "object" || !s.settings) throw new Error("format");
           state = normalizeState(s);
-          syncDeckSettings(); mergeTel(); dropSameEdits(); rebuildDeck(); save();
+          if (listsReady) { syncDeckSettings(); rebuildDeck(); mergeTel(); dropSameEdits(); }   // else useLists does it
+          rebuildDeck(); save();
           closeSheet(); renderSettings(); study.build();      // a new state: the session starts again from its line
           if (migratedSched) toast("Sauvegarde restaurée. Elle date de l’ancien planning : tous les mots repartent du seau 0.", 5000, true);
           else toast("Sauvegarde restaurée");
@@ -2518,8 +3025,38 @@ function guessRepo() {
   return m[1] + "/" + (first && !first.includes(".") ? first : m[1] + ".github.io");
 }
 function pendingCount() {
-  const edits = Object.keys(state.edits).filter(id => BASE.some(L => id.startsWith(L.id + ":"))).length;
-  return state.custom.length + edits;
+  // the words of the phone lists, the changes of the lists of decks/, the words of no list added here, the corrections
+  const edits = Object.keys(state.edits).filter(id => DEFS.has(id) && !DEFS.get(id).phone).length;
+  // (a word its twin list holds already, or one that is no more, waits for nothing)
+  const lists = phoneLists().reduce((a, P) => {
+    const L = repoTwin(P.id), R = L && !L.missing && LISTBYID.get(L.id);
+    return a + P.ids.filter(id => BYID.has(id) && !(R && R.fileIds.has(id))).length;
+  }, 0);
+  const changes = Object.values(state.listEdits).reduce((a, e) => a + e.add.filter(id => BYID.has(id)).length + e.del.length, 0);
+  const free = state.custom.filter(w => { const x = BYID.get(w.id); return x && !x.lists.length; }).length;
+  return lists + changes + free + edits;
+}
+function fileRows(text) {
+  // the rows of a list file, with their line number and the id they stand for in list lid (definitions) or their pointer
+  const lines = String(text).split("\n"), cols = headCols(text), out = [];
+  let header = cols === DEFAULT_COLS;
+  lines.forEach((raw, i) => {
+    const line = raw.replace(/\r$/, "");
+    if (!line.trim() || /^\s*#/.test(line)) return;
+    if (!header) { header = true; return; }
+    const cells = cellsOf(line).map(c => c.trim()), w = {};
+    cols.forEach((k, j) => { if (k && cells[j]) w[k] = cells[j]; });
+    if (w.h) out.push({ i, w, def: !!w.f });
+  });
+  return { lines, cols, rows: out };
+}
+function idsOfFile(text, lid, index) {             // the ids a list file stands for, row by row
+  const count = {}, f = fileRows(text);
+  for (const r of f.rows) {
+    if (r.def) { const k = (count[r.w.h] = (count[r.w.h] || 0) + 1); r.id = lid + ":" + r.w.h + (k > 1 ? "#" + k : ""); }
+    else r.id = resolveRef(r.w, index);
+  }
+  return f;
 }
 const GH_ERRORS = { 401: "jeton refusé ou expiré", 403: "le jeton n’a pas le droit d’écrire dans ce dépôt (permission Contents : Read and write)",
   404: "dépôt introuvable, ou jeton sans accès à ce dépôt", 409: "le dépôt a changé pendant la publication, réessaie",
@@ -2572,8 +3109,7 @@ const TSV_HEAD = nom => `# 形音义 : liste ${nom}\n# Une ligne par mot, colonn
 function headCols(text) {
   for (const line of String(text).split(/\r?\n/)) {
     if (!line.trim() || /^\s*#/.test(line)) continue;
-    const keys = line.split("\t").map(c => COLMAP[c.trim().toLowerCase()] || null);
-    return keys.includes("h") ? keys : DEFAULT_COLS;
+    return headerKeys(cellsOf(line)) || DEFAULT_COLS;
   }
   return DEFAULT_COLS;
 }
@@ -2593,10 +3129,10 @@ function applyEdit(text, key, e) {
     if (!line.trim() || /^\s*#/.test(line)) continue;
     if (!header && cols !== DEFAULT_COLS) { header = true; continue; }
     header = true;
-    const cells = line.split("\t");
-    if ((cells[0] || "").trim() !== h || ++seenN !== nth) continue;
+    const cells = cellsOf(line);
+    if ((cells[0] || "").trim() !== h || !(cells[cols.indexOf("f")] || "").trim() || ++seenN !== nth) continue;
     for (const [k, v] of Object.entries(e)) {
-      const idx = cols.indexOf(k); if (idx < 0) continue;
+      const idx = cols.indexOf(k); if (idx < 0 || (k === "s" && !v)) continue;
       while (cells.length <= idx) cells.push("");
       cells[idx] = cellOf({ [k]: v }, k);
     }
@@ -2628,26 +3164,103 @@ async function publishGitHub(deleteIds = []) {
     const read = async path => { try { return await gh(`${R}/contents/${path.split("/").map(encodeURIComponent).join("/")}?ref=${head}`, { raw: true }); } catch (e) { if (e.status === 404) return null; throw e; } };
     const config = JSON.parse((await read("decks/decks.json")) || '{"listes":[]}');
     if (!Array.isArray(config.listes)) config.listes = [];
-    const texts = {}, files = {}, summary = [];
-    const getText = async f => (f in texts ? texts[f] : (texts[f] = await read("decks/" + f)));
+    const cfgWas = hashStr(JSON.stringify(config));
+    const texts = {}, files = {}, summary = [], orig = {}, sent = [];   // orig: the files of the repo before
+    const getText = async f => (f in texts ? texts[f] : (texts[f] = orig[f] = await read("decks/" + f)));
     const taken = new Set(config.listes.flatMap(l => [String(l.id), String(l.fichier).replace(/\.tsv$/, "")]));
+    const index = wordIndex(), put = (f, t) => { texts[f] = t; files["decks/" + f] = t; };
+    const append = (text, rows) => (rows.length ? text.replace(/\s*$/, "\n") + rows.join("\n") + "\n" : text);
+    // a word added on the phone goes in full once, with the columns of the file; elsewhere (and a word of decks/) as a pointer
+    const placed = new Map();
+    const line = (w, f, lid) => {
+      if (!isPhoneWord(w)) return refText(w, index);
+      if (placed.has(w.id)) return placed.get(w.id);
+      const added = f.added || (f.added = {});
+      const k = f.rows.filter(r => r.def && r.w.h === w.h).length + (added[w.h] = (added[w.h] || 0) + 1);
+      placed.set(w.id, lid + ":" + w.h + (k > 1 ? "#" + k : ""));    // the id its line gets in this file
+      return rowOf(w, f.cols);
+    };
+    const mine = (r, w) => r.id === w.id || (isPhoneWord(w) && r.def && r.w.h === w.h && pyKey(r.w.p || "") === pyKey(w.p));
+    const known = (f, w) => f.rows.some(r => !r.w.x && mine(r, w));
+    const revive = (f, w) => {                    // a word of the file marked hors_liste comes back into the list
+      const xi = f.cols.indexOf("x"), r = xi < 0 ? null : f.rows.find(r => r.def && r.w.x && mine(r, w));
+      if (!r) return false;
+      const cells = cellsOf(f.lines[r.i].replace(/\r$/, ""));
+      while (cells.length <= xi) cells.push("");
+      cells[xi] = "";
+      while (cells.length > 3 && !cells[cells.length - 1]) cells.pop();
+      f.lines[r.i] = cells.join("\t"); r.w.x = "";
+      return true;
+    };
+    const enter = (f, words, lid) => {            // the words a list file must hold: back from hors_liste, else added
+      const rows = [], ids = [];
+      let back = 0;
+      for (const w of words) {
+        if (revive(f, w)) { back++; ids.push(w.id); } else if (!known(f, w)) { rows.push(line(w, f, lid)); ids.push(w.id); }
+      }
+      return { rows, n: rows.length + back, ids };
+    };
+    // 1. the lists of the phone go into the list of the same name (Perso for « Ajoutés ici »), created if needed
     for (const P of phoneLists()) {
-      if (!P.words.length) continue;
-      const nom = P.id === TEL ? "Perso" : P.nom;
-      let target = P.id === TEL ? config.listes.find(l => l.id === "perso") : null;
-      target = target || config.listes.find(l => String(l.nom || "").toLowerCase() === nom.toLowerCase());
+      const L = LISTBYID.get(P.id); if (!L || !L.words.length) continue;
+      const nom = P.id === TEL ? "Perso" : P.nom, ok = l => !l.fixe && !l.dictionnaire;
+      let target = P.id === TEL ? config.listes.find(l => l.id === "perso" && ok(l)) : null;
+      target = target || config.listes.find(l => String(l.nom || "").toLowerCase() === nom.toLowerCase() && ok(l));
       if (!target) {
         const id = slugify(nom, taken); taken.add(id);
         target = { id, nom, fichier: id + ".tsv", actif: deckOn(P.id) };
         config.listes.unshift(target);
         texts[target.fichier] = TSV_HEAD(nom);
       }
-      let text = (await getText(target.fichier)) || TSV_HEAD(target.nom || nom);
-      const have = new Set(parseTSV(text).map(w => w.h)), cols = headCols(text);
-      const rows = P.words.filter(w => !have.has(w.h)).map(w => rowOf(w, cols));
-      if (rows.length) text = text.replace(/\s*$/, "\n") + rows.join("\n") + "\n";
-      texts[target.fichier] = text; files["decks/" + target.fichier] = text;
-      summary.push(`${target.nom || nom} +${rows.length}`);
+      const text = (await getText(target.fichier)) || TSV_HEAD(target.nom || nom);
+      const f = idsOfFile(text, String(target.id), index);
+      const { rows, n, ids } = enter(f, L.words, String(target.id));
+      if (!n) continue;                             // all there already: nothing to write
+      sent.push([P.id, ids]);
+      put(target.fichier, append(f.lines.join("\n"), rows));
+      summary.push(`${target.nom || nom} +${n}`);
+    }
+    // 2. words added to or taken out of a list of decks/ on this phone (not an HSK list)
+    for (const [lid, e] of Object.entries(state.listEdits)) {
+      const cl = config.listes.find(l => String(l.id) === lid); if (!cl || cl.fixe || cl.dictionnaire) continue;
+      const was = await getText(cl.fichier); if (was == null) continue;
+      let text = was, f = idsOfFile(text, lid, index);
+      const out = f.rows.filter(r => !r.w.x && e.del.includes(r.id));
+      if (out.some(r => r.def) && !f.cols.includes("x")) {
+        // a word defined in this file leaves the list but stays in the dictionary: column hors_liste
+        const head = f.lines.findIndex(l => l.trim() && !/^\s*#/.test(l));
+        if (f.cols === DEFAULT_COLS) f.lines.splice(head, 0, "hanzi\tpinyin\tfrancais\tnote\taudio\texemple\texemple_pinyin\texemple_fr\thors_liste");
+        else f.lines[head] = f.lines[head].replace(/\r$/, "") + "\thors_liste";
+        text = f.lines.join("\n"); f = idsOfFile(text, lid, index);
+      }
+      const xi = f.cols.indexOf("x"), gone = new Set();
+      for (const r of f.rows.filter(r => !r.w.x && e.del.includes(r.id))) {
+        if (!r.def) { gone.add(r.i); continue; }
+        const cells = cellsOf(f.lines[r.i].replace(/\r$/, ""));
+        while (cells.length <= xi) cells.push("");
+        cells[xi] = "x"; f.lines[r.i] = cells.join("\t");
+      }
+      const { rows, n } = enter(f, e.add.map(id => BYID.get(id)).filter(Boolean), lid);
+      text = append(f.lines.filter((_, i) => !gone.has(i)).join("\n"), rows);
+      if (text === was) continue;
+      put(cl.fichier, text);
+      summary.push(`${cl.nom || lid}${n ? " +" + n : ""}${out.length ? " −" + out.length : ""}`);
+    }
+    // 3. words of no list added on this phone: into the dictionary file (mots.tsv), created if needed
+    const free = state.custom.filter(w => { const x = BYID.get(w.id); return x && !x.lists.length; });
+    if (free.length) {
+      let dl = config.listes.find(l => l.dictionnaire);
+      if (!dl) {
+        const id = slugify("mots", taken); taken.add(id);
+        dl = { id, nom: "Mots sans liste", fichier: id + ".tsv", dictionnaire: true };
+        config.listes.push(dl);
+        texts[dl.fichier] = TSV_HEAD("des mots sans liste");
+      }
+      const text = (await getText(dl.fichier)) || TSV_HEAD("des mots sans liste");
+      const f = idsOfFile(text, String(dl.id), index);
+      const rows = free.map(w => BYID.get(w.id)).filter(w => !known(f, w)).map(w => rowOf(w, f.cols));
+      put(dl.fichier, append(text, rows));
+      if (rows.length) summary.push(`${plural(rows.length, "mot sans liste", "mots sans liste")}`);
     }
     let nEdits = 0;
     for (const [id, e] of Object.entries(state.edits)) {
@@ -2660,7 +3273,16 @@ async function publishGitHub(deleteIds = []) {
     if (nEdits) summary.push(plural(nEdits, "correction", "corrections"));
     for (const id of deleteIds) {
       const i = config.listes.findIndex(l => String(l.id) === id); if (i < 0) continue;
-      const [gone] = config.listes.splice(i, 1);
+      const gone = config.listes[i], text = await getText(gone.fichier), f = text == null ? null : fileRows(text);
+      if (f && f.rows.some(r => r.def)) {
+        // its words stay in the dictionary (other lists may point to them): a file of words of no list, without its pointers
+        const refs = new Set(f.rows.filter(r => !r.def).map(r => r.i));
+        put(gone.fichier, f.lines.filter((_, j) => !refs.has(j)).join("\n"));
+        gone.dictionnaire = true; delete gone.actif; delete gone.afficher;
+        summary.push(`liste ${gone.nom || gone.id} retirée, ses mots restent dans le dictionnaire`);
+        continue;
+      }
+      config.listes.splice(i, 1);
       if (!config.listes.some(l => l.fichier === gone.fichier)) files["decks/" + gone.fichier] = null;
       summary.push(`liste ${gone.nom || gone.id} supprimée`);
     }
@@ -2670,8 +3292,9 @@ async function publishGitHub(deleteIds = []) {
       tree: Object.entries(files).map(([path, content]) => content === null ? { path, mode: "100644", type: "blob", sha: null } : { path, mode: "100644", type: "blob", content }) } });
     const nc = await gh(`${R}/git/commits`, { method: "POST", body: { message: "Depuis le téléphone : " + summary.join(", "), tree: tree.sha, parents: [head] } });
     await gh(`${R}/git/refs/heads/${branch}`, { method: "PATCH", body: { sha: nc.sha } });
+    for (const [pid, ids] of sent) state.sent[pid] = [...new Set([...(state.sent[pid] || []), ...ids])];
     // the phone takes the new lists at once, without waiting for GitHub Pages
-    const cached = readCache() || { config: { listes: [] }, texts: {} };
+    const cached = (await readCache()) || { config: { listes: [] }, texts: {} };
     const newTexts = { ...cached.texts };
     for (const [path, content] of Object.entries(files)) {
       if (path === "decks/decks.json") continue;
@@ -2680,9 +3303,16 @@ async function publishGitHub(deleteIds = []) {
     }
     for (const l of config.listes) if (!(l.fichier in newTexts) && texts[l.fichier] != null) newTexts[l.fichier] = texts[l.fichier];
     const src = { config, texts: newTexts, at: Date.now() };
-    writeCache(src);
-    const guard = { at: Date.now(), cfg: hashStr(JSON.stringify(config)), files: {} };
-    for (const [path, content] of Object.entries(files)) if (path !== "decks/decks.json" && content !== null) guard.files[path.slice(6)] = hashStr(content);
+    await writeCache(src);
+    // the guard: the published files ("" = decks.json), and those of before (the repo's, the phone's) that Pages or the
+    // service worker may still serve
+    const H = t => (typeof t === "string" ? hashStr(t) : "-");
+    const guard = { at: Date.now(), files: { "": hashStr(JSON.stringify(config)) }, old: [{ "": cfgWas }, { "": hashStr(JSON.stringify(cached.config)) }] };
+    for (const [path, content] of Object.entries(files)) {
+      if (path === "decks/decks.json") continue;
+      const f = path.slice(6);
+      guard.files[f] = H(content); guard.old[0][f] = H(orig[f]); guard.old[1][f] = H((cached.texts || {})[f]);
+    }
     try { localStorage.setItem(PKEY, JSON.stringify(guard)); } catch (e) {}
     useLists(src, "quiet");                       // phone words move into the published lists (mergeTel)
     if (wdeck !== "all" && !LISTBYID.has(wdeck)) wdeck = "all";
@@ -2829,6 +3459,7 @@ function init() {
     renderWords();
   });
   $("#wlist").addEventListener("click", e => {
+    if (e.target.closest("[data-more]")) { moreWords(); return; }
     if (e.target.closest("#add-q")) { addSheet(null, prefillFrom($("#q").value.trim())); return; }
     const r = e.target.closest(".wrow"); if (r) wordSheet(r.dataset.id);
   });
@@ -2839,10 +3470,11 @@ function init() {
     const b = e.target.closest("[data-la]"); if (!b) return;
     const id = wdeck, L = LISTBYID.get(id), box = $("#list-confirm");
     if (b.dataset.la === "add") addSheet(id);
+    if (b.dataset.la === "share") shareList(L);
     if (b.dataset.la === "rename") listNameSheet(id);
     if (b.dataset.la === "delete") {
       const n = L ? L.words.length : 0;
-      box.innerHTML = `<div class="confirm"><p>Supprimer la liste « ${esc(L ? L.nom : "")} »${n ? ` et ses ${plural(n, "mot", "mots")}, avec leur progression` : ""}${NB}?</p><div class="btnrow"><button type="button" class="btn danger" data-la="delete-yes">Supprimer</button><button type="button" class="btn" data-la="cancel">Annuler</button></div></div>`;
+      box.innerHTML = `<div class="confirm"><p>Supprimer la liste « ${esc(L ? L.nom : "")} »${NB}?${n ? ` Ses ${plural(n, "mot", "mots")} restent dans le dictionnaire, avec leur progression.` : ""}</p><div class="btnrow"><button type="button" class="btn danger" data-la="delete-yes">Supprimer</button><button type="button" class="btn" data-la="cancel">Annuler</button></div></div>`;
     }
     if (b.dataset.la === "cancel") box.innerHTML = "";
     if (b.dataset.la === "delete-yes") deleteList(id);
@@ -2882,11 +3514,19 @@ function init() {
     const del = e.target.closest("[data-gdel]"), yes = e.target.closest("[data-gdel-yes]"), no = e.target.closest("[data-gdel-no]");
     if (del) {
       const L = LISTBYID.get(del.dataset.gdel);
-      document.getElementById("gdel-" + del.dataset.gdel).innerHTML = `<div class="confirm"><p>Retirer la liste « ${esc(L.nom)} » du dépôt GitHub (decks.json et son fichier)${NB}? La progression de ses mots reste sur le téléphone.</p><div class="btnrow"><button type="button" class="btn danger" data-gdel-yes="${esc(L.id)}">Supprimer du dépôt</button><button type="button" class="btn" data-gdel-no>Annuler</button></div></div>`;
+      document.getElementById("gdel-" + del.dataset.gdel).innerHTML = `<div class="confirm"><p>Retirer la liste «${NB}${esc(L.nom)}${NB}» du dépôt GitHub${NB}? Ses mots restent dans le dictionnaire, avec leur progression.</p><div class="btnrow"><button type="button" class="btn danger" data-gdel-yes="${esc(L.id)}">Supprimer du dépôt</button><button type="button" class="btn" data-gdel-no>Annuler</button></div></div>`;
       return;
     }
     if (no) { no.closest(".confirm").remove(); return; }
     if (yes) { publishGitHub([yes.dataset.gdelYes]); return; }
+    const show = e.target.closest(".switch[data-show]");
+    if (show) {
+      const id = show.dataset.show, d = state.decks[id] || (state.decks[id] = {});
+      d.show = !deckShown(id);
+      save(); show.setAttribute("aria-checked", String(d.show));
+      if (current === "words") renderWords();
+      return;
+    }
     const sw = e.target.closest(".switch[data-deck]");
     if (!sw) return;
     const d = state.decks[sw.dataset.deck] || (state.decks[sw.dataset.deck] = {});
@@ -2943,6 +3583,7 @@ function init() {
     if (swReg && Date.now() - swChecked > 30 * 60e3) { swChecked = Date.now(); swReg.update().catch(() => {}); }
   });
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { prism.layout(); fitSlip($("#example")); });
+  rebuildDeck();                                    // the lists of the phone, before those of decks/ arrive
   bootLists();
   if (migratedV1) toast("Progression de la première version reprise. Nouveau planning en seaux : tous les mots repartent du seau 0.", 6000, true);
   else if (migratedSched) toast("Nouveau planning en seaux : tous les mots repartent du seau 0 pour un premier tour complet.", 6000, true);

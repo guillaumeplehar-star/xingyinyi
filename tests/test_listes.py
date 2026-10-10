@@ -184,7 +184,7 @@ def sound_face(page):
 def sound_face_sheets(page):
     """The word sheets (Mots tab): a phone word without example, one without pinyin for its sentence, a HSK word."""
     pid = page.evaluate("() => wdeck")
-    open_js = """(h) => { const w = DECK.find(x => x.h === h && (x.deck === wdeck || wdeck === 'all'));
+    open_js = """(h) => { const w = DECK.find(x => x.h === h && (x.lists.includes(wdeck) || wdeck === 'all'));
         return { id: w.id, e: w.e || '', ep: w.ep || '', ef: w.ef || '', p: w.p, s: w.s || '', h: w.h }; }"""
     sheet_js = """() => { const b = document.querySelector('#sheet-body'), s = document.querySelector('#sheet-ex'), py = s.querySelector('.ex-py');
         const m = py && py.querySelector('mark');
@@ -324,11 +324,15 @@ def main():
         page.fill("#f-p", "túshūguǎn")
         page.fill("#f-f", "bibliothèque")
         page.wait_for_timeout(100)
-        check("Aussi dans HSK 3" in page.inner_text("#f-hh"), "hint: also in HSK 3")
+        check("Déjà dans le dictionnaire" in page.inner_text("#f-hh"), "hint: the word is in the dictionary already")
         page.click("#wform button[type=submit]")
         page.wait_for_timeout(200)
+        check("déjà dans le dictionnaire" in page.inner_text("#f-err"), "the same word is not written twice", page.inner_text("#f-err"))
+        page.click("#f-hh [data-take]")                 # the word of HSK 3 goes into the list instead
+        page.wait_for_timeout(200)
         st = page.evaluate("() => ({ inList: LISTBYID.get(wdeck).words.map(w => w.h) })")
-        check(st["inList"] == ["复印", "打印", "图书馆"], "words added to the new list (a HSK word included)", st)
+        st = page.evaluate("() => ({ inList: LISTBYID.get(wdeck).words.map(w => w.h), ids: LISTBYID.get(wdeck).words.map(w => w.id) })")
+        check(st["inList"] == ["复印", "打印", "图书馆"] and st["ids"][2] == "hsk3:图书馆", "words added to the new list (the HSK word itself)", st)
         page.click("#btn-export")
         page.wait_for_timeout(200)
         exp = page.inner_text("#sheet-body")
@@ -350,7 +354,7 @@ def main():
         page.click('#listbar [data-la="delete-yes"]')
         page.wait_for_timeout(200)
         st = page.evaluate("() => ({ lists: state.lists.map(x => x.nom), words: state.custom.map(w => w.h) })")
-        check(st == {"lists": ["Cours du mardi"], "words": ["复印", "打印", "图书馆"]}, "list deleted with its words", st)
+        check(st == {"lists": ["Cours du mardi"], "words": ["复印", "打印", "安排"]}, "list deleted, its word stays in the dictionary", st)
         # learn one of them, edit a HSK word
         page.evaluate("() => { const w = state.custom.find(x => x.h === '打印'); applyGrade(w.id, true); state.edits['hsk3:还'] = { f: 'rendre ; rembourser' }; save(); rebuildDeck(); }")
         # connect to GitHub and publish
@@ -372,7 +376,10 @@ def main():
               "new list declared first in decks.json", cfg["listes"][:2])
         check(new and set(new[0]) == {"id", "nom", "fichier", "actif"}, "new decks.json entry without mode nor parJour", new)
         body = files.get("decks/cours-du-mardi.tsv", "")
-        check("复印\tfùyìn\tphotocopier" in body and "打印\tdǎyìn\timprimer\t\t\t我要打印这张照片。" in body and "图书馆\ttúshūguǎn" in body and body.startswith("# 形音义"), "list file written", body[-200:])
+        check("复印\tfùyìn\tphotocopier" in body and "打印\tdǎyìn\timprimer\t\t\t我要打印这张照片。" in body and "图书馆" in body.splitlines()
+              and body.startswith("# 形音义"), "list file written: the new words in full, the HSK word as a pointer", body[-200:])
+        dico = [l for l in cfg["listes"] if l.get("dictionnaire")]
+        check(dico and "安排\tānpái\torganiser" in files.get("decks/" + dico[0]["fichier"], ""), "a word of no list goes into the dictionary file", dico)
         h3 = files.get("decks/hsk3.tsv", "")
         check("\trendre ; rembourser\t" in h3 and h3.count("\n") == ORIG_H3.count("\n"),
               "correction written into hsk3.tsv, nothing else touched")
@@ -383,7 +390,7 @@ def main():
               "phone list became a repo list, progress kept (bucket 1)", after)
         ln = page.evaluate("""() => { const L = [study.cur, ...study.queue].filter(Boolean);
             return { stale: L.filter(id => /^(u-|p-)/.test(id)), cards: Object.keys(state.cards).filter(id => /^(u-|p-)/.test(id)),
-              fresh: ['复印', '图书馆'].map(h => L.includes('cours-du-mardi:' + h)), learnt: L.includes('cours-du-mardi:打印') }; }""")
+              fresh: ['cours-du-mardi:复印', 'hsk3:图书馆'].map(id => L.includes(id)), learnt: L.includes('cours-du-mardi:打印') }; }""")
         check(ln == {"stale": [], "cards": [], "fresh": [True, True], "learnt": False},
               "line after the merge: no phone id left, the published words waiting for their first pass", ln)
         # GitHub Pages has not deployed yet: the old files must not undo the publication
@@ -402,8 +409,13 @@ def main():
         page.wait_for_function("() => !LISTBYID.has('cours-du-mardi')", timeout=8000)
         deploy()
         tree2 = [json.loads(c[2]) for c in calls if c[0] == "POST" and c[1].endswith("/git/trees")][-1]
-        dele = [e for e in tree2["tree"] if e.get("sha", "x") is None]
-        check(dele and dele[0]["path"] == "decks/cours-du-mardi.tsv", "repo list deleted from the phone", tree2["tree"])
+        ent = {e["path"]: e for e in tree2["tree"]}
+        kept = [l for l in json.loads(ent["decks/decks.json"]["content"])["listes"] if l["id"] == "cours-du-mardi"]
+        body = (ent.get("decks/cours-du-mardi.tsv") or {}).get("content") or ""
+        check(kept and kept[0].get("dictionnaire") is True and "复印\tfùyìn" in body and "图书馆" not in body,
+              "repo list taken out from the phone: its words stay, as a file of words of no list", (kept, body))
+        st = page.evaluate("() => { const w = BYID.get('cours-du-mardi:打印'); return { w: !!w, lists: w && w.lists, card: !!state.cards['cours-du-mardi:打印'] }; }")
+        check(st == {"w": True, "lists": [], "card": True}, "its words stay in the dictionary, with their progress", st)
         # app update button
         page.click("#app-update")
         page.wait_for_function("() => document.querySelector('#toast').textContent.includes('à jour')", timeout=8000)

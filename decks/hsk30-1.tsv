@@ -1,0 +1,305 @@
+# 形音义 : liste HSK 1 (3.0) (HSK 3.0, programme d'examen 2026)
+# Liste HSK : l'appli ne la modifie pas (decks.json : fixe). Produite par outils/hsk/assembler.py.
+# Une ligne par mot. Une ligne avec une traduction définit le mot ; une ligne sans traduction renvoie à un
+# mot défini dans une autre liste (ses caractères, avec son pinyin s'il le faut, ou son identifiant).
+hanzi	pinyin	francais	note	audio	exemple	exemple_pinyin	exemple_fr
+的
+了
+我
+是
+你
+在
+不
+有
+他
+这
+个
+和
+人
+说
+我们
+要
+好	hǎo
+一
+hsk1:会
+也
+都
+对
+上
+到
+来
+很
+还	hái
+去
+她
+想
+没有
+能
+给
+那
+他们	tāmen	ils, eux (hommes ou groupe mixte)	elles : 她们 ; choses, animaux : 它们		他们都是我的同学。	Tāmen dōu shì wǒ de tóngxué.	Ils sont tous mes camarades de classe.
+看	kàn
+做
+什么
+hsk1:点
+吧
+可以
+大
+下
+里
+真
+现在
+年
+多
+hsk2:两
+吗
+天	tiān	jour : 三天 = trois jours ; ciel	天气 tiānqì = le temps qu’il fait	天气	我在家休息了三天。	Wǒ zài jiā xiūxi le sān tiān.	Je me suis reposé chez moi pendant trois jours.
+太
+再
+呢
+只	zhī
+小
+知道
+时候
+问题
+工作
+事	shì	chose, affaire, événement ; ennui : 没事 = ce n’est rien, pas de problème	classif. : 件 jiàn (一件事 = une affaire)	事情	这件事你知道吗？	Zhè jiàn shì nǐ zhīdao ma?	Tu es au courant de cette affaire ?
+它
+后	hòu	après, plus tard ; arrière, derrière	opposé de 前 ; 以后 = plus tard, 后面 = derrière	后面	下课后，我们一起去吃饭。	Xiàkè hòu, wǒmen yìqǐ qù chī fàn.	Après le cours, nous allons manger ensemble.
+家
+时间
+你们	nǐmen	vous (pluriel de 你)	singulier poli : 您 nín		你们想吃什么？	Nǐmen xiǎng chī shénme?	Qu’est-ce que vous voulez manger ?
+前	qián	avant (dans le temps) ; devant ; il y a (après une durée) : 三年前 = il y a trois ans	opposé de 后 ; 前面 = devant	前面	睡觉前不要喝茶。	Shuì jiào qián bú yào hē chá.	Ne bois pas de thé avant d’aller te coucher.
+怎么
+爱
+这些	zhèxiē	ces, ceux-ci, celles-ci	singulier : 这个 zhège		这些苹果多少钱？	Zhèxiē píngguǒ duōshao qián?	Combien coûtent ces pommes ?
+喜欢
+吃
+谁
+新
+找
+今天
+月
+觉得
+几
+见	jiàn	voir, apercevoir ; rencontrer, retrouver quelqu’un	résultat : 看见 = voir, 听见 = entendre ; 再见 = au revoir	见面	我明天要见一个朋友。	Wǒ míngtiān yào jiàn yí ge péngyou.	Demain, je vais voir un ami.
+车	chē	voiture, véhicule	classif. : 辆 liàng (一辆车 = une voiture)	汽车	你的车真漂亮！	Nǐ de chē zhēn piàoliang!	Ta voiture est vraiment belle !
+一些	yìxiē	quelques, un peu de ; (après un adjectif) un peu plus : 好一些 = un peu mieux	proche de 一点儿 yìdiǎnr (un peu)		我想买一些水果。	Wǒ xiǎng mǎi yìxiē shuǐguǒ.	Je voudrais acheter quelques fruits.
+大家
+听
+非常
+开
+叫
+孩子
+这里	zhèlǐ	ici	plus oral : 这儿 zhèr		这里的菜很好吃。	Zhèlǐ de cài hěn hǎochī.	La cuisine est très bonne ici.
+请
+钱
+公司
+不要	búyào	ne… pas (défense, conseil) : 不要走 = ne pars pas ; ne pas vouloir	plus oral : 别 bié		晚上不要喝太多茶。	Wǎnshang búyào hē tài duō chá.	Le soir, ne bois pas trop de thé.
+hsk1:本
+回
+东西
+三
+买
+问
+岁
+号
+朋友
+住
+件
+那些	nàxiē	ceux-là, celles-là ; ces… -là	singulier : 那个 nàge		那些衣服太贵了。	Nàxiē yīfu tài guì le.	Ces vêtements-là sont trop chers.
+水
+写
+您
+电话	diànhuà	téléphone ; appel : 打电话 = téléphoner	classif. : 部 bù (appareil), 通 tōng (appel)		我给妈妈打电话。	Wǒ gěi māma dǎ diànhuà.	J’appelle ma mère.
+女
+分
+小时
+有些	yǒuxiē	certains, quelques-uns ; (adverbe) un peu, assez : 有些冷 = un peu froid	proche de 有的 yǒude		有些人喜欢喝茶，有些人不喜欢。	Yǒuxiē rén xǐhuan hē chá, yǒuxiē rén bù xǐhuan.	Certains aiment boire du thé, d’autres non.
+日
+玩
+正在
+喝
+学校
+穿
+坐
+早	zǎo	tôt, de bonne heure ; matin : 早上 = le matin ; 早！ = bonjour (le matin)	opposé de 晚 wǎn (tard)	早上	他今天来得很早。	Tā jīntiān lái de hěn zǎo.	Il est arrivé très tôt aujourd’hui.
+们	men	suffixe du pluriel des pronoms et des noms de personnes : 我们 = nous, 同学们 = les camarades	jamais avec un nombre : 三个学生, pas 三个学生们	我们	同学们，请坐。	Tóngxuémen, qǐng zuò.	Chers élèves, asseyez-vous, s’il vous plaît.
+认识
+睡	shuì	dormir ; se coucher : 睡觉 = dormir, aller se coucher		睡觉	你昨天晚上睡得好吗？	Nǐ zuótiān wǎnshang shuì de hǎo ma?	Tu as bien dormi hier soir ?
+分钟
+明天
+四
+块
+外
+晚上
+谢谢
+学	xué	apprendre, étudier	se place avant la langue ou la matière : 学汉语 = apprendre le chinois	学习	我在学做饭。	Wǒ zài xué zuò fàn.	J’apprends à cuisiner.
+多少
+妈妈
+少
+电影
+哪
+昨天
+晚	wǎn	tard ; soir : 晚上 = le soir	opposé de 早 zǎo (tôt)	晚上	今天我回家很晚。	Jīntiān wǒ huí jiā hěn wǎn.	Aujourd’hui, je suis rentré très tard.
+书
+五
+先生
+男
+卖
+医院
+些
+狗
+口
+学生
+二
+儿子
+歌	gē	chanson	classif. : 首 shǒu (一首歌 = une chanson)	歌曲	她的歌很好听。	Tā de gē hěn hǎotīng.	Ses chansons sont très agréables à écouter.
+半
+中国
+店	diàn	magasin, boutique : 书店 = librairie ; (ancien) auberge	classif. : 家 jiā (一家店 = une boutique)	商店	这家店的东西很便宜。	Zhè jiā diàn de dōngxi hěn piányi.	Les articles de cette boutique sont très bon marché.
+元
+哪里	nǎlǐ	où ? ; 哪里哪里 = pas du tout, vous me flattez (réponse modeste à un compliment)	plus oral : 哪儿 nǎr		你想去哪里？	Nǐ xiǎng qù nǎlǐ?	Où veux-tu aller ?
+那里	nàlǐ	là, là-bas	plus oral : 那儿 nàr		我朋友在那里工作。	Wǒ péngyou zài nàlǐ gōngzuò.	Mon ami travaille là-bas.
+电视
+下午
+学习
+它们	tāmen	ils, elles (choses, animaux)	pour des personnes : 他们, 她们		我家有两只猫，它们都很可爱。	Wǒ jiā yǒu liǎng zhī māo, tāmen dōu hěn kě'ài.	Nous avons deux chats ; ils sont tous les deux très mignons.
+老师
+六
+边	biān	côté, bord ; (suffixe de lieu) : 里边 = dedans, 旁边 = à côté	aussi dans 一边…一边… : faire deux choses à la fois	旁边	学校的东边有一家医院。	Xuéxiào de dōngbian yǒu yì jiā yīyuàn.	À l’est de l’école, il y a un hôpital.
+唱	chàng	chanter : 唱歌 = chanter (une chanson)		唱歌	你会唱中国歌吗？	Nǐ huì chàng Zhōngguó gē ma?	Tu sais chanter des chansons chinoises ?
+大学	dàxué	université ; études supérieures : 上大学 = faire des études supérieures			我哥哥在大学学汉语。	Wǒ gēge zài dàxué xué Hànyǔ.	Mon grand frère étudie le chinois à l’université.
+医生
+病	bìng	être malade, tomber malade ; maladie : 生病 = tomber malade		生病	他病了，今天不能来上课。	Tā bìng le, jīntiān bù néng lái shàngkè.	Il est malade, il ne peut pas venir en cours aujourd’hui.
+名字
+她们	tāmen	elles	ils : 他们 ; choses, animaux : 它们		她们是我的好朋友。	Tāmen shì wǒ de hǎo péngyou.	Ce sont mes bonnes amies.
+今年	jīnnián	cette année			今年我想去中国学汉语。	Jīnnián wǒ xiǎng qù Zhōngguó xué Hànyǔ.	Cette année, je veux aller en Chine pour apprendre le chinois.
+手机
+忙
+十
+看见
+女儿
+说话
+爸爸
+字
+漂亮
+高兴
+去年
+热
+睡觉
+电脑
+第	dì	préfixe des nombres ordinaux : 第一 = premier, 第三天 = le troisième jour		第一	今天是我在这里的第一天。	Jīntiān shì wǒ zài zhèlǐ de dìyī tiān.	Aujourd’hui, c’est mon premier jour ici.
+读
+冷
+飞机
+早上
+猫
+打电话
+休息
+有的	yǒude	certains, certaines : 有的…，有的… = les uns…, les autres…	proche de 有些 yǒuxiē		我们班有的同学喜欢唱歌，有的喜欢看电影。	Wǒmen bān yǒude tóngxué xǐhuan chànggē, yǒude xǐhuan kàn diànyǐng.	Dans notre classe, certains aiment chanter, d’autres aiment regarder des films.
+hsk1:喂
+房间
+八
+怎么样
+七
+菜
+衣服
+上班
+姐姐
+课
+国	guó	pays, nation : 中国 = la Chine	国家 guójiā = pays, État	中国	你是哪国人？	Nǐ shì nǎ guó rén?	Tu es de quel pays ?
+饭	fàn	repas : 吃饭 = manger, prendre un repas ; riz cuit	classif. : 顿 dùn (un repas), 碗 wǎn (un bol de riz)	吃饭	晚上我们一起去吃饭吧。	Wǎnshang wǒmen yìqǐ qù chī fàn ba.	Ce soir, allons manger ensemble.
+一半	yíbàn	moitié, la moitié			这本书我看了一半。	Zhè běn shū wǒ kàn le yíbàn.	Ce livre, j’en ai lu la moitié.
+家人	jiārén	membres de la famille, proches			我和家人住在一起。	Wǒ hé jiārén zhù zài yìqǐ.	J’habite avec ma famille.
+对不起
+哥哥
+天气
+千
+同学
+好看	hǎokàn	joli, beau à regarder ; (film, livre) bon, intéressant	même construction : 好听 (agréable à écouter), 好吃 (bon à manger)		这件衣服很好看。	Zhè jiàn yīfu hěn hǎokàn.	Ce vêtement est très joli.
+茶
+雨	yǔ	pluie : 下雨 = pleuvoir	classif. : 场 cháng (一场雨 = une averse)	下雨	明天会下雨，我不想出去。	Míngtiān huì xiàyǔ, wǒ bù xiǎng chūqu.	Demain il va pleuvoir, je n’ai pas envie de sortir.
+星期
+雪
+九
+妹妹
+女士	nǚshì	madame, dame (forme polie)	masculin : 先生 xiānsheng (monsieur)		那位女士是我们的汉语老师。	Nà wèi nǚshì shì wǒmen de Hànyǔ lǎoshī.	Cette dame est notre professeur de chinois.
+上午
+贵
+那边	nàbiān	là-bas, de l’autre côté			医院在那边，你看见了吗？	Yīyuàn zài nàbiān, nǐ kànjiàn le ma?	L’hôpital est là-bas, tu le vois ?
+弟弟
+百
+好吃
+再见
+明年	míngnián	l’année prochaine			我妹妹明年上大学。	Wǒ mèimei míngnián shàng dàxué.	Ma petite sœur entre à l’université l’année prochaine.
+这儿	zhèr	ici (langue parlée)	= 这里 zhèlǐ		你的手机在这儿。	Nǐ de shǒujī zài zhèr.	Ton portable est ici.
+哪儿
+苹果
+中午
+起床
+开车	kāichē	conduire (une voiture) ; aller en voiture			你会开车吗？	Nǐ huì kāichē ma?	Tu sais conduire ?
+出租车
+这边	zhèbiān	ici, de ce côté-ci			请到这边来。	Qǐng dào zhèbiān lái.	Viens par ici, s’il te plaît.
+火车	huǒchē	train	classif. : 列 liè (一列火车 = un train)		你的火车几点到？	Nǐ de huǒchē jǐ diǎn dào?	À quelle heure arrive ton train ?
+便宜
+上学	shàngxué	aller à l’école ; être scolarisé			孩子们早上七点去上学。	Háizimen zǎoshang qī diǎn qù shàngxué.	Les enfants vont à l’école à sept heures du matin.
+牛奶
+女朋友	nǚpéngyou	petite amie, copine	au sens amoureux ; une simple amie se dit 朋友		我女朋友喜欢唱歌。	Wǒ nǚpéngyou xǐhuan chànggē.	Ma copine aime chanter.
+上课	shàngkè	aller en cours, suivre un cours ; donner un cours			我们明天上午八点上课。	Wǒmen míngtiān shàngwǔ bā diǎn shàngkè.	Demain matin, nous avons cours à huit heures.
+听见	tīngjiàn	entendre	à distinguer de 听 tīng (écouter)		我听见有人在唱歌。	Wǒ tīngjiàn yǒu rén zài chànggē.	J’entends quelqu’un chanter.
+男朋友	nánpéngyou	petit ami, copain	au sens amoureux ; un simple ami se dit 朋友		她的男朋友是我的同学。	Tā de nánpéngyou shì wǒ de tóngxué.	Son petit ami est mon camarade de classe.
+下班	xiàbān	finir sa journée de travail, quitter le travail			你今天几点下班？	Nǐ jīntiān jǐ diǎn xiàbān?	À quelle heure finis-tu le travail aujourd’hui ?
+水果
+读书	dúshū	étudier, faire ses études ; lire (un livre)	pour lire par plaisir, on dit plus souvent 看书 kànshū		他在中国读书。	Tā zài Zhōngguó dúshū.	Il fait ses études en Chine.
+那儿	nàr	là, là-bas (langue parlée)	= 那里 nàlǐ		那儿有一家很大的商店。	Nàr yǒu yì jiā hěn dà de shāngdiàn.	Là-bas, il y a un très grand magasin.
+商店
+鸡蛋
+没关系
+零
+桌子
+白天	báitiān	journée, le jour (par opposition à la nuit)			白天我在公司工作，晚上在家休息。	Báitiān wǒ zài gōngsī gōngzuò, wǎnshang zài jiā xiūxi.	Dans la journée, je travaille au bureau ; le soir, je me repose à la maison.
+请问	qǐngwèn	excusez-moi, puis-je demander… (formule de politesse avant une question)			请问，您叫什么名字？	Qǐngwèn, nín jiào shénme míngzi?	Excusez-moi, comment vous appelez-vous ?
+哪些	nǎxiē	lesquels, lesquelles ; quels, quelles (pluriel)	singulier : 哪个 nǎge		你喜欢哪些电影？	Nǐ xǐhuan nǎxiē diànyǐng?	Quels films aimes-tu ?
+晚饭	wǎnfàn	dîner, repas du soir			我们一起吃晚饭吧。	Wǒmen yìqǐ chī wǎnfàn ba.	Dînons ensemble.
+小学	xiǎoxué	école primaire	six années d’études en Chine		我女儿在小学读书。	Wǒ nǚ'ér zài xiǎoxué dúshū.	Ma fille est à l’école primaire.
+饭店
+中学	zhōngxué	collège et lycée (enseignement secondaire)			我姐姐是中学老师。	Wǒ jiějie shì zhōngxué lǎoshī.	Ma grande sœur est professeure dans le secondaire.
+面包
+生病
+好听	hǎotīng	agréable à entendre, joli (chanson, voix)	contraire : 难听 nántīng		你唱的歌真好听。	Nǐ chàng de gē zhēn hǎotīng.	La chanson que tu chantes est vraiment jolie.
+大学生	dàxuéshēng	étudiant(e) (à l’université)			我姐姐是大学生，今年二十岁。	Wǒ jiějie shì dàxuéshēng, jīnnián èrshí suì.	Ma grande sœur est étudiante ; elle a vingt ans cette année.
+超市
+椅子
+小朋友	xiǎopéngyǒu	enfant, petit(e) (ton affectueux, sert aussi à s’adresser à un enfant)			这个小朋友今年五岁，很喜欢唱歌。	Zhège xiǎopéngyǒu jīnnián wǔ suì, hěn xǐhuan chànggē.	Cet enfant a cinq ans cette année et aime beaucoup chanter.
+午饭	wǔfàn	déjeuner (repas de midi)	série : 早饭 zǎofàn, 午饭, 晚饭 wǎnfàn (dîner)		我们十二点吃午饭。	Wǒmen shí'èr diǎn chī wǔfàn.	Nous déjeunons à midi.
+做饭	zuòfàn	faire la cuisine, préparer le repas	verbe séparable (做 + 饭)		我今天晚上在家做饭。	Wǒ jīntiān wǎnshang zài jiā zuòfàn.	Ce soir, je fais la cuisine à la maison.
+下雨
+杯子
+中文
+早饭	zǎofàn	petit déjeuner			你吃早饭了吗？	Nǐ chī zǎofàn le ma?	Tu as pris ton petit déjeuner ?
+一点儿
+书店	shūdiàn	librairie	classif. 家 : 一家书店 = une librairie		我想去书店买一本书。	Wǒ xiǎng qù shūdiàn mǎi yì běn shū.	Je voudrais aller à la librairie acheter un livre.
+星期天	xīngqītiān	dimanche	aussi 星期日 xīngqīrì (plus écrit)		这个星期天你有时间吗？	Zhège xīngqītiān nǐ yǒu shíjiān ma?	Tu es libre ce dimanche ?
+看病	kànbìng	aller chez le médecin, consulter ; (pour un médecin) soigner un malade	verbe séparable (看 + 病) ; aussi 看医生 kàn yīshēng		我今天下午要去医院看病。	Wǒ jīntiān xiàwǔ yào qù yīyuàn kànbìng.	Cet après-midi, je vais à l’hôpital voir un médecin.
+电影院	diànyǐngyuàn	cinéma (salle)	classif. 家 : 一家电影院		我们去电影院看电影吧。	Wǒmen qù diànyǐngyuàn kàn diànyǐng ba.	Allons au cinéma voir un film.
+下课	xiàkè	finir le cours, sortir de classe	contraire : 上课 shàngkè (commencer le cours, aller en cours)		我们今天下午四点下课。	Wǒmen jīntiān xiàwǔ sì diǎn xiàkè.	Aujourd’hui, nous finissons les cours à 16 h.
+米饭
+有点儿	yǒudiǎnr	un peu (avec une nuance négative : un peu trop)	se place avant l’adjectif ; ≠ 一点儿 yìdiǎnr, placé après		这件衣服有点儿贵。	Zhè jiàn yīfu yǒudiǎnr guì.	Ce vêtement est un peu cher.
+饺子	jiǎozi	jiaozi, raviolis chinois	包饺子 bāo jiǎozi : faire des jiaozi (les farcir et les plier)		我最喜欢吃妈妈包的饺子。	Wǒ zuì xǐhuan chī māma bāo de jiǎozi.	Ce que je préfère manger, ce sont les jiaozi que ma mère fait.
+小学生	xiǎoxuéshēng	élève de l’école primaire, écolier(ère)			我弟弟是小学生，今年八岁。	Wǒ dìdi shì xiǎoxuéshēng, jīnnián bā suì.	Mon petit frère est écolier ; il a huit ans cette année.
+外边	wàibian	dehors, l’extérieur	aussi 外面 wàimian ; contraire : 里边 lǐbian		外边下雨了，我们在家看电影吧。	Wàibian xiàyǔ le, wǒmen zài jiā kàn diànyǐng ba.	Il pleut dehors ; regardons un film à la maison.
+中学生	zhōngxuéshēng	élève du secondaire (collégien, lycéen)	中学 = collège et lycée		我妹妹是中学生，她的课很多。	Wǒ mèimei shì zhōngxuéshēng, tā de kè hěn duō.	Ma petite sœur est élève du secondaire ; elle a beaucoup de cours.
+星期日	xīngqīrì	dimanche	même sens que 星期天 xīngqītiān, plus écrit		星期日我要和朋友去买东西。	Xīngqīrì wǒ yào hé péngyou qù mǎi dōngxi.	Dimanche, je vais faire des courses avec des amis.
+汉语
+包子	bāozi	baozi, petit pain fourré cuit à la vapeur	≠ 饺子 jiǎozi (raviolis)		我早饭吃了两个包子。	Wǒ zǎofàn chī le liǎng ge bāozi.	J’ai mangé deux baozi au petit déjeuner.
+不客气
+汉字	hànzì	caractère chinois, sinogramme			这个汉字我不会写。	Zhège Hànzì wǒ bú huì xiě.	Ce caractère, je ne sais pas l’écrire.
+好玩儿	hǎowánr	amusant, où l’on s’amuse (lieu, jeu)	sans 儿 : 好玩 hǎowán		这里很好玩儿，我们明天再来吧。	Zhèlǐ hěn hǎowánr, wǒmen míngtiān zài lái ba.	On s’amuse bien ici ; revenons demain.
+一下
+没事	méishì	ce n’est rien, pas de problème ; aller bien ; être libre, n’avoir rien à faire	你没事吧？ = ça va ? il ne t’est rien arrivé ?		没事，你不要说对不起。	Méishì, nǐ búyào shuō duìbuqǐ.	Ce n’est rien, ne t’excuse pas.
+面条儿	miàntiáor	nouilles	sans 儿 : 面条 miàntiáo		我中午想吃面条儿。	Wǒ zhōngwǔ xiǎng chī miàntiáor.	Ce midi, j’ai envie de manger des nouilles.
+哪个	nǎge	lequel, laquelle ; quel, quelle (devant un nom)	à l’oral aussi něige		这两个杯子，你喜欢哪个？	Zhè liǎng ge bēizi, nǐ xǐhuan nǎge?	Laquelle de ces deux tasses te plaît ?
+那个	nàge	celui-là, ce…-là, cela ; (à l’oral) euh…, comment dire (mot de remplissage)	à l’oral aussi nèige		那个是我的，这个是你的。	Nàge shì wǒ de, zhège shì nǐ de.	Celui-là est à moi, celui-ci est à toi.
+你好	nǐhǎo	bonjour, salut	poli : 您好 nín hǎo		你好，很高兴认识你。	Nǐhǎo, hěn gāoxìng rènshi nǐ.	Bonjour, ravi de faire ta connaissance.
+这个	zhège	celui-ci, ceci ; ce…-ci (devant un nom)	à l’oral aussi zhèige		这个多少钱？	Zhège duōshao qián?	Combien coûte celui-ci ?

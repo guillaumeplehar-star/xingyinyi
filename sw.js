@@ -1,10 +1,10 @@
 /* 形音义 : service worker.
    Réseau d’abord (4 s au plus), copie locale sinon : l’appli marche hors ligne et prend d’elle-même
    les listes de mots mises à jour dans decks/ dès qu’il y a du réseau. */
-const VERSION = "39cea1feb0";
+const VERSION = "d1c8f2df01";
 const CACHE = "xingyinyi-" + VERSION;
 const CORE = ["index.html", "manifest.webmanifest", "apple-touch-icon.png", "icon-192.png", "icon-512.png", "icon-maskable-512.png"];
-const EXTRA = ["fonts/andika-400-ext.woff2", "fonts/andika-400-latin.woff2", "fonts/andika-700-ext.woff2", "fonts/andika-700-latin.woff2", "fonts/wenkai.woff2", "decks/decks.json", "decks/perso.tsv", "decks/hsk3.tsv", "decks/hsk2.tsv", "decks/hsk1.tsv"];
+const EXTRA = ["fonts/andika-400-ext.woff2", "fonts/andika-400-latin.woff2", "fonts/andika-700-ext.woff2", "fonts/andika-700-latin.woff2", "fonts/wenkai.woff2", "decks/decks.json", "decks/perso.tsv", "decks/hsk3.tsv", "decks/hsk2.tsv", "decks/hsk1.tsv", "decks/hsk30-1.tsv", "decks/hsk30-2.tsv", "decks/hsk30-3.tsv", "decks/hsk4.tsv", "decks/hsk30-4.tsv", "decks/hsk5.tsv", "decks/hsk30-5.tsv"];
 
 self.addEventListener("install", event => {
   event.waitUntil(caches.open(CACHE).then(async cache => {

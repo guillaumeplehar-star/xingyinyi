@@ -1,0 +1,209 @@
+# 形音义 : liste HSK 2 (3.0) (HSK 3.0, programme d'examen 2026)
+# Liste HSK : l'appli ne la modifie pas (decks.json : fixe). Produite par outils/hsk/assembler.py.
+# Une ligne par mot. Une ligne avec une traduction définit le mot ; une ligne sans traduction renvoie à un
+# mot défini dans une autre liste (ses caractères, avec son pinyin s'il le faut, ou son identifiant).
+hanzi	pinyin	francais	note	audio	exemple	exemple_pinyin	exemple_fr
+就
+好	hǎo
+着	zhe
+给
+啊	a
+那
+让
+但	dàn	mais, cependant (opposition)	même sens que 但是, en plus court	但是	我想去，但我今天没有时间。	Wǒ xiǎng qù, dàn wǒ jīntiān méiyǒu shíjiān.	J’aimerais y aller, mais je n’ai pas le temps aujourd’hui.
+自己
+得	de
+点	diǎn	commander (un plat) : 点菜 = commander à manger ; allumer (un feu), cocher ; classif. : points, remarques (两点意见 = deux remarques)	à distinguer de 点 diǎn (heure ; un peu)	点菜	今天我请客，你想吃什么就点什么。	Jīntiān wǒ qǐng kè, nǐ xiǎng chī shénme jiù diǎn shénme.	C’est moi qui invite aujourd’hui : commande ce que tu veux.
+过	guo
+过	guò
+从
+多
+hsk2:等
+出
+已经
+这样	zhèyàng	ainsi, comme ça, de cette façon ; tel : 这样的人 = une personne comme ça	seul, en réponse : 这样啊 = ah, d’accord		你别这样跟她说话，她会不高兴的。	Nǐ bié zhèyàng gēn tā shuōhuà, tā huì bù gāoxìng de.	Ne lui parle pas comme ça, elle va être contrariée.
+最
+因为
+次
+走
+但是
+时	shí	moment, heure ; quand, lorsque (après un verbe) : 吃饭时 = pendant le repas	surtout dans des mots : 小时 = heure (durée), 时间 = temps, 有时 = parfois	时间	吃饭时不要看手机。	Chī fàn shí bú yào kàn shǒujī.	Ne regarde pas ton téléphone pendant que tu manges.
+可能
+开始
+地	de
+跟
+快
+打	dǎ	téléphoner : 打电话 ; jouer (sport de balle) : 打篮球 = jouer au basket ; frapper, battre	verbe très polyvalent : 打车 = prendre un taxi, 打伞 = tenir un parapluie	打电话	我晚上给你打电话，好吗？	Wǒ wǎnshang gěi nǐ dǎ diànhuà, hǎo ma?	Je t’appelle ce soir, d’accord ?
+比
+所以
+还是
+那么	nàme	aussi, si, tellement (degré) : 没有你那么高 = pas aussi grand que toi ; alors, dans ce cas	这么 pour ce qui est proche, 那么 pour ce qui est loin ou déjà évoqué		你弟弟没有你那么高。	Nǐ dìdi méiyǒu nǐ nàme gāo.	Ton petit frère n’est pas aussi grand que toi.
+这么	zhème	si, aussi, tellement (degré) ; ainsi, de cette façon	comme 那么, mais pour ce qui est proche		今天为什么这么冷？	Jīntiān wèishénme zhème lěng?	Pourquoi fait-il si froid aujourd’hui ?
+一起
+起来
+位
+希望
+手	shǒu	main	手机 = téléphone portable (litt. machine à main)	洗手	吃饭以前请先洗手。	Chī fàn yǐqián qǐng xiān xǐ shǒu.	Avant de manger, lave-toi d’abord les mains, s’il te plaît.
+hsk2:别
+名	míng	nom ; rang, place : 第一名 = la première place ; classif. : personnes (三名学生 = trois élèves)	名字 = nom (prénom compris)	名字	你的名字怎么写？	Nǐ de míngzi zěnme xiě?	Comment s’écrit ton nom ?
+长	cháng
+告诉
+出来	chūlái	sortir (vers le locuteur) ; apparaître : 太阳出来了 = le soleil est sorti	après un verbe : 看出来 = remarquer, 想出来 = trouver (en réfléchissant)		你快出来，大家都在等你。	Nǐ kuài chūlai, dàjiā dōu zài děng nǐ.	Sors vite, tout le monde t’attend.
+事情
+条
+拿
+高
+正	zhèng	en train de (正在 + verbe) ; justement, juste ; droit, correct	souvent sous la forme 正在 + verbe, ou 正 + verbe + 呢	正在	我回家的时候，妈妈正在做饭。	Wǒ huí jiā de shíhou, māma zhèngzài zuò fàn.	Quand je suis rentré à la maison, maman était en train de préparer le repas.
+为什么
+头	tóu	tête ; classif. : bovins, porcs (一头牛 = un bœuf) ; premier : 头一次 = la première fois	头发 = cheveux ; 点头 = hocher la tête	头疼	我头疼，想早点儿回家休息。	Wǒ tóuténg, xiǎng zǎo diǎnr huí jiā xiūxi.	J’ai mal à la tête, je voudrais rentrer plus tôt me reposer.
+准备
+进
+每
+周	zhōu	semaine : 这周 = cette semaine ; classif. : semaines (三周 = trois semaines)	周一 = lundi, 周末 = week-end ; même sens que 星期	这周	这周我很忙，下周有时间。	Zhè zhōu wǒ hěn máng, xià zhōu yǒu shíjiān.	Cette semaine, je suis très occupé ; la semaine prochaine, j’aurai du temps.
+过去	guòqù	aller là-bas (en s’éloignant de celui qui parle) ; passer (par là)	à distinguer de 过去 guòqù (le passé, autrefois) ; après un verbe, guoqu : 走过去 = y aller à pied		你在门口等我，我现在就过去。	Nǐ zài ménkǒu děng wǒ, wǒ xiànzài jiù guòqù.	Attends-moi à l’entrée, j’arrive tout de suite.
+送
+笑
+不错	búcuò	pas mal, assez bon, bien	souvent un vrai compliment : 很不错 = vraiment bien		这家饭馆的菜很不错。	Zhè jiā fànguǎn de cài hěn búcuò.	Les plats de ce restaurant sont vraiment bons.
+完
+帮	bāng	aider, donner un coup de main : 帮我 = m’aider	帮忙 = rendre service ; 帮助 = aider, aide	帮忙	这个字我不认识，你能帮我吗？	Zhège zì wǒ bú rènshi, nǐ néng bāng wǒ ma?	Je ne connais pas ce caractère, peux-tu m’aider ?
+hsk3:站
+路
+门
+hsk3:花
+hsk3:花#2
+虽然
+回来	huílái	revenir, rentrer (vers le locuteur)			我下个月就回来，你等我，好吗？	Wǒ xià ge yuè jiù huílai, nǐ děng wǒ, hǎo ma?	Je serai de retour le mois prochain, attends-moi, d’accord ?
+球	qiú	balle, ballon, boule ; sport de balle : 打球 = jouer au ballon		打球	孩子们在外面玩球。	Háizimen zài wàimian wán qiú.	Les enfants jouent au ballon dehors.
+错
+间	jiān	classif. : pièces, chambres (一间房 = une chambre) ; entre, intervalle	dans des mots : 房间 = chambre, 时间 = temps, 中间 = milieu	一间	我们家有三间房，我住最小的一间。	Wǒmen jiā yǒu sān jiān fáng, wǒ zhù zuì xiǎo de yì jiān.	Chez nous, il y a trois chambres ; j’occupe la plus petite.
+跑	pǎo	courir ; s’enfuir, filer	跑步 = faire du jogging, courir	跑步	我每天早上都跑步，跑半个小时。	Wǒ měitiān zǎoshang dōu pǎobù, pǎo bàn ge xiǎoshí.	Je cours tous les matins, pendant une demi-heure.
+万
+动	dòng	bouger, remuer : 别动 = ne bouge pas ; toucher, émouvoir	dans des mots : 运动 = sport, 动物 = animal	别动	我太累了，一动也不想动。	Wǒ tài lèi le, yí dòng yě bù xiǎng dòng.	Je suis trop fatigué, je n’ai pas envie de bouger du tout.
+面	miàn	côté, face (suffixe de lieu : 前面 = devant) ; surface ; classif. : objets plats (一面旗 = un drapeau) ; faire face à, être tourné vers	à distinguer de 面 miàn (nouilles, farine : 面条, 面包)	前面	我家前面有一家很大的书店。	Wǒ jiā qiánmiàn yǒu yì jiā hěn dà de shū diàn.	Il y a une très grande librairie devant chez moi.
+下来	xiàlái	descendre (vers le locuteur) ; (après un verbe) vers le bas, se fixer : 坐下来 = s’asseoir	après un verbe : 写下来 = écrire pour garder une trace, noter		他从楼上下来了，坐在我旁边。	Tā cóng lóu shàng xiàlai le, zuò zài wǒ pángbiān.	Il est descendu de l’étage et s’est assis à côté de moi.
+远
+快乐
+里面	lǐmiàn	dedans, à l’intérieur ; intérieur			这个包里面有我的书和手机。	Zhège bāo lǐmian yǒu wǒ de shū hé shǒujī.	Il y a mon livre et mon portable dans ce sac.
+懂
+过来	guòlái	venir ici, s’approcher : 你过来 = viens ici ; (après un verbe) arriver à tout gérer : 忙不过来 = être débordé			你过来一下，我给你看个东西。	Nǐ guòlai yíxià, wǒ gěi nǐ kàn ge dōngxi.	Viens un instant, je vais te montrer quelque chose.
+记得
+药
+身体
+包
+那样	nàyàng	ainsi, comme ça (ce qui est loin ou déjà évoqué) ; tel : 那样的人 = une personne comme ça	pendant de 这样 (ce qui est proche)		他不是你想的那样。	Tā bú shì nǐ xiǎng de nàyàng.	Il n’est pas comme tu le penses.
+往
+楼
+介绍
+飞	fēi	voler (oiseau, avion) ; aller en avion		飞机	那只小鸟飞得很高。	Nà zhī xiǎo niǎo fēi de hěn gāo.	Ce petit oiseau vole très haut.
+出去	chūqù	sortir (en s’éloignant du locuteur), aller dehors			外面下雨了，你别出去。	Wàimian xiàyǔ le, nǐ bié chūqu.	Il pleut dehors, ne sors pas.
+眼睛
+近
+下去	xiàqù	descendre (en s’éloignant du locuteur) ; (après un verbe) continuer : 说下去 = continuer à parler			我下去买点东西，一会儿就回来。	Wǒ xiàqu mǎi diǎn dōngxi, yíhuìr jiù huílai.	Je descends acheter deux ou trois choses, je reviens tout de suite.
+离
+经常
+票
+床	chuáng	lit : 起床 = se lever	classif. : 一张床 = un lit	床上	我的床很小，但是很舒服。	Wǒ de chuáng hěn xiǎo, dànshì hěn shūfu.	Mon lit est petit, mais très confortable.
+意思
+教
+忘	wàng	oublier : 别忘了 = n’oublie pas		忘了	我忘了今天是妈妈的生日。	Wǒ wàng le jīntiān shì māma de shēngrì.	J’ai oublié qu’aujourd’hui, c’est l’anniversaire de maman.
+画
+运动
+回去	huíqù	rentrer, retourner (en s’éloignant du locuteur)			太晚了，我们回去吧。	Tài wǎn le, wǒmen huíqu ba.	Il est trop tard, rentrons.
+妻子
+鱼
+累
+打开	dǎkāi	ouvrir (porte, livre) ; allumer (un appareil)			这里太热了，请打开门。	Zhèlǐ tài rè le, qǐng dǎkāi mén.	Il fait trop chaud ici, ouvre la porte, s’il te plaît.
+肉	ròu	viande ; chair ; pulpe (d’un fruit)		吃肉	我喜欢吃肉，也喜欢吃鱼。	Wǒ xǐhuan chī ròu, yě xǐhuan chī yú.	J’aime la viande, et j’aime aussi le poisson.
+班
+坏
+笔	bǐ	stylo, crayon, pinceau ; classif. : traits d’un caractère, sommes d’argent (一笔钱 = une somme d’argent)		一支笔	你有笔吗？我的笔不见了。	Nǐ yǒu bǐ ma? Wǒ de bǐ bú jiàn le.	Tu as un stylo ? Mon stylo a disparu.
+上面	shàngmiàn	dessus, en haut ; ci-dessus (ce qui précède)			书在桌子上面，不在椅子上。	Shū zài zhuōzi shàngmian, bú zài yǐzi shàng.	Le livre est sur la table, pas sur la chaise.
+洗
+后面
+外面	wàimiàn	dehors, à l’extérieur ; extérieur			外面很冷，多穿一件衣服吧。	Wàimian hěn lěng, duō chuān yí jiàn yīfu ba.	Il fait très froid dehors, mets un vêtement de plus.
+丈夫
+左	zuǒ	gauche : 左边 = côté gauche		左边	他坐在我的左边，我们是同学。	Tā zuò zài wǒ de zuǒbian, wǒmen shì tóngxué.	Il est assis à ma gauche, nous sommes camarades de classe.
+下面	xiàmiàn	dessous, en bas ; ce qui suit, ci-dessous			桌子下面有一只小猫。	Zhuōzi xiàmian yǒu yì zhī xiǎo māo.	Il y a un petit chat sous la table.
+右	yòu	droite : 右边 = côté droit		右边	你往右走，学校就在右边。	Nǐ wǎng yòu zǒu, xuéxiào jiù zài yòubian.	Va vers la droite, l’école est juste à droite.
+生日
+有时	yǒushí	parfois, de temps en temps	aussi 有时候 ; 有时…有时… = tantôt…, tantôt…		我有时坐地铁上班，有时走路去。	Wǒ yǒushí zuò dìtiě shàngbān, yǒushí zǒulù qù.	Je vais au travail tantôt en métro, tantôt à pied.
+词	cí	mot (unité de langue) ; paroles (d’une chanson)		生词	这个词是什么意思？	Zhège cí shì shénme yìsi?	Que veut dire ce mot ?
+鸟
+进去	jìnqù	entrer (en s’éloignant du locuteur), aller à l’intérieur			门开着，我们进去看看吧。	Mén kāi zhe, wǒmen jìnqu kànkan ba.	La porte est ouverte, allons voir à l’intérieur.
+疼
+路上	lùshang	en chemin, sur la route			我在路上看见了一个老朋友。	Wǒ zài lùshang kànjiàn le yí ge lǎo péngyou.	En chemin, j’ai croisé un vieil ami.
+酒店	jiǔdiàn	hôtel	synonyme de 宾馆 bīnguǎn		我们住的酒店离火车站很近。	Wǒmen zhù de jiǔdiàn lí huǒchēzhàn hěn jìn.	L’hôtel où nous logeons est tout près de la gare.
+咖啡
+考试
+慢
+前面
+旁边
+帮忙
+进来	jìnlái	entrer (vers le locuteur)			你快进来，外面太冷了。	Nǐ kuài jìnlai, wàimian tài lěng le.	Entre vite, il fait trop froid dehors.
+颜色
+高中	gāozhōng	lycée	le collège : 初中 chūzhōng		我弟弟今年上高中了。	Wǒ dìdi jīnnián shàng gāozhōng le.	Mon petit frère est entré au lycée cette année.
+考	kǎo	passer (un examen) ; faire passer une épreuve, interroger	考试 = examen	考试	我明天要考汉语，今天晚上不看电视了。	Wǒ míngtiān yào kǎo Hànyǔ, jīntiān wǎnshang bú kàn diànshì le.	Demain, j’ai un examen de chinois ; ce soir, je ne regarde pas la télé.
+上去	shàngqù	monter (en s’éloignant du locuteur)			楼上有人找你，你上去吧。	Lóu shàng yǒu rén zhǎo nǐ, nǐ shàngqu ba.	Quelqu’un te cherche à l’étage, monte.
+红色	hóngsè	rouge (couleur)			我的新书包是红色的，很漂亮。	Wǒ de xīn shūbāo shì hóngsè de, hěn piàoliang.	Mon nouveau cartable est rouge, il est très joli.
+游	yóu	nager : 游泳 = nager ; se promener, voyager (écrit)	dans 旅游 = voyager, faire du tourisme	游泳	我弟弟游得比我快多了。	Wǒ dìdi yóu de bǐ wǒ kuài duō le.	Mon petit frère nage bien plus vite que moi.
+一会儿
+机场
+踢	tī	donner un coup de pied ; jouer (au football) : 踢球 = jouer au foot		踢球	我们下午去踢球，你去不去？	Wǒmen xiàwǔ qù tī qiú, nǐ qù bú qù?	On va jouer au foot cet après-midi, tu viens ?
+舒服
+黑色	hēisè	noir (couleur)			她喜欢穿黑色的裤子。	Tā xǐhuan chuān hēisè de kùzi.	Elle aime porter des pantalons noirs.
+绿色	lǜsè	vert (couleur) ; écologique, bio : 绿色食品 = produits bio			他的新车是绿色的，很好看。	Tā de xīn chē shì lǜsè de, hěn hǎokàn.	Sa nouvelle voiture est verte, elle est très jolie.
+网上	wǎngshang	sur Internet, en ligne			我常常在网上买东西。	Wǒ chángcháng zài wǎngshang mǎi dōngxi.	J’achète souvent des choses en ligne.
+旅游
+足球	zúqiú	football (sport) ; ballon de football			我弟弟很喜欢足球，每个星期都踢。	Wǒ dìdi hěn xǐhuan zúqiú, měi ge xīngqī dōu tī.	Mon petit frère adore le football ; il y joue chaque semaine.
+白色	báisè	blanc (couleur)			这个白色的杯子是我的，那个是你的。	Zhège báisè de bēizi shì wǒ de, nàge shì nǐ de.	Cette tasse blanche est la mienne, celle-là est à toi.
+题
+门口	ménkǒu	devant la porte, entrée			我在学校门口等你，快一点儿！	Wǒ zài xuéxiào ménkǒu děng nǐ, kuài yìdiǎnr!	Je t’attends à l’entrée de l’école, dépêche-toi !
+不好意思	bùhǎoyìsi	excusez-moi, désolé (pour un petit dérangement) ; gêné, embarrassé	plus léger que 对不起		不好意思，我来晚了。	Bùhǎoyìsi, wǒ lái wǎn le.	Désolé, je suis en retard.
+奶奶
+右边
+有意思	yǒuyìsi	intéressant, amusant			这个电影很有意思，我想再看一次。	Zhège diànyǐng hěn yǒuyìsi, wǒ xiǎng zài kàn yí cì.	Ce film est très intéressant, j’ai envie de le revoir.
+出门	chūmén	sortir de chez soi ; partir en voyage, être en déplacement			今天很冷，出门要多穿点儿衣服。	Jīntiān hěn lěng, chūmén yào duō chuān diǎnr yīfu.	Il fait très froid aujourd’hui, il faut mettre plus de vêtements pour sortir.
+地铁
+小时候	xiǎoshíhou	quand on était petit, dans l’enfance			我小时候最喜欢跟爸爸一起踢球。	Wǒ xiǎoshíhou zuì xǐhuan gēn bàba yìqǐ tī qiú.	Quand j’étais petit, ce que j’aimais le plus, c’était jouer au foot avec papa.
+爷爷
+上来	shànglái	monter (vers celui qui parle) ; (après un verbe) vers le haut : 跑上来 = monter en courant			我在楼上，你快上来吧！	Wǒ zài lóushàng, nǐ kuài shànglái ba!	Je suis à l’étage, monte vite !
+姓
+篮球	lánqiú	basket-ball ; ballon de basket			我哥哥每个星期六都去打篮球。	Wǒ gēge měi ge xīngqīliù dōu qù dǎ lánqiú.	Mon frère aîné va jouer au basket tous les samedis.
+游泳
+裤子
+跳舞
+阴
+上网
+商场	shāngchǎng	centre commercial, grand magasin			星期六下午我想和朋友去商场买衣服。	Xīngqīliù xiàwǔ wǒ xiǎng hé péngyou qù shāngchǎng mǎi yīfu.	Samedi après-midi, je voudrais aller au centre commercial acheter des vêtements avec des amis.
+外国	wàiguó	pays étranger, étranger			他在外国工作了三年。	Tā zài wàiguó gōngzuò le sān nián.	Il a travaillé trois ans à l’étranger.
+姓名	xìngmíng	nom et prénom, nom complet			请在这里写上你的姓名和电话。	Qǐng zài zhèlǐ xiě shàng nǐ de xìngmíng hé diànhuà.	Écris ici ton nom complet et ton numéro de téléphone, s’il te plaît.
+车站	chēzhàn	gare, station ; arrêt de bus			车站离我家很近，走路五分钟就到了。	Chēzhàn lí wǒ jiā hěn jìn, zǒulù wǔ fēnzhōng jiù dào le.	La gare est tout près de chez moi, on y est en cinq minutes à pied.
+走路	zǒulù	marcher, aller à pied			我家离学校不远，我每天走路去上学。	Wǒ jiā lí xuéxiào bù yuǎn, wǒ měitiān zǒulù qù shàngxué.	Ma maison n’est pas loin de l’école, je vais à l’école à pied tous les jours.
+左边
+从小	cóngxiǎo	depuis tout petit, dès l’enfance			她从小就喜欢唱歌。	Tā cóngxiǎo jiù xǐhuan chànggē.	Elle aime chanter depuis toute petite.
+爱好
+教室
+快要	kuàiyào	sur le point de, bientôt (快要…了)	se termine par 了 ; avec une heure ou une date précise, on dit plutôt 就要…了		快要下雨了，我们回家吧。	Kuàiyào xiàyǔ le, wǒmen huí jiā ba.	Il va bientôt pleuvoir, rentrons à la maison.
+门票	ménpiào	billet d’entrée (musée, parc, site touristique)			门票不贵，大人六十块，小孩三十块。	Ménpiào bú guì, dàrén liùshí kuài, xiǎohái sānshí kuài.	L’entrée n’est pas chère : soixante yuans pour un adulte, trente pour un enfant.
+机票	jīpiào	billet d’avion			机票比火车票贵很多。	Jīpiào bǐ huǒchēpiào guì hěn duō.	Le billet d’avion coûte beaucoup plus cher que le billet de train.
+手表
+出国	chūguó	aller à l’étranger, quitter le pays			我想明年出国学习汉语。	Wǒ xiǎng míngnián chūguó xuéxí Hànyǔ.	L’an prochain, je voudrais partir à l’étranger pour apprendre le chinois.
+跑步
+药店	yàodiàn	pharmacie			我头疼，想去药店买点儿药。	Wǒ tóuténg, xiǎng qù yàodiàn mǎi diǎnr yào.	J’ai mal à la tête, je voudrais aller à la pharmacie acheter des médicaments.
+晴
+洗手间
+开学	kāixué	la rentrée ; commencer l’année ou le semestre scolaire			下个星期就开学了，你的书都买好了吗？	Xià ge xīngqī jiù kāixué le, nǐ de shū dōu mǎi hǎo le ma?	La rentrée est la semaine prochaine, as-tu acheté tous tes livres ?
+个子
+没意思	méiyìsi	ennuyeux, sans intérêt	contraire : 有意思 yǒu yìsi (intéressant, amusant)		这本书太没意思了，我不想看了。	Zhè běn shū tài méiyìsi le, wǒ bù xiǎng kàn le.	Ce livre est vraiment ennuyeux, je n’ai plus envie de le lire.
+书包	shūbāo	cartable, sac d’école			他的书包里有很多书和本子。	Tā de shūbāo li yǒu hěn duō shū hé běnzi.	Dans son cartable, il y a beaucoup de livres et de cahiers.
+本子	běnzi	cahier, carnet			我在本子上记下了今天学的新词。	Wǒ zài běnzi shang jì xià le jīntiān xué de xīncí.	J’ai noté dans mon cahier les mots nouveaux appris aujourd’hui.
+过年	guònián	fêter le Nouvel An chinois, passer le Nouvel An			过年的时候，我们一家人都会回家。	Guònián de shíhou, wǒmen yì jiā rén dōu huì huí jiā.	Au moment du Nouvel An chinois, toute notre famille rentre à la maison.
+绿茶	lǜchá	thé vert			我不喝咖啡，只喝绿茶。	Wǒ bù hē kāfēi, zhǐ hē lǜchá.	Je ne bois pas de café, seulement du thé vert.
+打车	dǎchē	prendre un taxi			太晚了，我们打车回家吧。	Tài wǎn le, wǒmen dǎchē huí jiā ba.	Il est trop tard, rentrons en taxi.
+饭馆	fànguǎn	restaurant	classificateur 家 : 一家饭馆 = un restaurant		学校旁边有一家很好吃的饭馆。	Xuéxiào pángbiān yǒu yì jiā hěn hǎochī de fànguǎn.	À côté de l’école, il y a un restaurant où l’on mange très bien.
+女孩儿	nǚháir	fille, petite fille	variante sans 儿 : 女孩 nǚhái		那个女孩儿是我妹妹的同学。	Nàge nǚháir shì wǒ mèimei de tóngxué.	Cette fille est une camarade de classe de ma petite sœur.
+奶茶	nǎichá	thé au lait			天冷了，我想喝一杯热奶茶。	Tiān lěng le, wǒ xiǎng hē yì bēi rè nǎichá.	Il fait froid maintenant, je voudrais boire une tasse de thé au lait chaud.
+红茶	hóngchá	thé noir	en chinois, « thé rouge » ; le thé vert est 绿茶 lǜchá		我早上喝红茶，晚上喝绿茶。	Wǒ zǎoshang hē hóngchá, wǎnshang hē lǜchá.	Le matin je bois du thé noir, le soir du thé vert.
+小孩儿	xiǎoháir	enfant, petit enfant	variante sans 儿 : 小孩 xiǎohái		这个小孩儿很可爱，大家都喜欢他。	Zhège xiǎoháir hěn kě'ài, dàjiā dōu xǐhuan tā.	Cet enfant est adorable, tout le monde l’aime.
+公交车	gōngjiāochē	bus (de ville)	synonyme : 公共汽车 gōnggòng qìchē		我每天坐公交车去上班。	Wǒ měitiān zuò gōngjiāochē qù shàngbān.	Je prends le bus tous les jours pour aller au travail.
+男孩儿	nánháir	garçon	variante sans 儿 : 男孩 nánhái		我家对面住着一个男孩儿，他今年八岁。	Wǒ jiā duìmiàn zhù zhe yí ge nánháir, tā jīnnián bā suì.	En face de chez moi habite un garçon, il a huit ans.

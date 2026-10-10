@@ -9,6 +9,7 @@ Lancer depuis la racine du dépôt :  py tests\\test_seance.py
 """
 import json
 import os
+import re
 
 from playwright.sync_api import sync_playwright
 
@@ -35,6 +36,11 @@ SEED_BOXES = """(() => {
     log: {}, extra: null }));
 })();"""
 OLD_IDS = ["hsk3:还", "hsk3:啊", "hsk2:就", "hsk1:的"]
+
+
+def wcount(page):
+    """Number of words of the Mots tab (the rows come a few at a time)."""
+    return int(re.match(r"\d+", nb(page.inner_text("#wcount"))).group(0))
 
 
 def counts(page):
@@ -171,15 +177,15 @@ def main():
             page.fill("#q", "")
             page.click('#filters button[data-f="new"]')
             page.wait_for_timeout(200)
-            n_new = page.locator(".wrow").count()
+            n_new = wcount(page)
             page.click('#filters button[data-f="learn"]')
             page.wait_for_timeout(200)
-            n_learn = page.locator(".wrow").count()
+            n_learn = wcount(page)
             page.click('#filters button[data-f="all"]')
             check(n_new == 601 - len(pattern) and n_learn == len(pattern), "%s: filters À voir / En cours" % scheme, (n_new, n_learn))
             page.click('#wdeck button[data-deck="hsk1"]')
             page.wait_for_timeout(200)
-            check(page.locator(".wrow").count() == 150, "%s: list filter HSK 1" % scheme, page.locator(".wrow").count())
+            check(wcount(page) == 150 and page.locator(".wrow").count() == 150, "%s: list filter HSK 1" % scheme, wcount(page))
             page.click('#wdeck button[data-deck="all"]')
             page.click(".wrow >> nth=0")
             page.wait_for_timeout(600)
@@ -264,18 +270,19 @@ def main():
                 page.click("#sheet .close")
                 # learn it once on the phone
                 page.evaluate("(id) => { applyGrade(id, true); save(); }", tel[0][0])
-                # same word twice in one list: refused; a word of another list: allowed, with a hint
+                # a word appears once in the dictionary: the same characters and pinyin are refused, and a word of a
+                # list is offered to the list instead of being written again
                 page.click("#btn-add")
                 page.fill("#f-h", "打印")
                 page.fill("#f-p", "da3yin4")
                 page.fill("#f-f", "imprimer")
                 page.click("#wform button[type=submit]")
                 page.wait_for_timeout(150)
-                check("déjà dans la liste Ajoutés ici" in page.inner_text("#f-err"), "duplicate in the same list refused", page.inner_text("#f-err"))
+                check("déjà dans le dictionnaire (Ajoutés ici)" in nb(page.inner_text("#f-err")), "the same word refused", page.inner_text("#f-err"))
                 page.fill("#f-h", "图书馆")
                 page.wait_for_timeout(100)
                 hint = page.inner_text("#f-hh")
-                check("Aussi dans HSK 3" in hint, "hint when the word is in another list", hint)
+                check("Déjà dans le dictionnaire" in hint and page.locator("#f-hh [data-take]").count() == 1, "a word of HSK 3 offered to the list", hint)
                 page.click("#sheet .close")
                 # the computer side: paste into perso.tsv, add a word, correct a word, publish
                 with open(os.path.join(site, "decks", "perso.tsv"), "a", encoding="utf-8") as fh:

@@ -5,3 +5,4 @@ __pycache__/
 .idea/
 tests/sortie/
 .claude/settings.local.json
+outils/hsk/travail/

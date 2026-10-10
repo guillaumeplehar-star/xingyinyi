@@ -38,6 +38,7 @@ COLUMNS = ["hanzi", "pinyin", "francais", "note", "audio", "exemple", "exemple_p
 ALIASES = {"汉字": "hanzi", "caractères": "hanzi", "caracteres": "hanzi", "français": "francais", "traduction": "francais",
            "sens": "francais", "voix": "audio", "phrase": "exemple", "pinyin_exemple": "exemple_pinyin",
            "exemple_francais": "exemple_fr", "exemple_français": "exemple_fr", "traduction_exemple": "exemple_fr"}
+HSK_LATER = re.compile(r"^hsk([4-6]|30-\d)$")   # their examples go beyond the characters of HSK 1-3
 WIN = os.name == "nt"
 CMD = "py outils\\decks.py" if WIN else "python3 outils/decks.py"
 PIP = "py -m pip install pypinyin" if WIN else "python3 -m pip install pypinyin"
@@ -255,7 +256,7 @@ def verifier(_args):
     listes = cfg.get("listes")
     if not isinstance(listes, list):
         sys.exit("decks/decks.json : il faut une clé \"listes\" contenant un tableau [ … ].")
-    ids, total, seen_files = set(), 0, set()
+    ids, total, seen_files, sheets, fixed = set(), 0, set(), [], set()
     for n, lst in enumerate(listes, 1):
         where = "decks.json, liste %d" % n
         if not isinstance(lst, dict) or not lst.get("id") or not lst.get("fichier"):
@@ -272,8 +273,9 @@ def verifier(_args):
         for old in ("mode", "parJour"):
             if old in lst:
                 report(where, "info", "« %s » ne sert plus (planning par seaux) : l'appli l'ignore, tu peux l'enlever" % old)
-        if "actif" in lst and not isinstance(lst["actif"], bool):
-            report(where, "avertissement", "actif doit valoir true ou false (sans guillemets)")
+        for key in ("actif", "afficher", "fixe", "dictionnaire"):
+            if key in lst and not isinstance(lst[key], bool):
+                report(where, "avertissement", "%s doit valoir true ou false (sans guillemets)" % key)
         path = os.path.join(DECKS, fichier)
         if not os.path.exists(path):
             report(where, "erreur", "fichier decks/%s introuvable" % fichier)
@@ -281,16 +283,60 @@ def verifier(_args):
         if fichier in seen_files:
             continue
         seen_files.add(fichier)
-        total += check_sheet(Sheet(path), "decks/" + fichier, report)
+        sheets.append((lid, Sheet(path), "decks/" + fichier))
+        if lst.get("fixe") is True:
+            fixed.add("decks/" + fichier)
+    # the dictionary: every row with a translation defines a word (<list>:<hanzi>, #2 … further down the same file)
+    defs, def_ids = {}, set()
+    senses.clear()
+    for lid, sheet, name in sheets:
+        count = {}
+        for i, cells in sheet.rows:
+            h, f = sheet.get(cells, "hanzi"), sheet.get(cells, "francais")
+            if not h or not f:
+                continue
+            count[h] = count.get(h, 0) + 1
+            def_ids.add("%s:%s%s" % (lid, h, "#%d" % count[h] if count[h] > 1 else ""))
+            defs.setdefault(h, []).append((pinyin_key(sheet.get(cells, "pinyin")), name, i + 1))
+            senses[(name, i + 1)] = first_sense(f)
+    for lid, sheet, name in sheets:
+        total += check_sheet(sheet, name, report, defs, def_ids, lid, fixed)
     print("\n%d listes, %d mots : %d erreur(s), %d avertissement(s), %d remarque(s)." % (
         len(seen_files), total, problems["erreur"], problems["avertissement"], problems["info"]))
     if problems["erreur"]:
         sys.exit(1)
 
 
-def check_sheet(sheet, name, report):
+def pinyin_key(p):
+    """Same reading, whichever way it is written (accents or numbers): 'tu2shu1guan3'."""
+    out = []
+    for part in (p or "").split("/"):
+        for syl in syllables_of(part.strip()) or []:
+            letters, tone = "", 5
+            for ch in syl:
+                if ch.isdigit():
+                    tone = int(ch)
+                    continue
+                base, t = decode(ch)
+                letters += base
+                if t:
+                    tone = t
+            out.append(letters.lower() + str(tone))
+    return "".join(out)
+
+
+senses = {}                                      # (file, line) -> first sense of the definition
+
+
+def first_sense(f):
+    """« deux (personnes), à deux : 我们俩 = nous deux » -> « deux » : two homographs never share it."""
+    return re.split(r"[;:(,]", f or "")[0].strip().lower()
+
+
+def check_sheet(sheet, name, report, defs=None, def_ids=None, lid="", fixed=frozenset()):
     if sheet.header is None:
         return 0
+    defs, def_ids = defs or {}, def_ids or set()
     if sheet.header == -1:
         report(name, "avertissement", "pas de ligne d'en-tête (hanzi, pinyin, francais…) : l'appli suppose l'ordre standard des colonnes")
     seen = {}
@@ -306,6 +352,27 @@ def check_sheet(sheet, name, report):
         where += "  " + h
         if len(cells) > len(sheet.cols):
             report(where, "avertissement", "%d colonnes pour %d attendues : une tabulation de trop ?" % (len(cells), len(sheet.cols)))
+        if not sheet.get(cells, "francais"):
+            # a row without translation points to a word defined elsewhere: by its id, or its characters (and pinyin)
+            p = sheet.get(cells, "pinyin")
+            if ":" in h:
+                if h not in def_ids:
+                    report(where, "erreur", "renvoi à « %s » : aucun mot n'a cet identifiant (la ligne sera ignorée)" % h)
+            elif h not in defs:
+                report(where, "erreur", "renvoi à « %s » : aucune liste ne définit ce mot (ajoute pinyin et francais pour le définir ici)" % h)
+            elif p and not any(k == pinyin_key(p) for k, _, _ in defs[h]):
+                report(where, "avertissement", "renvoi à « %s %s » : aucun mot défini n'a ce pinyin, l'appli prendra le premier" % (h, p))
+            elif not p and len(defs[h]) > 1:
+                report(where, "info", "renvoi à « %s » : plusieurs mots s'écrivent ainsi, précise le pinyin" % h)
+            continue
+        others = [(n, line) for k, n, line in defs.get(h, []) if k == pinyin_key(sheet.get(cells, "pinyin")) and (n, line) != (name, i + 1)]
+        if others and name in fixed and all(n in fixed and senses.get((n, l)) != senses.get((name, i + 1)) for n, l in others):
+            # two HSK lists: the official syllabus numbers these homographs (点1, 点2), the meanings differ
+            report(where, "info", "homographe : « %s » de même pinyin est défini aussi dans %s:%d, avec un autre sens "
+                   "(deux mots distincts des listes HSK)" % ((h,) + others[0]))
+        elif others:
+            report(where, "avertissement", "même mot (mêmes caractères, même pinyin) défini aussi dans %s:%d : un mot ne doit apparaître "
+                   "qu'une fois ; ici, ne garde que la colonne hanzi pour y renvoyer" % others[0])
         if h in seen:
             report(where, "info", "« %s » apparaît aussi ligne %d : ce sera une carte distincte (normal si le sens diffère)" % (h, seen[h]))
         seen.setdefault(h, i + 1)
@@ -327,7 +394,7 @@ def check_sheet(sheet, name, report):
         if e:
             if h not in e:
                 report(where, "avertissement", "l'exemple ne contient pas le mot")
-            if HSK13:
+            if HSK13 and not HSK_LATER.match(lid):
                 outside = sorted({c for c in HAN.findall(e) if c not in HSK13})
                 if outside:
                     report(where, "info", "exemple : caractères hors HSK 1-3 : %s" % " ".join(outside))

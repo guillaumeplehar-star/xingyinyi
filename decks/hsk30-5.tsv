@@ -1,0 +1,1643 @@
+# 形音义 : liste HSK 5 (3.0) (HSK 3.0, programme d'examen 2026)
+# Liste HSK : l'appli ne la modifie pas (decks.json : fixe). Produite par outils/hsk/assembler.py.
+# Une ligne par mot. Une ligne avec une traduction définit le mot ; une ligne sans traduction renvoie à un
+# mot défini dans une autre liste (ses caractères, avec son pinyin s'il le faut, ou son identifiant).
+hanzi	pinyin	francais	note	audio	exemple	exemple_pinyin	exemple_fr
+好	hào	aimer, avoir du goût pour (好学 = aimer étudier) ; avoir tendance à, être enclin à (好哭 = pleurer facilement)	à distinguer de 好 hǎo (bien) ; se lit hào dans 爱好 àihào (passe-temps) et 好奇 hàoqí (curieux)	好学	他从小就好学，遇到不懂的问题总是问老师。	Tā cóngxiǎo jiù hàoxué, yùdào bù dǒng de wèntí zǒngshì wèn lǎoshī.	Depuis tout petit, il aime apprendre : quand il ne comprend pas une question, il la pose toujours à son professeur.
+看	kān	garder, surveiller (看家 = garder la maison) ; s’occuper de (看孩子 = garder des enfants)	à distinguer de 看 kàn (regarder, lire)	看家	爸爸妈妈去上班了，奶奶在家看孩子。	Bàba māma qù shàngbān le, nǎinai zài jiā kān háizi.	Papa et maman sont partis travailler, grand-mère garde les enfants à la maison.
+为	wéi	par (passif écrit : 为 + agent + 所 + verbe)	écrit ; à l’oral on dit plutôt 被 ; à distinguer de 为 wéi (devenir : 成为) et de 为 wèi (pour)	为人所知	这首歌为许多年轻人所喜爱。	Zhè shǒu gē wéi xǔduō niánqīngrén suǒ xǐ'ài.	Cette chanson est appréciée de beaucoup de jeunes.
+hsk4:等
+可
+才	cái	talent, aptitude ; personne de talent (人才 = personne qualifiée, talent)	à distinguer de 才 cái adverbe (他十点才来 = il n’arrive qu’à 10 h) ; surtout dans 人才 réncái, 天才 tiāncái (génie), 才能 cáinéng (talent)	人才	这家公司很重视人才，给年轻人很多机会。	Zhè jiā gōngsī hěn zhòngshì réncái, gěi niánqīngrén hěn duō jīhuì.	Cette entreprise accorde beaucoup d’importance aux talents et donne beaucoup d’occasions aux jeunes.
+跟
+当	dàng	prendre pour, considérer comme (把你当朋友 = te considérer comme un ami) ; croire, s’imaginer (à tort)	à distinguer de 当 dāng (être, faire office de ; quand) ; 当真 dàngzhēn = prendre au sérieux	当作	我一直把你当朋友，你为什么不告诉我？	Wǒ yìzhí bǎ nǐ dàng péngyou, nǐ wèishénme bú gàosu wǒ?	Je t’ai toujours considéré comme un ami, pourquoi ne me l’as-tu pas dit ?
+hsk5:所
+以
+起
+带
+死
+哦	ò	ah, oh, je vois (on vient de comprendre ou d’apprendre quelque chose)	ò : « je vois » ; ó : « ah bon ? » ; en fin de phrase, adoucit le ton : 好哦 = d’accord	哦，我明白了	哦，我明白了，原来你是这个意思。	Ò, wǒ míngbai le, yuánlái nǐ shì zhège yìsi.	Ah, je comprends, c’est donc ça que tu voulais dire.
+别	bié	épingler, fixer avec une épingle ou une pince (别在衣服上 = épingler sur un vêtement) ; se séparer (écrit : 告别 = faire ses adieux)	à distinguer de 别 bié (ne… pas : 别说话 = ne parle pas) ; 别针 biézhēn = épingle	别针	她在外套上别了一朵小红花。	Tā zài wàitào shàng bié le yì duǒ xiǎo hóng huā.	Elle a épinglé une petite fleur rouge sur son manteau.
+不过
+本	běn	à l’origine, au départ (本想 = avoir d’abord voulu) ; ce, notre (本人 = moi-même ; 本校 = notre école)	à distinguer de 本 běn classif. (一本书 = un livre) ; 本来 běnlái = à l’origine	本想	我本想今天去爬山，可是下雨了。	Wǒ běn xiǎng jīntiān qù páshān, kěshì xiàyǔ le.	Je comptais aller faire une randonnée aujourd’hui, mais il s’est mis à pleuvoir.
+所有
+行	háng	ligne, rangée ; métier, branche d’activité (干这一行 = faire ce métier) ; classif. : lignes de texte (一行字 = une ligne de texte)	à distinguer de 行 xíng (marcher ; d’accord) ; 银行 yínháng = banque	银行	请你在这一行写上名字和电话。	Qǐng nǐ zài zhè yì háng xiě shàng míngzi hé diànhuà.	Écris ton nom et ton numéro de téléphone sur cette ligne, s’il te plaît.
+条
+正
+头	tóu
+头	tou	suffixe de noms, sans sens propre (木头 = bois ; 石头 = pierre ; 骨头 = os)	ton neutre : tou ; à distinguer de 头 tóu (tête)	木头	这张桌子是用木头做的，很重。	Zhè zhāng zhuōzi shì yòng mùtou zuò de, hěn zhòng.	Cette table est en bois, elle est très lourde.
+总
+搞
+如何
+如	rú	comme, tel que (例如 = par exemple ; 如下 = comme suit) ; si (écrit : 如有问题 = en cas de question) ; égaler (不如 = ne pas valoir)	écrit ; à l’oral 如果 rúguǒ = si, 像 xiàng = comme	例如	我喜欢运动，例如游泳、跑步和打篮球。	Wǒ xǐhuan yùndòng, lìrú yóuyǒng, pǎobù hé dǎ lánqiú.	J’aime le sport, par exemple la natation, la course à pied et le basket.
+连
+队
+唯一
+呀
+同	tóng	même, identique (同一年 = la même année) ; avec (écrit : 同他商量 = en discuter avec lui) ; ensemble (一同 = ensemble)	à l’oral 和 hé ou 跟 gēn = avec ; 同事 tóngshì = collègue, 同学 tóngxué = camarade	同事	我和他在同一家公司工作。	Wǒ hé tā zài tóng yì jiā gōngsī gōngzuò.	Lui et moi travaillons dans la même entreprise.
+干	gān
+如此	rúcǐ	ainsi, de cette façon ; si, tellement (如此重要 = si important)	écrit ; 既然如此 = puisqu’il en est ainsi ; à l’oral 这样 zhèyàng		这个问题如此重要，我们必须马上解决。	Zhège wèntí rúcǐ zhòngyào, wǒmen bìxū mǎshàng jiějué.	Ce problème est si important que nous devons le résoudre tout de suite.
+处	chǔ	s’entendre, vivre avec qqn (相处 = s’entendre) ; se trouver (dans une situation : 处于 = se trouver dans) ; traiter, régler (处理 = traiter)	à distinguer de 处 chù (endroit, lieu)	相处	我和同事相处得很好，大家像朋友一样。	Wǒ hé tóngshì xiāngchǔ de hěn hǎo, dàjiā xiàng péngyou yíyàng.	Je m’entends très bien avec mes collègues, nous sommes comme des amis.
+处	chù	endroit, lieu (到处 = partout) ; aspect, point (好处 = avantage) ; service, bureau (d’une administration)	à distinguer de 处 chǔ (s’entendre ; traiter) ; 好处 hǎochu = avantage, 坏处 huàichu = inconvénient	到处	周末的时候，公园里到处都是人。	Zhōumò de shíhou, gōngyuán lǐ dàochù dōu shì rén.	Le week-end, il y a du monde partout dans le parc.
+处理
+政府
+其	qí	son, sa, ses, leur (écrit, possessif de 3e personne : 其价格 = son prix) ; le, la, eux (écrit, pronom : 其中 = parmi eux)	écrit, surtout dans des mots : 其他 qítā (autre), 其实 qíshí (en fait), 其中 qízhōng (parmi eux), 尤其 yóuqí (surtout)	其他	这家公司很有名，其产品卖到了世界各地。	Zhè jiā gōngsī hěn yǒumíng, qí chǎnpǐn mài dào le shìjiè gèdì.	Cette entreprise est très connue, ses produits sont vendus dans le monde entier.
+管
+曾	céng	déjà, autrefois (indique que l’action a eu lieu dans le passé)	= 曾经 céngjīng, plus courant ; avec 过 pour une expérience : 曾去过 = être déjà allé ; nom de famille : Zēng	曾经	他曾在北京住过三年，所以汉语说得很好。	Tā céng zài Běijīng zhù guo sān nián, suǒyǐ Hànyǔ shuō de hěn hǎo.	Il a déjà vécu trois ans à Pékin, c’est pourquoi il parle très bien chinois.
+系统
+以及
+控制
+组
+组织
+根本
+hsk30-2:面
+面	miàn	nouilles (de blé) ; farine de blé (面粉 miànfěn)	à distinguer de 面 miàn (côté, face : 前面) ; 面条 miàntiáo = nouilles, 面包 miànbāo = pain	吃面	天气很冷，我想吃一碗热热的面。	Tiānqì hěn lěng, wǒ xiǎng chī yì wǎn rèrè de miàn.	Il fait très froid, j’ai envie d’un bol de nouilles bien chaudes.
+重	chóng
+存在
+靠
+现场	xiànchǎng	lieu même d’un événement, d’un accident ; sur place, en direct (现场直播 = retransmission en direct)	去现场 = aller sur place ; 现场直播 xiànchǎng zhíbō = diffusion en direct		去现场看比赛，比在家看电视有意思多了。	Qù xiànchǎng kàn bǐsài, bǐ zài jiā kàn diànshì yǒu yìsi duō le.	Aller voir un match sur place est bien plus amusant que le regarder à la télé chez soi.
+个人
+精神
+保持
+代表
+超	chāo	dépasser, excéder (超过 = dépasser) ; doubler (un véhicule : 超车) ; ultra-, super- (超市 = supermarché)	超市 chāoshì = supermarché (abrégé de 超级市场)	超过	他的成绩超过了班上所有的同学。	Tā de chéngjì chāoguò le bān shàng suǒyǒu de tóngxué.	Ses résultats ont dépassé ceux de tous ses camarades de classe.
+确定
+中心
+行动
+合作
+哈
+及	jí	et, ainsi que (écrit, relie des noms) ; atteindre, arriver à temps (来得及 = avoir le temps ; 及格 = réussir un examen)	écrit ; 以及 yǐjí = ainsi que ; à l’oral 和 hé	以及	办手续时请带好护照及两张照片。	Bàn shǒuxù shí qǐng dài hǎo hùzhào jí liǎng zhāng zhàopiàn.	Pour faire les démarches, munissez-vous de votre passeport et de deux photos.
+报告
+治疗
+拥有	yōngyǒu	posséder, détenir (des biens, des droits, des qualités)	soutenu : pour des choses importantes ou abstraites ; plus courant : 有 yǒu		他拥有一家很大的公司，员工有一千多人。	Tā yōngyǒu yì jiā hěn dà de gōngsī, yuángōng yǒu yìqiān duō rén.	Il possède une très grande entreprise, qui compte plus de mille employés.
+根据
+台
+明显
+套
+伤	shāng	blessure (受伤 = être blessé) ; blesser, faire mal à ; peiner (伤心 = avoir du chagrin)	se dit des blessures du corps comme de celles du cœur : 伤心 shāngxīn = avoir de la peine	受伤	他踢足球的时候，腿受了伤。	Tā tī zúqiú de shíhou, tuǐ shòu le shāng.	Il s’est blessé à la jambe en jouant au football.
+曾经
+黑
+行为
+绝对
+派
+眼	yǎn	œil ; coup d’œil (看一眼 = jeter un coup d’œil) ; classif. : puits, trous (一眼井 = un puits)	souvent dans des composés : 眼睛 yǎnjing (œil), 眼镜 yǎnjìng (lunettes), 眼泪 yǎnlèi (larme)	眼睛	我太累了，想闭上眼睡一会儿。	Wǒ tài lèi le, xiǎng bì shàng yǎn shuì yíhuìr.	Je suis trop fatigué, je voudrais fermer les yeux et dormir un moment.
+设计
+未来
+利用
+令	lìng	rendre, faire (令人高兴 = réjouissant, qui rend heureux) ; ordonner ; ordre	令人 + adjectif, style écrit : 令人满意 = satisfaisant ; 命令 mìnglìng = ordre, ordonner	令人	这个好消息令大家都很高兴。	Zhège hǎo xiāoxi lìng dàjiā dōu hěn gāoxìng.	Cette bonne nouvelle a rendu tout le monde très heureux.
+倒	dǎo
+包括
+红
+抓
+意义
+便	biàn
+力	lì	force, énergie (用力 = faire un effort physique) ; capacité (suffixe : 能力 = capacité, 压力 = pression, 努力 = faire des efforts)	rarement seul : 力气 lìqi = force physique, 体力 tǐlì = forces physiques	努力	他用力把门推开了。	Tā yònglì bǎ mén tuī kāi le.	Il a ouvert la porte en poussant fort.
+数	shǔ
+交易	jiāoyì	transaction, affaire conclue ; faire une transaction, commercer	网上交易 = transaction en ligne ; 做交易 = conclure un marché		这笔交易对两家公司都有好处。	Zhè bǐ jiāoyì duì liǎng jiā gōngsī dōu yǒu hǎochu.	Cette transaction est avantageuse pour les deux entreprises.
+报道
+力量
+项目
+造成
+某
+hsk5:支
+随	suí	suivre, accompagner (随着 = à mesure que, avec) ; selon, au gré de (随你 = comme tu veux)	随着 suízhe + changement : à mesure que ; 随便 suíbiàn = comme on veut, n’importe comment	随着	随着天气变冷，公园里的人越来越少了。	Suízhe tiānqì biàn lěng, gōngyuán lǐ de rén yuè lái yuè shǎo le.	À mesure que le temps se refroidit, il y a de moins en moins de monde dans le parc.
+度	dù	degré (température, angle : 三十度 = trente degrés) ; mesure, degré (suffixe : 速度 = vitesse) ; passer (le temps : 度假 = passer ses vacances)	suffixe de noms abstraits : 速度 sùdù (vitesse), 程度 chéngdù (degré, niveau)	温度	今天最高气温三十五度，热得受不了。	Jīntiān zuìgāo qìwēn sānshíwǔ dù, rè de shòu bu liǎo.	Aujourd’hui, la température maximale est de trente-cinq degrés, il fait une chaleur insupportable.
+白
+单	dān	seul, unique, simple (单身 = célibataire ; 简单 = simple) ; seulement (单靠 = en comptant seulement sur) ; liste, facture (菜单 = menu ; 名单 = liste de noms)	contraire de 双 shuāng (paire, double) ; aussi shàn : nom de famille	单身	他还是单身，一个人住在公司附近。	Tā háishi dānshēn, yí ge rén zhù zài gōngsī fùjìn.	Il est toujours célibataire, il vit seul près de son entreprise.
+至	zhì	jusqu’à (从…至… = de… à…) ; arriver à, atteindre (écrit : 至今 = jusqu’à présent)	écrit ; à l’oral 到 dào ; 至少 zhìshǎo = au moins, 甚至 shènzhì = même	至今	我们周一至周五上课，每天上午九点开始。	Wǒmen zhōuyī zhì zhōuwǔ shàngkè, měitiān shàngwǔ jiǔ diǎn kāishǐ.	Nous avons cours du lundi au vendredi, à partir de 9 h chaque matin.
+人民	rénmín	peuple, population (d’un pays)	人民币 rénmínbì = yuan, monnaie chinoise ; à distinguer de 人们 rénmen (les gens)		这几年，人民的生活水平越来越高了。	Zhè jǐ nián, rénmín de shēnghuó shuǐpíng yuè lái yuè gāo le.	Ces dernières années, le niveau de vie de la population s’élève de plus en plus.
+事件	shìjiàn	événement, incident (fait marquant, souvent grave ou inattendu)	à distinguer de 事情 shìqing (affaire, chose de tous les jours)		昨天发生了一个很重要的事件，大家都在讨论。	Zuótiān fāshēng le yí ge hěn zhòngyào de shìjiàn, dàjiā dōu zài tǎolùn.	Hier, un événement très important s’est produit, tout le monde en parle.
+训练
+总统
+似乎
+据	jù	selon, d’après (据说 = à ce qu’on dit ; 据报道 = d’après les informations)	écrit, pour citer une source ; 根据 gēnjù = en se fondant sur	据说	据天气预报，明天会下大雨。	Jù tiānqì yùbào, míngtiān huì xià dàyǔ.	Selon la météo, il va pleuvoir fort demain.
+宝贝
+位置
+方
+深
+选手	xuǎnshǒu	athlète, concurrent (d’une compétition, d’un concours)	se dit des sportifs comme des candidats d’un concours ; 运动员 yùndòngyuán = athlète		每位选手都在认真准备明天的比赛。	Měi wèi xuǎnshǒu dōu zài rènzhēn zhǔnbèi míngtiān de bǐsài.	Chaque concurrent se prépare sérieusement à la compétition de demain.
+电
+参与
+显示
+属于
+人类
+手术
+亲	qīn	proche, intime (亲人 = proche parent) ; embrasser (亲一下 = faire un bisou) ; en personne (亲眼 = de ses propres yeux)	亲爱的 qīn’àide = cher, chérie ; 亲戚 qīnqi = parent, membre de la famille	亲人	我从小和奶奶最亲，什么话都愿意对她说。	Wǒ cóng xiǎo hé nǎinai zuì qīn, shénme huà dōu yuànyì duì tā shuō.	Depuis tout petit, c’est de ma grand-mère que je suis le plus proche, je lui dis tout.
+自由
+hsk4:省#2
+投	tóu	lancer, jeter (投篮 = tirer au panier) ; déposer, envoyer (投信 = poster une lettre ; 投票 = voter) ; investir (投资 = investir)		投篮	他投篮投得很准，每场比赛都能得很多分。	Tā tóulán tóu de hěn zhǔn, měi chǎng bǐsài dōu néng dé hěn duō fēn.	Il tire très juste au panier, il marque beaucoup de points à chaque match.
+事实
+居然
+客户	kèhù	client (d’une entreprise, d’une banque, d’un service)	relation commerciale suivie ; 顾客 gùkè = client d’un magasin		他正在给客户打电话，请你等一下。	Tā zhèngzài gěi kèhù dǎ diànhuà, qǐng nǐ děng yíxià.	Il est en train d’appeler un client, attends un instant, s’il te plaît.
+专家
+类	lèi	catégorie, genre, sorte (分类 = classer) ; classif. : sortes, genres (这类问题 = ce genre de problème)	分类 fēnlèi = classer ; 人类 rénlèi = l’humanité	分类	我们把这些书分成了三类。	Wǒmen bǎ zhèxiē shū fēn chéng le sān lèi.	Nous avons réparti ces livres en trois catégories.
+hsk5:称
+hsk5:称#2
+分析
+享受
+以来
+反应
+地区
+关
+冠军
+价值
+相当
+实现
+牛
+状态
+心理
+群
+原	yuán	original, d’origine (原价 = prix d’origine) ; brut, primitif (原料 = matière première)	dans 原来 yuánlái (à l’origine), 原因 yuányīn (cause), 原谅 yuánliàng (pardonner)	原价	这件衣服打折以后，比原价便宜了一百块。	Zhè jiàn yīfu dǎzhé yǐhòu, bǐ yuánjià piányi le yìbǎi kuài.	Après la remise, ce vêtement coûte cent yuans de moins que son prix d’origine.
+根
+建立
+老板
+集	jí	classif. : épisodes (一集 = un épisode) ; recueil (诗集 = recueil de poèmes) ; rassembler (集合 = se réunir)	à l’ordinal : 第三集 = le 3e épisode	一集	这部电视剧一共有三十集，我已经看到第二十集了。	Zhè bù diànshìjù yígòng yǒu sānshí jí, wǒ yǐjīng kàn dào dì èrshí jí le.	Cette série compte trente épisodes en tout, j’en suis déjà à l’épisode vingt.
+必要
+抢	qiǎng
+傻
+权	quán	droit (权利 = droit ; 版权 = droit d’auteur) ; pouvoir, autorité (权力 = pouvoir)	rarement seul : 权利 quánlì (droit), 权力 quánlì (pouvoir, autorité)	权利	每个孩子都有受教育的权利。	Měi ge háizi dōu yǒu shòu jiàoyù de quánlì.	Chaque enfant a droit à l’éducation.
+亲爱
+救
+恢复
+棒
+或许
+现实
+班
+笔
+媒体
+意识	yìshi	se rendre compte, prendre conscience (意识到 = s’apercevoir que) ; conscience, sens (环保意识 = conscience écologique)	se construit presque toujours avec 到 : 意识到问题 = prendre conscience du problème		说完以后，我才意识到自己说错了话。	Shuō wán yǐhòu, wǒ cái yìshi dào zìjǐ shuō cuò le huà.	Ce n’est qu’après avoir parlé que je me suis rendu compte d’avoir dit quelque chose qu’il ne fallait pas.
+追
+导致
+集中
+理由
+机构	jīgòu	organisme, institution, organisation (administration, entreprise, association)	se dit d’une structure : 教育机构 = organisme éducatif, 研究机构 = institut de recherche		这是一家教育机构，主要教外国人学汉语。	Zhè shì yì jiā jiàoyù jīgòu, zhǔyào jiāo wàiguórén xué Hànyǔ.	C’est un établissement d’enseignement qui apprend surtout le chinois aux étrangers.
+反	fǎn	à l’envers, inverse, contraire (相反 = opposé) ; s’opposer à (反对 = être contre) ; au contraire (反而)	拿反 náfǎn, 穿反 chuānfǎn : tenir, mettre à l’envers ; 反 s’oppose à 正 zhèng (à l’endroit)	相反	你把书拿反了，应该这样拿。	Nǐ bǎ shū ná fǎn le, yīnggāi zhèyàng ná.	Tu tiens ton livre à l’envers, il faut le tenir comme ça.
+完美
+传	chuán	transmettre, faire passer (传给 = passer à) ; se répandre, circuler (消息传开了 = la nouvelle s’est répandue)	aussi zhuàn : biographie (自传 zìzhuàn)	传给	请把这张纸传给后面的同学。	Qǐng bǎ zhè zhāng zhǐ chuán gěi hòumian de tóngxué.	Fais passer cette feuille à l’élève derrière toi, s’il te plaît.
+伤害
+真实
+喂	wèi	donner à manger, nourrir (un animal, un bébé : 喂猫 = nourrir le chat) ; faire avaler (喂药 = donner un médicament à qqn)	à distinguer de 喂 wèi (allô ; hé, pour appeler)	喂猫	我每天早上先喂猫，再去上班。	Wǒ měitiān zǎoshang xiān wèi māo, zài qù shàngbān.	Chaque matin, je donne d’abord à manger au chat, puis je vais travailler.
+记录
+空间
+冲
+期待
+毛
+政治
+朝
+一旦
+范围
+副	fù	classif. : paires, jeux (一副眼镜 = une paire de lunettes ; 一副手套 = une paire de gants)	à distinguer de 副 fù (adjoint, vice- : 副经理 = directeur adjoint)	一副	他戴着一副黑色的眼镜，看起来很聪明。	Tā dài zhe yí fù hēisè de yǎnjìng, kàn qǐlai hěn cōngming.	Il porte une paire de lunettes noires, il a l’air très intelligent.
+事业	shìyè	carrière, vie professionnelle (事业成功 = réussir sa carrière) ; grande œuvre, cause, secteur d’intérêt général (教育事业 = l’éducation)	à distinguer de 工作 gōngzuò (travail, emploi) : 事业 est une carrière ou une cause qui dure		他为自己的事业努力了很多年，终于成功了。	Tā wèi zìjǐ de shìyè nǔlì le hěn duō nián, zhōngyú chénggōng le.	Il a travaillé dur pendant de nombreuses années pour sa carrière, et il a enfin réussi.
+承认
+执行	zhíxíng	exécuter, appliquer (un ordre, un plan, un règlement)	pour des ordres, plans, règlements ou lois : 执行任务 = exécuter une mission		公司决定从下个月开始执行新的规定。	Gōngsī juédìng cóng xià ge yuè kāishǐ zhíxíng xīn de guīdìng.	L’entreprise a décidé d’appliquer le nouveau règlement à partir du mois prochain.
+怪	guài	bizarre, étrange ; reprocher, en vouloir à (别怪我 = ne m’en veux pas) ; (familier) plutôt, assez (怪不好意思的 = plutôt gêné)	怪不得 guàibude = pas étonnant que ; 奇怪 qíguài = étrange	奇怪	这个味道很怪，我不太喜欢。	Zhège wèidao hěn guài, wǒ bú tài xǐhuan.	Ce goût est bizarre, il ne me plaît pas trop.
+痛苦
+空	kōng
+显然
+传统
+状况
+分享	fēnxiǎng	partager (une joie, une expérience, des photos, des idées avec d’autres)	pour ce qui fait plaisir (joie, expérience, contenu) : 分享快乐 = partager sa joie		我喜欢把旅行的照片分享给朋友们。	Wǒ xǐhuan bǎ lǚxíng de zhàopiàn fēnxiǎng gěi péngyoumen.	J’aime partager mes photos de voyage avec mes amis.
+架	jià	étagère, support, cadre (书架 = étagère à livres) ; classif. : avions, pianos (一架飞机 = un avion) ; dresser, monter	吵架 chǎojià = se disputer ; 打架 dǎjià = se battre	书架	我的书架上放着很多汉语书。	Wǒ de shūjià shàng fàng zhe hěn duō Hànyǔ shū.	Il y a beaucoup de livres de chinois sur mon étagère.
+经济
+翻
+时代
+伟大
+的确
+颗
+准
+身份
+充满
+人物
+系	xì
+系	jì
+直
+产品
+成员	chéngyuán	membre (d’un groupe, d’une famille, d’une équipe)	家庭成员 jiātíng chéngyuán = membres de la famille		他是我们足球队的新成员。	Tā shì wǒmen zúqiú duì de xīn chéngyuán.	C’est un nouveau membre de notre équipe de football.
+保险
+年代
+测试	cèshì	tester, mettre à l’épreuve (un appareil, un logiciel, un niveau) ; test, essai	à distinguer de 考试 kǎoshì (examen scolaire)		明天学校要测试我们的汉语水平。	Míngtiān xuéxiào yào cèshì wǒmen de Hànyǔ shuǐpíng.	Demain, l’école va tester notre niveau de chinois.
+领导
+寻找
+胜利
+明星
+级	jí	niveau, grade, classe (年级 = année scolaire ; 高级 = supérieur, avancé) ; classif. : marches (一级台阶 = une marche)	三年级 sān niánjí = 3e année ; HSK 三级 = niveau 3 du HSK	年级	我妹妹今年上小学三年级。	Wǒ mèimei jīnnián shàng xiǎoxué sān niánjí.	Ma petite sœur est en troisième année de primaire cette année.
+程度
+代	dài	remplacer, agir à la place de (代我问好 = salue de ma part) ; génération (年轻一代 = la jeune génération) ; époque, ère	代表 dàibiǎo = représenter ; 现代 xiàndài = époque moderne	代替	请代我向你的父母问好。	Qǐng dài wǒ xiàng nǐ de fùmǔ wèn hǎo.	Salue tes parents de ma part, s’il te plaît.
+理论
+网络
+式	shì	style, type, manière (suffixe : 中式 = à la chinoise ; 西式 = à l’occidentale ; 老式 = à l’ancienne)	en fin de mot : 方式 fāngshì (manière), 正式 zhèngshì (officiel)	中式	这家餐厅的早餐有中式的，也有西式的。	Zhè jiā cāntīng de zǎocān yǒu zhōngshì de, yě yǒu xīshì de.	Ce restaurant propose des petits-déjeuners à la chinoise comme à l’occidentale.
+宣布
+创造
+调	diào	muter, affecter à un autre poste ; enquêter : 调查 = enquêter, enquête	à distinguer de 调 tiáo (régler, assaisonner) ; aussi nom dans 声调 shēngdiào (ton)	调动	公司把他调到了上海。	Gōngsī bǎ tā diào dào le Shànghǎi.	L’entreprise l’a muté à Shanghai.
+调	tiáo	régler, ajuster ; assaisonner, mélanger (une sauce, une boisson)	à distinguer de 调 diào (muter ; enquêter)	调整	我把闹钟调到了六点半。	Wǒ bǎ nàozhōng tiáo dào le liù diǎn bàn.	J’ai réglé le réveil sur six heures et demie.
+队伍	duìwu	équipe, troupe (groupe organisé de personnes) ; file, cortège	se compte avec 支 zhī : 一支队伍		他们的队伍里有很多年轻人。	Tāmen de duìwu lǐ yǒu hěn duō niánqīngrén.	Il y a beaucoup de jeunes dans leur équipe.
+命	mìng	vie (d’un être vivant) : 救命 = à l’aide !, sauver une vie ; destin, sort ; ordre (écrit)	se compte avec 条 tiáo : 一条命 ; 生命 shēngmìng = la vie en général	生命	这位医生救了很多人的命。	Zhè wèi yīshēng jiù le hěn duō rén de mìng.	Ce médecin a sauvé la vie de beaucoup de gens.
+烧	shāo	brûler ; chauffer, faire bouillir : 烧水 = faire bouillir de l’eau ; braiser, rôtir ; fièvre : 发烧 = avoir de la fièvre		烧水	大火烧了一夜，那座房子什么都没剩下。	Dàhuǒ shāo le yí yè, nà zuò fángzi shénme dōu méi shèngxia.	L’incendie a brûlé toute la nuit : il n’est rien resté de la maison.
+事故	shìgù	accident (de la route, de travail), incident grave : 交通事故 = accident de la route	se compte avec 起 qǐ : 一起事故		昨天路上发生了一起交通事故。	Zuótiān lùshang fāshēng le yì qǐ jiāotōng shìgù.	Hier, un accident de la route s’est produit.
+数据
+安	ān	calme, en paix, en sécurité : 平安 = sain et sauf ; rassurer, apaiser : 安心 = être rassuré ; installer (un appareil)	presque toujours dans des composés : 安全, 安静, 安排, 平安, 安心	平安	听到孩子平安到家的消息，妈妈才安心了。	Tīngdào háizi píng'ān dào jiā de xiāoxi, māma cái ānxīn le.	En apprenant que l’enfant était bien arrivé à la maison, sa mère a enfin été rassurée.
+思想
+破坏
+消失
+稳定
+巨大
+藏	cáng	cacher, dissimuler ; garder en réserve, conserver	se lit zàng dans 西藏 Xīzàng (Tibet)	藏起来	他把钱藏在书里，我找了很久才找到。	Tā bǎ qián cáng zài shū lǐ, wǒ zhǎo le hěn jiǔ cái zhǎodào.	Il a caché l’argent dans un livre, et j’ai mis longtemps à le trouver.
+龙
+协议	xiéyì	accord, convention, protocole (document signé) ; convenir (par un accord)	签协议 = signer un accord ; à distinguer de 合同 hétong (contrat)		两家公司昨天签了一份协议。	Liǎng jiā gōngsī zuótiān qiān le yí fèn xiéyì.	Les deux entreprises ont signé un accord hier.
+满足
+配	pèi	aller avec, assortir ; mériter, être digne de ; préparer (un mélange), faire faire : 配钥匙 = faire faire un double de clé		搭配	米饭配这个菜，特别好吃。	Mǐfàn pèi zhège cài, tèbié hǎochī.	Le riz avec ce plat, c’est vraiment délicieux.
+土地
+威胁
+老婆
+等待
+挑战
+占
+小姐
+秘密
+超级
+猪
+设备
+意味着	yìwèizhe	signifier, vouloir dire, impliquer	A 意味着 B : le fait A implique B (le sujet est un fait ou une chose, pas une personne)		下雪了，这意味着冬天真的来了。	Xià xuě le, zhè yìwèizhe dōngtiān zhēn de lái le.	Il neige, ce qui signifie que l’hiver est vraiment arrivé.
+团
+保	bǎo	protéger, préserver : 保暖 = garder au chaud ; garantir, assurer	surtout dans des composés : 保护 (protéger), 保证 (garantir), 保险 (assurance), 保持 (garder)	保护	天气冷了，多穿点儿衣服，注意保暖。	Tiānqì lěng le, duō chuān diǎnr yīfu, zhùyì bǎonuǎn.	Il s’est mis à faire froid : couvre-toi davantage et fais attention à rester au chaud.
+制造
+紧	jǐn	serré, tendu ; pressant, serré (emploi du temps) ; serrer, resserrer	voir aussi 紧张 jǐnzhāng (nerveux ; tendu)	紧张	这双鞋有点儿紧，我想换一双大一点儿的。	Zhè shuāng xié yǒudiǎnr jǐn, wǒ xiǎng huàn yì shuāng dà yìdiǎnr de.	Ces chaussures sont un peu serrées, j’aimerais en changer pour une paire plus grande.
+对手
+抽	chōu	tirer, sortir (qqch de parmi d’autres) ; prélever : 抽时间 = trouver du temps ; fumer : 抽烟 = fumer	抽空 chōukòng = trouver un moment libre	抽烟	他从书包里抽出一本书，认真地看了起来。	Tā cóng shūbāo lǐ chōuchū yì běn shū, rènzhēn de kàn le qǐlai.	Il a sorti un livre de son cartable et s’est mis à le lire attentivement.
+想象
+当地
+背	bèi	dos (du corps, d’un objet) ; réciter par cœur : 背课文 = réciter une leçon ; tourner le dos à ; (familier) malchanceux : 点儿背 = pas de chance	aussi bēi : porter sur le dos : 背孩子 bēi háizi = porter un enfant sur le dos	后背	我的背有点儿疼，想休息一下。	Wǒ de bèi yǒudiǎnr téng, xiǎng xiūxi yíxià.	J’ai un peu mal au dos, je voudrais me reposer un moment.
+需	xū	avoir besoin de, falloir (écrit) ; besoin, nécessité	surtout dans 需要 xūyào (avoir besoin de, falloir) ; à l’écrit : 如需 = si besoin	需要	如需帮助，请给我打电话。	Rú xū bāngzhù, qǐng gěi wǒ dǎ diànhuà.	Si vous avez besoin d’aide, appelez-moi.
+特殊
+具体
+合	hé	fermer, refermer (un livre, les yeux) : 合上书 = fermer le livre ; réunir, joindre ; convenir à, être conforme à : 合适 = qui convient	surtout en composés : 合适 (qui convient), 合作 (coopérer), 合同 (contrat)	合上	请大家合上书，听我说。	Qǐng dàjiā hé shàng shū, tīng wǒ shuō.	Fermez vos livres, s’il vous plaît, et écoutez-moi.
+风格
+建筑
+角色
+疯狂
+彻底
+表达
+投入
+胜	shèng	gagner, vaincre ; surpasser, valoir mieux que	contraire : 输 shū (perdre) ; voir 胜利 shènglì (victoire)	胜利	昨天的比赛，我们队以三比二胜了对方。	Zuótiān de bǐsài, wǒmen duì yǐ sān bǐ èr shèng le duìfāng.	Dans le match d’hier, notre équipe a battu l’adversaire trois à deux.
+确保	quèbǎo	assurer, garantir (que qqch soit fait) : 确保安全 = garantir la sécurité ; s’assurer que			出门前，一定要确保门窗都关好了。	Chūmén qián, yídìng yào quèbǎo ménchuāng dōu guān hǎo le.	Avant de sortir, il faut absolument s’assurer que les portes et les fenêtres sont bien fermées.
+建	jiàn	construire, bâtir ; fonder, établir	souvent en composés : 建立 (fonder), 建设 (construire), 建筑 (bâtiment)	建设	学校旁边要建一座新的图书馆。	Xuéxiào pángbiān yào jiàn yí zuò xīn de túshūguǎn.	On va construire une nouvelle bibliothèque à côté de l’école.
+足够	zúgòu	suffire, être suffisant ; assez (en quantité)	足够的时间 = assez de temps		这些米足够我们吃一个星期了。	Zhèxiē mǐ zúgòu wǒmen chī yí ge xīngqī le.	Ce riz nous suffira pour une semaine.
+出口
+权利
+拍摄	pāishè	photographier, filmer, tourner (un film)	plus soutenu que 拍 pāi (prendre une photo)		这部电影是在海边拍摄的。	Zhè bù diànyǐng shì zài hǎibiān pāishè de.	Ce film a été tourné au bord de la mer.
+采取
+区域	qūyù	zone, région, secteur	à distinguer de 地区 dìqū (région administrative)		这个区域不能停车。	Zhège qūyù bù néng tíngchē.	On ne peut pas se garer dans cette zone.
+期间
+意外
+风险
+时刻
+断
+平
+观察
+愿	yuàn	souhaiter, faire le vœu que : 愿你快乐 = je te souhaite d’être heureux ; (écrit) vouloir bien, être disposé à ; vœu, souhait	dans 愿意 yuànyì (vouloir bien), 愿望 yuànwàng (souhait)	愿意	愿你每天都开心！	Yuàn nǐ měitiān dōu kāixīn!	Je te souhaite d’être heureux chaque jour !
+难以	nányǐ	difficile à, qu’on ne peut guère (+ verbe) : 难以相信 = difficile à croire	plus soutenu que 很难 hěn nán		这个问题太复杂了，难以用几句话说清楚。	Zhège wèntí tài fùzá le, nányǐ yòng jǐ jù huà shuō qīngchu.	Ce problème est trop compliqué : on peut difficilement l’expliquer clairement en quelques mots.
+接近
+运	yùn	transporter, acheminer ; chance, sort (dans 运气, 好运)	aussi dans 运动 yùndòng (sport ; faire du sport)	运输	每天都有很多水果被运到城里去。	Měitiān dōu yǒu hěn duō shuǐguǒ bèi yùn dào chéng lǐ qù.	Chaque jour, beaucoup de fruits sont transportés en ville.
+敌人
+重大
+表明
+墙
+程序
+持续
+具有	jùyǒu	posséder, avoir, présenter (une qualité, une valeur, une caractéristique)	plus soutenu que 有 yǒu ; l’objet est une qualité ou un trait abstrait		这种方法具有很多好处。	Zhè zhǒng fāngfǎ jùyǒu hěn duō hǎochu.	Cette méthode présente de nombreux avantages.
+医疗	yīliáo	soins médicaux, services de santé ; soigner (écrit)	à distinguer de 治疗 zhìliáo (traiter une maladie)		这个小城市的医疗条件越来越好了。	Zhège xiǎo chéngshì de yīliáo tiáojiàn yuè lái yuè hǎo le.	Les services de santé de cette petite ville s’améliorent de plus en plus.
+切	qiē
+戏	xì	pièce de théâtre, opéra traditionnel : 看戏 = aller voir une pièce ; comédie (au sens figuré) : 演戏 = jouer la comédie, faire semblant	se compte avec 场 chǎng ou 出 chū : 一场戏	看戏	周末，奶奶带我去看了一场戏。	Zhōumò, nǎinai dài wǒ qù kàn le yì chǎng xì.	Ce week-end, ma grand-mère m’a emmené voir une pièce de théâtre.
+合同
+发表
+处于	chǔyú	se trouver dans (un état, une situation, une position)	suivi d’un état ou d’une situation : 处于困难之中 = être en difficulté		我们的公司现在正处于最困难的时候。	Wǒmen de gōngsī xiànzài zhèng chǔyú zuì kùnnan de shíhou.	Notre entreprise traverse actuellement sa période la plus difficile.
+相关
+简直
+展示	zhǎnshì	montrer, présenter, exposer (de façon visible) ; faire valoir (un talent)	plus soutenu que 给…看 gěi…kàn (faire voir)		他向大家展示了自己新买的手机。	Tā xiàng dàjiā zhǎnshì le zìjǐ xīn mǎi de shǒujī.	Il a montré à tout le monde le téléphone qu’il venait d’acheter.
+退
+情绪
+究竟
+强大	qiángdà	puissant, fort, redoutable (un pays, une entreprise, une équipe)			他们的队伍非常强大，我们很难赢。	Tāmen de duìwu fēicháng qiángdà, wǒmen hěn nán yíng.	Leur équipe est très forte, il nous sera difficile de gagner.
+掌握
+证据
+替	tì	remplacer, faire à la place de : 我替你去 = j’irai à ta place ; (préposition) pour, de la part de : 替我向他问好 = salue-le de ma part		代替	他生病了，我替他去开会。	Tā shēngbìng le, wǒ tì tā qù kāihuì.	Il est malade, j’irai à la réunion à sa place.
+幸运
+制作
+最佳	zuìjiā	meilleur, optimal, idéal (devant un nom) : 最佳选择 = le meilleur choix	se dit aussi pour un prix : 最佳演员 = meilleur acteur		春天是来北京旅游的最佳时间。	Chūntiān shì lái Běijīng lǚyóu de zuìjiā shíjiān.	Le printemps est le meilleur moment pour venir visiter Pékin.
+记忆
+资金
+员工
+立即
+hsk5:升
+内部
+经营
+困
+在于
+发挥
+初	chū	début (d’une période) : 年初 = début d’année ; premier, élémentaire : 初中 = collège ; d’abord, pour la première fois : 初次 = la première fois	devant un nombre, désigne les dix premiers jours du mois lunaire : 初一 = le premier jour	年初	我们是在今年初认识的。	Wǒmen shì zài jīnnián chū rènshi de.	Nous nous sommes connus au début de cette année.
+立刻
+独立
+实验
+表情
+社区	shèqū	quartier, communauté locale (zone résidentielle)			我们社区新开了一个小图书馆。	Wǒmen shèqū xīn kāi le yí ge xiǎo túshūguǎn.	Une petite bibliothèque vient d’ouvrir dans notre quartier.
+手段	shǒuduàn	moyen, méthode ; procédé, ruse (souvent péjoratif)	peut être péjoratif : 不择手段 = tous les moyens sont bons		要解决这个问题，不能只用一种手段。	Yào jiějué zhège wèntí, bù néng zhǐ yòng yì zhǒng shǒuduàn.	Pour résoudre ce problème, on ne peut pas se contenter d’un seul moyen.
+采访
+通常
+针对
+即将	jíjiāng	sur le point de, bientôt (écrit)	écrit, annonces ; à l’oral on dit plutôt 马上要 ou 快要		火车即将到站，请您带好行李。	Huǒchē jíjiāng dào zhàn, qǐng nín dài hǎo xíngli.	Le train va bientôt arriver en gare, veuillez prendre vos bagages.
+角度
+遗憾
+宝	bǎo	trésor, objet précieux ; (terme affectueux) bébé, chéri : 宝宝 = bébé	souvent redoublé : 宝宝 bǎobao ; aussi 宝贝 bǎobèi (trésor, chéri)	宝贝	这个孩子是全家的宝。	Zhège háizi shì quán jiā de bǎo.	Cet enfant est le trésor de toute la famille.
+对象
+接触
+规则
+欧洲
+损失
+骗
+合理
+依然
+阶段
+成熟
+一致
+信任
+刺激
+反正
+贴	tiē	coller, afficher : 贴照片 = coller une photo ; se coller contre, serrer de près		贴上	请把照片贴在这张纸上。	Qǐng bǎ zhàopiàn tiē zài zhè zhāng zhǐ shàng.	Colle la photo sur cette feuille, s’il te plaît.
+尽快
+药物	yàowù	médicament(s), substance médicamenteuse	plus technique que 药 yào : 药物治疗 = traitement médicamenteux		有些药物孩子不能吃，请先问医生。	Yǒuxiē yàowù háizi bù néng chī, qǐng xiān wèn yīshēng.	Certains médicaments ne doivent pas être pris par les enfants : demandez d’abord à un médecin.
+进一步	jìnyíbù	plus avant, davantage, encore plus (devant un verbe) ; aller plus loin	devant un verbe : 进一步了解 = approfondir sa connaissance de		我想进一步了解这家公司。	Wǒ xiǎng jìnyíbù liǎojiě zhè jiā gōngsī.	J’aimerais en savoir davantage sur cette entreprise.
+移动
+销售
+呼吸
+可怕
+确认
+防	fáng	prévenir, se prémunir contre : 防火 = prévenir les incendies ; défendre, se défendre	surtout en composés : 预防 (prévenir), 防止 (empêcher)	预防	洗手可以防感冒。	Xǐ shǒu kěyǐ fáng gǎnmào.	Se laver les mains permet de prévenir les rhumes.
+舞台	wǔtái	scène (de théâtre), podium ; (fig.) arène, théâtre			他第一次站在舞台上，心里有点儿紧张。	Tā dìyī cì zhàn zài wǔtái shàng, xīnlǐ yǒudiǎnr jǐnzhāng.	Pour la première fois sur scène, il était un peu nerveux.
+化	huà	(suffixe) -iser, -ifier : 现代化 = modernisation, moderniser ; se transformer, se changer en ; fondre (neige, glace)	aussi dans 化学 huàxué (chimie), 变化 biànhuà (changement)	变化	这里的生活越来越现代化了。	Zhèlǐ de shēnghuó yuè lái yuè xiàndàihuà le.	La vie ici se modernise de plus en plus.
+出色
+调整
+冰
+领	lǐng	recevoir, toucher (ce que l’on vous remet) : 领工资 = toucher son salaire ; mener, conduire ; col, cou		领取	下午我要去学校领新书。	Xiàwǔ wǒ yào qù xuéxiào lǐng xīn shū.	Cet après-midi, je vais à l’école récupérer mes livres neufs.
+滚
+结	jié	nœud, nouer ; conclure, terminer ; régler (un compte) : 结账 = régler l’addition	dans 结婚 (se marier), 结束 (finir), 结果 (résultat) ; se lit jiē pour porter des fruits (开花结果)	结束	鞋带上有一个结，我怎么也解不开。	Xiédài shàng yǒu yí ge jié, wǒ zěnme yě jiě bu kāi.	Il y a un nœud dans le lacet : j’ai beau essayer, je n’arrive pas à le défaire.
+讲话	jiǎnghuà	discours, allocution ; parler, prendre la parole (devant un public)			校长的讲话很短，但是大家都记住了。	Xiàozhǎng de jiǎnghuà hěn duǎn, dànshì dàjiā dōu jìzhù le.	Le discours du directeur était court, mais tout le monde s’en est souvenu.
+紧急
+宣传
+撞
+优势
+随时
+付出	fùchū	consacrer, investir (efforts, temps, argent) ; payer (un prix, un sacrifice)	付出代价 = payer le prix (d’une erreur)		要想学好汉语，就要付出很多时间和努力。	Yào xiǎng xué hǎo Hànyǔ, jiù yào fùchū hěn duō shíjiān hé nǔlì.	Pour bien apprendre le chinois, il faut y consacrer beaucoup de temps et d’efforts.
+时期
+哎
+好运	hǎoyùn	bonne chance, chance	aussi 运气 yùnqi (chance) : 他运气很好 = il a de la chance		明天就要考试了，祝你好运！	Míngtiān jiù yào kǎoshì le, zhù nǐ hǎoyùn!	Demain, c’est l’examen : bonne chance !
+治	zhì	soigner, traiter (une maladie) : 治病 = soigner une maladie ; gouverner, administrer ; combattre (un fléau)	voir aussi 治疗 zhìliáo (traiter, traitement)	治病	医生说这个病不难治，大家别担心。	Yīshēng shuō zhège bìng bù nán zhì, dàjiā bié dānxīn.	Le médecin dit que cette maladie n’est pas difficile à soigner, ne vous inquiétez pas.
+措施
+导演
+利益
+生物	shēngwù	être vivant, organisme ; biologie (matière)	生物学 shēngwùxué = la biologie comme science		海里有很多我们不认识的生物。	Hǎi lǐ yǒu hěn duō wǒmen bú rènshi de shēngwù.	Il y a dans la mer beaucoup d’êtres vivants que nous ne connaissons pas.
+评价
+迷	mí	se perdre, s’égarer : 迷路 = se perdre en chemin ; être fou de, accro à : 迷上 = devenir accro à ; fan : 球迷 = fan de football		迷路	第一次来这座城市，我在路上迷路了。	Dìyī cì lái zhè zuò chéngshì, wǒ zài lùshang mílù le.	Comme c’était la première fois que je venais dans cette ville, je me suis perdu en chemin.
+形象
+方案
+欠
+主题
+商业
+到达
+主任
+功能
+避免
+生产
+量	liàng	quantité, volume ; capacité, limite (de ce qu’on supporte) : 酒量 = tolérance à l’alcool	aussi liáng : mesurer (量身高 liáng shēngāo = mesurer sa taille)	大量	今天的作业量太大了，我写不完。	Jīntiān de zuòyè liàng tài dà le, wǒ xiě bu wán.	La quantité de devoirs d’aujourd’hui est trop grande, je n’arrive pas à tout faire.
+试验	shìyàn	expérience, essai (scientifique, technique) ; expérimenter, tester	proche de 实验 shíyàn (expérience scientifique) ; ce n’est pas un examen (考试)		这个试验我们做了三次，结果都一样。	Zhège shìyàn wǒmen zuò le sān cì, jiéguǒ dōu yíyàng.	Nous avons fait cette expérience trois fois, avec le même résultat.
+成长
+闹	nào	bruyant, animé ; faire du bruit, chahuter : 别闹 = arrête de chahuter ; faire des histoires, se disputer	aussi 热闹 rènao (animé), 闹钟 nàozhōng (réveil)	别闹	教室里太闹了，我听不清老师在说什么。	Jiàoshì lǐ tài nào le, wǒ tīng bu qīng lǎoshī zài shuō shénme.	La classe est trop bruyante, je n’entends pas bien ce que dit le professeur.
+彼此
+推荐
+指导
+品牌	pǐnpái	marque (commerciale)	à l’oral on dit aussi 牌子 páizi ; 名牌 míngpái = grande marque		这个品牌的运动鞋很受年轻人欢迎。	Zhège pǐnpái de yùndòng xié hěn shòu niánqīngrén huānyíng.	Les chaussures de sport de cette marque sont très appréciées des jeunes.
+盖
+原则
+联合
+炒
+奖
+录	lù	enregistrer (un son, une vidéo) : 录音 = enregistrement audio ; noter, consigner	dans 记录 jìlù (noter ; record), 目录 mùlù (table des matières)	录音	我用手机把老师的话录下来了。	Wǒ yòng shǒujī bǎ lǎoshī de huà lù xiàlai le.	J’ai enregistré avec mon téléphone ce que disait le professeur.
+微笑
+组合
+观点
+惊喜	jīngxǐ	agréablement surpris, ravi ; bonne surprise	à distinguer de 惊讶 jīngyà (surpris, étonné, sans idée de plaisir)		听到这个好消息，大家都很惊喜。	Tīngdào zhège hǎo xiāoxi, dàjiā dōu hěn jīngxǐ.	En apprenant cette bonne nouvelle, tout le monde a été agréablement surpris.
+强烈
+争取
+公平
+高级
+洞
+良好
+思考
+签
+自从
+尝试	chángshì	essayer, tenter (de faire qqch de nouveau) ; essai, tentative	plus soutenu que 试 shì (essayer)		我想尝试用汉语写日记。	Wǒ xiǎng chángshì yòng Hànyǔ xiě rìjì.	J’aimerais essayer d’écrire un journal en chinois.
+命运
+疾病	jíbìng	maladie, affection (terme général)	plus soutenu que 病 bìng ; surtout pour parler des maladies en général : 预防疾病 yùfáng jíbìng = prévenir les maladies		吸烟会带来很多疾病。	Xīyān huì dàilái hěn duō jíbìng.	Fumer entraîne beaucoup de maladies.
+女子	nǚzǐ	femme (neutre ou écrit, surtout dans la presse et le sport)	plus formel que 女人 nǚrén ; 女子篮球 = basket féminin ; contraire : 男子 nánzǐ		门口站着一位年轻的女子。	Ménkǒu zhàn zhe yí wèi niánqīng de nǚzǐ.	Une jeune femme se tient à la porte.
+类似	lèisì	semblable, du même genre (类似的问题 = un problème semblable) ; ressembler à	类似于 lèisì yú : ressembler à, être comparable à		我以前也遇到过类似的问题。	Wǒ yǐqián yě yùdào guo lèisì de wèntí.	Moi aussi, j’ai rencontré un problème semblable par le passé.
+凭
+尽量
+娱乐
+不然
+资格
+企业
+工具
+追求
+欣赏
+高度	gāodù	hauteur, altitude ; très élevé, à un haut degré (高度重视 = accorder la plus grande attention à)	pour une personne, on dit plutôt 身高 shēngāo (taille)		这座山的高度有三千多米。	Zhè zuò shān de gāodù yǒu sānqiān duō mǐ.	Cette montagne fait plus de trois mille mètres de haut.
+挑	tiāo	choisir (avec soin), sélectionner ; porter au bout d’une palanche	挑食 tiāoshí : être difficile sur la nourriture ; aussi tiǎo : soulever (挑战 tiǎozhàn = défi)	挑选	这么多衣服，我不知道该挑哪一件。	Zhème duō yīfu, wǒ bù zhīdao gāi tiāo nǎ yí jiàn.	Il y a tant de vêtements que je ne sais pas lequel choisir.
+碎
+连续
+阻止
+资源
+老公	lǎogōng	mari (familier)	我老公 = mon mari ; plus neutre : 丈夫 zhàngfu ; épouse : 老婆 lǎopo		我老公做的菜很好吃。	Wǒ lǎogōng zuò de cài hěn hǎochī.	Les plats que fait mon mari sont très bons.
+决赛
+主席
+形成
+行业
+配合
+背后	bèihòu	derrière, à l’arrière ; dans le dos de quelqu’un, en cachette (在背后说别人 = parler des autres dans leur dos)	pour « derrière » au sens courant, 后面 hòumiàn est plus fréquent		房子的背后有一个小花园。	Fángzi de bèihòu yǒu yí ge xiǎo huāyuán.	Derrière la maison, il y a un petit jardin.
+显得
+亲自
+物质
+承担
+面临
+神秘
+自动
+明确
+结合
+当中	dāngzhōng	parmi, au sein de (我们当中 = parmi nous) ; au milieu, au centre	在…当中 = parmi… ; se lit dāngzhōng (pas dàng)		我们当中有三个人去过中国。	Wǒmen dāngzhōng yǒu sān ge rén qù guo Zhōngguó.	Parmi nous, trois personnes sont déjà allées en Chine.
+登记
+男子	nánzǐ	homme (neutre ou écrit, surtout dans la presse et le sport)	plus formel que 男人 nánrén ; 男子足球 = football masculin ; contraire : 女子 nǚzǐ		那位男子帮我找到了我丢的手机。	Nà wèi nánzǐ bāng wǒ zhǎo dào le wǒ diū de shǒujī.	Cet homme m’a aidé à retrouver mon téléphone, que j’avais perdu.
+躲	duǒ	se cacher, se mettre à l’abri ; esquiver, éviter	躲雨 duǒ yǔ : s’abriter de la pluie ; 躲开 duǒkāi : s’écarter, esquiver	躲起来	孩子躲在门后面，等着爸爸回来。	Háizi duǒ zài mén hòumian, děng zhe bàba huílai.	L’enfant se cache derrière la porte et attend que son père rentre.
+来源	láiyuán	source, origine, provenance ; provenir de (来源于 = tirer son origine de)			这个消息的来源是什么？	Zhège xiāoxi de láiyuán shì shénme?	Quelle est la source de cette information ?
+生存	shēngcún	survivre, subsister (pour un être vivant)	insiste sur la survie : 生存环境 = milieu de vie ; 生活 shēnghuó : vivre, la vie de tous les jours		没有水，人就无法生存。	Méiyǒu shuǐ, rén jiù wúfǎ shēngcún.	Sans eau, l’être humain ne peut pas survivre.
+充分
+hsk5:批
+hsk5:批#2
+主人
+经典
+法院
+醉
+念
+背景
+进步
+对待
+大会	dàhuì	assemblée, grande réunion, congrès (开大会 = tenir une assemblée)	plus solennel et plus vaste qu’une réunion de travail (会议 huìyì)		明天上午学校开大会，每个学生都要参加。	Míngtiān shàngwǔ xuéxiào kāi dàhuì, měi ge xuésheng dōu yào cānjiā.	Demain matin, l’école tient une assemblée générale et chaque élève doit y assister.
+或是	huòshì	ou, ou bien (dans une affirmation) ; soit… soit… (或是…或是…)	dans une question, on dit plutôt 还是 háishi ; proche de 或者 huòzhě		周末我喜欢在家看书，或是出去走走。	Zhōumò wǒ xǐhuan zài jiā kàn shū, huòshì chūqu zǒuzou.	Le week-end, j’aime lire à la maison, ou bien sortir faire un tour.
+现象
+实力	shílì	force réelle, puissance, capacités (d’une équipe, d’une entreprise, d’une personne)	à distinguer de 力气 lìqi (force physique)		这支球队的实力很强，今年一定能赢。	Zhè zhī qiúduì de shílì hěn qiáng, jīnnián yídìng néng yíng.	Cette équipe est très forte, elle va sûrement gagner cette année.
+私人
+一路	yílù	tout le long du chemin, pendant tout le trajet ; trajet, route	一路上 yílùshang : pendant tout le trajet ; 一路顺风 yílù shùnfēng : bon voyage		我们一路有说有笑，很快就到了。	Wǒmen yílù yǒu shuō yǒu xiào, hěn kuài jiù dào le.	Nous avons bavardé et ri tout le long du chemin, et nous sommes vite arrivés.
+领域
+拼	pīn	assembler, mettre ensemble (les pièces d’un puzzle…) ; se donner à fond, tout risquer ; épeler	拼音 pīnyīn : transcription phonétique ; 拼命 pīnmìng : y mettre toute son énergie	拼音	弟弟花了一个下午，终于把这个玩具拼好了。	Dìdi huā le yí ge xiàwǔ, zhōngyú bǎ zhège wánjù pīn hǎo le.	Mon petit frère a passé tout l’après-midi, et il a enfin fini d’assembler ce jouet.
+湖	hú	lac	se compte avec 个 : 一个湖 = un lac ; 湖边 húbiān : bord du lac	湖水	周末我们一起去湖边散步吧。	Zhōumò wǒmen yìqǐ qù húbiān sànbù ba.	Ce week-end, allons nous promener ensemble au bord du lac.
+主动
+服装
+形式
+硬
+毕竟
+限制
+居民	jūmín	habitant, résident (d’un quartier, d’une commune)	à distinguer de 市民 shìmín (habitant d’une ville)		这里的居民大多数都很友好。	Zhèlǐ de jūmín dàduōshù dōu hěn yǒuhǎo.	La plupart des habitants d’ici sont très sympathiques.
+恭喜
+万一
+如今
+前往	qiánwǎng	se rendre à, partir pour (écrit : 前往机场 = se rendre à l’aéroport)	plus soutenu que 去 qù		我们明天早上七点前往机场。	Wǒmen míngtiān zǎoshang qī diǎn qiánwǎng jīchǎng.	Demain matin à sept heures, nous nous rendons à l’aéroport.
+分手
+恋爱
+成立
+歌曲	gēqǔ	chanson, morceau de chant	se compte avec 首 : 一首歌曲 = une chanson ; 歌 gē est plus courant à l’oral		这首歌曲我已经听了很多遍。	Zhè shǒu gēqǔ wǒ yǐjing tīng le hěn duō biàn.	J’ai déjà écouté cette chanson de nombreuses fois.
+团队	tuánduì	équipe, groupe (de travail, de projet)	团队合作 tuánduì hézuò : travail d’équipe		我们这个团队有十个人，大家合作得很好。	Wǒmen zhège tuánduì yǒu shí ge rén, dàjiā hézuò de hěn hǎo.	Notre équipe compte dix personnes, et tout le monde collabore très bien.
+模式	móshì	modèle, schéma, façon de fonctionner ; mode (d’un appareil : 飞行模式 = mode avion)	à distinguer de 方式 fāngshì (manière de faire)		我喜欢这种工作模式，时间比较自由。	Wǒ xǐhuan zhè zhǒng gōngzuò móshì, shíjiān bǐjiào zìyóu.	J’aime ce mode de travail : les horaires sont assez libres.
+细节
+唉
+现代
+维持	wéichí	maintenir, conserver (un état, un niveau) ; faire subsister (维持生活 = subvenir à ses besoins)			他每天跑步，是为了维持现在的体重。	Tā měitiān pǎobù, shì wèile wéichí xiànzài de tǐzhòng.	Il court tous les jours pour garder son poids actuel.
+道理
+迅速
+似的
+必	bì	certainement, forcément, à coup sûr (écrit : 必 + verbe) ; devoir absolument (必读 = à lire absolument)	écrit ; à l’oral, 一定 yídìng ; 必须 bìxū : il faut absolument	必须	只要你努力学习，汉语水平必会提高。	Zhǐyào nǐ nǔlì xuéxí, Hànyǔ shuǐpíng bì huì tígāo.	Si tu étudies avec application, ton niveau de chinois s’améliorera forcément.
+出席
+深刻
+婚礼
+全面
+体验
+玻璃
+话题
+坚强
+古	gǔ	ancien, antique (古城 = ville ancienne)	surtout en composés : 古代 gǔdài (l’Antiquité), 古老 gǔlǎo (très ancien)	古代	这座古城有一千多年的历史。	Zhè zuò gǔchéng yǒu yìqiān duō nián de lìshǐ.	Cette ville ancienne a plus de mille ans d’histoire.
+咬
+合法
+工程	gōngchéng	grands travaux, chantier, projet de construction ; ingénierie	工程师 gōngchéngshī : ingénieur		这个工程需要两年才能完成。	Zhège gōngchéng xūyào liǎng nián cái néng wánchéng.	Ces travaux ne seront achevés qu’au bout de deux ans.
+实施	shíshī	mettre en œuvre, appliquer (un plan, une loi, une mesure) ; entrer en application	style administratif ; 开始实施 = entrer en vigueur		新的规定将从下个月开始实施。	Xīn de guīdìng jiāng cóng xià ge yuè kāishǐ shíshī.	Le nouveau règlement sera appliqué à partir du mois prochain.
+湿	shī	humide, mouillé	contraire : 干 gān (sec) ; 潮湿 cháoshī : humide (air, climat)	潮湿	雨下得很大，我的衣服都湿了。	Yǔ xià de hěn dà, wǒ de yīfu dōu shī le.	Il pleut très fort, mes vêtements sont tout mouillés.
+缺乏
+暗
+诗
+类型
+锁
+重复
+造	zào	fabriquer, construire ; faire, créer (造句 = faire une phrase)	制造 zhìzào : fabriquer	制造	这座桥是五年前造的。	Zhè zuò qiáo shì wǔ nián qián zào de.	Ce pont a été construit il y a cinq ans.
+个性
+批准
+前进	qiánjìn	avancer, aller de l’avant ; progresser	contraire : 后退 hòutuì (reculer)		天黑了，但我们还是继续前进。	Tiān hēi le, dàn wǒmen háishi jìxù qiánjìn.	La nuit était tombée, mais nous avons quand même continué d’avancer.
+他人	tārén	autrui, les autres (écrit)	à l’oral, 别人 biéren est plus courant		我们要学会关心他人。	Wǒmen yào xuéhuì guānxīn tārén.	Nous devons apprendre à nous soucier des autres.
+骂
+机器
+守	shǒu	garder, veiller (sur) ; respecter, observer (une règle, la parole donnée)	守时 shǒushí : être ponctuel ; 遵守 zūnshǒu : respecter (une règle)	守着	妈妈守在孩子的床边，一晚上没睡。	Māma shǒu zài háizi de chuángbiān, yì wǎnshang méi shuì.	Maman est restée au chevet de son enfant et n’a pas dormi de la nuit.
+滑
+操作	cāozuò	manipuler, faire fonctionner (une machine, un logiciel) ; manœuvre, opération	操作系统 cāozuò xìtǒng : système d’exploitation		这台机器很简单，谁都会操作。	Zhè tái jīqì hěn jiǎndān, shéi dōu huì cāozuò.	Cette machine est très simple, tout le monde sait la faire fonctionner.
+达成	dáchéng	parvenir à, conclure (un accord) ; atteindre (un objectif)	达成一致 = se mettre d’accord ; aussi avec 协议 xiéyì (accord), 目标 mùbiāo (objectif)		经过三个小时的讨论，大家终于达成了一致。	Jīngguò sān ge xiǎoshí de tǎolùn, dàjiā zhōngyú dáchéng le yízhì.	Après trois heures de discussion, tout le monde a fini par se mettre d’accord.
+标志
+公布
+本人	běnrén	la personne elle-même, en personne ; (registre officiel) moi, je	他本人 = lui-même, en personne		这个手续必须本人去办，别人不能代办。	Zhège shǒuxù bìxū běnrén qù bàn, biéren bù néng dàibàn.	Cette démarche doit être faite par l’intéressé en personne : personne d’autre ne peut la faire à sa place.
+人才
+黄金
+魅力
+舞蹈	wǔdǎo	danse (en tant qu’art ou spectacle)	pour dire « danser », on emploie 跳舞 tiàowǔ		她从五岁开始学习舞蹈。	Tā cóng wǔ suì kāishǐ xuéxí wǔdǎo.	Elle a commencé à apprendre la danse à cinq ans.
+伙伴
+因素
+发布	fābù	publier, diffuser, annoncer (officiellement) ; lancer (un produit)	发布会 fābùhuì : conférence de presse, présentation		学校在网站上发布了新的通知。	Xuéxiào zài wǎngzhàn shàng fābù le xīn de tōngzhī.	L’école a publié un nouvel avis sur son site.
+忍	rěn	supporter, endurer ; se retenir, se contenir	忍不住 rěn bu zhù : ne pas pouvoir s’empêcher de	忍受	牙很疼，但他还是忍着，没有说话。	Yá hěn téng, dàn tā háishi rěn zhe, méiyǒu shuōhuà.	Il avait très mal aux dents, mais il a enduré la douleur sans dire un mot.
+双方
+摸
+组成
+离婚
+退出	tuìchū	se retirer, quitter (un groupe, une compétition) ; quitter (un logiciel)	contraire : 加入 jiārù (rejoindre)		他受了伤，只好退出这次比赛。	Tā shòu le shāng, zhǐhǎo tuìchū zhè cì bǐsài.	Blessé, il n’a pas eu d’autre choix que de se retirer de cette compétition.
+库	kù	entrepôt, dépôt, réserve ; (en composé) fonds, base	surtout en composés : 仓库 cāngkù (entrepôt), 车库 chēkù (garage), 数据库 shùjùkù (base de données)	仓库	货都已经进库了，你可以放心。	Huò dōu yǐjing jìn kù le, nǐ kěyǐ fàngxīn.	Toutes les marchandises ont déjà été stockées, tu peux être tranquille.
+吵
+奖励	jiǎnglì	récompenser (pour encourager) ; récompense	奖金 jiǎngjīn : prime ; 奖 jiǎng : prix		老师奖励了他一本书，因为他进步很大。	Lǎoshī jiǎnglì le tā yì běn shū, yīnwèi tā jìnbù hěn dà.	Le professeur l’a récompensé par un livre parce qu’il avait fait de gros progrès.
+温暖
+承受
+齐	qí	au complet, rassemblé ; en ordre, bien aligné ; tous ensemble, d’un même mouvement ; arriver à hauteur de (齐腰 = à hauteur de la taille)	到齐 dàoqí : être tous arrivés ; 整齐 zhěngqí : en ordre, bien rangé	到齐	客人都到齐了，我们开始吃饭吧。	Kèrén dōu dào qí le, wǒmen kāishǐ chī fàn ba.	Les invités sont tous arrivés, commençons à manger.
+市民	shìmín	habitant d’une ville, citadin	à distinguer de 居民 jūmín (habitant d’un quartier, d’une commune)		周末，很多市民来这个公园散步。	Zhōumò, hěn duō shìmín lái zhège gōngyuán sànbù.	Le week-end, beaucoup d’habitants de la ville viennent se promener dans ce parc.
+人口
+咨询
+表面
+地位
+青
+顺	shùn	suivre, longer, aller dans le sens de (顺着河走 = marcher le long de la rivière) ; sans accroc, favorable	顺利 shùnlì : sans accroc ; 顺便 shùnbiàn : en passant, par la même occasion	顺着	顺着这条路一直走，就能看到车站。	Shùn zhe zhè tiáo lù yìzhí zǒu, jiù néng kàn dào chēzhàn.	Suis cette rue tout droit et tu verras la gare.
+登	dēng	gravir, monter sur (une montagne, des marches) ; (en composés) publier, inscrire	登山 dēngshān : faire de l’alpinisme ; 登机 dēngjī : embarquer ; 登录 dēnglù : se connecter	登山	我们爬了三个小时，终于登上了那座山。	Wǒmen pá le sān ge xiǎoshí, zhōngyú dēng shàng le nà zuò shān.	Nous avons grimpé pendant trois heures et nous avons enfin atteint le sommet de cette montagne.
+不幸	búxìng	malheureux, infortuné ; malheur, infortune (不幸的是 = malheureusement)	contraire : 幸运 xìngyùn (chanceux)		不幸的是，我们错过了最后一班火车。	Búxìng de shì, wǒmen cuòguò le zuìhòu yì bān huǒchē.	Malheureusement, nous avons raté le dernier train.
+结构
+妇女
+领先	lǐngxiān	être en tête, mener, devancer ; avoir de l’avance	contraire : 落后 luòhòu (être en retard)		上半场结束时，我们队以二比零领先。	Shàng bànchǎng jiéshù shí, wǒmen duì yǐ èr bǐ líng lǐngxiān.	À la fin de la première mi-temps, notre équipe menait deux à zéro.
+矛盾
+上升	shàngshēng	monter, augmenter, s’élever (température, prix, niveau)	contraire : 下降 xiàjiàng (baisser)		今年夏天，城市的平均气温上升了两度。	Jīnnián xiàtiān, chéngshì de píngjūn qìwēn shàngshēng le liǎng dù.	Cet été, la température moyenne de la ville a augmenté de deux degrés.
+围	wéi	entourer, faire cercle autour de (围着桌子坐 = s’asseoir autour de la table) ; encercler	围巾 wéijīn : écharpe	围着	大家围着桌子坐下来吃饭。	Dàjiā wéi zhe zhuōzi zuò xiàlai chī fàn.	Tout le monde s’assoit autour de la table pour manger.
+完整
+路线	lùxiàn	itinéraire, parcours ; ligne (de bus, de métro)	se compte avec 条 : 一条路线 = un itinéraire		你能告诉我去机场的路线吗？	Nǐ néng gàosu wǒ qù jīchǎng de lùxiàn ma?	Peux-tu m’indiquer l’itinéraire pour aller à l’aéroport ?
+碰
+煮
+在乎
+飞行	fēixíng	voler (avion, oiseau…), être en vol ; vol	飞行员 fēixíngyuán : pilote ; 飞行模式 : mode avion		飞机正在三千米的高空飞行。	Fēijī zhèngzài sānqiān mǐ de gāokōng fēixíng.	L’avion vole à trois mille mètres d’altitude.
+较	jiào	assez, relativement (devant un adjectif, écrit) ; plus que, comparé à (écrit)	écrit ; à l’oral, 比较 bǐjiào	比较	这家饭店的价格较高，但是菜很好吃。	Zhè jiā fàndiàn de jiàgé jiào gāo, dànshì cài hěn hǎochī.	Les prix de ce restaurant sont assez élevés, mais la cuisine est très bonne.
+请求
+纪念
+福	fú	bonheur, bonne fortune, chance (享福 = jouir d’une vie heureuse et sans souci ; 有福 = avoir de la chance)	caractère collé sur les portes au Nouvel An chinois ; 幸福 xìngfú : bonheur, heureux	幸福	孩子们都长大了，妈妈现在可以在家享福了。	Háizimen dōu zhǎng dà le, māma xiànzài kěyǐ zài jiā xiǎngfú le.	Les enfants ont tous grandi, maman peut maintenant profiter d’une vie tranquille à la maison.
+族	zú	suffixe : groupe de gens qui partagent une activité ou un trait (上班族 = les employés de bureau) ; ethnie, peuple (民族 = nation, ethnie)	汉族 Hànzú : les Han (ethnie majoritaire de Chine)	民族	我是个上班族，每天早上七点起床。	Wǒ shì ge shàngbānzú, měitiān zǎoshang qī diǎn qǐchuáng.	Je suis un employé de bureau et je me lève tous les jours à sept heures.
+全新	quánxīn	tout neuf, entièrement nouveau, flambant neuf	s’emploie devant un nom, avec 的 : 全新的电脑		我买了一台全新的电脑。	Wǒ mǎi le yì tái quánxīn de diànnǎo.	J’ai acheté un ordinateur tout neuf.
+插
+分别
+愿望
+圆
+广场
+地下	dìxià	sous terre, sous le sol ; souterrain ; clandestin	dìxia (ton neutre) : par terre, sur le sol ; 地下室 dìxiàshì : sous-sol, cave		这座商场的地下有一个很大的停车场。	Zhè zuò shāngchǎng de dìxià yǒu yí ge hěn dà de tíngchēchǎng.	Dans le sous-sol de ce centre commercial, il y a un très grand parking.
+臭
+违法	wéifǎ	enfreindre la loi, être illégal (违法行为 = acte illégal)	contraire : 合法 héfǎ (légal)		开车时打电话是违法的。	Kāi chē shí dǎ diànhuà shì wéifǎ de.	Téléphoner en conduisant est illégal.
+长期	chángqī	longue période, long terme ; de longue durée, durable (长期计划 = plan à long terme)	contraire : 短期 duǎnqī (court terme)		学汉语需要长期坚持，不能今天学，明天不学。	Xué Hànyǔ xūyào chángqī jiānchí, bù néng jīntiān xué, míngtiān bù xué.	Apprendre le chinois demande de persévérer sur la durée : on ne peut pas étudier un jour et arrêter le lendemain.
+灰
+堆
+保留
+品	pǐn	(suffixe) produit, article : 食品 = aliments, 商品 = marchandise ; qualité morale (人品 = moralité d’une personne)	seul, signifie aussi goûter, déguster : 品茶 = déguster du thé	食品	这家超市的食品很新鲜。	Zhè jiā chāoshì de shípǐn hěn xīnxiān.	Les produits alimentaires de ce supermarché sont très frais.
+收集	shōují	recueillir, rassembler (des informations, des objets) ; collectionner	pour une collection de valeur : 收藏 shōucáng		我们正在收集大家的意见。	Wǒmen zhèngzài shōují dàjiā de yìjiàn.	Nous sommes en train de recueillir l’avis de chacun.
+深入	shēnrù	approfondir, aller au fond de (深入了解 = connaître à fond) ; approfondi, poussé ; pénétrer, s’enfoncer dans	souvent devant un verbe : 深入研究 = étudier en profondeur		我想深入了解一下中国文化。	Wǒ xiǎng shēnrù liǎojiě yíxià Zhōngguó wénhuà.	J’aimerais approfondir ma connaissance de la culture chinoise.
+情感	qínggǎn	sentiment, émotion (vie affective)	proche de 感情 gǎnqíng (sentiments, affection), mais plus large et plus abstrait		这首歌表达了很深的情感。	Zhè shǒu gē biǎodá le hěn shēn de qínggǎn.	Cette chanson exprime des sentiments très profonds.
+称为	chēngwéi	appeler, nommer (把…称为… = appeler… « … ») ; 被称为 = être appelé, être connu sous le nom de		被称为	中国的新年被称为“春节”。	Zhōngguó de xīnnián bèi chēngwéi « Chūnjié ».	Le Nouvel An chinois s’appelle la « Fête du Printemps ».
+车辆	chēliàng	véhicules (terme collectif)	pas de classificateur devant 车辆 ; pour compter : 辆 liàng (一辆车 = une voiture)		这条路上的车辆很多。	Zhè tiáo lù shàng de chēliàng hěn duō.	Il y a beaucoup de véhicules sur cette route.
+当年	dāngnián	à l’époque, en ce temps-là (dans le passé)	想当年… = dans le temps… ; ne pas confondre avec 当年 dàngnián : l’année même	想当年	当年他是我们学校最好的学生。	Dāngnián tā shì wǒmen xuéxiào zuì hǎo de xuésheng.	À l’époque, il était le meilleur élève de notre école.
+使得	shǐde	faire que, avoir pour effet que (使得 + proposition) ; (oral, rare) être acceptable, faisable	même sens que 使 shǐ, surtout devant une proposition complète	使得我们	天气太冷，使得很多人感冒了。	Tiānqì tài lěng, shǐde hěn duō rén gǎnmào le.	Il faisait si froid que beaucoup de gens ont attrapé un rhume.
+公寓
+人群	rénqún	foule, groupe de personnes ; catégorie de population	人群中 = dans la foule ; 一群人 = un groupe de gens		音乐会结束后，人群慢慢离开了。	Yīnyuèhuì jiéshù hòu, rénqún mànmàn líkāi le.	Après le concert, la foule est partie peu à peu.
+依靠	yīkào	compter sur, s’appuyer sur, dépendre de ; soutien, appui	plus soutenu que 靠 kào ; 有依靠 = avoir un soutien		我们不能总是依靠父母。	Wǒmen bù néng zǒngshì yīkào fùmǔ.	Nous ne pouvons pas toujours compter sur nos parents.
+弱
+产	chǎn	produire (région, usine : 产茶 = produire du thé) ; donner naissance, pondre	surtout dans des composés : 生产 shēngchǎn (produire), 产品 chǎnpǐn (produit), 产生 chǎnshēng (naître, engendrer)	产品	我们这里主要产苹果。	Wǒmen zhèlǐ zhǔyào chǎn píngguǒ.	Chez nous, on produit surtout des pommes.
+不足
+业务
+报警	bàojǐng	alerter la police, appeler la police ; donner l’alarme, déclencher une alarme	verbe séparable : 他报了警 = il a appelé la police		发生事故后，他马上打电话报警。	Fāshēng shìgù hòu, tā mǎshàng dǎ diànhuà bàojǐng.	Après l’accident, il a tout de suite appelé la police.
+驾驶
+计算
+开发
+甲
+始终
+争	zhēng	se battre pour obtenir, rivaliser pour (争第一 = viser la première place) ; se disputer, débattre	surtout dans des composés : 争论 zhēnglùn (débattre), 争取 zhēngqǔ (s’efforcer d’obtenir), 竞争 jìngzhēng (concurrence)	争取	每个人都想争第一。	Měi ge rén dōu xiǎng zhēng dìyī.	Tout le monde veut décrocher la première place.
+贡献
+划	huá
+出版
+移	yí	déplacer, bouger, changer de place ; transférer	surtout dans des composés : 移动 yídòng (bouger ; mobile), 移民 yímín (migrer, immigrer)	移动	请把这张桌子往左移一下。	Qǐng bǎ zhè zhāng zhuōzi wǎng zuǒ yí yíxià.	Déplace un peu cette table vers la gauche, s’il te plaît.
+测	cè	mesurer, relever (测体温 = prendre la température) ; tester, sonder	surtout dans des composés : 测量 cèliáng (mesurer), 测试 cèshì (tester), 预测 yùcè (prévoir)	测量	医生给孩子测了体温。	Yīshēng gěi háizi cè le tǐwēn.	Le médecin a pris la température de l’enfant.
+诊断
+剪	jiǎn	couper (aux ciseaux) ; monter (une vidéo)	剪刀 jiǎndāo = ciseaux ; 剪辑 jiǎnjí = montage (vidéo)	剪刀	我想去剪头发。	Wǒ xiǎng qù jiǎn tóufa.	Je voudrais aller me faire couper les cheveux.
+临时
+富
+物品	wùpǐn	objets, affaires, articles	个人物品 = effets personnels ; plus écrit que 东西 dōngxi		下车时，请拿好您的物品。	Xià chē shí, qǐng ná hǎo nín de wùpǐn.	En descendant, veuillez bien prendre vos affaires.
+单独
+止	zhǐ	arrêter, faire cesser (止痛 = calmer la douleur, 止血 = arrêter un saignement) ; s’arrêter ; jusqu’à (到…为止)	禁止 jìnzhǐ = interdire ; 停止 tíngzhǐ = cesser, s’arrêter ; 到现在为止 = jusqu’à présent	停止	这种药可以止痛。	Zhè zhǒng yào kěyǐ zhǐtòng.	Ce médicament peut calmer la douleur.
+保安	bǎo'ān	agent de sécurité, vigile (aussi gardien d’un immeuble, d’une école) ; veiller à la sécurité	ne pas confondre avec 警察 jǐngchá (policier)		商店门口站着一个保安。	Shāngdiàn ménkǒu zhàn zhe yí ge bǎo'ān.	Un agent de sécurité se tient devant la porte du magasin.
+实验室	shíyànshì	laboratoire	实验 shíyàn = expérience ; 室 = salle		他每天都在实验室里工作到很晚。	Tā měitiān dōu zài shíyànshì lǐ gōngzuò dào hěn wǎn.	Il travaille tous les jours au laboratoire jusqu’à très tard.
+平衡
+开放
+全体	quántǐ	tous les membres, l’ensemble (d’un groupe de personnes) : 全体同学 = tous les élèves	surtout pour des personnes ; pour des choses : 全部 quánbù		明天全体同学都要参加考试。	Míngtiān quántǐ tóngxué dōu yào cānjiā kǎoshì.	Demain, tous les élèves doivent passer l’examen.
+挤	jǐ	se bousculer, se presser, pousser pour passer ; presser (un tube, un citron), faire entrer de force ; (adj.) bondé, serré (地铁很挤 = le métro est bondé)	挤时间 = dégager du temps (dans un emploi du temps chargé)	挤满	大家别挤，一个一个上车。	Dàjiā bié jǐ, yí ge yí ge shàng chē.	Ne vous bousculez pas, montez un par un.
+医学	yīxué	médecine (science, études)	médecin : 医生 yīshēng ; médecine traditionnelle chinoise : 中医 zhōngyī		我姐姐在大学学医学。	Wǒ jiějie zài dàxué xué yīxué.	Ma grande sœur étudie la médecine à l’université.
+大型
+作出	zuòchū	prendre, faire (une décision, un choix) ; donner (une réponse), apporter (une contribution)	variante : 做出 zuòchū ; s’emploie avec des noms abstraits : 作出选择 = faire un choix		他作出了一个重要的决定。	Tā zuòchū le yí ge zhòngyào de juédìng.	Il a pris une décision importante.
+搜索
+炸	zhá	frire, faire frire (炸鸡 = poulet frit)	aussi zhà : exploser, bombarder (爆炸 bàozhà = exploser)	炸鸡	妈妈在厨房里炸鱼。	Māma zài chúfáng lǐ zhá yú.	Maman fait frire du poisson dans la cuisine.
+展开
+把握
+酒吧
+胃
+成就
+激烈
+想念
+预测	yùcè	prévoir, prédire, pronostiquer ; prévision	à ne pas confondre avec 预报 yùbào (prévisions annoncées : 天气预报 = bulletin météo)		没有人能预测未来。	Méiyǒu rén néng yùcè wèilái.	Personne ne peut prédire l’avenir.
+固定
+勇气
+注册
+果然
+位于
+静	jìng	calme, silencieux, tranquille ; immobile, au repos ; se calmer, faire silence (静下来 = se calmer)	surtout dans des composés : 安静 ānjìng (calme), 冷静 lěngjìng (garder son sang-froid)	安静	夜深了，四周很静。	Yè shēn le, sìzhōu hěn jìng.	La nuit est avancée et tout est calme alentour.
+摇
+需求	xūqiú	besoin, demande (en économie)	满足需求 = répondre à un besoin ; offre et demande : 供求 gōngqiú		市场对这种产品的需求越来越大。	Shìchǎng duì zhè zhǒng chǎnpǐn de xūqiú yuè lái yuè dà.	La demande du marché pour ce produit est de plus en plus forte.
+展现	zhǎnxiàn	montrer, dévoiler, faire apparaître ; apparaître, s’offrir à la vue	展现在眼前 = se déployer sous les yeux		这部电影展现了普通人的生活。	Zhè bù diànyǐng zhǎnxiàn le pǔtōng rén de shēnghuó.	Ce film montre la vie des gens ordinaires.
+培养
+平静
+谈话	tánhuà	s’entretenir (avec), avoir une conversation sérieuse ; entretien, conversation	verbe séparable : 谈了一次话 = a eu un entretien ; plus sérieux que 聊天 liáotiān (bavarder)		老师想找你谈话。	Lǎoshī xiǎng zhǎo nǐ tánhuà.	Le professeur veut s’entretenir avec toi.
+平安
+传说
+环节	huánjié	maillon, étape, phase (d’une chaîne, d’un processus)	关键环节 = étape clé ; 阶段 jiēduàn = stade, période		这个计划的每个环节都要认真检查。	Zhège jìhuà de měi ge huánjié dōu yào rènzhēn jiǎnchá.	Il faut vérifier soigneusement chaque étape de ce plan.
+转变
+至今
+无数
+后果
+打破	dǎpò	casser, briser (un objet) ; rompre (le silence, une habitude), battre (un record)	打破纪录 = battre un record ; 打破沉默 = rompre le silence		他不小心打破了杯子。	Tā bù xiǎoxīn dǎpò le bēizi.	Il a cassé un verre par mégarde.
+违反
+全力	quánlì	toutes ses forces ; de toutes ses forces, à fond	全力以赴 quánlì yǐ fù = se donner à fond		我们会全力帮助你。	Wǒmen huì quánlì bāngzhù nǐ.	Nous t’aiderons de toutes nos forces.
+石头
+主持
+关闭
+软
+访问	fǎngwèn	faire une visite officielle ou de travail, rendre visite ; interviewer ; accéder à (un site web)	visiter un lieu : 参观 cānguān ; rendre visite à un proche : 看望 kànwàng		我们的校长下个月要去中国访问。	Wǒmen de xiàozhǎng xià ge yuè yào qù Zhōngguó fǎngwèn.	Notre directeur ira en visite en Chine le mois prochain.
+签名	qiānmíng	signer (de son nom), dédicacer ; signature, autographe	séparable : 签个名 ; pour un document, on dit aussi 签字 qiānzì		请在这里签名。	Qǐng zài zhèlǐ qiānmíng.	Veuillez signer ici.
+先进	xiānjìn	avancé, de pointe, perfectionné (technique, équipement, pays) ; exemplaire, méritant ; (nom) personne ou unité modèle	contraire : 落后 luòhòu (en retard, arriéré)		这家医院有很先进的设备。	Zhè jiā yīyuàn yǒu hěn xiānjìn de shèbèi.	Cet hôpital dispose d’un équipement très perfectionné.
+摄影
+交换
+描述	miáoshù	décrire ; description	voisin de 描写 miáoxiě (décrire, dépeindre en littérature)		你能描述一下那个人的样子吗？	Nǐ néng miáoshù yíxià nàge rén de yàngzi ma?	Peux-tu décrire un peu l’apparence de cette personne ?
+今日	jīnrì	aujourd’hui ; de nos jours (langue écrite)	à l’oral : 今天 jīntiān ; courant dans les titres : 今日新闻 = les nouvelles du jour		今日天气晴，最高气温二十五度。	Jīnrì tiānqì qíng, zuìgāo qìwēn èrshíwǔ dù.	Aujourd’hui, temps ensoleillé, avec une température maximale de vingt-cinq degrés.
+挡
+届
+认	rèn	reconnaître, identifier (qqn, un caractère) ; admettre (认错 = reconnaître son tort)	surtout dans des composés : 认识 rènshi (connaître), 认真 rènzhēn (sérieux), 认为 rènwéi (penser que)	认识	我一眼就认出了他。	Wǒ yì yǎn jiù rèn chū le tā.	Je l’ai reconnu au premier coup d’œil.
+亿
+在场	zàichǎng	être présent (sur place), être là (à un événement)	souvent : 在场的人 = les personnes présentes ; contraire : 不在场		在场的人都笑了。	Zàichǎng de rén dōu xiào le.	Toutes les personnes présentes ont ri.
+敏感
+运气
+玩具
+防止	fángzhǐ	empêcher (qu’un mal arrive), prévenir, se prémunir contre	防止 + événement indésirable : 防止事故 = prévenir les accidents ; empêcher quelqu’un : 阻止 zǔzhǐ		天气冷了，要多穿点衣服，防止感冒。	Tiānqì lěng le, yào duō chuān diǎn yīfu, fángzhǐ gǎnmào.	Il fait froid maintenant, il faut se couvrir davantage pour ne pas s’enrhumer.
+年纪
+智慧
+设置	shèzhì	mettre en place, installer, créer (un service, un cours) ; configurer, régler (un appareil, des paramètres)	c’est aussi le mot « Réglages » d’un téléphone ; 设置密码 = définir un mot de passe		这所学校设置了很多新的课程。	Zhè suǒ xuéxiào shèzhì le hěn duō xīn de kèchéng.	Cette école a mis en place beaucoup de nouveaux cours.
+含	hán	contenir, renfermer (含有 = contenir) ; garder dans la bouche	不含糖 = sans sucre ; 含着糖 = garder un bonbon en bouche	含有	这瓶饮料含有很多糖。	Zhè píng yǐnliào hányǒu hěn duō táng.	Cette boisson contient beaucoup de sucre.
+采用	cǎiyòng	adopter, retenir, employer (une méthode, un avis, une technique)	采用新技术 = adopter une nouvelle technique ; pour des mesures, on dit 采取 cǎiqǔ		公司决定采用他的建议。	Gōngsī juédìng cǎiyòng tā de jiànyì.	L’entreprise a décidé d’adopter sa suggestion.
+夫妇	fūfù	couple marié, mari et femme	classif. 对 : 一对夫妇 ; 夫妻 fūqī est plus courant à l’oral		那对夫妇住在我家楼上。	Nà duì fūfù zhù zài wǒ jiā lóu shàng.	Ce couple habite à l’étage au-dessus de chez moi.
+摔	shuāi	tomber (par terre), faire une chute ; jeter à terre, casser en jetant	摔倒 shuāidǎo = tomber ; 摔坏 shuāihuài = casser en laissant tomber	摔倒	地上很滑，小心别摔倒。	Dìshang hěn huá, xiǎoxīn bié shuāidǎo.	Le sol est glissant, fais attention de ne pas tomber.
+沟通
+手指
+结论
+提升	tíshēng	élever, améliorer (un niveau, une qualité) ; promouvoir (à un poste supérieur)	提高 tígāo est plus courant ; 提升 s’emploie surtout pour un niveau, une qualité, un grade		多练习才能提升汉语水平。	Duō liànxí cái néng tíshēng Hànyǔ shuǐpíng.	Il faut beaucoup s’entraîner pour améliorer son niveau de chinois.
+化学
+总之
+地面	dìmiàn	sol, terre ; surface du sol (par opposition au sous-sol, aux airs)	plus écrit que 地上 dìshang ; contraire : 空中 kōngzhōng (dans les airs)		刚下过雨，地面还是湿的。	Gāng xià guo yǔ, dìmiàn háishi shī de.	Il vient de pleuvoir et le sol est encore humide.
+天空
+统一
+制度
+绕
+玉米
+工业
+身材
+设施
+腰
+抱怨
+从事
+无关	wúguān	n’avoir aucun rapport (avec), être sans lien (avec)	A 与/和 B 无关 = A n’a rien à voir avec B ; contraire : 有关 yǒuguān		这件事和他无关。	Zhè jiàn shì hé tā wúguān.	Cette affaire n’a rien à voir avec lui.
+义务
+奇迹
+运用
+逐渐
+动手	dòngshǒu	s’y mettre, se mettre au travail (de ses mains) ; en venir aux mains, frapper ; toucher	séparable : 动了手 ; 动手打人 = lever la main sur quelqu’un		大家一起动手，很快就把房间打扫干净了。	Dàjiā yìqǐ dòngshǒu, hěn kuài jiù bǎ fángjiān dǎsǎo gānjìng le.	Tout le monde s’y est mis, et la pièce a vite été nettoyée.
+靠近	kàojìn	s’approcher de ; être proche de, être près de (靠近车站 = près de la gare)	contraire : 远离 yuǎnlí (s’éloigner de)		那只小狗慢慢地靠近了我。	Nà zhī xiǎo gǒu mànmàn de kàojìn le wǒ.	Le petit chien s’est approché de moi lentement.
+制定
+沉默
+直播	zhíbō	retransmettre en direct, diffuser en direct ; direct, émission en direct	网络直播 = diffusion en direct sur Internet ; 看直播 = regarder un direct		这场比赛会在电视上直播。	Zhè chǎng bǐsài huì zài diànshì shàng zhíbō.	Ce match sera retransmis en direct à la télévision.
+独特
+应当	yīngdāng	devoir, il faut, il convient de (obligation, devoir moral)	même sens que 应该 yīnggāi, mais plus soutenu ; négation : 不应当		学生应当认真完成作业。	Xuésheng yīngdāng rènzhēn wánchéng zuòyè.	Les élèves doivent faire leurs devoirs consciencieusement.
+罚	fá	punir, sanctionner ; infliger une amende, mettre à l’amende	罚款 fákuǎn = amende ; 惩罚 chéngfá = punir, sanction	罚款	他开车太快，被罚了两百块钱。	Tā kāi chē tài kuài, bèi fá le liǎng bǎi kuài qián.	Il roulait trop vite et a écopé de deux cents yuans d’amende.
+交往
+各自
+糟糕
+空中	kōngzhōng	dans les airs, en l’air, dans le ciel ; aérien	contraire : 地面 dìmiàn (le sol) ; 空 se lit kōng ici (pas kòng)		几只小鸟在空中飞来飞去。	Jǐ zhī xiǎo niǎo zài kōngzhōng fēi lái fēi qù.	Quelques oiseaux volent çà et là dans les airs.
+连接	liánjiē	relier, joindre, raccorder ; brancher, se connecter à	连接网络 = se connecter au réseau ; ne pas confondre avec 联系 liánxì (contacter)		这条路连接着两个城市。	Zhè tiáo lù liánjiē zhe liǎng ge chéngshì.	Cette route relie deux villes.
+药品	yàopǐn	médicaments, produits pharmaceutiques	plus officiel que 药 yào (médicament) ; 药店 yàodiàn = pharmacie		药店里有各种各样的药品。	Yàodiàn lǐ yǒu gè zhǒng gè yàng de yàopǐn.	On trouve toutes sortes de médicaments à la pharmacie.
+影片	yǐngpiàn	film (œuvre projetée)	classif. 部 : 一部影片 ; plus écrit que 电影 diànyǐng		这部影片讲的是一个小男孩和他的狗。	Zhè bù yǐngpiàn jiǎng de shì yí ge xiǎo nánhái hé tā de gǒu.	Ce film raconte l’histoire d’un petit garçon et de son chien.
+拆
+退休
+此时	cǐshí	à ce moment, à cet instant (langue écrite)	此时此刻 = en ce moment même ; passé ou présent selon le contexte		此时已经是晚上十点了。	Cǐshí yǐjing shì wǎnshang shí diǎn le.	À ce moment-là, il était déjà dix heures du soir.
+当作	dàngzuò	considérer comme, prendre pour, traiter comme (把A当作B)	même sens que 当成 dàngchéng ; se lit dàngzuò (dàng, pas dāng)	当作朋友	他把我当作自己的哥哥。	Tā bǎ wǒ dàngzuò zìjǐ de gēge.	Il me considère comme son grand frère.
+成果
+蛇
+眼泪	yǎnlèi	larme, larmes (流眼泪 = verser des larmes)	classif. : 一滴眼泪 = une larme ; 擦眼泪 cā yǎnlèi = essuyer ses larmes		听到这个好消息，妈妈高兴得流下了眼泪。	Tīngdào zhège hǎo xiāoxi, māma gāoxìng de liúxià le yǎnlèi.	En apprenant cette bonne nouvelle, maman a versé des larmes de joie.
+画面	huàmiàn	image (d’un film, d’un écran), plan ; scène, tableau	pour une photo : 照片 zhàopiàn ; 图片 túpiàn = image, illustration		这部电影的画面非常漂亮。	Zhè bù diànyǐng de huàmiàn fēicháng piàoliang.	Les images de ce film sont magnifiques.
+精力
+隔	gé	séparer, être séparé par (隔着一条河 = séparé par une rivière) ; à un intervalle de (隔一天 = un jour sur deux)	隔壁 gébì = d’à côté (le voisin) ; 隔开 gékāi = séparer	隔开	我家和学校只隔一条马路。	Wǒ jiā hé xuéxiào zhǐ gé yì tiáo mǎlù.	Ma maison et l’école ne sont séparées que par une rue.
+等于
+概念
+周年	zhōunián	anniversaire d’un événement ou d’une fondation (十周年 = dixième anniversaire)	pas pour l’anniversaire d’une personne : 生日 shēngrì ; 纪念日 jìniànrì = jour de commémoration		今天是我们结婚十周年。	Jīntiān shì wǒmen jiéhūn shí zhōunián.	Aujourd’hui, c’est notre dixième anniversaire de mariage.
+宽
+统计	tǒngjì	faire le décompte, totaliser ; statistiques	aussi nom : 根据统计 = d’après les statistiques ; 统计数字 tǒngjì shùzì = chiffres statistiques		老师正在统计同学们的考试成绩。	Lǎoshī zhèngzài tǒngjì tóngxuémen de kǎoshì chéngjì.	Le professeur est en train de compiler les résultats d’examen des élèves.
+创作	chuàngzuò	créer une œuvre (écrire, composer, peindre) ; œuvre, création	pour une œuvre artistique ou littéraire ; 创造 chuàngzào = créer, inventer en général (创造机会 = créer des occasions)		他喜欢在安静的晚上创作音乐。	Tā xǐhuan zài ānjìng de wǎnshang chuàngzuò yīnyuè.	Il aime composer de la musique lors des soirées calmes.
+本地	běndì	local, du lieu où l’on se trouve (本地人 = les gens du coin)	contraire : 外地 wàidì (ailleurs, autre région) ; 本地话 běndìhuà = parler local		我们去旅行的时候，常常问本地人哪里好玩。	Wǒmen qù lǚxíng de shíhou, chángcháng wèn běndìrén nǎlǐ hǎowán.	Quand nous voyageons, nous demandons souvent aux gens du coin quels endroits sont sympas.
+大脑	dànǎo	cerveau ; (fig.) tête, esprit	plutôt scientifique ; dans la vie courante, 脑子 nǎozi = tête (动脑子 = réfléchir)		睡觉可以让大脑得到休息。	Shuìjiào kěyǐ ràng dànǎo dédào xiūxi.	Dormir permet au cerveau de se reposer.
+据说
+自身	zìshēn	soi-même, en soi ; propre (自身的安全 = sa propre sécurité)	écrit ; plus soutenu que 自己 zìjǐ ; souvent après un nom : 企业自身 = l’entreprise elle-même		旅行的时候，首先要注意自身的安全。	Lǚxíng de shíhou, shǒuxiān yào zhùyì zìshēn de ānquán.	En voyage, il faut avant tout faire attention à sa propre sécurité.
+特征
+去世
+大事	dàshì	affaire importante, grand événement (一件大事 = une chose importante)	contraire : 小事 xiǎoshì (broutille) ; 大事小事 = les grandes et les petites choses		结婚是人生中的一件大事。	Jiéhūn shì rénshēng zhōng de yí jiàn dàshì.	Se marier est un grand événement dans la vie.
+平均
+县
+询问
+事物
+演讲
+屏幕	píngmù	écran (de téléphone, d’ordinateur, de télévision)	écran de cinéma : 银幕 yínmù ; 大屏幕 = grand écran		我的手机屏幕坏了，要去修一修。	Wǒ de shǒujī píngmù huài le, yào qù xiū yi xiū.	L’écran de mon téléphone est cassé, il faut que j’aille le faire réparer.
+软件
+严肃
+负担	fùdān	supporter, prendre en charge (des frais) ; charge, fardeau	se lit fùdān (担 dān, comme dans 担心) ; 减轻负担 jiǎnqīng fùdān = alléger la charge		这次旅行的费用，公司可以负担一半。	Zhè cì lǚxíng de fèiyong, gōngsī kěyǐ fùdān yíbàn.	L’entreprise peut prendre en charge la moitié des frais de ce voyage.
+否认
+肌肉
+随后	suíhòu	peu après, ensuite, juste après	plus écrit que 然后 ránhòu ; 随后就 suíhòu jiù = aussitôt après		他先给我打了电话，随后又发来一条短信。	Tā xiān gěi wǒ dǎ le diànhuà, suíhòu yòu fālái yì tiáo duǎnxìn.	Il m’a d’abord téléphoné, puis il m’a envoyé un SMS peu après.
+安慰
+过分
+升级	shēngjí	mettre à jour, passer à une version supérieure (logiciel, appareil) ; monter de niveau ; (conflit) s’intensifier	pour une simple mise à jour d’une appli, on dit aussi 更新 gēngxīn		请把手机里的软件升级一下，用起来会更快。	Qǐng bǎ shǒujī lǐ de ruǎnjiàn shēngjí yíxià, yòng qǐlai huì gèng kuài.	Mets à jour les applications de ton téléphone, ça ira plus vite.
+加速	jiāsù	accélérer, s’accélérer	contraire : 减速 jiǎnsù (ralentir) ; 加快 jiākuài = accélérer, presser (加快速度)		火车开出车站后，开始慢慢加速。	Huǒchē kāichū chēzhàn hòu, kāishǐ mànmàn jiāsù.	Après avoir quitté la gare, le train commence à accélérer peu à peu.
+人体	réntǐ	corps humain, organisme	terme scientifique ; 身体 shēntǐ = corps ; santé (plus courant)		人体里大部分是水。	Réntǐ lǐ dàbùfen shì shuǐ.	Le corps humain est constitué en majeure partie d’eau.
+反而
+体会
+培训
+税
+独自	dúzì	seul, tout seul (sans personne)	devant un verbe : 独自旅行 = voyager seul ; 独自一人 = tout seul ; à l’oral 一个人 yí ge rén		她独自去北京上大学了。	Tā dúzì qù Běijīng shàng dàxué le.	Elle est partie seule à Pékin faire ses études à l’université.
+扩大
+推进	tuījìn	faire avancer, pousser vers l’avant ; promouvoir (un projet, un travail)	souvent avec 工作, 计划 : 推进工作 = faire avancer le travail		公司正在努力推进这个新计划。	Gōngsī zhèngzài nǔlì tuījìn zhège xīn jìhuà.	L’entreprise s’efforce de faire avancer ce nouveau plan.
+安装
+搜	sōu	chercher, fouiller ; faire une recherche (en ligne : 搜一下)	surtout dans 搜索 sōusuǒ (rechercher) ; 搜身 sōushēn = fouiller quelqu’un	搜索	你可以在网上搜一下这家饭馆在哪儿。	Nǐ kěyǐ zài wǎngshàng sōu yíxià zhè jiā fànguǎn zài nǎr.	Tu peux chercher sur Internet où se trouve ce restaurant.
+大众	dàzhòng	grand public, masses ; populaire (大众文化 = culture populaire)	aussi la marque Volkswagen : 大众汽车 Dàzhòng Qìchē		这种电影很受大众欢迎。	Zhè zhǒng diànyǐng hěn shòu dàzhòng huānyíng.	Ce genre de film est très apprécié du grand public.
+假如
+相对
+改善
+拥抱
+晒
+计算机	jìsuànjī	ordinateur (terme technique) ; informatique (计算机专业 = filière informatique)	dans la vie courante, 电脑 diànnǎo ; 计算器 jìsuànqì = calculatrice		现在的计算机比以前快多了。	Xiànzài de jìsuànjī bǐ yǐqián kuài duō le.	Les ordinateurs d’aujourd’hui sont bien plus rapides qu’avant.
+房屋	fángwū	maison, bâtiment, logement (terme écrit, collectif)	à l’oral 房子 fángzi ; 房屋出租 = logement à louer		这些老房屋都有一百多年的历史了。	Zhèxiē lǎo fángwū dōu yǒu yìbǎi duō nián de lìshǐ le.	Ces vieilles maisons ont toutes plus de cent ans d’histoire.
+纪录
+农民
+买卖	mǎimai	commerce, négoce (做买卖 = faire du commerce) ; transaction d’achat et de vente	se lit mǎimai (mai neutre) ; 买 mǎi = acheter, 卖 mài = vendre		他爸爸年轻时在北京做过买卖。	Tā bàba niánqīng shí zài Běijīng zuò guo mǎimai.	Quand il était jeune, son père a fait du commerce à Pékin.
+形势
+劝
+刻
+出售	chūshòu	vendre, mettre en vente	plus écrit que 卖 mài ; sur les annonces : 房屋出售 = maison à vendre		这家商店出售很多种茶。	Zhè jiā shāngdiàn chūshòu hěn duō zhǒng chá.	Ce magasin vend de nombreuses variétés de thé.
+总部	zǒngbù	siège, quartier général (d’une entreprise, d’une organisation)	antenne : 分部 fēnbù ; 总公司 zǒnggōngsī = maison mère		这家公司的总部在上海。	Zhè jiā gōngsī de zǒngbù zài Shànghǎi.	Le siège de cette entreprise est à Shanghai.
+分离	fēnlí	séparer, se séparer (de qqn, de qqch)	plus écrit que 分开 fēnkāi ; aussi en sciences (séparer un mélange)		因为工作，他和家人分离了三年。	Yīnwèi gōngzuò, tā hé jiārén fēnlí le sān nián.	À cause de son travail, il a été séparé de sa famille pendant trois ans.
+运输
+扇	shān	éventer, donner de l’air (扇风 = faire du vent) ; gifler (扇耳光)	aussi shàn : classif. des portes et fenêtres (一扇门 = une porte) ; 扇子 shànzi = éventail	扇风	孩子热得睡不着，妈妈用手给他扇风。	Háizi rè de shuì bu zháo, māma yòng shǒu gěi tā shān fēng.	L’enfant a trop chaud pour dormir, sa maman l’évente avec la main.
+利润
+堵	dǔ	boucher, bloquer ; être embouteillé (堵车 = embouteillage) ; (fig.) oppressé ; classif. : murs (一堵墙 = un mur)	堵住 dǔzhù = boucher ; 堵塞 dǔsè = obstruer, être bouché (écrit)	堵车	路上堵车了，我可能会晚一点儿到。	Lùshang dǔchē le, wǒ kěnéng huì wǎn yìdiǎnr dào.	Il y a des embouteillages sur la route, j’arriverai peut-être un peu en retard.
+珍惜
+传播
+匹
+随意	suíyì	à sa guise, comme on veut ; sans cérémonie, décontracté	parfois négatif : 随意乱放 = laisser n’importe comment ; 随便 suíbiàn = comme on veut (plus courant à l’oral)		请随意坐，不用客气。	Qǐng suíyì zuò, bú yòng kèqi.	Assieds-toi où tu veux, ne te gêne pas.
+好奇
+集体
+预计	yùjì	prévoir, estimer (par le calcul), tabler sur	suivi d’une date, d’une durée ou d’un nombre ; 预测 yùcè = prédire (une tendance)		飞机预计下午三点到北京。	Fēijī yùjì xiàwǔ sān diǎn dào Běijīng.	L’avion devrait arriver à Pékin à 15 h.
+收获
+装饰
+锅
+太太
+轻易
+强调
+丑
+分配
+账户
+当成	dàngchéng	prendre pour, considérer comme (把…当成… : 把他当成朋友 = le considérer comme un ami) ; confondre avec	= 当作 dàngzuò ; se lit dàng (pas dāng) ; 当成 peut marquer une erreur : 我把他当成老师了 = je l’ai pris pour le professeur	当成朋友	他总是把我当成小孩子。	Tā zǒngshì bǎ wǒ dàngchéng xiǎoháizi.	Il me traite toujours comme un enfant.
+适当	shìdàng	approprié, convenable ; modéré, en juste mesure	surtout devant un nom ou un verbe : 适当运动 = faire de l’exercice avec modération ; 合适 héshì se dit plus souvent en fin de phrase : 这件衣服很合适		我一直没找到适当的机会告诉他。	Wǒ yìzhí méi zhǎodào shìdàng de jīhuì gàosu tā.	Je n’ai jamais trouvé l’occasion qui convenait pour le lui dire.
+如同	rútóng	comme, semblable à (écrit ; 如同…一样 = comme…)	écrit ; à l’oral 像 xiàng ou 好像 hǎoxiàng		老师对我们如同对自己的孩子一样好。	Lǎoshī duì wǒmen rútóng duì zìjǐ de háizi yíyàng hǎo.	Le professeur est aussi bon avec nous qu’avec ses propres enfants.
+修改
+提起	tíqǐ	mentionner, évoquer, parler de ; soulever, lever ; intenter (une action en justice)	一提起…就… = dès qu’on parle de… ; 提起精神 = se ressaisir		他从不提起小时候的事。	Tā cóng bù tíqǐ xiǎoshíhou de shì.	Il ne parle jamais de ce qui s’est passé dans son enfance.
+冻
+要不
+辞职
+遵守
+抓紧
+相处
+建造	jiànzào	construire, bâtir (un bâtiment, un pont, un navire)	plus soutenu que 建 jiàn ; 建设 jiànshè = développer, édifier		这座桥是五年前建造的。	Zhè zuò qiáo shì wǔ nián qián jiànzào de.	Ce pont a été construit il y a cinq ans.
+反映
+思维	sīwéi	pensée, raisonnement ; façon de penser ; penser, raisonner (verbe, écrit)	plus abstrait que 想法 xiǎngfǎ (idée, opinion) ; 思维方式 sīwéi fāngshì = façon de penser		每个人的思维方式都不一样。	Měi ge rén de sīwéi fāngshì dōu bù yíyàng.	Chacun a sa propre façon de penser.
+保存
+饼	bǐng	galette, gâteau plat et rond	饼干 bǐnggān = biscuit ; 月饼 yuèbǐng = gâteau de lune (fête de la mi-automne)	月饼	奶奶做的饼又香又好吃。	Nǎinai zuò de bǐng yòu xiāng yòu hǎochī.	Les galettes que fait ma grand-mère sont parfumées et délicieuses.
+阵
+地震
+电视台	diànshìtái	chaîne de télévision, station de télévision (l’organisme)	canal, numéro de chaîne : 频道 píndào ; 中央电视台 Zhōngyāng Diànshìtái = CCTV		这家电视台每天晚上都有新闻节目。	Zhè jiā diànshìtái měitiān wǎnshang dōu yǒu xīnwén jiémù.	Cette chaîne de télévision diffuse un journal d’information tous les soirs.
+发明
+疼痛	téngtòng	douloureux, avoir mal ; douleur	plus écrit que 疼 téng ; courant chez le médecin : 减轻疼痛 = soulager la douleur		他的腿疼痛得很厉害，没办法走路。	Tā de tuǐ téngtòng de hěn lìhai, méi bànfǎ zǒulù.	Sa jambe lui fait si mal qu’il ne peut pas marcher.
+返回	fǎnhuí	retourner, revenir (à un endroit)	écrit ; à l’oral 回 huí, 回来 huílai, 回去 huíqu ; 返回键 = touche retour		旅行结束以后，我们坐飞机返回北京。	Lǚxíng jiéshù yǐhòu, wǒmen zuò fēijī fǎnhuí Běijīng.	Une fois le voyage terminé, nous rentrerons à Pékin en avion.
+玫瑰	méigui	rose (fleur), rosier	classif. : 一朵玫瑰 = une rose ; aussi 玫瑰花 méiguihuā ; se lit méigui (gui neutre)		他送给她一朵红色的玫瑰。	Tā sòng gěi tā yì duǒ hóngsè de méigui.	Il lui a offert une rose rouge.
+过度	guòdù	excessif, immodéré ; excès (过度疲劳 = surmenage)	devant un verbe ou un nom ; 过于 guòyú = trop (adverbe) ; 过分 guòfèn = exagéré		过度使用手机对眼睛不好。	Guòdù shǐyòng shǒujī duì yǎnjing bù hǎo.	Utiliser son téléphone de façon excessive est mauvais pour les yeux.
+挥
+突出
+减肥
+富有	fùyǒu	riche en, plein de (富有经验 = riche d’expérience) ; riche, fortuné	écrit ; pour « riche en argent », à l’oral 有钱 yǒu qián		这位老师富有经验，学生们都很喜欢他。	Zhè wèi lǎoshī fùyǒu jīngyàn, xuéshengmen dōu hěn xǐhuan tā.	Ce professeur est riche d’expérience, tous ses élèves l’aiment beaucoup.
+电池
+乐观
+产业	chǎnyè	secteur d’activité, industrie ; patrimoine, biens	plus large que 工业 gōngyè (industrie manufacturière) ; 第三产业 = secteur tertiaire (services)		旅游产业给这个小城带来了很多工作机会。	Lǚyóu chǎnyè gěi zhège xiǎochéng dàilái le hěn duō gōngzuò jīhuì.	L’industrie du tourisme a apporté beaucoup d’emplois à cette petite ville.
+涨	zhǎng
+热烈
+吨
+居住	jūzhù	habiter, résider (écrit)	à l’oral 住 zhù ; 居住地 jūzhùdì = lieu de résidence		我的爷爷奶奶在这座城市居住了五十多年。	Wǒ de yéye nǎinai zài zhè zuò chéngshì jūzhù le wǔshí duō nián.	Mes grands-parents ont vécu plus de cinquante ans dans cette ville.
+相似
+担任
+广	guǎng	vaste, large, étendu ; nombreux, répandu (见多识广 = avoir beaucoup vu et appris)	surtout dans des mots : 广场 guǎngchǎng (place), 广告 guǎnggào (publicité), 广泛 guǎngfàn (large, répandu)	广场	他去过很多国家，见多识广。	Tā qù guo hěn duō guójiā, jiàn duō shí guǎng.	Il a visité de nombreux pays, il a beaucoup vu et beaucoup appris.
+宿舍
+线路	xiànlù	ligne (de transport), itinéraire ; circuit, ligne électrique	à distinguer de 路线 lùxiàn (itinéraire à suivre) ; 电话线路 = ligne téléphonique		北京的地铁线路很多，坐地铁很方便。	Běijīng de dìtiě xiànlù hěn duō, zuò dìtiě hěn fāngbiàn.	Il y a beaucoup de lignes de métro à Pékin, c’est très pratique de prendre le métro.
+沉	chén	lourd, pesant ; couler, s’enfoncer ; profond (睡得很沉 = dormir profondément)	沉重 chénzhòng : lourd (aussi au figuré) ; 沉默 chénmò : se taire	沉重	这个箱子太沉了，我一个人搬不动。	Zhège xiāngzi tài chén le, wǒ yí ge rén bān bu dòng.	Cette valise est trop lourde, je n’arrive pas à la porter seul.
+善良
+可靠
+其余
+规模
+决心
+乡村	xiāngcūn	campagne, village, monde rural	contraire : 城市 chéngshì (ville) ; 乡下 xiāngxia = campagne (familier) ; 农村 nóngcūn = zone rurale		他从小在乡村长大，很喜欢大自然。	Tā cóngxiǎo zài xiāngcūn zhǎngdà, hěn xǐhuan dàzìrán.	Il a grandi à la campagne, il aime beaucoup la nature.
+捡
+蔬菜
+哪怕
+补充
+伙	huǒ	classif. : groupes de personnes, bande (一伙人 = une bande de gens)	souvent péjoratif : 一伙坏人 = une bande de malfaiteurs ; neutre : 一群 yì qún ; 伙伴 huǒbàn = camarade, partenaire	一伙人	我们一伙人每个周末都一起去爬山。	Wǒmen yì huǒ rén měi ge zhōumò dōu yìqǐ qù páshān.	Notre bande part en randonnée ensemble tous les week-ends.
+最初
+克服
+薄
+装修
+填	tián	remplir (un formulaire : 填表), compléter ; combler, boucher (un trou)	填空 tiánkòng = remplir les blancs (exercice) ; 填写 tiánxiě = remplir, inscrire (plus écrit)	填表	请把你的名字和电话填在这张表上。	Qǐng bǎ nǐ de míngzi hé diànhuà tián zài zhè zhāng biǎo shàng.	Inscris ton nom et ton numéro de téléphone sur ce formulaire, s’il te plaît.
+成分
+同一	tóngyī	le même, identique, un seul et même	toujours suivi d’un classificateur ou d’un nom : 同一个, 同一天 ; pour « pareil », 一样 yíyàng		这两件事发生在同一天。	Zhè liǎng jiàn shì fāshēng zài tóng yì tiān.	Ces deux événements ont eu lieu le même jour.
+召开
+有限	yǒuxiàn	limité, restreint, fini	contraire : 无限 wúxiàn (illimité, infini) ; 有限公司 yǒuxiàn gōngsī = société à responsabilité limitée		我的钱有限，买不了这么贵的东西。	Wǒ de qián yǒuxiàn, mǎi bu liǎo zhème guì de dōngxi.	Mes moyens sont limités, je ne peux pas acheter quelque chose d’aussi cher.
+代替
+过于	guòyú	trop, excessivement (soutenu)	plus écrit que 太 tài ; 不要过于… = ne… pas trop		你不要过于担心，一切都会好的。	Nǐ búyào guòyú dānxīn, yíqiè dōu huì hǎo de.	Ne t’inquiète pas trop, tout ira bien.
+有利
+博物馆
+热爱
+体现
+生长
+论文
+特色
+半夜	bànyè	milieu de la nuit, en pleine nuit ; la moitié de la nuit	半夜三更 bànyè sāngēng = au beau milieu de la nuit ; 深夜 shēnyè = tard dans la nuit (plus soutenu)		昨天半夜，我被电话吵醒了。	Zuótiān bànyè, wǒ bèi diànhuà chǎoxǐng le.	Hier, en pleine nuit, j’ai été réveillé par un coup de téléphone.
+用户	yònghù	utilisateur, usager, abonné (d’un service, d’un produit)	用户名 yònghùmíng = nom d’utilisateur ; 客户 kèhù = client (commercial)		这个手机软件已经有一千多万用户了。	Zhège shǒujī ruǎnjiàn yǐjing yǒu yìqiān duō wàn yònghù le.	Cette application pour téléphone compte déjà plus de dix millions d’utilisateurs.
+从而
+整体
+综合
+形容
+列车
+吸收
+迎接
+改进
+舒适
+建设
+文学
+美味	měiwèi	mets délicieux, délice ; délicieux (écrit)	plus littéraire que 好吃 hǎochī ; 美食 měishí = bonne cuisine, gastronomie		桌子上放满了各种各样的美味。	Zhuōzi shàng fàng mǎn le gè zhǒng gè yàng de měiwèi.	La table était couverte de toutes sortes de mets délicieux.
+仿佛
+漏
+不利	búlì	défavorable, désavantageux, nuisible (对…不利 = défavorable à…)	contraire : 有利 yǒulì (favorable, avantageux)		天气不好，对我们明天的比赛很不利。	Tiānqì bù hǎo, duì wǒmen míngtiān de bǐsài hěn búlì.	Le mauvais temps nous est très défavorable pour le match de demain.
+难度	nándù	degré de difficulté, niveau de difficulté (难度大 = difficile)	增加难度 = augmenter la difficulté ; 困难 kùnnan = difficulté, ennui (problème, obstacle)		这次考试的难度比上次大多了。	Zhè cì kǎoshì de nándù bǐ shàng cì dà duō le.	Cet examen est bien plus difficile que le précédent.
+铁路	tiělù	chemin de fer, voie ferrée (一条铁路 = une ligne de chemin de fer)	高速铁路 gāosù tiělù = ligne à grande vitesse (高铁 gāotiě) ; 火车 huǒchē = train		中国的铁路越来越多，坐火车去旅行很方便。	Zhōngguó de tiělù yuè lái yuè duō, zuò huǒchē qù lǚxíng hěn fāngbiàn.	Il y a de plus en plus de lignes ferroviaires en Chine, voyager en train est très pratique.
+目光	mùguāng	regard ; vision, point de vue	à ne pas confondre avec 眼睛 yǎnjing (l’œil, l’organe) ; 吸引目光 = attirer les regards		所有人的目光都看向了他。	Suǒyǒu rén de mùguāng dōu kàn xiàng le tā.	Tous les regards se sont tournés vers lui.
+雾
+伸
+有力	yǒulì	fort, puissant, énergique ; convaincant, solide (有力的证据 = une preuve solide)	pour la force physique : 有力气 yǒu lìqi ; 有力 qualifie plutôt une voix, un geste, un argument		老师的声音很有力，大家都听得很清楚。	Lǎoshī de shēngyīn hěn yǒulì, dàjiā dōu tīng de hěn qīngchu.	La voix du professeur est puissante, tout le monde l’entend très bien.
+穷
+奋斗
+约定	yuēdìng	convenir de, fixer d’un commun accord (rendez-vous, date) ; se promettre (l’un l’autre) ; accord, convention (nom)	我们的约定 = notre accord ; 按约定 = comme convenu		我们约定周六上午十点见面。	Wǒmen yuēdìng zhōuliù shàngwǔ shí diǎn jiànmiàn.	Nous avons convenu de nous voir samedi à dix heures du matin.
+技能	jìnéng	compétence, savoir-faire, aptitude (technique)	plus concret que 能力 nénglì (capacité) ; 学习新技能 = apprendre de nouvelles compétences		学一项新技能需要很多时间。	Xué yí xiàng xīn jìnéng xūyào hěn duō shíjiān.	Apprendre une nouvelle compétence demande beaucoup de temps.
+消费
+实行	shíxíng	appliquer, mettre en pratique (une règle, un système, une mesure)	complément abstrait : 实行新规定 ; à ne pas confondre avec 实现 shíxiàn (réaliser un rêve, un objectif)		我们学校从下个月开始实行新的上课时间。	Wǒmen xuéxiào cóng xià ge yuè kāishǐ shíxíng xīn de shàngkè shíjiān.	Notre école appliquera de nouveaux horaires de cours dès le mois prochain.
+打扮
+乐趣	lèqù	plaisir, agrément (qu’on tire d’une activité)	很有乐趣 = très plaisant ; à ne pas confondre avec 快乐 kuàilè (joyeux, heureux) ; 乐 se lit lè ici		读书给我带来了很多乐趣。	Dú shū gěi wǒ dài lái le hěn duō lèqù.	La lecture m’a apporté beaucoup de plaisir.
+知名	zhīmíng	connu, célèbre, réputé	surtout devant un nom : 知名企业 = entreprise réputée ; plus formel que 有名 yǒumíng		这位知名的作家下个月要来我们学校。	Zhè wèi zhīmíng de zuòjiā xià ge yuè yào lái wǒmen xuéxiào.	Cet écrivain célèbre viendra dans notre école le mois prochain.
+裁判	cáipàn	arbitre (sport) ; arbitrer ; juger, rendre un jugement	当裁判 = faire l’arbitre ; au tribunal, le juge est 法官 fǎguān		今天的比赛由我爸爸当裁判。	Jīntiān de bǐsài yóu wǒ bàba dāng cáipàn.	Pour le match d’aujourd’hui, c’est mon père qui arbitre.
+从不	cóngbù	ne… jamais (par habitude, par principe)	= 从来不 cónglái bù (plus courant) ; pour le passé : 从来没（有）…过 = ne jamais avoir fait		他从不迟到，每天都来得很早。	Tā cóngbù chídào, měi tiān dōu lái de hěn zǎo.	Il n’est jamais en retard, il arrive très tôt tous les jours.
+渐渐	jiànjiàn	peu à peu, petit à petit, graduellement	pour un changement qui se fait de lui-même (渐渐变冷) ; 慢慢 mànmàn peut aussi être un conseil : 慢慢走 = vas-y doucement		天气渐渐变冷了。	Tiānqì jiànjiàn biàn lěng le.	Le temps se refroidit peu à peu.
+口味
+具备
+姿势
+增强	zēngqiáng	renforcer, accroître (force, capacité, confiance)	pour une qualité ou une force : 增强信心 = renforcer sa confiance ; pour un nombre, on dit 增加 zēngjiā		这次比赛增强了他的信心。	Zhè cì bǐsài zēngqiáng le tā de xìnxīn.	Ce match a renforcé sa confiance.
+谨慎
+握	wò	tenir dans la main, serrer, empoigner	握手 wòshǒu : serrer la main ; 握住 wòzhù : saisir fermement	握手	见面的时候，他先握了握我的手。	Jiànmiàn de shíhou, tā xiān wò le wò wǒ de shǒu.	Quand on s’est retrouvés, il m’a d’abord serré la main.
+尽力
+陌生
+新娘	xīnniáng	mariée (le jour du mariage)	le marié : 新郎 xīnláng ; les deux mariés : 新人 xīnrén		今天的新娘真漂亮！	Jīntiān de xīnniáng zhēn piàoliang!	La mariée est vraiment belle aujourd’hui !
+扶
+车祸	chēhuò	accident de la route, accident de voiture	se compte avec 起 qǐ : 一起车祸 ; avoir un accident : 出车祸 chū chēhuò		昨天我们学校门口发生了一起车祸。	Zuótiān wǒmen xuéxiào ménkǒu fāshēng le yì qǐ chēhuò.	Hier, il y a eu un accident de la route devant notre école.
+下载	xiàzài	télécharger	contraire : 上传 shàngchuán (mettre en ligne) ; 下载软件 = télécharger un logiciel, une appli		我在手机上下载了一个学习中文的软件。	Wǒ zài shǒujī shàng xiàzài le yí ge xuéxí Zhōngwén de ruǎnjiàn.	J’ai téléchargé sur mon téléphone une appli pour apprendre le chinois.
+维修
+整整	zhěngzhěng	(durée, quantité) entier, complet : 整整三天 = trois jours entiers	整整 + nombre + mot de mesure ; insiste sur le fait que la quantité est complète, voire plus grande qu’attendu		他整整等了两个小时。	Tā zhěngzhěng děng le liǎng ge xiǎoshí.	Il a attendu deux heures entières.
+构成
+口袋	kǒudai	poche (de vêtement) ; sac, sachet	裤子口袋 = poche de pantalon		他把手机放进了口袋里。	Tā bǎ shǒujī fàng jìn le kǒudai lǐ.	Il a mis son téléphone dans sa poche.
+不良	bùliáng	mauvais, néfaste, malsain (devant un nom)	surtout dans 不良习惯 = mauvaise habitude, 不良影响 = influence néfaste ; à l’oral : 不好		经常不吃早饭是一种不良习惯。	Jīngcháng bù chī zǎofàn shì yì zhǒng bùliáng xíguàn.	Sauter souvent le petit déjeuner est une mauvaise habitude.
+无限	wúxiàn	illimité, infini, sans limites	无限的可能 = des possibilités infinies ; contraire : 有限 yǒuxiàn (limité)		年轻人的未来有无限的可能。	Niánqīngrén de wèilái yǒu wúxiàn de kěnéng.	L’avenir des jeunes offre des possibilités infinies.
+发言
+真诚	zhēnchéng	sincère, franc, de bonne foi	真诚地 = sincèrement ; à ne pas confondre avec 诚实 chéngshí (honnête, qui ne ment pas)		他对朋友非常真诚。	Tā duì péngyou fēicháng zhēnchéng.	Il est très sincère avec ses amis.
+前来	qiánlái	venir, se présenter (à un lieu, à un événement ; soutenu)	souvent suivi d’un verbe : 前来参加 = venir participer ; à l’oral, 来 suffit ; à distinguer de 前往 qiánwǎng (se rendre à)		很多人前来参加他的婚礼。	Hěn duō rén qiánlái cānjiā tā de hūnlǐ.	Beaucoup de gens sont venus assister à son mariage.
+平台	píngtái	plateforme (en ligne, de services) ; terrasse, plateforme (construction)	网络平台 wǎngluò píngtái = plateforme en ligne ; 购物平台 = plateforme d’achat		在这个平台上买东西很方便。	Zài zhège píngtái shàng mǎi dōngxi hěn fāngbiàn.	Acheter sur cette plateforme est très pratique.
+依据	yījù	base, fondement, preuve ; se fonder sur ; d’après, selon (écrit)	à l’oral on dit plutôt 根据 gēnjù ; 没有依据 = sans fondement		你说这句话有什么依据？	Nǐ shuō zhè jù huà yǒu shénme yījù?	Sur quoi te bases-tu pour dire cela ?
+挣	zhèng
+观念
+催
+大胆	dàdǎn	audacieux, hardi, osé ; sans crainte	大胆地 + verbe = oser, ne pas hésiter à ; mélioratif (courageux) ou critique (effronté) selon le contexte		他是个大胆的孩子，什么都不怕。	Tā shì ge dàdǎn de háizi, shénme dōu bú pà.	C’est un enfant intrépide, il n’a peur de rien.
+改革
+嘴巴	zuǐba	bouche (familier)	嘴 zuǐ, plus neutre, est plus courant ; 张开嘴巴 = ouvrir la bouche		孩子的嘴巴里有一块糖。	Háizi de zuǐba lǐ yǒu yí kuài táng.	L’enfant a un bonbon dans la bouche.
+留言	liúyán	laisser un message ; message (laissé à qqn, ou commentaire en ligne)	message écrit, à ne pas confondre avec 短信 duǎnxìn (SMS) ; 在下面留言 = laisser un commentaire en dessous		你不在的时候，有人给你留言了。	Nǐ bú zài de shíhou, yǒu rén gěi nǐ liúyán le.	Pendant ton absence, quelqu’un t’a laissé un message.
+告别
+秘书
+捐
+卧室
+众多	zhòngduō	nombreux, très nombreux (écrit)	surtout devant un nom, avec 的 : 众多的游客 = de nombreux touristes ; à l’oral : 很多		中国是一个人口众多的国家。	Zhōngguó shì yí ge rénkǒu zhòngduō de guójiā.	La Chine est un pays très peuplé.
+失误	shīwù	faute, erreur, bévue (d’inattention) ; commettre une erreur	plus léger que 错误 cuòwù ; surtout au sport et au travail : 工作失误 = erreur professionnelle		因为一个小失误，我们输了比赛。	Yīnwèi yí ge xiǎo shīwù, wǒmen shū le bǐsài.	À cause d’une petite erreur, nous avons perdu le match.
+含量	hánliàng	teneur, taux (d’une substance)	糖含量 = teneur en sucre ; 含 hán (contenir) + 量 liàng (quantité)		这种饮料的糖含量很高。	Zhè zhǒng yǐnliào de táng hánliàng hěn gāo.	Cette boisson a une forte teneur en sucre.
+燃烧
+反复
+牙齿
+极其
+尊敬
+包装	bāozhuāng	emballer, empaqueter ; emballage ; (fig.) soigner l’image de qqn ou de qqch	包装纸 = papier d’emballage ; 礼品包装 = emballage cadeau		麻烦你帮我把礼物包装一下。	Máfan nǐ bāng wǒ bǎ lǐwù bāozhuāng yíxià.	Pourrais-tu m’emballer ce cadeau, s’il te plaît ?
+开通	kāitōng	ouvrir à la circulation ou au public (ligne, route) ; mettre en service, activer (un service, un compte)	activer un service : 开通账号 kāitōng zhànghào = activer un compte		新的地铁线下个月开通。	Xīn de dìtiě xiàn xià ge yuè kāitōng.	La nouvelle ligne de métro ouvrira le mois prochain.
+宠物
+增	zēng	augmenter, accroître	seul surtout à l’écrit ; courant dans des composés : 增加 zēngjiā, 增长 zēngzhǎng, 增强 zēngqiáng, 增多 zēngduō	增加	今年公司的收入比去年增了一倍。	Jīnnián gōngsī de shōurù bǐ qùnián zēng le yí bèi.	Cette année, les revenus de l’entreprise ont doublé par rapport à l’an dernier.
+四处	sìchù	partout, de tous côtés, un peu partout	四处 + verbe : 四处找, 四处看 ; 到处 dàochù est plus courant		他四处找手机，可是没找到。	Tā sìchù zhǎo shǒujī, kěshì méi zhǎo dào.	Il a cherché son téléphone partout, mais ne l’a pas trouvé.
+同情
+病情	bìngqíng	état du malade, évolution d’une maladie	病情严重 = état grave ; 病情稳定 = état stable ; à ne pas confondre avec 病 bìng (maladie)		医生说妈妈的病情不太严重。	Yīshēng shuō māma de bìngqíng bú tài yánzhòng.	Le médecin dit que l’état de ma mère n’est pas très grave.
+说不定
+场所	chǎngsuǒ	lieu (public), endroit où se déroule une activité	plus formel que 地方 dìfang ; 公共场所 = lieu public ; 娱乐场所 = lieu de loisirs		公共场所不能抽烟。	Gōnggòng chǎngsuǒ bù néng chōuyān.	On ne peut pas fumer dans les lieux publics.
+挑选	tiāoxuǎn	choisir, sélectionner (avec soin, parmi plusieurs)	挑 tiāo, plus court, est plus courant à l’oral ; 选择 xuǎnzé : choisir (plus général), choix		妈妈在市场上仔细地挑选水果。	Māma zài shìchǎng shàng zǐxì de tiāoxuǎn shuǐguǒ.	Ma mère choisit les fruits avec soin au marché.
+成本	chéngběn	coût, prix de revient (de fabrication, d’exploitation)	à ne pas confondre avec 价格 jiàgé (prix de vente) ; 降低成本 = réduire les coûts		这个产品的成本太高了。	Zhège chǎnpǐn de chéngběn tài gāo le.	Le coût de production de ce produit est trop élevé.
+亲人	qīnrén	proche (membre de la famille proche), les siens	家人 jiārén : membres de la famille ; 亲戚 qīnqi : parents au sens large		过新年的时候，我想和亲人在一起。	Guò xīnnián de shíhou, wǒ xiǎng hé qīnrén zài yìqǐ.	Pour le Nouvel An, je veux être avec les miens.
+早已	zǎoyǐ	depuis longtemps déjà, bien avant (écrit)	= 早就 zǎojiù (plus courant à l’oral) ; construction : 早已…了		我早已习惯了一个人生活。	Wǒ zǎoyǐ xíguàn le yí ge rén shēnghuó.	J’ai pris depuis longtemps l’habitude de vivre seul.
+睡眠	shuìmián	sommeil	睡眠不足 = manque de sommeil ; dormir se dit 睡觉 shuìjiào		睡眠对身体健康很重要。	Shuìmián duì shēntǐ jiànkāng hěn zhòngyào.	Le sommeil est très important pour la santé.
+比例
+输入
+灯光	dēngguāng	lumière (d’une lampe), éclairage	光 guāng : la lumière en général ; 灯 dēng : la lampe ; 舞台灯光 = éclairage de scène		窗户里还有灯光，他还没睡。	Chuānghu lǐ hái yǒu dēngguāng, tā hái méi shuì.	Il y a encore de la lumière à la fenêtre : il n’est pas encore couché.
+色彩
+劳动
+创新	chuàngxīn	innover ; innovation	pour la technologie, les idées, les méthodes ; 创新精神 = esprit d’innovation		做生意要不断创新。	Zuò shēngyi yào búduàn chuàngxīn.	Dans les affaires, il faut innover sans cesse.
+事先
+失业
+无效	wúxiào	sans effet, inefficace ; non valable, nul	contraire : 有效 yǒuxiào (efficace ; valable)		这种药对他的感冒无效。	Zhè zhǒng yào duì tā de gǎnmào wúxiào.	Ce médicament n’a aucun effet sur son rhume.
+哎呀	āiyā	oh là là, mince, aïe (surprise, regret, contrariété)	en début de phrase ; 哎哟 āiyō exprime plutôt la douleur		哎呀，我忘了带钥匙！	Āiyā, wǒ wàng le dài yàoshi!	Oh là là, j’ai oublié mes clés !
+新人	xīnrén	nouveau venu, nouvelle recrue ; jeunes mariés	au mariage, 新人 désigne les deux mariés (新娘 xīnniáng, la mariée, et 新郎 xīnláng, le marié)		我们公司今年来了五个新人。	Wǒmen gōngsī jīnnián lái le wǔ ge xīnrén.	Cette année, cinq nouveaux sont arrivés dans notre entreprise.
+刚好	gānghǎo	justement, à point nommé ; juste ce qu’il faut	synonyme : 正好 zhènghǎo ; à ne pas confondre avec 刚 gāng : tout juste, à l’instant (我刚到)		我到车站的时候，公共汽车刚好来了。	Wǒ dào chēzhàn de shíhou, gōnggòng qìchē gānghǎo lái le.	Quand je suis arrivé à l’arrêt, le bus est arrivé juste à ce moment-là.
+规律
+待遇
+淡
+比分	bǐfēn	score (d’un match)	二比一 = deux à un ; 比分领先 = mener au score		现在的比分是二比一。	Xiànzài de bǐfēn shì èr bǐ yī.	Pour l’instant, le score est de deux à un.
+上下	shàngxià	environ, à peu près (après un nombre) ; haut et bas, de haut en bas	三十岁上下 = environ trente ans ; 全身上下 = de la tête aux pieds ; 上下楼 = monter et descendre l’escalier		他看起来三十岁上下。	Tā kàn qǐlai sānshí suì shàngxià.	Il a l’air d’avoir environ trente ans.
+物理
+机器人	jīqìrén	robot	机器 jīqì : machine		这个机器人会说中文，还会唱歌。	Zhège jīqìrén huì shuō Zhōngwén, hái huì chànggē.	Ce robot parle chinois et sait même chanter.
+前途
+营养
+说服
+朵
+成人
+距	jù	être distant de, éloigné de ; distance	style écrit ; surtout dans 距离 jùlí (distance) ; à l’oral : 离 lí (学校离这里很近)	距离	这里距火车站只有两公里。	Zhèlǐ jù huǒchēzhàn zhǐyǒu liǎng gōnglǐ.	D’ici, il n’y a que deux kilomètres jusqu’à la gare.
+汽油
+浓
+传递	chuándì	transmettre, faire passer (message, information, chaleur, ballon)	传递信息 = transmettre une information ; 传递爱 = transmettre de l’affection		老师把这个消息传递给了每一个学生。	Lǎoshī bǎ zhège xiāoxi chuándì gěi le měi yí ge xuésheng.	Le professeur a transmis cette nouvelle à chaque élève.
+毛病
+沿	yán	le long de, en suivant ; suivre, longer ; bord	presque toujours 沿着 yánzhe + chemin + verbe ; 沿海 yánhǎi = le littoral	沿着	沿着这条路一直走，就能看到银行。	Yánzhe zhè tiáo lù yìzhí zǒu, jiù néng kàn dào yínháng.	Suis cette rue tout droit et tu verras la banque.
+逻辑
+脸色	liǎnsè	teint, mine ; expression du visage	脸色不好 = avoir mauvaise mine ; reflète la santé ou l’humeur ; à ne pas confondre avec 脸 liǎn (visage)		你的脸色不太好，是不是生病了？	Nǐ de liǎnsè bú tài hǎo, shì bu shì shēngbìng le?	Tu n’as pas très bonne mine, tu es malade ?
+用品	yòngpǐn	articles, fournitures, produits d’usage	toujours précisé : 生活用品 = articles de la vie courante, 学习用品 = fournitures scolaires, 办公用品 = fournitures de bureau		我去超市买了一些生活用品。	Wǒ qù chāoshì mǎi le yìxiē shēnghuó yòngpǐn.	Je suis allé au supermarché acheter quelques articles de la vie courante.
+擅长	shàncháng	être doué pour, exceller dans	擅长 + verbe ou nom ; 长 se lit cháng ici (pas zhǎng) ; contraire : 不擅长 bú shàncháng		她擅长做中国菜。	Tā shàncháng zuò Zhōngguó cài.	Elle est douée pour la cuisine chinoise.
+兔子
+弯	wān	courbe, courbé, sinueux ; plier, courber ; virage	拐弯 guǎiwān : tourner (à un virage) ; 弯腰 wān yāo : se pencher	拐弯	这条山路很弯，开车要小心。	Zhè tiáo shānlù hěn wān, kāi chē yào xiǎoxīn.	Cette route de montagne est très sinueuse, il faut conduire avec prudence.
+忽视
+密切
+哲学
+光明
+嘉宾
+象征
+小型	xiǎoxíng	petit, de petite taille (modèle), à petite échelle	toujours devant un nom : 小型汽车 ; contraire : 大型 dàxíng ; intermédiaire : 中型 zhōngxíng		我想买一辆小型汽车。	Wǒ xiǎng mǎi yí liàng xiǎoxíng qìchē.	Je voudrais acheter une petite voiture.
+本质
+提问
+录取
+浅
+犹豫
+实践
+当前	dāngqián	actuel, présent ; à présent, en ce moment (écrit) ; être devant soi (大敌当前 = l’ennemi est à nos portes)	plus formel que 现在 xiànzài ; 当前的问题 = le problème actuel		当前最重要的是好好休息。	Dāngqián zuì zhòngyào de shì hǎohǎo xiūxi.	Pour l’instant, le plus important est de bien se reposer.
+好转	hǎozhuǎn	s’améliorer, aller mieux (santé, situation, météo)	contraire : 恶化 èhuà (se détériorer) ; ne s’emploie pas pour une compétence qui progresse (→ 提高 tígāo)		天气已经好转，我们可以出发了。	Tiānqì yǐjing hǎozhuǎn, wǒmen kěyǐ chūfā le.	Le temps s’est amélioré, nous pouvons partir.
+早期	zǎoqī	début, première période, stade précoce	早期发现 = détection précoce ; contraire : 晚期 wǎnqī (stade avancé, fin de période)		这种病在早期很难发现。	Zhè zhǒng bìng zài zǎoqī hěn nán fāxiàn.	Cette maladie est difficile à détecter à un stade précoce.
+难得	nándé	rare, qui arrive peu souvent ; précieux (parce que rare)	devant un verbe ou une phrase : 难得见面 = se voir rarement ; 难得的机会 = une occasion rare ; plus fort que 很少 hěn shǎo		难得周末天气这么好，我们出去走走吧。	Nándé zhōumò tiānqì zhème hǎo, wǒmen chūqu zǒuzou ba.	Il est rare qu’il fasse aussi beau le week-end, allons nous promener.
+讲述	jiǎngshù	raconter, relater (une histoire, une expérience vécue)	plus écrit que 讲 jiǎng et 说 shuō ; 讲述自己的故事 = raconter sa propre histoire		爷爷常常给我们讲述他年轻时的经历。	Yéye chángcháng gěi wǒmen jiǎngshù tā niánqīng shí de jīnglì.	Grand-père nous raconte souvent ce qu’il a vécu quand il était jeune.
+从前
+大厦
+损害	sǔnhài	nuire à, porter atteinte à, abîmer (la santé, la réputation, les intérêts)	complément abstrait : 损害健康, 损害名誉 ; pour un objet cassé, on dit 弄坏 nònghuài		长时间看手机会损害眼睛。	Cháng shíjiān kàn shǒujī huì sǔnhài yǎnjing.	Regarder longtemps son téléphone abîme les yeux.
+品质	pǐnzhì	qualité (d’un produit) ; qualité morale, trait de caractère	pour un produit, 质量 zhìliàng est plus courant à l’oral ; pour une personne : 优秀的品质 = d’excellentes qualités		这家店的东西品质很好，价格也不贵。	Zhè jiā diàn de dōngxi pǐnzhì hěn hǎo, jiàgé yě bú guì.	Les articles de ce magasin sont de très bonne qualité, et les prix ne sont pas élevés.
+设立	shèlì	fonder, établir, créer (un organisme, un service, un prix, un poste)	设立奖学金 = créer une bourse ; à ne pas confondre avec 成立 chénglì (être fondé, se constituer : 公司成立了)		学校设立了一个帮助新同学的小组。	Xuéxiào shèlì le yí ge bāngzhù xīn tóngxué de xiǎozǔ.	L’école a créé un groupe pour aider les nouveaux élèves.
+预防
+效率
+情景
+必然
+珍贵	zhēnguì	précieux, de grande valeur (rare et difficile à remplacer)	aussi au figuré : 珍贵的友谊 = une amitié précieuse ; 贵 guì seul parle du prix élevé		这张老照片对我来说非常珍贵。	Zhè zhāng lǎo zhàopiàn duì wǒ lái shuō fēicháng zhēnguì.	Cette vieille photo est très précieuse pour moi.
+赔	péi	dédommager, rembourser, remplacer (ce qu’on a abîmé ou perdu) ; perdre de l’argent (dans une affaire)	赔偿 péicháng : indemniser (plus formel) ; 赔钱 peut dire payer des dégâts ou perdre de l’argent, selon le contexte	赔偿	我把朋友的杯子打碎了，要赔他一个新的。	Wǒ bǎ péngyou de bēizi dǎ suì le, yào péi tā yí ge xīn de.	J’ai cassé le verre de mon ami, il faut que je le lui remplace.
+摘
+写作
+商人	shāngrén	commerçant, marchand ; homme d’affaires	familier : 生意人 shēngyìrén ; un chef d’entreprise se dit plutôt 企业家 qǐyèjiā		他爸爸是商人，经常去不同的城市做生意。	Tā bàba shì shāngrén, jīngcháng qù bù tóng de chéngshì zuò shēngyi.	Son père est commerçant, il va souvent faire des affaires dans différentes villes.
+糟	zāo	mauvais, en mauvais état, gâché ; 糟了 = zut, c’est raté (familier)	souvent dans 糟糕 zāogāo (mauvais, zut) et 糟透了 = vraiment nul ; 乱糟糟 luànzāozāo = en pagaille	糟糕	昨天我的心情很糟，什么都不想做。	Zuótiān wǒ de xīnqíng hěn zāo, shénme dōu bù xiǎng zuò.	Hier, j’étais de très mauvaise humeur, je n’avais envie de rien faire.
+业余
+学者	xuézhě	érudit, savant, chercheur (personne de grande culture qui mène des recherches)	un chercheur en sciences : 科学家 kēxuéjiā ; un spécialiste : 专家 zhuānjiā		这位学者写了很多关于中国历史的书。	Zhè wèi xuézhě xiě le hěn duō guānyú Zhōngguó lìshǐ de shū.	Cet érudit a écrit de nombreux livres sur l’histoire de la Chine.
+古老	gǔlǎo	ancien, antique, très vieux (ville, coutume, culture)	ne se dit pas d’une personne âgée (→ 老 lǎo) ; 古老的传说 = une légende ancienne		这是一座古老的城市，已经有两千多年的历史了。	Zhè shì yí zuò gǔlǎo de chéngshì, yǐjing yǒu liǎng qiān duō nián de lìshǐ le.	C’est une ville très ancienne, qui a déjà plus de deux mille ans d’histoire.
+对比
+危害
+手续
+季度	jìdù	trimestre	第一季度 = le premier trimestre ; 季节 jìjié = la saison		这家公司每个季度都会发一次奖金。	Zhè jiā gōngsī měi ge jìdù dōu huì fā yí cì jiǎngjīn.	Cette entreprise verse une prime chaque trimestre.
+四周	sìzhōu	autour, alentours, tout autour	mot de lieu : 房子四周, 四周都是山 ; synonyme plus courant à l’oral : 周围 zhōuwéi		房子四周都是树，很安静。	Fángzi sìzhōu dōu shì shù, hěn ānjìng.	Autour de la maison, il n’y a que des arbres, c’est très calme.
+休闲
+签字	qiānzì	signer ; signature	verbe-objet : 签了字 ; 在合同上签字 = signer un contrat ; 签名 qiānmíng : signer de son nom, autographe		请在这张表上签字，然后交给老师。	Qǐng zài zhè zhāng biǎo shàng qiānzì, ránhòu jiāo gěi lǎoshī.	Signe ce formulaire, s’il te plaît, puis remets-le au professeur.
+戏剧
+围绕
+在内	zàinèi	y compris, inclus (après ce qui est inclus)	包括我在内 = moi compris, y compris moi ; contraire : 不包括…在内 = sans compter…		包括我在内，一共有十五个人去旅游。	Bāokuò wǒ zàinèi, yígòng yǒu shíwǔ ge rén qù lǚyóu.	Y compris moi, quinze personnes partent en voyage au total.
+缩小	suōxiǎo	réduire, rapetisser, diminuer (une taille, un écart, un champ)	contraire : 扩大 kuòdà (agrandir) ; 缩小差距 = réduire l’écart ; sur écran : 放大 / 缩小 = agrandir / réduire		你能把这张照片缩小一点儿吗？	Nǐ néng bǎ zhè zhāng zhàopiàn suōxiǎo yìdiǎnr ma?	Peux-tu réduire un peu cette photo ?
+含有	hányǒu	contenir, renfermer (une substance, un élément)	plus écrit que 有 ; 含有大量水分 = contenir beaucoup d’eau ; teneur : 含量 hánliàng		这种水果含有很多水，夏天大家都爱吃。	Zhè zhǒng shuǐguǒ hányǒu hěn duō shuǐ, xiàtiān dàjiā dōu ài chī.	Ce fruit contient beaucoup d’eau, en été tout le monde l’adore.
+偶然
+掌声	zhǎngshēng	applaudissements	响起掌声 = des applaudissements éclatent ; applaudir : 鼓掌 gǔzhǎng ; classif. 阵 : 一阵掌声		他唱完歌以后，教室里响起了掌声。	Tā chàng wán gē yǐhòu, jiàoshì lǐ xiǎng qǐ le zhǎngshēng.	Quand il a fini de chanter, des applaudissements ont retenti dans la classe.
+接收	jiēshōu	recevoir (un envoi, un signal, des données) ; accueillir, admettre (des élèves, des personnes)	côté récepteur : 接收文件 = recevoir un fichier ; à ne pas confondre avec 接受 jiēshòu (accepter) ; 收到 shōudào : bien reçu		我这边没有接收到你发的文件，请再发一次。	Wǒ zhèbiān méiyǒu jiēshōu dào nǐ fā de wénjiàn, qǐng zài fā yí cì.	De mon côté, je n’ai pas reçu le fichier que tu as envoyé, envoie-le encore une fois, s’il te plaît.
+种子	zhǒngzi	graine, semence	classif. 颗 kē ou 粒 lì : 一颗种子 ; en verbe, 种 se lit zhòng (planter) : 种种子 zhòng zhǒngzi		春天，我和妈妈把种子种在花盆里。	Chūntiān, wǒ hé māma bǎ zhǒngzi zhòng zài huāpén lǐ.	Au printemps, ma mère et moi avons planté les graines dans un pot de fleurs.
+模糊
+差别	chābié	différence, écart (entre deux choses)	plus concret que 区别 qūbié (distinction, ce qui distingue) ; 差别很大 = une grande différence ; 没有差别 = pas de différence		这两种手机的价格差别很大。	Zhè liǎng zhǒng shǒujī de jiàgé chābié hěn dà.	Il y a une grande différence de prix entre ces deux types de téléphones.
+赞成
+更新	gēngxīn	mettre à jour, renouveler, actualiser	更 se lit gēng ici (≠ gèng : encore plus) ; 更新软件 = mettre à jour un logiciel		这个软件每个月更新一次。	Zhège ruǎnjiàn měi ge yuè gēngxīn yí cì.	Ce logiciel est mis à jour une fois par mois.
+复制
+消化
+录音
+接待
+推动	tuīdòng	faire avancer, promouvoir, stimuler ; pousser (pour mettre en mouvement)	complément abstrait : 推动发展, 推动工作 ; pousser une porte, un objet : 推 tuī		新技术推动了这个城市的发展。	Xīn jìshù tuīdòng le zhège chéngshì de fāzhǎn.	Les nouvelles technologies ont stimulé le développement de cette ville.
+疑问
+适用	shìyòng	applicable, valable (pour) ; qui convient à l’usage	适用于 + personnes ou cas = s’appliquer à ; à ne pas confondre avec 适合 shìhé (convenir à quelqu’un : 这件衣服适合你)		这个规定适用于所有的学生。	Zhège guīdìng shìyòng yú suǒyǒu de xuésheng.	Ce règlement s’applique à tous les élèves.
+包裹
+键	jiàn	touche (de clavier, de piano) ; bouton (d’un appareil)	souvent en mot composé : 键盘 jiànpán (clavier), 按键 ànjiàn (touche) ; 关键 guānjiàn = clé, crucial	键盘	按这个键就可以关机。	Àn zhège jiàn jiù kěyǐ guānjī.	Il suffit d’appuyer sur cette touche pour éteindre l’appareil.
+闲	xián	libre, inoccupé (qui n’a rien à faire) ; oisif	闲着 xiánzhe : rester à ne rien faire ; 空闲 kòngxián : temps libre ; 休闲 xiūxián : loisirs, détente	清闲	我现在很闲，有什么需要帮忙的吗？	Wǒ xiànzài hěn xián, yǒu shénme xūyào bāngmáng de ma?	Je suis libre en ce moment, tu as besoin d’aide pour quelque chose ?
+客观
+善于
+发起	fāqǐ	lancer, déclencher (une action, une campagne, une initiative) ; être le premier à proposer	发起人 fāqǐrén = initiateur ; ne pas confondre avec 发生 fāshēng (se produire, arriver)		同学们发起了一个帮助小动物的活动。	Tóngxuémen fāqǐ le yí ge bāngzhù xiǎo dòngwù de huódòng.	Les élèves ont lancé une action pour aider les petits animaux.
+应用
+花费	huāfèi	dépenser, consacrer (de l’argent, du temps, de l’énergie) ; dépense, frais	花 seul est plus courant à l’oral (花钱, 花时间) ; 花费 est un peu plus écrit		为了这次旅行，他花费了很多钱和时间。	Wèile zhè cì lǚxíng, tā huāfèi le hěn duō qián hé shíjiān.	Pour ce voyage, il a dépensé beaucoup d’argent et de temps.
+鼓	gǔ	tambour ; battre, frapper (un tambour) ; gonfler, bomber ; gonflé, bombé	打鼓 = jouer du tambour ; 鼓掌 gǔzhǎng : applaudir ; 鼓励 gǔlì : encourager ; 鼓起来 = se gonfler	鼓掌	他从小就喜欢打鼓。	Tā cóng xiǎo jiù xǐhuan dǎ gǔ.	Il aime jouer du tambour depuis tout petit.
+大多	dàduō	pour la plupart, le plus souvent, en majorité	adverbe, devant le verbe ; la majorité (nom) : 大多数 dàduōshù, 大多数人 = la plupart des gens		我们班的同学大多是北京人。	Wǒmen bān de tóngxué dàduō shì Běijīng rén.	Les élèves de notre classe sont pour la plupart de Pékin.
+歌词	gēcí	paroles (d’une chanson)			我喜欢一边听歌，一边看歌词。	Wǒ xǐhuan yìbiān tīng gē, yìbiān kàn gēcí.	J’aime écouter une chanson en lisant les paroles.
+包含
+过敏
+现状	xiànzhuàng	situation actuelle, état actuel des choses, statu quo	对现状满意 / 不满意 = être satisfait / mécontent de sa situation ; 维持现状 = maintenir le statu quo ; 现在 xiànzài : maintenant		他对自己的现状很满意。	Tā duì zìjǐ de xiànzhuàng hěn mǎnyì.	Il est très satisfait de sa situation actuelle.
+集合
+宝贵
+进口
+工程师
+土豆
+展览
+流感	liúgǎn	grippe	abrégé de 流行性感冒 ; un simple rhume : 感冒 gǎnmào		最近很多人得了流感，你要小心。	Zuìjìn hěn duō rén dé le liúgǎn, nǐ yào xiǎoxīn.	Beaucoup de gens ont attrapé la grippe ces derniers temps, fais attention.
+行驶	xíngshǐ	rouler, circuler (véhicule) ; avancer (train, bateau)	uniquement pour un véhicule (汽车, 火车, 船) ; une personne marche : 走 zǒu		这辆车每小时可以行驶一百二十公里。	Zhè liàng chē měi xiǎoshí kěyǐ xíngshǐ yìbǎi èrshí gōnglǐ.	Cette voiture peut rouler à cent vingt kilomètres à l’heure.
+超出	chāochū	dépasser, excéder (une limite, un budget, des prévisions)	超出预算 = dépasser le budget ; 超出想象 = dépasser l’imagination ; 超过 chāoguò dépasse aussi une personne, un véhicule		这次旅行的费用超出了我们的预算。	Zhè cì lǚxíng de fèiyong chāochū le wǒmen de yùsuàn.	Le coût de ce voyage a dépassé notre budget.
+饮食	yǐnshí	alimentation, régime alimentaire ; nourriture et boisson	饮食习惯 = habitudes alimentaires ; plus écrit que 吃 chī		想身体好，就要注意饮食。	Xiǎng shēntǐ hǎo, jiù yào zhùyì yǐnshí.	Pour être en bonne santé, il faut faire attention à son alimentation.
+脚步	jiǎobù	pas, allure (de la marche)	放慢 / 加快脚步 = ralentir / accélérer le pas ; 脚步声 jiǎobùshēng = bruit de pas		老人走得很慢，我们也放慢了脚步。	Lǎorén zǒu de hěn màn, wǒmen yě fàngmàn le jiǎobù.	Le vieil homme marchait très lentement, nous avons nous aussi ralenti le pas.
+完善
+猴子
+陪伴	péibàn	accompagner, tenir compagnie (avec affection, dans la durée)	plus affectif que 陪 péi : 陪伴老人, 陪伴孩子成长 ; le sujet peut aussi être une chose (音乐陪伴着我)		谢谢你一直陪伴在我身边。	Xièxie nǐ yìzhí péibàn zài wǒ shēnbiān.	Merci d’avoir toujours été à mes côtés.
+参考
+志愿者
+泪	lèi	larme	presque toujours en composé : 眼泪 yǎnlèi, 泪水 lèishuǐ ; 流泪 = verser des larmes	眼泪	看到电影的结尾，我忍不住流泪了。	Kàn dào diànyǐng de jiéwěi, wǒ rěnbuzhù liúlèi le.	En voyant la fin du film, je n’ai pas pu retenir mes larmes.
+重量
+缓解
+货物	huòwù	marchandises, cargaison	ce qui est transporté ou stocké ; en magasin, les articles à vendre sont des 商品 shāngpǐn		这些货物明天上午会送到商店。	Zhèxiē huòwù míngtiān shàngwǔ huì sòng dào shāngdiàn.	Ces marchandises seront livrées au magasin demain matin.
+群体	qúntǐ	groupe, collectivité (ensemble de personnes qui ont un point commun)	groupe de population : 老年群体, 消费群体 ; une organisation, une association : 团体 tuántǐ		老年人是一个需要大家关心的群体。	Lǎoniánrén shì yí ge xūyào dàjiā guānxīn de qúntǐ.	Les personnes âgées forment un groupe qui a besoin de l’attention de tous.
+发达
+提交	tíjiāo	soumettre, remettre (un devoir, un rapport, un dossier, un formulaire)	提交作业 / 申请 / 报告 ; sur un site Internet : 点击提交 = cliquer sur « Envoyer »		请在周五以前把作业提交给老师。	Qǐng zài zhōuwǔ yǐqián bǎ zuòyè tíjiāo gěi lǎoshī.	Remets le devoir au professeur avant vendredi, s’il te plaît.
+人工	réngōng	artificiel, fait par l’homme (≠ naturel) ; main-d’œuvre, travail manuel	人工智能 réngōng zhìnéng = intelligence artificielle ; contraire : 自然 zìrán, 天然 tiānrán		公园里的这个湖是人工的，不是天然的。	Gōngyuán lǐ de zhège hú shì réngōng de, bú shì tiānrán de.	Ce lac du parc est artificiel, pas naturel.
+共享	gòngxiǎng	partager (des ressources, des informations), mettre en commun	共享单车 gòngxiǎng dānchē = vélo en libre-service ; partager une joie, une histoire avec quelqu’un : 分享 fēnxiǎng		同学们可以共享这些学习资料。	Tóngxuémen kěyǐ gòngxiǎng zhèxiē xuéxí zīliào.	Les élèves peuvent partager ces documents d’étude.
+信用	xìnyòng	fiabilité (le fait de tenir ses engagements) ; crédit (finance, commerce)	讲信用 = tenir parole, être fiable ; 信用卡 xìnyòngkǎ = carte de crédit ; la confiance qu’on accorde : 信任 xìnrèn		他做生意很讲信用，大家都愿意和他合作。	Tā zuò shēngyi hěn jiǎng xìnyòng, dàjiā dōu yuànyì hé tā hézuò.	En affaires, il est très fiable, tout le monde veut travailler avec lui.
+乡	xiāng	campagne ; pays natal, village d’origine ; canton (division administrative rurale)	presque toujours en composé : 乡下 xiāngxia (campagne), 家乡 jiāxiāng (pays natal), 乡村 xiāngcūn (village)	家乡	我爷爷住在乡下，那里空气很好。	Wǒ yéye zhù zài xiāngxia, nàlǐ kōngqì hěn hǎo.	Mon grand-père habite à la campagne, où l’air est très bon.
+天上	tiānshàng	dans le ciel, au ciel, là-haut	mot de lieu : 天上有云 ; le ciel comme étendue : 天空 tiānkōng ; opposé : 地上 dìshàng (par terre)		今天天上有很多云，可能要下雨了。	Jīntiān tiānshàng yǒu hěn duō yún, kěnéng yào xiàyǔ le.	Il y a beaucoup de nuages dans le ciel aujourd’hui, il va peut-être pleuvoir.
+商务
+回收	huíshōu	recycler, récupérer (des déchets, des matériaux usagés) ; rappeler (un produit défectueux)	可回收垃圾 = déchets recyclables ; 回收站 huíshōuzhàn : point de collecte, ou corbeille d’un ordinateur		旧报纸和空瓶子都可以回收。	Jiù bàozhǐ hé kōng píngzi dōu kěyǐ huíshōu.	Les vieux journaux et les bouteilles vides peuvent être recyclés.
+沙漠
+存款	cúnkuǎn	déposer de l’argent (à la banque) ; dépôt bancaire, économies	nom : 他有一笔存款 = il a des économies à la banque ; à l’oral, 存钱 cún qián ; contraire : 取款 qǔkuǎn (retirer)		他每个月发工资以后都去银行存款。	Tā měi ge yuè fā gōngzī yǐhòu dōu qù yínháng cúnkuǎn.	Chaque mois, après avoir touché son salaire, il va à la banque déposer de l’argent.
+语气
+形状
+短期	duǎnqī	à court terme, de courte durée	短期班 = cours de courte durée ; 短期内 = à court terme ; contraire : 长期 chángqī		这只是一份短期工作，只做三个月。	Zhè zhǐshì yí fèn duǎnqī gōngzuò, zhǐ zuò sān ge yuè.	Ce n’est qu’un travail de courte durée : trois mois seulement.
+深度	shēndù	profondeur ; approfondi, en profondeur (analyse, réflexion)	se mesure : 深度三米 ; 深 shēn : profond (adjectif) ; 深度睡眠 = sommeil profond		这个游泳池的深度是一米五。	Zhège yóuyǒngchí de shēndù shì yì mǐ wǔ.	La profondeur de cette piscine est d’un mètre cinquante.
+了不起
+停留	tíngliú	rester un moment, s’arrêter quelque temps (de passage) ; s’attarder	séjour bref, étape ; 停留时间 = durée du séjour ou de l’arrêt ; ≠ 停 tíng (s’arrêter, se garer)		我们在上海停留了两天，然后去了北京。	Wǒmen zài Shànghǎi tíngliú le liǎng tiān, ránhòu qù le Běijīng.	Nous sommes restés deux jours à Shanghai, puis nous sommes allés à Pékin.
+幼儿园
+删	shān	supprimer, effacer, couper (un fichier, un texte)	删除 shānchú : supprimer ; 删掉 shāndiào : effacer, retrancher	删除	我把手机里没用的照片都删了。	Wǒ bǎ shǒujī lǐ méiyòng de zhàopiàn dōu shān le.	J’ai supprimé toutes les photos inutiles de mon téléphone.
+延长
+如下	rúxià	comme suit, être le suivant (annonce, liste)	dans une annonce ou un avis, avant le détail : 内容如下：…… (suivi de deux-points)		通知如下：明天上午九点考试，请大家按时到。	Tōngzhī rúxià: míngtiān shàngwǔ jiǔ diǎn kǎoshì, qǐng dàjiā ànshí dào.	L’avis est le suivant : examen demain matin à neuf heures, veuillez tous arriver à l’heure.
+外婆	wàipó	grand-mère maternelle (familier)	grand-père maternel : 外公 wàigōng ; côté paternel : 奶奶 nǎinai, 爷爷 yéye ; dans le nord, 姥姥 lǎolao		周末我常常去外婆家吃饭。	Zhōumò wǒ chángcháng qù wàipó jiā chī fàn.	Le week-end, je vais souvent manger chez ma grand-mère maternelle.
+飞行员	fēixíngyuán	pilote (d’avion)	飞行 fēixíng = voler + 员 (personne) ; le conducteur d’une voiture est un 司机 sījī		我的梦想是长大以后当飞行员。	Wǒ de mèngxiǎng shì zhǎngdà yǐhòu dāng fēixíngyuán.	Mon rêve est de devenir pilote quand je serai grand.
+便利	biànlì	pratique, commode ; faciliter, rendre commode	plus soutenu que 方便 fāngbiàn ; 便利店 biànlìdiàn = supérette ; 为…提供便利 = faciliter la vie de…		我家附近有地铁站，出行非常便利。	Wǒ jiā fùjìn yǒu dìtiě zhàn, chūxíng fēicháng biànlì.	Il y a une station de métro près de chez moi, se déplacer est très pratique.
+盆
+实习
+性质
+大力	dàlì	énergiquement, avec vigueur, à fond (devant un verbe) ; grande force	大力支持, 大力发展, 大力推广 : style écrit ; grande force physique : 大力士 dàlìshì = hercule		老师大力支持我们参加这次比赛。	Lǎoshī dàlì zhīchí wǒmen cānjiā zhè cì bǐsài.	Notre professeur soutient vivement notre participation à ce concours.
+开展	kāizhǎn	mener, organiser, lancer (une activité, une campagne) ; se développer	开展活动 / 调查 / 比赛 ; ≠ 展开 zhǎnkāi (déplier, déployer)		学校开展了很多有意思的活动。	Xuéxiào kāizhǎn le hěn duō yǒu yìsi de huódòng.	L’école a organisé beaucoup d’activités intéressantes.
+神话
+紫
+长久	chángjiǔ	durable, qui dure longtemps ; longtemps	长久的友谊 = une amitié durable ; 长久地 + verbe = durablement ; 永久 yǒngjiǔ : permanent, pour toujours		这样的好天气不会长久，明天就要下雨了。	Zhèyàng de hǎo tiānqì bú huì chángjiǔ, míngtiān jiù yào xiàyǔ le.	Ce beau temps ne durera pas, demain il va pleuvoir.
+推广
+营业
+古代
+中华民族	zhōnghuámínzú	nation chinoise (l’ensemble des peuples qui forment la Chine)	民族 mínzú = peuple, ethnie ; 中华 Zhōnghuá = la Chine (nom littéraire et officiel)		中华民族有五千多年的历史。	Zhōnghuá mínzú yǒu wǔqiān duō nián de lìshǐ.	La nation chinoise a plus de cinq mille ans d’histoire.
+紧密	jǐnmì	étroit, intime (liens, coopération) ; serré, dense	souvent avec 联系 liánxì (lien) ou 合作 hézuò (coopération) ; 紧 jǐn = serré (vêtement, nœud)		我们公司和这所大学的合作越来越紧密。	Wǒmen gōngsī hé zhè suǒ dàxué de hézuò yuè lái yuè jǐnmì.	La coopération entre notre entreprise et cette université est de plus en plus étroite.
+铃
+体力	tǐlì	force physique, endurance	体力劳动 tǐlì láodòng = travail manuel ; 力气 lìqi = force des bras, des muscles		搬家很累，需要很多体力。	Bānjiā hěn lèi, xūyào hěn duō tǐlì.	Déménager, c’est fatigant, il faut beaucoup de force physique.
+农业
+视为	shìwéi	considérer comme, tenir pour (écrit) : 把他视为朋友 = le considérer comme un ami	plus soutenu que 看作 kànzuò, 当作 dàngzuò ; au passif : 被视为 = être considéré comme	被视为	他把我视为最好的朋友。	Tā bǎ wǒ shìwéi zuìhǎo de péngyou.	Il me considère comme son meilleur ami.
+诗人	shīrén	poète	女诗人 nǚshīrén = poétesse ; 诗 shī = poème, poésie		这位诗人写了很多关于春天的诗。	Zhè wèi shīrén xiě le hěn duō guānyú chūntiān de shī.	Ce poète a écrit beaucoup de poèmes sur le printemps.
+打断	dǎduàn	interrompre, couper la parole ; casser (un os, un bâton)	打断别人说话 = couper la parole à quelqu’un ; 断 duàn = casser, rompre		别打断我，让我把话说完。	Bié dǎduàn wǒ, ràng wǒ bǎ huà shuō wán.	Ne m’interromps pas, laisse-moi finir ce que j’ai à dire.
+洒
+语音	yǔyīn	sons d’une langue, prononciation ; message vocal (发语音 = envoyer un vocal)	pour la prononciation d’un mot isolé, on dit plutôt 发音 fāyīn ; 语音学 yǔyīnxué = phonétique		学外语的时候，要先学好语音。	Xué wàiyǔ de shíhou, yào xiān xué hǎo yǔyīn.	Quand on apprend une langue étrangère, il faut d’abord bien apprendre la prononciation.
+注重	zhùzhòng	accorder de l’importance à, attacher du prix à, soigner	proche de 重视 zhòngshì, plus écrit ; 注重质量 = soigner la qualité		这家公司很注重员工的健康。	Zhè jiā gōngsī hěn zhùzhòng yuángōng de jiànkāng.	Cette entreprise accorde beaucoup d’importance à la santé de ses employés.
+夜间	yèjiān	la nuit, pendant la nuit ; de nuit	écrit ; à l’oral 晚上 wǎnshang, 夜里 yèlǐ ; 夜间航班 = vol de nuit		夜间开车要特别小心。	Yèjiān kāi chē yào tèbié xiǎoxīn.	Il faut être particulièrement prudent quand on conduit la nuit.
+有助于	yǒuzhùyú	contribuer à, aider à, être utile à	有助于 + nom ou verbe : 有助于学习 = aider à apprendre ; à l’inverse 不利于 búlìyú = être mauvais pour		每天运动有助于身体健康。	Měitiān yùndòng yǒuzhùyú shēntǐ jiànkāng.	Faire de l’exercice tous les jours aide à rester en bonne santé.
+等候	děnghòu	attendre, patienter (soutenu, poli)	plus soutenu que 等 děng ; 等候室 děnghòushì = salle d’attente		请在门口等候，医生马上就来。	Qǐng zài ménkǒu děnghòu, yīshēng mǎshàng jiù lái.	Veuillez patienter à l’entrée, le médecin arrive tout de suite.
+面积
+桃
+用力	yònglì	faire un effort physique, forcer, mettre de la force	séparable : 用了很大的力 = y mettre beaucoup de force ; 用力推 = pousser fort ; 力气 lìqi = force physique		门很重，你要用力才能打开。	Mén hěn zhòng, nǐ yào yònglì cái néng dǎkāi.	La porte est lourde, tu dois forcer pour l’ouvrir.
+广泛
+拨打	bōdǎ	composer (un numéro), appeler	拨打电话 = passer un appel, plus formel que 打电话 dǎ diànhuà		如果有问题，请拨打这个电话号码。	Rúguǒ yǒu wèntí, qǐng bōdǎ zhège diànhuà hàomǎ.	Si vous avez un problème, veuillez composer ce numéro de téléphone.
+加工	jiāgōng	transformer, traiter (matières premières), usiner ; transformation	食品加工 = transformation alimentaire ; 加工厂 jiāgōngchǎng = usine de transformation		这家工厂把牛奶加工成奶粉。	Zhè jiā gōngchǎng bǎ niúnǎi jiāgōng chéng nǎifěn.	Cette usine transforme le lait en lait en poudre.
+行程	xíngchéng	itinéraire, programme d’un voyage ; trajet, distance parcourue	安排行程 = organiser le programme du voyage ; 路线 lùxiàn = tracé, route à suivre		这次去北京的行程已经安排好了。	Zhè cì qù Běijīng de xíngchéng yǐjing ānpái hǎo le.	Le programme de ce voyage à Pékin est déjà bien établi.
+手套
+品种	pǐnzhǒng	variété, race (plantes, animaux) ; sorte (de produits)	狗的品种 = race de chien ; 种类 zhǒnglèi = sorte, genre (plus général)		这家店的水果品种很多。	Zhè jiā diàn de shuǐguǒ pǐnzhǒng hěn duō.	Ce magasin propose beaucoup de variétés de fruits.
+记载	jìzǎi	consigner par écrit, relater, enregistrer ; récit écrit, document	载 se lit zǎi ici (pas zài) ; 历史记载 = sources historiques		这件事在历史书上有记载。	Zhè jiàn shì zài lìshǐ shū shàng yǒu jìzǎi.	Cet événement est consigné dans les livres d’histoire.
+悄悄
+差距
+总共
+粮食
+证书	zhèngshū	certificat, diplôme (attestation officielle)	毕业证书 = diplôme de fin d’études ; 证件 zhèngjiàn = pièce d’identité, justificatif		他考试通过后，拿到了一张证书。	Tā kǎoshì tōngguò hòu, ná dào le yì zhāng zhèngshū.	Après avoir réussi l’examen, il a obtenu un certificat.
+豆腐
+促进
+病房	bìngfáng	chambre d’hôpital, salle de malades	单人病房 = chambre individuelle ; 病人 bìngrén = malade, patient		奶奶住在三号病房，我们去看她吧。	Nǎinai zhù zài sān hào bìngfáng, wǒmen qù kàn tā ba.	Grand-mère est dans la chambre trois, allons la voir.
+研发	yánfā	développer, mettre au point (un produit, une technologie) ; recherche et développement (R&D)	研发部门 yánfā bùmén = service de R&D ; plus technique que 开发 kāifā (développer, exploiter)		这家公司正在研发一种新手机。	Zhè jiā gōngsī zhèngzài yánfā yì zhǒng xīn shǒujī.	Cette entreprise est en train de développer un nouveau type de téléphone.
+西装	xīzhuāng	costume (veste et pantalon), tenue de ville	classif. : 一套西装 = un costume ; 西 = occidental, 装 = vêtement		他明天要面试，所以买了一套新西装。	Tā míngtiān yào miànshì, suǒyǐ mǎi le yí tào xīn xīzhuāng.	Il passe un entretien demain, alors il a acheté un costume neuf.
+优惠
+字母
+忙碌	mánglù	occupé, affairé, très pris ; s’affairer	plus soutenu que 忙 máng ; 忙碌的一天 = une journée bien remplie		最近工作很忙碌，我几乎没有时间休息。	Zuìjìn gōngzuò hěn mánglù, wǒ jīhū méiyǒu shíjiān xiūxi.	Ces derniers temps, je suis très occupé par mon travail, je n’ai presque pas de temps pour me reposer.
+灰色	huīsè	gris ; (fig.) morne, sombre ; flou, ambigu (灰色地带 = zone grise)	灰 huī seul = cendre, gris ; 深灰色 = gris foncé		天空是灰色的，好像要下雨了。	Tiānkōng shì huīsè de, hǎoxiàng yào xiàyǔ le.	Le ciel est gris, on dirait qu’il va pleuvoir.
+高档
+束	shù	classif. : bouquet, gerbe, faisceau (一束花 = un bouquet de fleurs ; 一束阳光 = un rayon de soleil) ; lier, attacher	autres emplois dans 结束 jiéshù (terminer) et 约束 yuēshù (contraindre)	一束花	妈妈生日那天，他送给她一束花。	Māma shēngrì nà tiān, tā sòng gěi tā yí shù huā.	Le jour de l’anniversaire de maman, il lui a offert un bouquet de fleurs.
+个别
+蝴蝶
+否定
+销量	xiāoliàng	volume des ventes, quantité vendue	销量大 = bien se vendre ; 销售 xiāoshòu = vendre, vente (action)		这种水果夏天的销量特别大。	Zhè zhǒng shuǐguǒ xiàtiān de xiāoliàng tèbié dà.	Les ventes de ce fruit sont particulièrement élevées en été.
+灵活
+分类	fēnlèi	classer, trier par catégories ; classification	垃圾分类 lājī fēnlèi = tri des déchets ; 种类 zhǒnglèi = genre, sorte		请把这些书按内容分类。	Qǐng bǎ zhèxiē shū àn nèiróng fēnlèi.	Classe ces livres selon leur contenu, s’il te plaît.
+外部	wàibù	extérieur (partie extérieure) ; externe	contraire : 内部 nèibù (intérieur, interne) ; à l’oral 外面 wàimiàn ; 外部原因 = cause externe		这座房子从外部看很旧，里面却很漂亮。	Zhè zuò fángzi cóng wàibù kàn hěn jiù, lǐmian què hěn piàoliang.	Vue de l’extérieur, cette maison paraît très vieille, mais à l’intérieur elle est très belle.
+亲切
+预订
+充足	chōngzú	suffisant, abondant, ample	se dit du temps, de la lumière, du sommeil : 睡眠充足 = dormir suffisamment ; 阳光充足 = bien ensoleillé		我们的时间很充足，不用着急。	Wǒmen de shíjiān hěn chōngzú, bú yòng zháojí.	Nous avons largement le temps, pas besoin de nous inquiéter.
+名称	míngchēng	nom (d’une chose, d’une organisation), dénomination	pour une personne, on dit 名字 míngzi ; 产品名称 = nom d’un produit ; 称 se lit chēng		请在这里写上公司的名称。	Qǐng zài zhèlǐ xiě shàng gōngsī de míngchēng.	Veuillez écrire ici le nom de l’entreprise.
+向上	xiàngshàng	aller de l’avant, progresser (积极向上 = positif, motivé) ; vers le haut (向上看 = regarder vers le haut)	向 xiàng = vers ; contraire : 向下 xiàngxià (vers le bas)		他是个积极向上的年轻人，大家都喜欢他。	Tā shì ge jījí xiàngshàng de niánqīng rén, dàjiā dōu xǐhuan tā.	C’est un jeune homme positif et motivé, tout le monde l’apprécie.
+预约	yùyuē	prendre rendez-vous, réserver à l’avance ; réservation, rendez-vous	预约挂号 = prendre rendez-vous à l’hôpital ; 预订 yùdìng = réserver (hôtel, billet)		去医院看病要先预约。	Qù yīyuàn kàn bìng yào xiān yùyuē.	Pour consulter à l’hôpital, il faut d’abord prendre rendez-vous.
+趋势
+艰苦
+抢救	qiǎngjiù	secourir d’urgence, sauver (une vie, un patient) ; sauvetage	抢救生命 = sauver une vie ; 救 jiù = sauver (sens général)		医生们抢救了三个小时，病人终于脱离了危险。	Yīshēngmen qiǎngjiù le sān ge xiǎoshí, bìngrén zhōngyú tuōlí le wēixiǎn.	Les médecins ont pratiqué des soins d’urgence pendant trois heures, et le malade est enfin hors de danger.
+名牌
+更换	gēnghuàn	remplacer, changer (une pièce, un mot de passe)	更 se lit gēng ici (changer), pas gèng (plus) ; 换 huàn = changer (usage courant)		你的密码太简单了，应该更换一个。	Nǐ de mìmǎ tài jiǎndān le, yīnggāi gēnghuàn yí ge.	Ton mot de passe est trop simple, tu devrais en changer.
+丢失	diūshī	perdre, égarer ; se perdre, disparaître	行李丢失 = bagages perdus ; plus écrit que 丢 diū, 弄丢 nòngdiū		他的护照在旅行时丢失了。	Tā de hùzhào zài lǚxíng shí diūshī le.	Il a perdu son passeport pendant le voyage.
+鼓掌
+学术
+近期	jìnqī	ces derniers temps ; dans un avenir proche	période proche, passée ou à venir selon le contexte ; 近日 jìnrì = ces jours-ci		近期天气变化很大，要注意身体。	Jìnqī tiānqì biànhuà hěn dà, yào zhùyì shēntǐ.	Ces derniers temps, la météo change beaucoup, il faut faire attention à sa santé.
+地理
+翅膀
+阳台
+名片
+评	píng	juger, évaluer, apprécier ; commenter, critiquer ; choisir par vote (评奖 = décerner un prix)	surtout en mot composé : 评价 píngjià (évaluer), 评论 pínglùn (commenter), 好评 hǎopíng (bon avis)	评价	大家一起评一评，看谁做的菜最好吃。	Dàjiā yìqǐ píng yi píng, kàn shéi zuò de cài zuì hǎochī.	Jugeons tous ensemble pour voir qui a cuisiné le meilleur plat.
+缓慢	huǎnmàn	lent (mouvement, rythme, évolution)	plus soutenu que 慢 màn ; contraire : 迅速 xùnsù (rapide)		老人缓慢地走在路上。	Lǎorén huǎnmàn de zǒu zài lùshang.	Le vieil homme marche lentement sur la route.
+行走	xíngzǒu	marcher, se déplacer à pied (écrit) ; circuler	écrit ; à l’oral 走路 zǒulù ; 行走不便 = avoir du mal à se déplacer		他的腿受伤了，行走很不方便。	Tā de tuǐ shòushāng le, xíngzǒu hěn bù fāngbiàn.	Il s’est blessé à la jambe, il a beaucoup de mal à se déplacer.
+出自	chūzì	provenir de, être tiré de (citation, expression, œuvre)	出自 + source : 出自一本书 = tiré d’un livre ; 来自 láizì = venir de (lieu, personne)		这句话出自一首很有名的诗。	Zhè jù huà chūzì yì shǒu hěn yǒumíng de shī.	Cette phrase est tirée d’un poème très célèbre.
+由此	yóucǐ	de là, à partir de là ; par conséquent	écrit ; fixe dans 由此可见 = on voit par là que		由此可见，学好汉语需要每天练习。	Yóucǐ kějiàn, xué hǎo Hànyǔ xūyào měitiān liànxí.	On voit par là que bien apprendre le chinois demande de s’exercer tous les jours.
+尾巴
+罚款
+握手
+租金	zūjīn	loyer, prix de location	房租 fángzū = loyer d’un logement ; 交租金 = payer le loyer ; 租 zū = louer		这个房子的租金每个月三千块。	Zhège fángzi de zūjīn měi ge yuè sānqiān kuài.	Le loyer de ce logement est de trois mille yuans par mois.
+智能	zhìnéng	intelligent (智能手机 = smartphone) ; intelligence, capacité (人工智能 = intelligence artificielle)	devant un nom : 智能家居 = maison connectée ; pour une personne intelligente, on dit 聪明 cōngming		现在人人都有一部智能手机。	Xiànzài rénrén dōu yǒu yí bù zhìnéng shǒujī.	Aujourd’hui, tout le monde a un smartphone.
+手工
+心态	xīntài	état d’esprit, mentalité, disposition psychologique	plus durable que 心情 xīnqíng (humeur du moment) ; 调整心态 = ajuster son état d’esprit		考试之前，保持好的心态很重要。	Kǎoshì zhīqián, bǎochí hǎo de xīntài hěn zhòngyào.	Avant un examen, il est important de garder un bon état d’esprit.
+总体	zǒngtǐ	ensemble, totalité ; global, d’ensemble	souvent 总体来说, 总体上 = globalement ; 整体 zhěngtǐ = le tout, l’ensemble		总体来说，这次旅行很愉快。	Zǒngtǐ lái shuō, zhè cì lǚxíng hěn yúkuài.	Dans l’ensemble, ce voyage a été très agréable.
+登录	dēnglù	se connecter, ouvrir une session (compte, site) ; enregistrer	登录账号 = se connecter à un compte ; contraire : 退出 tuìchū (se déconnecter) ; à ne pas confondre avec 登陆 dēnglù (débarquer)		我忘了密码，所以登录不了。	Wǒ wàng le mìmǎ, suǒyǐ dēnglù bù liǎo.	J’ai oublié mon mot de passe, donc je n’arrive pas à me connecter.
+题目
+应对	yìngduì	faire face à, répondre à, gérer (une situation)	应 se lit yìng ici (pas yīng) ; 应对危机 = gérer une crise ; 应付 yìngfu = se débrouiller, expédier		面对困难，我们要学会冷静地应对。	Miànduì kùnnan, wǒmen yào xuéhuì lěngjìng de yìngduì.	Face aux difficultés, nous devons apprendre à réagir avec calme.
+节省
+围巾
+光线	guāngxiàn	lumière, éclairage ; rayon lumineux	光线充足 = bien éclairé ; classif. : 一道光线 = un rayon de lumière		这个房间的光线很好，白天不用开灯。	Zhège fángjiān de guāngxiàn hěn hǎo, báitiān bú yòng kāi dēng.	Cette pièce est très lumineuse, pas besoin d’allumer la lumière en journée.
+删除
+强度	qiángdù	intensité (travail, exercice) ; résistance, solidité (matériau)	高强度 = de forte intensité ; 强度大 = intense		这种运动强度不大，适合老人。	Zhè zhǒng yùndòng qiángdù bú dà, shìhé lǎorén.	Ce sport n’est pas très intense, il convient aux personnes âgées.
+车厢
+一次性	yícìxìng	jetable, à usage unique (一次性筷子 = baguettes jetables) ; en une seule fois (一次性付款 = payer en une fois)	aussi devant un verbe : 一次性解决 = régler en une fois		为了保护环境，我们尽量不用一次性筷子。	Wèile bǎohù huánjìng, wǒmen jǐnliàng bú yòng yícìxìng kuàizi.	Pour protéger l’environnement, nous évitons autant que possible d’utiliser des baguettes jetables.
+变动	biàndòng	changer, varier, fluctuer ; changement, modification	价格变动 = variation des prix ; 变化 biànhuà = changement (plus général)		最近房子的价格变动不大。	Zuìjìn fángzi de jiàgé biàndòng bú dà.	Ces derniers temps, le prix des logements n’a pas beaucoup varié.
+失眠
+烧烤	shāokǎo	grillades, barbecue (souvent en brochettes, en plein air) ; griller	吃烧烤 = manger des grillades ; 烤 kǎo = griller au four ou au feu (烤肉 = viande grillée)		周末我们一起去吃烧烤吧。	Zhōumò wǒmen yìqǐ qù chī shāokǎo ba.	Ce week-end, allons manger des grillades ensemble !
+新型	xīnxíng	de nouveau type, de nouvelle génération (appareil, produit)	devant un nom : 新型汽车 = voiture de nouvelle génération ; 新 xīn seul = nouveau, neuf		这是一种新型的电脑，比以前的快得多。	Zhè shì yì zhǒng xīnxíng de diànnǎo, bǐ yǐqián de kuài de duō.	C’est un nouveau type d’ordinateur, beaucoup plus rapide que les précédents.
+互动	hùdòng	interagir ; interaction, interactif	和…互动 = interagir avec ; 互动游戏 = jeu interactif ; 互相 hùxiāng = mutuellement		老师常常和学生互动，所以大家都爱上课。	Lǎoshī chángcháng hé xuésheng hùdòng, suǒyǐ dàjiā dōu ài shàngkè.	Le professeur interagit souvent avec les élèves, alors tout le monde aime aller en cours.
+优美
+将近	jiāngjìn	presque, près de (un peu moins que)	devant un nombre : 将近一百人 = près de cent personnes ; 差不多 chàbuduō = à peu près		这条路将近十公里。	Zhè tiáo lù jiāngjìn shí gōnglǐ.	Cette route fait près de dix kilomètres.
+分布
+必需	bìxū	être indispensable, avoir absolument besoin de ; indispensable	se prononce comme 必须 bìxū (il faut) mais s’écrit avec 需 (avoir besoin) ; 必需品 = produit de première nécessité		水和空气是生活必需的东西。	Shuǐ hé kōngqì shì shēnghuó bìxū de dōngxi.	L’eau et l’air sont des choses indispensables à la vie.
+赛场	sàichǎng	terrain de compétition, lieu de la compétition	赛场上 = sur le terrain, en compétition ; 球场 qiúchǎng = terrain de sport (foot, basket…)		比赛快开始了，运动员们都走进了赛场。	Bǐsài kuài kāishǐ le, yùndòngyuánmen dōu zǒu jìn le sàichǎng.	Le match va bientôt commencer, tous les athlètes sont entrés sur le terrain.
+人力	rénlì	main-d’œuvre, force de travail humaine	人力资源 rénlì zīyuán = ressources humaines ; 人力和物力 = moyens humains et matériels		这个工作需要很多人力。	Zhège gōngzuò xūyào hěn duō rénlì.	Ce travail demande beaucoup de main-d’œuvre.
+递
+低头	dītóu	baisser la tête ; (fig.) céder, se soumettre	不向困难低头 = ne pas plier devant les difficultés ; 低头族 dītóuzú = les gens rivés à leur téléphone		他低头看了看手机。	Tā dītóu kàn le kàn shǒujī.	Il a baissé la tête et a jeté un coup d’œil à son téléphone.
+子女	zǐnǚ	enfants (fils et filles, par rapport aux parents)	écrit, plus formel que 孩子 háizi ; 独生子女 = enfant unique		父母都希望子女过得幸福。	Fùmǔ dōu xīwàng zǐnǚ guò de xìngfú.	Les parents souhaitent tous que leurs enfants aient une vie heureuse.
+面向	miànxiàng	être tourné vers, donner sur ; s’adresser à, viser (un public)	面向学生 = destiné aux étudiants ; 面向未来 = se tourner vers l’avenir		这个房间面向花园，很安静。	Zhège fángjiān miànxiàng huāyuán, hěn ānjìng.	Cette chambre donne sur le jardin, elle est très calme.
+消费者	xiāofèizhě	consommateur, consommatrice	消费 xiāofèi = consommer, dépenser ; 者 désigne la personne qui fait l’action (读者 dúzhě = lecteur)		这家商店的服务让消费者很满意。	Zhè jiā shāngdiàn de fúwù ràng xiāofèizhě hěn mǎnyì.	Le service de ce magasin satisfait beaucoup les consommateurs.
+种植	zhòngzhí	cultiver, planter (des végétaux, des cultures)	zhòng : planter (种花 zhòng huā = planter des fleurs) ; à ne pas confondre avec 种 zhǒng (sorte, espèce)		这个地方的农民主要种植水果和蔬菜。	Zhège dìfang de nóngmín zhǔyào zhòngzhí shuǐguǒ hé shūcài.	Dans cette région, les paysans cultivent surtout des fruits et des légumes.
+住房	zhùfáng	logement, habitation	住房问题 = problème de logement ; 房子 fángzi = la maison, l’appartement (concret, plus courant à l’oral)		在大城市，住房的价格越来越高。	Zài dà chéngshì, zhùfáng de jiàgé yuè lái yuè gāo.	Dans les grandes villes, le prix du logement est de plus en plus élevé.
+台阶
+打听
+此后	cǐhòu	après cela, par la suite, dès lors	écrit ; à l’oral, on dit plutôt 以后 yǐhòu ou 后来 hòulái ; se place en début de proposition		他去年搬到了上海，此后我们很少见面。	Tā qùnián bān dào le Shànghǎi, cǐhòu wǒmen hěn shǎo jiànmiàn.	Il a déménagé à Shanghai l’an dernier ; depuis, nous nous voyons rarement.
+打包	dǎbāo	emporter les restes d’un repas (au restaurant) ; emballer, faire un paquet	au restaurant : 请帮我打包 = pouvez-vous m’emballer les restes ? ; 打包行李 = faire ses bagages		菜太多了，我们吃不完，请帮我们打包。	Cài tài duō le, wǒmen chī bu wán, qǐng bāng wǒmen dǎbāo.	Il y a trop de plats, nous n’arriverons pas à tout manger ; emballez-nous les restes, s’il vous plaît.
+促使
+定期	dìngqī	régulier, périodique (à intervalles fixes) ; fixer une date ou un délai (verbe)	plus précis que 经常 jīngcháng (souvent) : 定期 suppose un rythme fixe (chaque mois, chaque année) ; 定期检查 = contrôle périodique		医生说我要定期检查身体。	Yīshēng shuō wǒ yào dìngqī jiǎnchá shēntǐ.	Le médecin dit que je dois faire un bilan de santé à intervalles réguliers.
+动人	dòngrén	touchant, émouvant ; charmant, séduisant	se dit d’une histoire, d’une chanson, d’un sourire ; 感动 gǎndòng = être ému (verbe), toucher		这个故事很动人，大家听了都哭了。	Zhège gùshi hěn dòngrén, dàjiā tīng le dōu kū le.	Cette histoire est très touchante : après l’avoir entendue, tout le monde a pleuré.
+种类
+老百姓
+有益	yǒuyì	bénéfique, utile, profitable	souvent 对…有益 : 对身体有益 = bon pour la santé ; contraire : 有害 yǒuhài (nocif)		每天散步对身体很有益。	Měitiān sànbù duì shēntǐ hěn yǒuyì.	Se promener tous les jours fait beaucoup de bien à la santé.
+户外	hùwài	extérieur, plein air (en dehors de la maison)	户外运动 = sport de plein air ; contraire : 室内 shìnèi (à l’intérieur, en salle)		天气这么好，我们去户外运动吧。	Tiānqì zhème hǎo, wǒmen qù hùwài yùndòng ba.	Il fait si beau, allons faire du sport en plein air.
+急需	jíxū	avoir un besoin urgent de	急需 + nom : 急需帮助 = avoir un besoin urgent d’aide ; 急需的东西 = ce dont on a un besoin urgent		我们急需一位会开车的同事。	Wǒmen jíxū yí wèi huì kāichē de tóngshì.	Nous avons un besoin urgent d’un collègue qui sache conduire.
+牛仔裤
+凭借	píngjiè	s’appuyer sur, compter sur ; grâce à (un atout, une qualité)	écrit ; 凭借努力 = grâce à ses efforts ; à l’oral, on dit plutôt 靠 kào ou 凭 píng		他凭借自己的努力，考上了很好的大学。	Tā píngjiè zìjǐ de nǔlì, kǎoshàng le hěn hǎo de dàxué.	Grâce à ses propres efforts, il a été admis dans une très bonne université.
+浏览
+看作	kànzuò	considérer comme, tenir pour	construction : 把A看作B = considérer A comme B ; synonymes : 看成 kànchéng, 当作 dàngzuò		我一直把你看作我最好的朋友。	Wǒ yìzhí bǎ nǐ kànzuò wǒ zuì hǎo de péngyou.	Je t’ai toujours considéré comme mon meilleur ami.
+橘子	júzi	mandarine (agrume)	classif. : 个 ; 一瓣橘子 = un quartier de mandarine ; à ne pas confondre avec 橙子 chéngzi (orange)		冬天我很喜欢吃橘子，又甜又好吃。	Dōngtiān wǒ hěn xǐhuan chī júzi, yòu tián yòu hǎochī.	En hiver, j’aime beaucoup manger des mandarines : elles sont sucrées et délicieuses.
+剧场	jùchǎng	théâtre (salle de spectacle)	classif. : 座 ; le lieu où l’on joue des pièces ou des spectacles ; 看戏 kàn xì = aller voir une pièce (de théâtre, d’opéra)		昨天晚上我们去剧场看了一场演出。	Zuótiān wǎnshang wǒmen qù jùchǎng kàn le yì chǎng yǎnchū.	Hier soir, nous sommes allés au théâtre voir un spectacle.
+斜
+有害	yǒuhài	nocif, nuisible, mauvais pour	对…有害 : 对身体有害 = nocif pour la santé ; contraire : 有益 yǒuyì (bénéfique)		抽烟对身体有害。	Chōuyān duì shēntǐ yǒuhài.	Fumer est mauvais pour la santé.
+开业	kāiyè	ouvrir (un commerce), commencer son activité ; être en activité	pour l’ouverture d’un commerce ou d’un cabinet ; 新店开业 = ouverture d’un nouveau magasin ; contraire : 停业 tíngyè (cesser l’activité)		这家新饭馆下个星期一开业。	Zhè jiā xīn fànguǎn xià ge xīngqīyī kāiyè.	Ce nouveau restaurant ouvre lundi prochain.
+浇
+图书	túshū	livres, ouvrages (terme général)	terme collectif, plus écrit que 书 shū ; 图书馆 túshūguǎn = bibliothèque ; 图书室 = salle de lecture		学校买了很多新图书，同学们都很高兴。	Xuéxiào mǎi le hěn duō xīn túshū, tóngxuémen dōu hěn gāoxìng.	L’école a acheté beaucoup de livres neufs, les élèves sont tous contents.
+生动
+泪水	lèishuǐ	larmes	plus littéraire que 眼泪 yǎnlèi ; 泪水流下来 = les larmes coulent		听到这个消息，她的泪水一下子流了下来。	Tīngdào zhège xiāoxi, tā de lèishuǐ yíxiàzi liú le xiàlai.	Quand elle a appris la nouvelle, ses larmes se sont mises à couler d’un coup.
+乙
+电器	diànqì	appareil électrique, électroménager	家用电器 jiāyòng diànqì = appareils électroménagers ; 电器店 = magasin d’électroménager		这家商店的电器又好又便宜。	Zhè jiā shāngdiàn de diànqì yòu hǎo yòu piányi.	Les appareils électroménagers de ce magasin sont à la fois bons et bon marché.
+梨
+步行	bùxíng	aller à pied, marcher (pour se déplacer)	plus formel que 走路 zǒulù ; 步行十分钟 = dix minutes à pied ; 步行街 = rue piétonne		从我家步行到学校只要十分钟。	Cóng wǒ jiā bùxíng dào xuéxiào zhǐ yào shí fēnzhōng.	De chez moi à l’école, il ne faut que dix minutes à pied.
+热心
+就业	jiùyè	trouver un emploi, avoir un emploi ; emploi (le fait d’avoir un travail)	就业机会 = possibilités d’emploi ; 就业率 = taux d’emploi ; pour parler d’un travail précis : 工作 gōngzuò		这所大学的学生毕业后很容易就业。	Zhè suǒ dàxué de xuésheng bìyè hòu hěn róngyì jiùyè.	Les étudiants de cette université trouvent facilement un emploi après leur diplôme.
+时常	shícháng	souvent, fréquemment	écrit ; équivalent de 常常 chángcháng ou 经常 jīngcháng, qui sont plus courants à l’oral ; se place devant le verbe		他时常给家里打电话，问爸爸妈妈身体好不好。	Tā shícháng gěi jiā lǐ dǎ diànhuà, wèn bàba māma shēntǐ hǎo bu hǎo.	Il téléphone souvent chez lui pour demander à ses parents s’ils vont bien.
+彩色	cǎisè	en couleur (opposé au noir et blanc) ; couleur, multicolore	彩色电视 = télévision couleur ; 彩色笔 = feutres de couleur ; contraire : 黑白 hēibái (noir et blanc)		这张照片是彩色的，不是黑白的。	Zhè zhāng zhàopiàn shì cǎisè de, bú shì hēibái de.	Cette photo est en couleur, pas en noir et blanc.
+纷纷
+上涨	shàngzhǎng	monter, augmenter (prix, niveau de l’eau)	物价上涨 = hausse des prix ; contraire : 下降 xiàjiàng ou 下跌 xiàdié (baisser, chuter)		最近蔬菜的价格上涨了很多。	Zuìjìn shūcài de jiàgé shàngzhǎng le hěn duō.	Ces derniers temps, le prix des légumes a beaucoup augmenté.
+单元
+流传
+海关
+消极
+简历
+自觉
+收看	shōukàn	regarder (une émission de télévision), suivre à la télévision	收看新闻 = regarder les informations ; surtout pour la télévision ; 收听 shōutīng = écouter (la radio)		每天晚上七点，我都和爸爸一起收看新闻。	Měitiān wǎnshang qī diǎn, wǒ dōu hé bàba yìqǐ shōukàn xīnwén.	Tous les soirs à sept heures, je regarde les informations avec mon père.
+海外	hǎiwài	outre-mer, à l’étranger	海外华人 = Chinois d’outre-mer ; 国外 guówài = à l’étranger (plus courant)		他在海外生活了十年，去年才回国。	Tā zài hǎiwài shēnghuó le shí nián, qùnián cái huíguó.	Il a vécu dix ans à l’étranger et n’est rentré au pays que l’an dernier.
+专心
+公务员	gōngwùyuán	fonctionnaire	考公务员 = passer le concours de la fonction publique ; 公务 gōngwù = affaires publiques		他想考公务员，因为这份工作很稳定。	Tā xiǎng kǎo gōngwùyuán, yīnwèi zhè fèn gōngzuò hěn wěndìng.	Il veut passer le concours de la fonction publique parce que cet emploi est très stable.
+中介
+看望
+热量	rèliàng	calories, valeur calorique (d’un aliment) ; quantité de chaleur (physique)	高热量食物 = aliments très caloriques ; 卡路里 kǎlùlǐ = calorie		这块蛋糕的热量很高，我不敢多吃。	Zhè kuài dàngāo de rèliàng hěn gāo, wǒ bù gǎn duō chī.	Ce gâteau est très calorique, je n’ose pas en manger beaucoup.
+早晚	zǎowǎn	matin et soir ; tôt ou tard	adverbe : 你早晚会明白的 = tu comprendras tôt ou tard ; 早晚会 + verbe = (verbe) tôt ou tard		他每天早晚都去公园跑步。	Tā měitiān zǎowǎn dōu qù gōngyuán pǎobù.	Chaque jour, matin et soir, il va courir au parc.
+亏	kuī	perdre de l’argent, être en déficit ; heureusement que, grâce à	多亏 duōkuī, 幸亏 xìngkuī = heureusement que ; 亏本 kuīběn = travailler à perte ; 亏了你帮忙 = heureusement que tu m’as aidé	亏本	这家小店去年亏了不少钱，所以今年关门了。	Zhè jiā xiǎodiàn qùnián kuī le bù shǎo qián, suǒyǐ jīnnián guānmén le.	Cette petite boutique a perdu pas mal d’argent l’an dernier, alors elle a fermé cette année.
+救护车
+键盘
+实用
+繁荣
+册
+长度	chángdù	longueur	宽度 kuāndù = largeur ; 高度 gāodù = hauteur ; 长 se lit cháng ici		这条河的长度大约是两百公里。	Zhè tiáo hé de chángdù dàyuē shì liǎng bǎi gōnglǐ.	Cette rivière fait environ deux cents kilomètres de long.
+被子
+车库
+签订	qiāndìng	signer (un contrat, un accord, un traité)	formel : 签订合同 = signer un contrat ; 签 qiān = signer (签名 = apposer sa signature, 签证 = visa)		公司和他签订了一份三年的合同。	Gōngsī hé tā qiāndìng le yí fèn sān nián de hétong.	L’entreprise a signé avec lui un contrat de trois ans.
+迎	yíng	accueillir, aller à la rencontre de ; affronter (迎着风 = face au vent)	迎接 yíngjiē = accueillir (plus courant) ; 欢迎 huānyíng = bienvenue ; 迎新年 = fêter l’arrivée de la nouvelle année	迎接	全家人都到门口迎客人。	Quánjiārén dōu dào ménkǒu yíng kèrén.	Toute la famille est venue à la porte pour accueillir les invités.
+鸭子	yāzi	canard	classif. : 只 (一只鸭子 = un canard) ; 烤鸭 kǎoyā = canard laqué		河里有几只鸭子在游泳。	Hé lǐ yǒu jǐ zhī yāzi zài yóuyǒng.	Quelques canards nagent dans la rivière.
+车主	chēzhǔ	propriétaire d’un véhicule	celui à qui appartient le véhicule, pas forcément celui qui le conduit (司机 sījī = conducteur)		请车主马上把车开走，这里不能停车。	Qǐng chēzhǔ mǎshàng bǎ chē kāi zǒu, zhèlǐ bù néng tíngchē.	Le propriétaire du véhicule est prié de le déplacer immédiatement, on ne peut pas stationner ici.
+赏	shǎng	admirer, contempler (赏花 = admirer les fleurs) ; récompenser, gratifier (d’un cadeau, d’un pourboire)	欣赏 xīnshǎng = apprécier, admirer ; 赏月 = contempler la lune ; au sens d’admirer, surtout dans ces expressions	赏花	春天来了，我们去公园赏花吧。	Chūntiān lái le, wǒmen qù gōngyuán shǎng huā ba.	Le printemps est là, allons admirer les fleurs au parc.
+引进	yǐnjìn	faire venir de l’extérieur, importer (technique, équipement, personnel)	引进技术 = importer une technologie ; 进口 jìnkǒu = importer (des marchandises)		这家工厂从国外引进了一批新机器。	Zhè jiā gōngchǎng cóng guówài yǐnjìn le yì pī xīn jīqì.	Cette usine a importé de l’étranger un lot de nouvelles machines.
+排列
+充电	chōngdiàn	recharger (une batterie) ; (fig.) se ressourcer, se former	充电器 chōngdiànqì = chargeur ; 充电宝 chōngdiànbǎo = batterie externe		我的手机没电了，我要先充电。	Wǒ de shǒujī méi diàn le, wǒ yào xiān chōngdiàn.	Mon téléphone n’a plus de batterie, je dois d’abord le recharger.
+用途
+促销	cùxiāo	faire de la promotion, stimuler les ventes	促销活动 = opération promotionnelle ; 打折 dǎzhé = faire une remise		这家商店正在促销，所有的衣服都打八折。	Zhè jiā shāngdiàn zhèngzài cùxiāo, suǒyǒu de yīfu dōu dǎ bā zhé.	Ce magasin fait une promotion : tous les vêtements sont à vingt pour cent de réduction.
+加热	jiārè	chauffer, réchauffer	加热牛奶 = faire chauffer du lait ; 热 rè = chaud ; 微波炉 wēibōlú = four à micro-ondes		你可以把牛奶加热一下再喝。	Nǐ kěyǐ bǎ niúnǎi jiārè yíxià zài hē.	Tu peux faire chauffer un peu le lait avant de le boire.
+称赞
+电动	diàndòng	électrique (qui fonctionne à l’électricité)	电动车 = véhicule électrique (vélo, scooter ou voiture) ; 电动牙刷 = brosse à dents électrique		现在很多人骑电动自行车上班。	Xiànzài hěn duō rén qí diàndòng zìxíngchē shàngbān.	Aujourd’hui, beaucoup de gens vont au travail à vélo électrique.
+赠送	zèngsòng	offrir (gratuitement), faire cadeau de	plus formel que 送 sòng ; 买一赠一 = un acheté, un offert ; 赠送礼品 = offrir un cadeau		买这台电视，商店还赠送一个小礼物。	Mǎi zhè tái diànshì, shāngdiàn hái zèngsòng yí ge xiǎo lǐwù.	Pour l’achat de ce téléviseur, le magasin offre en plus un petit cadeau.
+不得了
+标题	biāotí	titre (d’un article, d’un livre), intitulé	新闻标题 = titre d’un article de presse ; 题目 tímù = sujet, intitulé (d’un devoir, d’une question)		这篇文章的标题很有意思，我想读一读。	Zhè piān wénzhāng de biāotí hěn yǒu yìsi, wǒ xiǎng dú yi dú.	Le titre de cet article est intéressant, j’ai envie de le lire.
+预报
+窄
+点心
+番茄	fānqié	tomate	aussi 西红柿 xīhóngshì ; 番茄炒蛋 = œufs brouillés aux tomates (plat très courant) ; 番茄酱 = ketchup		我喜欢吃番茄炒蛋，做起来很简单。	Wǒ xǐhuan chī fānqié chǎodàn, zuò qǐlai hěn jiǎndān.	J’aime les œufs brouillés aux tomates, c’est très simple à préparer.
+比喻	bǐyù	comparer à, représenter par une image (verbe) ; métaphore, comparaison, image (nom)	把A比喻成B = comparer A à B ; 打比方 dǎ bǐfang = faire une comparaison (à l’oral)		人们常把时间比喻成金钱。	Rénmen cháng bǎ shíjiān bǐyù chéng jīnqián.	On compare souvent le temps à de l’argent.
+新郎	xīnláng	marié, jeune marié	新娘 xīnniáng = mariée ; 新郎新娘 = les mariés		婚礼上，新郎紧张得说不出话来。	Hūnlǐ shàng, xīnláng jǐnzhāng de shuō bu chū huà lái.	Au mariage, le marié était si nerveux qu’il n’arrivait plus à parler.
+到期	dàoqī	arriver à échéance, expirer (contrat, visa, prêt, placement)	我的护照快到期了 = mon passeport va bientôt expirer ; 过期 guòqī = être périmé, dépassé		我的护照下个月到期，要去办新的。	Wǒ de hùzhào xià ge yuè dàoqī, yào qù bàn xīn de.	Mon passeport arrive à expiration le mois prochain, il faut que j’en fasse faire un nouveau.
+修建	xiūjiàn	construire, édifier (route, pont, ouvrage, bâtiment)	修建铁路 = construire une voie ferrée ; pour de grands ouvrages ; 建 jiàn = bâtir		这座桥是五年前修建的。	Zhè zuò qiáo shì wǔ nián qián xiūjiàn de.	Ce pont a été construit il y a cinq ans.
+高大	gāodà	grand et imposant, haut (arbre, bâtiment, personne)	高大的树 = un grand arbre ; 个子高大 = grand de taille et bien bâti ; 高 gāo = haut, grand (simple)		学校门口有一棵高大的树。	Xuéxiào ménkǒu yǒu yì kē gāodà de shù.	Il y a un grand arbre devant la porte de l’école.
+光临
+逐步
+动画	dònghuà	film d’animation, dessin animé	动画片 dònghuàpiàn = dessin animé ; 卡通 kǎtōng = cartoon (mot emprunté)		这部动画很有意思，大人孩子都喜欢。	Zhè bù dònghuà hěn yǒu yìsi, dàrén háizi dōu xǐhuan.	Ce dessin animé est très amusant, les adultes comme les enfants l’aiment.
+整齐
+常识
+可见
+无奈
+研制	yánzhì	mettre au point, développer (un produit, un médicament, un appareil)	研制新药 = développer un nouveau médicament ; 研究 yánjiū = étudier, faire de la recherche ; 研制 aboutit à un produit		这家公司研制出了一种新药。	Zhè jiā gōngsī yánzhì chū le yì zhǒng xīn yào.	Cette société a mis au point un nouveau médicament.
+成年	chéngnián	devenir adulte, atteindre l’âge adulte ; adulte, majeur	en Chine, la majorité est à dix-huit ans ; 成年人 chéngniánrén = adulte ; contraire : 未成年 wèichéngnián (mineur)		他今年十八岁，已经成年了。	Tā jīnnián shíbā suì, yǐjing chéngnián le.	Il a dix-huit ans cette année, il est déjà majeur.
+职工	zhígōng	employé, salarié, personnel (d’une entreprise)	ensemble du personnel : 公司职工 ; 员工 yuángōng = employé (plus courant aujourd’hui)		这家工厂有两千多名职工。	Zhè jiā gōngchǎng yǒu liǎng qiān duō míng zhígōng.	Cette usine compte plus de deux mille employés.
+木头
+格外
+大象
+讲座
+长远	chángyuǎn	à long terme, de longue durée	长远打算 = projet à long terme ; 从长远来看 = à long terme ; contraire : 眼前 yǎnqián (le présent, l’immédiat)		这个计划对公司的长远发展很重要。	Zhège jìhuà duì gōngsī de chángyuǎn fāzhǎn hěn zhòngyào.	Ce plan est très important pour le développement à long terme de l’entreprise.
+迷路
+印刷
+外形	wàixíng	forme extérieure, aspect, ligne (d’un objet)	外形设计 = design extérieur ; 外表 wàibiǎo = apparence (d’une personne ou d’une chose)		这辆车的外形很漂亮，价格也不贵。	Zhè liàng chē de wàixíng hěn piàoliang, jiàgé yě bú guì.	La ligne de cette voiture est très belle, et en plus, son prix n’est pas élevé.
+赠	zèng	offrir en cadeau, faire don de	écrit, surtout dans des composés : 赠送 zèngsòng, 捐赠 juānzèng (faire un don) ; 赠给… = offrir à…	赠送	这本书是老师赠给我的生日礼物。	Zhè běn shū shì lǎoshī zèng gěi wǒ de shēngrì lǐwù.	Ce livre est un cadeau d’anniversaire que mon professeur m’a offert.
+舍不得
+大爷	dàye	papi, monsieur (terme de respect pour un homme âgé) ; (familier) oncle, frère aîné du père	se lit dàye (ton neutre) ; pour interpeller un homme âgé qu’on ne connaît pas ; pour une femme âgée : 大妈 dàmā		大爷，请问去火车站怎么走？	Dàye, qǐngwèn qù huǒchēzhàn zěnme zǒu?	Excusez-moi, monsieur, comment va-t-on à la gare ?
+熟人	shúrén	connaissance, personne qu’on connaît bien	contraire : 陌生人 mòshēngrén (inconnu) ; 找熟人帮忙 = demander de l’aide à une connaissance		在这个城市里，我一个熟人也没有。	Zài zhège chéngshì lǐ, wǒ yí ge shúrén yě méiyǒu.	Dans cette ville, je n’ai pas une seule connaissance.
+报到
+初期	chūqī	début, phase initiale, premier stade	contraire : 后期 hòuqī (phase finale) ; 中期 zhōngqī = phase intermédiaire		项目的初期，我们遇到了很多困难。	Xiàngmù de chūqī, wǒmen yùdào le hěn duō kùnnan.	Au début du projet, nous avons rencontré beaucoup de difficultés.
+因而
+在线	zàixiàn	en ligne, connecté à Internet ; être en ligne	在线学习 = apprendre en ligne ; 离线 líxiàn = hors ligne		我的朋友现在在线，你可以问问他。	Wǒ de péngyou xiànzài zàixiàn, nǐ kěyǐ wènwen tā.	Mon ami est en ligne en ce moment, tu peux lui demander.
+河流	héliú	cours d’eau (rivière, fleuve)	terme général pour les rivières et les fleuves ; 河 hé = rivière, fleuve ; 流 liú = couler		这个地方有很多河流，风景很美。	Zhège dìfang yǒu hěn duō héliú, fēngjǐng hěn měi.	Il y a beaucoup de cours d’eau dans cette région, et le paysage est très beau.
+通行	tōngxíng	passer, circuler (personnes, véhicules) ; avoir cours, être en usage	禁止通行 = passage interdit ; 通行证 tōngxíngzhèng = laissez-passer		因为下大雪，这条路不能通行。	Yīnwèi xià dà xuě, zhè tiáo lù bù néng tōngxíng.	Comme il neige abondamment, on ne peut pas passer par cette route.
+学历
+一代	yídài	génération ; époque	年轻一代 = la jeune génération ; 一代比一代好 = de mieux en mieux de génération en génération		现在的年轻一代喜欢在网上买东西。	Xiànzài de niánqīng yídài xǐhuan zài wǎngshàng mǎi dōngxi.	La jeune génération d’aujourd’hui aime acheter sur Internet.
+纪念日	jìniànrì	jour commémoratif, anniversaire (d’un événement)	结婚纪念日 = anniversaire de mariage ; l’anniversaire de naissance se dit 生日 shēngrì		今天是我们的结婚纪念日，我想请你吃饭。	Jīntiān shì wǒmen de jiéhūn jìniànrì, wǒ xiǎng qǐng nǐ chī fàn.	Aujourd’hui, c’est l’anniversaire de notre mariage ; je voudrais t’inviter à dîner.
+美术
+聘请	pìnqǐng	engager, embaucher (une personne qualifiée)	plus formel que 请 qǐng ; 聘请律师 = engager un avocat ; 聘请老师 = recruter un professeur		学校聘请了一位新老师教我们汉语。	Xuéxiào pìnqǐng le yí wèi xīn lǎoshī jiāo wǒmen Hànyǔ.	L’école a engagé un nouveau professeur pour nous enseigner le chinois.
+门诊	ménzhěn	consultation externe (patients non hospitalisés) ; recevoir en consultation	看门诊 = aller en consultation ; 门诊部 = service de consultations externes ; contraire : 住院 zhùyuàn (être hospitalisé)		我明天上午去医院看门诊。	Wǒ míngtiān shàngwǔ qù yīyuàn kàn ménzhěn.	Demain matin, je vais à l’hôpital pour une consultation.
+故乡	gùxiāng	pays natal, ville natale, région d’origine	plus littéraire et plus affectif que 老家 lǎojiā et 家乡 jiāxiāng ; 思念故乡 = avoir la nostalgie de son pays natal		我已经五年没有回故乡了。	Wǒ yǐjing wǔ nián méiyǒu huí gùxiāng le.	Cela fait déjà cinq ans que je ne suis pas retourné dans ma ville natale.
+家务
+海鲜
+邮票	yóupiào	timbre (postal)	classif. 张 zhāng ou 枚 méi : 一张邮票 ; 集邮 jíyóu = faire de la philatélie		我喜欢收集不同国家的邮票。	Wǒ xǐhuan shōují bùtóng guójiā de yóupiào.	J’aime collectionner les timbres de différents pays.
+开幕	kāimù	s’ouvrir (congrès, festival, exposition, spectacle) ; lever de rideau	contraire : 闭幕 bìmù (clôturer) ; 开幕式 = cérémonie d’ouverture		这次运动会明天上午九点开幕。	Zhè cì yùndònghuì míngtiān shàngwǔ jiǔ diǎn kāimù.	Cette compétition sportive ouvrira demain matin à neuf heures.
+树木	shùmù	arbres (en général) ; végétation arborée	collectif, sans classificateur ; pour un arbre isolé : 一棵树 yì kē shù		春天到了，山上的树木都绿了。	Chūntiān dào le, shānshang de shùmù dōu lǜ le.	Le printemps est arrivé : les arbres de la montagne ont tous reverdi.
+武术
+开幕式
+特有	tèyǒu	propre à, spécifique de (qqn, qqch) ; caractéristique	toujours devant un nom, souvent avec 的 : 这个地方特有的习惯 = une habitude propre à cet endroit		大熊猫是中国特有的动物。	Dà xióngmāo shì Zhōngguó tèyǒu de dòngwù.	Le panda géant est un animal propre à la Chine.
+领带	lǐngdài	cravate	classif. 条 tiáo : 一条领带 ; 打领带 dǎ lǐngdài = mettre, nouer une cravate		他今天打了一条红领带，看起来很精神。	Tā jīntiān dǎ le yì tiáo hóng lǐngdài, kàn qǐlai hěn jīngshen.	Aujourd’hui, il a mis une cravate rouge et il a l’air très dynamique.
+闹钟	nàozhōng	réveil, réveille-matin	定闹钟 dìng nàozhōng = régler le réveil ; 闹钟响了 = le réveil sonne		我的闹钟没响，所以今天迟到了。	Wǒ de nàozhōng méi xiǎng, suǒyǐ jīntiān chídào le.	Mon réveil n’a pas sonné, alors je suis arrivé en retard aujourd’hui.
+熬夜
+折扣	zhékòu	remise, réduction (sur un prix)	打折 dǎ zhé = faire une remise ; 八折 bā zhé = 20 % de remise (on indique la part du prix qu’on paie : 8/10)		这家商店周末有折扣，你可以去看看。	Zhè jiā shāngdiàn zhōumò yǒu zhékòu, nǐ kěyǐ qù kànkan.	Ce magasin propose des réductions le week-end ; tu peux aller jeter un œil.
+主观
+缩短
+先后	xiānhòu	successivement, l’un après l’autre ; ordre (de passage), priorité	adverbe devant un verbe : 先后到达 = arriver l’un après l’autre ; nom : 不分先后 = sans ordre de priorité		我先后在北京和上海工作过。	Wǒ xiānhòu zài Běijīng hé Shànghǎi gōngzuò guo.	J’ai travaillé successivement à Pékin et à Shanghai.
+气球	qìqiú	ballon (de baudruche), ballon gonflable	吹气球 = gonfler un ballon ; 热气球 rèqìqiú = montgolfière ; à ne pas confondre avec 足球 zúqiú (ballon de football)		孩子们在生日会上吹了很多气球。	Háizimen zài shēngrì huì shàng chuī le hěn duō qìqiú.	Les enfants ont gonflé plein de ballons à la fête d’anniversaire.
+敢于	gǎnyú	oser, avoir le courage de	suivi d’un verbe ; plus soutenu que 敢 gǎn, souvent élogieux : 敢于尝试 = oser essayer		我们要敢于说出自己的想法。	Wǒmen yào gǎnyú shuō chū zìjǐ de xiǎngfǎ.	Nous devons oser dire ce que nous pensons.
+长途
+书房	shūfáng	bureau, cabinet de travail (pièce où l’on lit et travaille, à la maison)	pièce de la maison ; le bureau au travail se dit 办公室 bàngōngshì		爸爸每天晚上都在书房看书。	Bàba měitiān wǎnshang dōu zài shūfáng kàn shū.	Tous les soirs, papa lit dans son bureau.
+广大
+总数	zǒngshù	total, nombre total	学生总数 = nombre total d’élèves ; 总共 zǒnggòng = au total (adverbe)		这个班的学生总数是三十人。	Zhège bān de xuésheng zǒngshù shì sānshí rén.	Le nombre total d’élèves de cette classe est de trente.
+剪刀
+合影
+食用	shíyòng	consommer, manger (des aliments) ; comestible	écrit, sur les emballages : 食用油 = huile alimentaire ; 不宜食用 = déconseillé à la consommation		这种蛋糕要在三天内食用。	Zhè zhǒng dàngāo yào zài sān tiān nèi shíyòng.	Ce genre de gâteau doit être consommé dans les trois jours.
+熟练
+过期
+大于	dàyú	supérieur à, plus grand que (>)	contraire : 小于 xiǎoyú (inférieur à) ; 大于等于 = supérieur ou égal à		行李的重量大于二十公斤，要多交钱。	Xíngli de zhòngliàng dàyú èrshí gōngjīn, yào duō jiāo qián.	Si le poids des bagages dépasse vingt kilos, il faut payer un supplément.
+中期	zhōngqī	milieu (d’une période), phase intermédiaire ; moyen terme	voir aussi 前期 qiánqī (début, première phase) et 后期 hòuqī (fin, dernière phase) ; 中期计划 = plan à moyen terme		我们把学习计划分成前期、中期和后期。	Wǒmen bǎ xuéxí jìhuà fēnchéng qiánqī, zhōngqī hé hòuqī.	Nous divisons notre plan d’études en trois phases : début, milieu et fin.
+里头	lǐtou	dedans, à l’intérieur	familier ; synonymes : 里面 lǐmiàn, 里边 lǐbian ; contraire : 外头 wàitou (dehors)		包里头有一本书和一把伞。	Bāo lǐtou yǒu yì běn shū hé yì bǎ sǎn.	Dans le sac, il y a un livre et un parapluie.
+及格
+存放	cúnfàng	déposer, entreposer (des objets) ; laisser en garde	存放行李 = laisser ses bagages en dépôt ; 存放处 cúnfàngchù = consigne, lieu de dépôt		你可以先把行李存放在这里，下午再来拿。	Nǐ kěyǐ xiān bǎ xíngli cúnfàng zài zhèlǐ, xiàwǔ zài lái ná.	Tu peux d’abord laisser tes bagages ici et revenir les prendre cet après-midi.
+讲究
+科研	kēyán	recherche scientifique	abréviation de 科学研究 kēxué yánjiū ; 做科研 = faire de la recherche ; 科研人员 = chercheurs		他毕业以后留在大学做科研。	Tā bìyè yǐhòu liú zài dàxué zuò kēyán.	Après son diplôme, il est resté à l’université pour faire de la recherche.
+高效	gāoxiào	efficace, performant (à haut rendement)	高效率 gāo xiàolǜ = rendement élevé ; à ne pas confondre avec 有效 yǒuxiào (valable, qui produit son effet)		他工作很高效，一个小时就做完了。	Tā gōngzuò hěn gāoxiào, yí ge xiǎoshí jiù zuò wán le.	Il travaille de façon très efficace : il a tout terminé en une heure.
+虫子	chóngzi	insecte, bestiole ; ver	familier ; classif. 只 zhī (insecte), 条 tiáo (ver) ; 小虫子 = petite bestiole		窗户开着，有一只虫子飞进来了。	Chuānghu kāi zhe, yǒu yì zhī chóngzi fēi jìnlai le.	La fenêtre est ouverte et un insecte est entré en volant.
+此前	cǐqián	auparavant, jusque-là, avant cela	écrit ; à l’oral on dit plutôt 以前 yǐqián ; contraire : 此后 cǐhòu (par la suite)		他三月才来北京，此前一直住在上海。	Tā sānyuè cái lái Běijīng, cǐqián yìzhí zhù zài Shànghǎi.	Il n’est arrivé à Pékin qu’en mars ; jusque-là, il avait toujours habité à Shanghai.
+词汇
+大米	dàmǐ	riz (cru, décortiqué)	le riz cuit se dit 米饭 mǐfàn ; la plante : 水稻 shuǐdào		南方人喜欢吃大米，北方人喜欢吃面条。	Nánfāng rén xǐhuan chī dàmǐ, běifāng rén xǐhuan chī miàntiáo.	Les gens du Sud aiment manger du riz, ceux du Nord aiment manger des nouilles.
+傍晚
+失恋	shīliàn	se faire quitter, vivre une rupture amoureuse	verbe séparable : 失了恋 ; se dit de celui ou celle qui est quitté(e) ; 分手 fēnshǒu = rompre		他失恋了，这几天心情很不好。	Tā shīliàn le, zhè jǐ tiān xīnqíng hěn bù hǎo.	Il s’est fait quitter : ces derniers jours, il n’a vraiment pas le moral.
+工艺	gōngyì	procédé de fabrication, savoir-faire technique ; artisanat d’art	工艺品 gōngyìpǐn = objet d’artisanat ; 传统工艺 = savoir-faire traditionnel		这种杯子的工艺很复杂，做一个要三天。	Zhè zhǒng bēizi de gōngyì hěn fùzá, zuò yí ge yào sān tiān.	La fabrication de ce genre de tasse est très complexe : il faut trois jours pour en faire une.
+不要紧
+领取	lǐngqǔ	retirer, venir chercher (ce à quoi on a droit : colis, livres, prix, salaire)	administratif ; 领取包裹 = retirer un colis ; 领取工资 = toucher son salaire ; 领 lǐng seul est plus courant à l’oral		同学们明天上午到办公室领取新书。	Tóngxuémen míngtiān shàngwǔ dào bàngōngshì lǐngqǔ xīn shū.	Demain matin, les élèves viendront retirer leurs nouveaux livres au bureau.
+行人
+初级
+外公
+展出	zhǎnchū	exposer, présenter au public (dans une exposition)	展出作品 = exposer des œuvres ; 展览 zhǎnlǎn = exposition (nom) ; 展示 zhǎnshì = montrer, présenter		这些照片会在图书馆展出一个星期。	Zhèxiē zhàopiàn huì zài túshūguǎn zhǎnchū yí ge xīngqī.	Ces photos seront exposées à la bibliothèque pendant une semaine.
+路人	lùrén	passant, inconnu croisé dans la rue	désigne aussi quelqu’un d’étranger, sans lien avec soi ; 路人甲 = « passant n° 1 » (figurant sans nom)		一位路人帮我们拍了一张照片。	Yí wèi lùrén bāng wǒmen pāi le yì zhāng zhàopiàn.	Un passant nous a pris en photo.
+信封
+优质	yōuzhì	de qualité supérieure, excellent	优质服务 = service de qualité ; contraire : 劣质 lièzhì (de mauvaise qualité)		这家店只卖优质的水果。	Zhè jiā diàn zhǐ mài yōuzhì de shuǐguǒ.	Ce magasin ne vend que des fruits de qualité supérieure.
+硬件
+改正
+拖鞋	tuōxié	pantoufles, chaussons ; tongs	classif. 双 shuāng : 一双拖鞋 ; en Chine, on met souvent des 拖鞋 en entrant chez soi		你进门以后，请先换上拖鞋。	Nǐ jìn mén yǐhòu, qǐng xiān huàn shàng tuōxié.	Une fois entré, mets d’abord des pantoufles, s’il te plaît.
+山区	shānqū	région montagneuse, zone de montagne	山地 shāndì = terrain montagneux ; contraire : 平原 píngyuán (plaine)		山区的冬天很冷，常常下雪。	Shānqū de dōngtiān hěn lěng, chángcháng xià xuě.	Dans les régions de montagne, l’hiver est très froid et il neige souvent.
+好评	hǎopíng	avis favorable, éloges, bonnes critiques	受到好评 = être bien accueilli ; 给好评 = laisser un avis positif ; contraire : 差评 chàpíng (mauvais avis)		这家饭店的菜很好吃，网上好评很多。	Zhè jiā fàndiàn de cài hěn hǎochī, wǎngshàng hǎopíng hěn duō.	Les plats de ce restaurant sont délicieux et il y a beaucoup d’avis positifs en ligne.
+驾照	jiàzhào	permis de conduire	abréviation de 驾驶执照 jiàshǐ zhízhào ; 考驾照 = passer le permis		我今年夏天想考驾照。	Wǒ jīnnián xiàtiān xiǎng kǎo jiàzhào.	Cet été, je voudrais passer mon permis de conduire.
+水分	shuǐfèn	eau contenue (dans le corps, un aliment), humidité ; (fig.) exagération	fèn (et non fēn) ; 补充水分 = s’hydrater ; 数据有水分 = des chiffres gonflés		运动以后要多喝水，补充身体的水分。	Yùndòng yǐhòu yào duō hē shuǐ, bǔchōng shēntǐ de shuǐfèn.	Après le sport, il faut boire beaucoup d’eau pour réhydrater le corps.
+爱护
+黄瓜	huángguā	concombre	classif. 根 gēn, 条 tiáo : 一根黄瓜 ; se mange souvent cru ou en salade froide		夏天我喜欢吃黄瓜，又便宜又好吃。	Xiàtiān wǒ xǐhuan chī huángguā, yòu piányi yòu hǎochī.	En été, j’aime manger du concombre : c’est bon marché et délicieux.
+单一	dānyī	unique, un seul ; uniforme, peu varié	单一的颜色 = une seule couleur ; contraire : 多样 duōyàng (varié)		只吃单一的食物，对身体不好。	Zhǐ chī dānyī de shíwù, duì shēntǐ bù hǎo.	Ne manger qu’un seul type d’aliments n’est pas bon pour la santé.
+二手	èrshǒu	d’occasion, de seconde main	二手车 = voiture d’occasion ; 二手房 = logement ancien ; 二手烟 = tabagisme passif		我的电脑是二手的，才花了一千块。	Wǒ de diànnǎo shì èrshǒu de, cái huā le yìqiān kuài.	Mon ordinateur est d’occasion ; il ne m’a coûté que mille yuans.
+现代化	xiàndàihuà	modernisation ; moderniser, se moderniser ; moderne	现代化的城市 = une ville moderne ; 实现现代化 = réaliser la modernisation		这个城市的交通已经现代化了。	Zhège chéngshì de jiāotōng yǐjing xiàndàihuà le.	Les transports de cette ville sont déjà modernisés.
+优良	yōuliáng	excellent, de très bonne qualité	écrit ; 优良传统 = excellente tradition ; 空气质量优良 = la qualité de l’air est bonne		今天的空气质量优良，适合出去运动。	Jīntiān de kōngqì zhìliàng yōuliáng, shìhé chūqu yùndòng.	La qualité de l’air est bonne aujourd’hui : c’est le bon moment pour sortir faire du sport.
+儿女	érnǚ	enfants (fils et filles)	toujours vus par rapport aux parents, souvent des enfants devenus adultes ; 孩子 háizi désigne aussi un jeune enfant		父母都希望儿女过得幸福。	Fùmǔ dōu xīwàng érnǚ guò de xìngfú.	Les parents souhaitent tous que leurs enfants vivent heureux.
+账号	zhànghào	compte (identifiant de connexion) ; numéro de compte	账号和密码 = identifiant et mot de passe ; 银行账号 = numéro de compte bancaire		我忘了账号和密码，登不上去。	Wǒ wàng le zhànghào hé mìmǎ, dēng bu shàngqu.	J’ai oublié mon identifiant et mon mot de passe, je n’arrive pas à me connecter.
+住宿	zhùsù	se loger, être hébergé ; hébergement, logement	住宿费 = frais d’hébergement ; 提供住宿 = proposer l’hébergement ; 宿 se lit sù dans ce mot		学生可以在学校住宿，一个月两百块。	Xuésheng kěyǐ zài xuéxiào zhùsù, yí ge yuè liǎng bǎi kuài.	Les élèves peuvent loger à l’école pour deux cents yuans par mois.
+站台	zhàntái	quai (de gare)	variante : 月台 yuètái		火车马上就要到了，我们快去站台等吧。	Huǒchē mǎshàng jiù yào dào le, wǒmen kuài qù zhàntái děng ba.	Le train arrive dans un instant : allons vite l’attendre sur le quai.
+跑道	pǎodào	piste (de course, d’athlétisme) ; piste d’atterrissage	飞机跑道 = piste d’atterrissage ; 操场 cāochǎng = terrain de sport (où se trouve la piste)		每天早上，我都在学校的跑道上跑步。	Měitiān zǎoshang, wǒ dōu zài xuéxiào de pǎodào shàng pǎobù.	Tous les matins, je cours sur la piste de l’école.
+创业	chuàngyè	créer son entreprise, se lancer à son compte ; entrepreneuriat	创业者 = entrepreneur ; 自己创业 = monter sa propre affaire		他大学毕业以后就开始创业了。	Tā dàxué bìyè yǐhòu jiù kāishǐ chuàngyè le.	Dès qu’il a eu son diplôme universitaire, il s’est lancé dans la création d’entreprise.
+暴雨	bàoyǔ	pluie torrentielle, averse violente	classif. 场 cháng : 一场暴雨 ; plus violent que 大雨 dàyǔ (forte pluie) ; 暴雨预警 = alerte aux pluies torrentielles		昨天晚上下了一场暴雨，路上都是水。	Zuótiān wǎnshang xià le yì cháng bàoyǔ, lùshang dōu shì shuǐ.	Hier soir, il est tombé une pluie torrentielle et la route était pleine d’eau.
+本领
+勤奋
+原有	yuányǒu	d’origine, qui existait déjà (avant un changement)	toujours devant un nom, souvent avec 的 : 原有的计划 = le plan initial ; contraire : 新增 xīnzēng (ajouté récemment)		搬家以后，我们不再使用原有的家具。	Bānjiā yǐhòu, wǒmen bú zài shǐyòng yuányǒu de jiājù.	Depuis le déménagement, nous n’utilisons plus les meubles que nous avions avant.
+床单	chuángdān	drap (de lit)	classif. 条 tiáo ou 张 zhāng : 一条床单 ; 换床单 = changer les draps		我每个星期都换一次床单。	Wǒ měi ge xīngqī dōu huàn yí cì chuángdān.	Je change les draps une fois par semaine.
+试用	shìyòng	essayer, tester (un produit) ; être à l’essai	试用期 shìyòngqī = période d’essai (au travail) ; 免费试用 = essai gratuit		这个软件可以免费试用七天。	Zhège ruǎnjiàn kěyǐ miǎnfèi shìyòng qī tiān.	Ce logiciel peut être essayé gratuitement pendant sept jours.
+雨水	yǔshuǐ	eau de pluie ; précipitations ; Yǔshuǐ (2e des 24 termes solaires, vers le 19 février)	雨水充足 = les pluies sont abondantes		昨天下过雨，地上到处都是雨水。	Zuótiān xià guo yǔ, dìshang dàochù dōu shì yǔshuǐ.	Il a plu hier : il y a de l’eau de pluie partout sur le sol.
+旅行社	lǚxíngshè	agence de voyages	旅行 = voyager ; 社 shè = organisme, société ; 旅游团 lǚyóutuán = voyage organisé, groupe de touristes		我在旅行社订了去上海的机票。	Wǒ zài lǚxíngshè dìng le qù Shànghǎi de jīpiào.	J’ai réservé un billet d’avion pour Shanghai dans une agence de voyages.
+急诊
+柜子	guìzi	meuble de rangement (armoire, placard, buffet)	衣柜 yīguì = armoire à vêtements ; 书柜 shūguì = bibliothèque ; 鞋柜 xiéguì = meuble à chaussures		你的衣服在左边那个柜子里。	Nǐ de yīfu zài zuǒbian nàge guìzi lǐ.	Tes vêtements sont dans le placard de gauche.
+陆地
+沙子	shāzi	sable, grains de sable	沙子进眼睛里了 = j’ai du sable dans l’œil ; 沙滩 shātān = plage de sable		孩子们在海边玩沙子，玩得很开心。	Háizimen zài hǎibiān wán shāzi, wán de hěn kāixīn.	Les enfants jouent avec le sable au bord de la mer et s’amusent beaucoup.
+学科	xuékē	discipline, matière (scolaire ou universitaire)	désigne la discipline (maths, langues…) ; 课程 kèchéng = le cours, le programme		你最喜欢的学科是什么？	Nǐ zuì xǐhuan de xuékē shì shénme?	Quelle est ta matière préférée ?
+邮局
+提倡
+产量	chǎnliàng	production, rendement (quantité produite)	粮食产量 = production de céréales ; la quantité produite, pas le produit lui-même (产品 chǎnpǐn)		今年苹果的产量比去年高很多。	Jīnnián píngguǒ de chǎnliàng bǐ qùnián gāo hěn duō.	Cette année, la production de pommes est bien plus élevée que l’an dernier.
+请教	qǐngjiào	demander conseil à, solliciter l’avis de (une personne compétente)	poli : 向您请教 = vous demander conseil ; 请问 qǐngwèn demande seulement une information		我有一个问题，想向老师请教一下。	Wǒ yǒu yí ge wèntí, xiǎng xiàng lǎoshī qǐngjiào yíxià.	J’ai une question et j’aimerais demander conseil au professeur.
+昆虫
+概括
+餐饮	cānyǐn	restauration (restaurants, repas et boissons)	餐饮业 = secteur de la restauration ; 餐饮 couvre les repas et les boissons		他大学毕业以后，一直在餐饮行业工作。	Tā dàxué bìyè yǐhòu, yìzhí zài cānyǐn hángyè gōngzuò.	Depuis la fin de ses études à l’université, il travaille dans la restauration.
+舍得	shěde	ne pas rechigner à (dépenser, donner), ne pas regretter de se séparer de	contraire : 舍不得 shěbude = avoir du mal à se séparer de, regretter de dépenser		他很舍得给孩子花钱。	Tā hěn shěde gěi háizi huā qián.	Il n’hésite pas à dépenser de l’argent pour ses enfants.
+随手
+大妈	dàmā	madame, tante (appellation familière d’une femme d’âge mûr ou âgée)	pendant masculin : 大爷 dàye (monsieur âgé) ; en famille, 大妈 désigne aussi la femme de l’oncle paternel aîné		公园里有很多大妈在跳舞。	Gōngyuán lǐ yǒu hěn duō dàmā zài tiàowǔ.	Dans le parc, beaucoup de dames d’un certain âge sont en train de danser.
+纪录片	jìlùpiàn	documentaire (film)	看纪录片 = regarder un documentaire ; classificateur : 部		昨天晚上我看了一部很有意思的纪录片。	Zuótiān wǎnshang wǒ kàn le yí bù hěn yǒu yìsi de jìlùpiàn.	Hier soir, j’ai regardé un documentaire très intéressant.
+汗水	hànshuǐ	sueur (qui coule)	流汗 liú hàn = transpirer ; souvent au figuré : 用汗水换来的成果 = le fruit de ses efforts		运动结束后，他满脸都是汗水。	Yùndòng jiéshù hòu, tā mǎn liǎn dōu shì hànshuǐ.	Après l’exercice, il avait le visage couvert de sueur.
+姥姥
+离职	lízhí	quitter son poste, quitter l’entreprise (démission, départ)	contraire : 入职 rùzhí (prendre son poste) ; 辞职 cízhí = donner sa démission		他上个月从公司离职了。	Tā shàng ge yuè cóng gōngsī lízhí le.	Il a quitté l’entreprise le mois dernier.
+转告
+带动	dàidòng	entraîner, stimuler, donner un élan à	带动经济 = stimuler l’économie ; aussi 带动大家 = entraîner tout le monde à sa suite		旅游带动了当地经济的发展。	Lǚyóu dàidòng le dāngdì jīngjì de fāzhǎn.	Le tourisme a stimulé le développement de l’économie locale.
+调皮
+城区	chéngqū	quartiers urbains, zone urbaine (par opposition à la banlieue ou à la campagne)	proche de 市区 shìqū ; s’oppose à 郊区 jiāoqū (banlieue)		城区的交通比农村方便多了。	Chéngqū de jiāotōng bǐ nóngcūn fāngbiàn duō le.	Les transports en zone urbaine sont bien plus pratiques qu’à la campagne.
+大批	dàpī	un grand nombre de, de grandes quantités de (devant un nom)	s’emploie devant un nom : 大批游客, 大批货物 ; jamais seul comme attribut		假期里，大批游客来到了这个城市。	Jiàqī lǐ, dàpī yóukè lái dào le zhège chéngshì.	Pendant les vacances, un grand nombre de touristes sont venus dans cette ville.
+正如	zhèngrú	tout comme, ainsi que (introduit une comparaison ou une citation)	正如…所说 / 正如…一样 ; plus soutenu que 就像 jiù xiàng		正如你说的，这家饭馆的菜真好吃。	Zhèngrú nǐ shuō de, zhè jiā fànguǎn de cài zhēn hǎochī.	Comme tu le disais, les plats de ce restaurant sont vraiment bons.
+物业	wùyè	syndic, société de gestion d’un immeuble ou d’une résidence ; bien immobilier	物业费 wùyèfèi = charges de copropriété ; la 物业 s’occupe de l’entretien, du gardiennage et des petites réparations		家里的灯坏了，我给物业打了电话。	Jiā lǐ de dēng huài le, wǒ gěi wùyè dǎ le diànhuà.	La lumière de la maison est en panne ; j’ai appelé le syndic.
+游览
+悠久
+制订	zhìdìng	élaborer, établir (un plan, un programme)	proche de 制定 zhìdìng, qui s’emploie plutôt pour des règles et des lois		我们一起制订了一个学习计划。	Wǒmen yìqǐ zhìdìng le yí ge xuéxí jìhuà.	Ensemble, nous avons établi un plan d’études.
+外观	wàiguān	apparence extérieure, aspect (d’un objet, d’un bâtiment)	se dit du design d’un objet : 手机的外观 = l’apparence extérieure d’un téléphone		这辆车的外观很漂亮，价格也不贵。	Zhè liàng chē de wàiguān hěn piàoliang, jiàgé yě bú guì.	Cette voiture a un très bel aspect extérieur, et en plus son prix n’est pas élevé.
+陆续
+试卷
+加深	jiāshēn	approfondir, renforcer ; s’approfondir	加深了解 = mieux comprendre ; 加深印象 = renforcer l’impression		这次旅行加深了我对中国的了解。	Zhè cì lǚxíng jiāshēn le wǒ duì Zhōngguó de liǎojiě.	Ce voyage a approfondi ma connaissance de la Chine.
+调研	diàoyán	enquêter, mener une étude sur le terrain ; enquête, étude	调 se lit diào, comme dans 调查 diàochá ; 市场调研 = étude de marché		他们去农村调研了一个星期。	Tāmen qù nóngcūn diàoyán le yí ge xīngqī.	Ils sont allés mener une enquête à la campagne pendant une semaine.
+胆小	dǎnxiǎo	peureux, craintif, qui manque de courage	胆小鬼 dǎnxiǎoguǐ = trouillard ; contraire : 胆大 dǎndà (audacieux)		我弟弟很胆小，晚上不敢一个人睡觉。	Wǒ dìdi hěn dǎnxiǎo, wǎnshang bù gǎn yí ge rén shuìjiào.	Mon petit frère est très peureux : le soir, il n’ose pas dormir tout seul.
+影视	yǐngshì	cinéma et télévision (films, séries télévisées)	影视公司 = société de production audiovisuelle ; 影视剧 yǐngshìjù = films et séries télévisées		他在一家影视公司工作，经常出差。	Tā zài yì jiā yǐngshì gōngsī gōngzuò, jīngcháng chūchāi.	Il travaille dans une société de production audiovisuelle et part souvent en déplacement.
+超速	chāosù	dépasser la limite de vitesse, rouler trop vite	限速 xiànsù = limitation de vitesse		开车的时候不能超速，那样很危险。	Kāichē de shíhou bù néng chāosù, nàyàng hěn wēixiǎn.	En voiture, il ne faut pas faire d’excès de vitesse : c’est très dangereux.
+除夕
+国庆	guóqìng	fête nationale (en Chine, le 1er octobre) ; congés de la fête nationale	国庆节 guóqìngjié ; les congés qui suivent le 1er octobre sont une grande période de voyages		国庆放假七天，我们打算去旅游。	Guóqìng fàngjià qī tiān, wǒmen dǎsuàn qù lǚyóu.	Pour la fête nationale, nous avons sept jours de congé et nous comptons partir en voyage.
+问卷	wènjuàn	questionnaire (d’enquête)	填问卷 = remplir un questionnaire ; 问卷调查 = enquête par questionnaire ; classificateur : 份		请大家花五分钟填一下这份问卷。	Qǐng dàjiā huā wǔ fēnzhōng tián yíxià zhè fèn wènjuàn.	Prenez cinq minutes, tout le monde, pour remplir ce questionnaire.
+果实
+日历
+往返
+增进	zēngjìn	renforcer, resserrer, développer (une relation, une compréhension)	compléments usuels : 友谊, 感情, 了解, 健康		一起旅行可以增进朋友之间的感情。	Yìqǐ lǚxíng kěyǐ zēngjìn péngyou zhījiān de gǎnqíng.	Voyager ensemble peut resserrer les liens entre amis.
+深远	shēnyuǎn	profond et de longue portée, durable (influence, signification)	影响深远 = influence profonde et durable ; 意义深远 = portée considérable ; se dit d’une influence ou d’un sens, pas d’une distance		父母的教育对孩子的影响很深远。	Fùmǔ de jiàoyù duì háizi de yǐngxiǎng hěn shēnyuǎn.	L’éducation des parents a une influence profonde et durable sur l’enfant.
+音量	yīnliàng	volume (sonore)	调大音量 / 调小音量 = monter / baisser le volume		请把电视的音量调小一点儿。	Qǐng bǎ diànshì de yīnliàng tiáo xiǎo yìdiǎnr.	Baisse un peu le volume de la télé, s’il te plaît.
+碰见	pèngjiàn	rencontrer par hasard, tomber sur (quelqu’un)	synonymes : 碰到 pèngdào, 遇见 yùjiàn		我今天在超市碰见了一位老同学。	Wǒ jīntiān zài chāoshì pèngjiàn le yí wèi lǎo tóngxué.	Aujourd’hui, j’ai croisé un ancien camarade de classe au supermarché.
+年夜饭	niányèfàn	dîner du réveillon du Nouvel An chinois (repas de famille)	repas pris en famille le soir de la veille du Nouvel An lunaire (除夕 chúxī)		过年的时候，全家人都会回家吃年夜饭。	Guònián de shíhou, quánjiārén dōu huì huí jiā chī niányèfàn.	Pour le Nouvel An, toute la famille rentre à la maison pour le dîner du réveillon.
+深厚	shēnhòu	profond, solide (amitié, sentiments, bases)	深厚的友谊 = une amitié profonde ; 基础深厚 = des bases solides		他们俩从小一起长大，感情很深厚。	Tāmen liǎ cóng xiǎo yìqǐ zhǎngdà, gǎnqíng hěn shēnhòu.	Ils ont grandi ensemble depuis tout petits et ils sont profondément liés.
+涨价	zhǎngjià	augmenter de prix, voir son prix augmenter	contraire : 降价 jiàngjià (baisser de prix)		最近牛奶又涨价了，一瓶贵了两块钱。	Zuìjìn niúnǎi yòu zhǎngjià le, yì píng guì le liǎng kuài qián.	Le lait a encore augmenté ces derniers temps : la bouteille coûte deux yuans de plus.
+样式
+亲情	qīnqíng	affection familiale, liens du sang (entre parents, enfants, frères et sœurs)	à distinguer de 爱情 àiqíng (amour) et 友情 yǒuqíng (amitié)		对我来说，亲情比什么都重要。	Duì wǒ lái shuō, qīnqíng bǐ shénme dōu zhòngyào.	Pour moi, les liens familiaux comptent plus que tout.
+住址	zhùzhǐ	adresse (du domicile)	adresse où l’on habite, sur les formulaires ; 地址 dìzhǐ = adresse en général		请在这里写上你的姓名和住址。	Qǐng zài zhèlǐ xiě shàng nǐ de xìngmíng hé zhùzhǐ.	Écris ici ton nom et ton adresse, s’il te plaît.
+要不是	yàobúshì	sans, si ce n’était, n’eût été (contraire à la réalité)	要不是…，(就)… exprime un fait qui ne s’est pas produit ; proche de 如果不是		要不是你帮忙，我肯定赶不上火车。	Yàobúshì nǐ bāngmáng, wǒ kěndìng gǎn bu shàng huǒchē.	Sans ton aide, je n’aurais certainement pas attrapé le train.
+近日	jìnrì	ces derniers jours ; dans les jours qui viennent (écrit)	écrit (annonces, journaux) ; à l’oral : 这几天 zhè jǐ tiān		近日天气变冷了，请大家注意身体。	Jìnrì tiānqì biàn lěng le, qǐng dàjiā zhùyì shēntǐ.	Ces derniers jours, le temps s’est refroidi : faites bien attention à votre santé.
+图画	túhuà	dessin, image (dessinée ou peinte)	图画书 túhuàshū = livre illustré (pour enfants) ; 画 huà = dessin, tableau (plus courant)		这本书里有很多漂亮的图画。	Zhè běn shū lǐ yǒu hěn duō piàoliang de túhuà.	Ce livre contient beaucoup de jolies images.
+火锅	huǒguō	fondue chinoise (marmite de bouillon où l’on cuit viandes et légumes à table)	吃火锅 = manger une fondue chinoise		天气冷的时候，我们喜欢全家一起吃火锅。	Tiānqì lěng de shíhou, wǒmen xǐhuan quánjiā yìqǐ chī huǒguō.	Quand il fait froid, nous aimons manger une fondue chinoise en famille.
+书法	shūfǎ	calligraphie	练书法 = s’exercer à la calligraphie ; 书法家 shūfǎjiā = calligraphe		爷爷每天早上都练书法。	Yéye měitiān zǎoshang dōu liàn shūfǎ.	Mon grand-père s’exerce à la calligraphie tous les matins.
+小于	xiǎoyú	être inférieur à, plus petit que (<)	contraire : 大于 dàyú (>) ; 小于或等于 = inférieur ou égal (≤)		年龄小于六岁的孩子可以免费坐车。	Niánlíng xiǎoyú liù suì de háizi kěyǐ miǎnfèi zuò chē.	Les enfants de moins de six ans peuvent voyager gratuitement.
+竹子
+丰富多彩	fēngfùduōcǎi	riche et varié, haut en couleur	丰富多彩的生活 = une vie riche et variée ; se dit d’activités, d’un programme, de la vie		我们学校的活动丰富多彩，大家都很喜欢。	Wǒmen xuéxiào de huódòng fēngfù duōcǎi, dàjiā dōu hěn xǐhuan.	Les activités de notre école sont riches et variées, et tout le monde les apprécie.
+长处	chángchù	point fort, qualité, atout	contraire : 短处 duǎnchù (point faible)		每个人都有自己的长处，要学会发现。	Měi ge rén dōu yǒu zìjǐ de chángchù, yào xuéhuì fāxiàn.	Chacun a ses points forts, il faut apprendre à les découvrir.
+升温	shēngwēn	se réchauffer (la température monte) ; (fig.) s’intensifier, s’échauffer	au figuré : 市场升温 = le marché s’échauffe ; contraire : 降温 jiàngwēn (se refroidir)		春天来了，天气慢慢升温。	Chūntiān lái le, tiānqì mànmàn shēngwēn.	Le printemps est arrivé et le temps se réchauffe peu à peu.
+时差
+学分	xuéfēn	crédit (unité de valeur d’un cours)	拿学分 = obtenir des crédits ; ne pas confondre avec 分数 fēnshù (note, points)		这门课有三个学分。	Zhè mén kè yǒu sān ge xuéfēn.	Ce cours vaut trois crédits.
+能干
+风俗
+近年来	jìnniánlái	depuis quelques années, ces dernières années	en début de phrase, souvent suivi de 越来越… ; plus oral : 这几年 zhè jǐ nián		近年来，越来越多的人骑自行车上班。	Jìnniánlái, yuè lái yuè duō de rén qí zìxíngchē shàngbān.	Ces dernières années, de plus en plus de gens vont au travail à vélo.
+教材
+开水
+书架
+响声	xiǎngshēng	bruit, son qui retentit	bruit de choc, d’objet qui tombe ; 声音 shēngyīn est plus général (son, voix)		楼上传来一阵响声，不知道发生了什么事。	Lóu shàng chuánlái yí zhèn xiǎngshēng, bù zhīdao fāshēng le shénme shì.	Un bruit est venu de l’étage au-dessus ; je ne sais pas ce qui s’est passé.
+押金
+物价	wùjià	prix (des marchandises), niveau des prix	物价上涨 = hausse des prix ; niveau général des prix, pas le prix d’un article (价格 jiàgé)		这几年大城市的物价越来越高。	Zhè jǐ nián dà chéngshì de wùjià yuè lái yuè gāo.	Ces dernières années, dans les grandes villes, les prix sont de plus en plus élevés.
+台灯	táidēng	lampe de bureau, lampe de chevet	classificateur : 盏 zhǎn (一盏台灯)		晚上我打开台灯看书。	Wǎnshang wǒ dǎkāi táidēng kàn shū.	Le soir, j’allume ma lampe de bureau pour lire.
+一路顺风	yílùshùnfēng	bon voyage ! (souhait adressé à quelqu’un qui part)	littéralement : vent favorable tout le long de la route ; on dit aussi 一路平安 yílù píng’ān		明天你就要出发了，祝你一路顺风！	Míngtiān nǐ jiù yào chūfā le, zhù nǐ yílù shùnfēng!	Tu pars demain ; je te souhaite un bon voyage !
+宽度	kuāndù	largeur	长度 chángdù (longueur), 高度 gāodù (hauteur), 厚度 hòudù (épaisseur)		这条路的宽度只有三米。	Zhè tiáo lù de kuāndù zhǐyǒu sān mǐ.	La largeur de cette route n’est que de trois mètres.
+橡皮
+元旦
+普及	pǔjí	se généraliser, se répandre ; généraliser, rendre accessible à tous	普及教育 = généraliser l’éducation ; 普及知识 = diffuser des connaissances auprès du grand public		现在手机已经普及了，几乎每个人都有一部。	Xiànzài shǒujī yǐjing pǔjí le, jīhū měi ge rén dōu yǒu yí bù.	Aujourd’hui, le téléphone portable s’est généralisé : presque tout le monde en a un.
+亲朋好友	qīnpénghǎoyǒu	famille et amis, proches	forme abrégée : 亲友 qīnyǒu ; 亲朋 = parents et amis, 好友 = bons amis		结婚那天，我请了很多亲朋好友。	Jiéhūn nà tiān, wǒ qǐng le hěn duō qīnpéng hǎoyǒu.	Le jour de mon mariage, j’ai invité beaucoup de parents et d’amis.
+厚度	hòudù	épaisseur	厚 hòu = épais, 薄 báo = mince ; 宽度 kuāndù = largeur		这本词典的厚度大概有五厘米。	Zhè běn cídiǎn de hòudù dàgài yǒu wǔ límǐ.	L’épaisseur de ce dictionnaire est d’environ cinq centimètres.
+汇率
+鼠标
+中医	zhōngyī	médecine traditionnelle chinoise ; praticien de médecine chinoise	看中医 = consulter un praticien de médecine chinoise ; 中药 zhōngyào = remèdes chinois ; 西医 xīyī = médecine occidentale		我奶奶生病的时候，喜欢看中医。	Wǒ nǎinai shēngbìng de shíhou, xǐhuan kàn zhōngyī.	Quand ma grand-mère est malade, elle aime consulter un praticien de médecine traditionnelle chinoise.
+年初	niánchū	début de l’année	contraire : 年底 niándǐ (fin de l’année)		公司计划在年初开一家新店。	Gōngsī jìhuà zài niánchū kāi yì jiā xīndiàn.	L’entreprise prévoit d’ouvrir un nouveau magasin en début d’année.
+乘务员	chéngwùyuán	agent de bord, personnel de bord (avion, train, bateau)	空中乘务员 (空乘) = hôtesse de l’air, steward		飞机上的乘务员很热情地帮我找到了座位。	Fēijī shàng de chéngwùyuán hěn rèqíng de bāng wǒ zhǎo dào le zuòwèi.	Dans l’avion, l’agent de bord m’a aidé très gentiment à trouver ma place.
+急忙
+售价	shòujià	prix de vente	écrit (étiquettes, annonces) ; à l’oral : 价格 jiàgé, 价钱 jiàqian ; 原价 yuánjià = prix d’origine		这台电脑的售价是五千块。	Zhè tái diànnǎo de shòujià shì wǔqiān kuài.	Le prix de vente de cet ordinateur est de cinq mille yuans.
+吸管	xīguǎn	paille (pour boire)	classificateur : 根 gēn (一根吸管)		小孩子喜欢用吸管喝果汁。	Xiǎo háizi xǐhuan yòng xīguǎn hē guǒzhī.	Les enfants aiment boire du jus de fruits avec une paille.
+窗台	chuāngtái	rebord de fenêtre, appui de fenêtre			我家的猫喜欢坐在窗台上看外面。	Wǒ jiā de māo xǐhuan zuò zài chuāngtái shàng kàn wàimian.	Mon chat aime s’asseoir sur le rebord de la fenêtre pour regarder dehors.
+中外	zhōngwài	la Chine et l’étranger ; chinois et étrangers	中外游客 = touristes chinois et étrangers ; 中外合作 = coopération entre la Chine et l’étranger		这所大学有很多中外学生。	Zhè suǒ dàxué yǒu hěn duō zhōngwài xuésheng.	Cette université compte beaucoup d’étudiants chinois et étrangers.
+学年	xuénián	année scolaire, année universitaire	学期 xuéqī = semestre ; un 学年 compte deux 学期		新学年从九月开始。	Xīn xuénián cóng jiǔyuè kāishǐ.	La nouvelle année scolaire commence en septembre.
+中级	zhōngjí	de niveau intermédiaire, moyen	初级 chūjí (débutant), 中级, 高级 gāojí (avancé)		我现在在上中级汉语课。	Wǒ xiànzài zài shàng zhōngjí Hànyǔ kè.	En ce moment, je suis un cours de chinois de niveau intermédiaire.
+首次	shǒucì	première fois ; pour la première fois (devant un verbe)	首次参加 = participer pour la première fois ; plus oral : 第一次 dì yī cì		他首次来中国，对什么都很好奇。	Tā shǒucì lái Zhōngguó, duì shénme dōu hěn hàoqí.	C’est la première fois qu’il vient en Chine : il est curieux de tout.
+豆浆	dòujiāng	lait de soja (boisson chaude du petit-déjeuner)	se boit chaud, sucré ou salé, souvent avec des 油条 yóutiáo (beignets frits) ; 一杯豆浆 = un verre de lait de soja		我每天早上都喝一杯热豆浆。	Wǒ měitiān zǎoshang dōu hē yì bēi rè dòujiāng.	Tous les matins, je bois un verre de lait de soja chaud.
+近代
+胡同
+特产	tèchǎn	spécialité locale, produit typique d’une région	当地特产 dāngdì tèchǎn = spécialité du pays ; on en rapporte souvent en cadeau à son retour de voyage		去旅游的时候，我喜欢买一些当地的特产。	Qù lǚyóu de shíhou, wǒ xǐhuan mǎi yìxiē dāngdì de tèchǎn.	Quand je pars en voyage, j’aime acheter quelques spécialités locales.
+配送	pèisòng	livrer (des marchandises), assurer la livraison	service d’un magasin ou d’une plateforme ; 免费配送 = livraison gratuite ; 送货 sònghuò = livrer (plus courant à l’oral)		这家商店满一百元就可以免费配送。	Zhè jiā shāngdiàn mǎn yìbǎi yuán jiù kěyǐ miǎnfèi pèisòng.	Ce magasin livre gratuitement à partir de cent yuans d’achats.
+中华	Zhōnghuá	Chine (nom culturel et historique, soutenu)	surtout dans des expressions : 中华文化 = la culture chinoise ; 中华民族 = la nation chinoise ; 中国 Zhōngguó est le nom courant du pays		我对中华文化很感兴趣，所以来中国学习汉语。	Wǒ duì Zhōnghuá wénhuà hěn gǎn xìngqù, suǒyǐ lái Zhōngguó xuéxí Hànyǔ.	Je m’intéresse beaucoup à la culture chinoise, c’est pourquoi je viens étudier le chinois en Chine.
+人民币
+着凉
+中药	zhōngyào	remèdes chinois, médicaments de la pharmacopée traditionnelle (plantes, décoctions)	classif. : 服 fù (une dose) ; contraire : 西药 xīyào (médicaments occidentaux)		奶奶生病的时候，常常喝中药。	Nǎinai shēngbìng de shíhou, chángcháng hē zhōngyào.	Quand grand-mère est malade, elle boit souvent des préparations de médecine chinoise.
+盒饭	héfàn	plateau-repas (repas en boîte, à emporter)	riz, viande et légumes dans une boîte, vendu dans les gares, les trains, les cantines ; 订盒饭 = commander des plateaux-repas		中午我们在办公室吃盒饭。	Zhōngwǔ wǒmen zài bàngōngshì chī héfàn.	À midi, nous mangeons un plateau-repas au bureau.
+国画	guóhuà	peinture traditionnelle chinoise (à l’encre, au pinceau)	paysages, fleurs, oiseaux ; 画国画 = peindre à la chinoise ; 油画 yóuhuà = peinture à l’huile		爷爷退休以后开始学画国画。	Yéye tuìxiū yǐhòu kāishǐ xué huà guóhuà.	Après sa retraite, grand-père a commencé à apprendre à faire de la peinture traditionnelle chinoise.
+保质期	bǎozhìqī	durée de conservation, date limite (d’un aliment, d’un produit)	écrite sur l’emballage ; 过了保质期 = périmé, la date est dépassée ; 生产日期 shēngchǎn rìqī = date de fabrication		这瓶牛奶的保质期只有一个星期。	Zhè píng niúnǎi de bǎozhìqī zhǐyǒu yí ge xīngqī.	La durée de conservation de ce lait n’est que d’une semaine.
+厘米
+话费	huàfèi	frais de téléphone, facture ou crédit d’un téléphone portable	充话费 chōng huàfèi = recharger son crédit (forfait prépayé) ; 手机话费 = facture de portable		我这个月的话费很贵，因为打了很多电话。	Wǒ zhège yuè de huàfèi hěn guì, yīnwèi dǎ le hěn duō diànhuà.	Ma facture de téléphone est élevée ce mois-ci, parce que j’ai passé beaucoup d’appels.
+日用品
+扇子
+虚心
+叉子
+姥爷	lǎoye	grand-père maternel (père de la mère ; familier, nord de la Chine)	aussi 外公 wàigōng (plutôt dans le sud), 外祖父 wàizǔfù (soutenu) ; grand-mère maternelle : 姥姥 lǎolao ; grand-père paternel : 爷爷 yéye		暑假我在姥爷家住了一个星期。	Shǔjià wǒ zài lǎoye jiā zhù le yí ge xīngqī.	Pendant les vacances d’été, j’ai passé une semaine chez mon grand-père maternel.
+省会	shěnghuì	capitale de province, chef-lieu d’une province	ne pas confondre avec 首都 shǒudū (capitale du pays) ; 省份 shěngfèn = province		你知道你们省的省会是哪个城市吗？	Nǐ zhīdao nǐmen shěng de shěnghuì shì nǎge chéngshì ma?	Tu sais quelle ville est la capitale de votre province ?
+高科技	gāokējì	haute technologie, technologies de pointe	souvent devant un nom : 高科技产品 = produits de haute technologie ; 高科技公司 = entreprise de pointe		这家公司生产的是高科技产品。	Zhè jiā gōngsī shēngchǎn de shì gāokējì chǎnpǐn.	Cette entreprise fabrique des produits de haute technologie.
+挂号
+读音	dúyīn	prononciation, lecture (d’un caractère ou d’un mot écrit)	这个字的读音 = la lecture de ce caractère ; 发音 fāyīn = prononcer, articulation des sons		这个字有两个读音，你知道吗？	Zhège zì yǒu liǎng ge dúyīn, nǐ zhīdao ma?	Ce caractère a deux prononciations, tu le sais ?
+五颜六色	wǔyánliùsè	multicolore, de toutes les couleurs	littéralement « cinq couleurs, six couleurs » ; devant un nom avec 的 : 五颜六色的灯 = des lumières multicolores		公园里开着五颜六色的花。	Gōngyuán lǐ kāi zhe wǔyánliùsè de huā.	Dans le parc, des fleurs de toutes les couleurs sont épanouies.
+夜市	yèshì	marché de nuit (stands de nourriture et boutiques ouverts le soir)	très répandu dans les villes chinoises ; on y mange des 小吃 xiǎochī (en-cas de rue)		今天晚上我们去夜市吃东西吧。	Jīntiān wǎnshang wǒmen qù yèshì chī dōngxi ba.	Ce soir, allons manger quelque chose au marché de nuit.
+用法	yòngfǎ	emploi, usage (d’un mot, d’une structure) ; mode d’emploi (d’un médicament, d’un objet)	comment on s’en sert ; 用处 yòngchù = à quoi cela sert (utilité)		老师给我们讲了这个词的用法。	Lǎoshī gěi wǒmen jiǎng le zhège cí de yòngfǎ.	Le professeur nous a expliqué l’emploi de ce mot.
+主食	zhǔshí	aliment de base du repas (riz, nouilles, pain, raviolis…)	opposé aux plats d’accompagnement : 菜 cài, 副食 fùshí		我家的主食是米饭，不是面包。	Wǒ jiā de zhǔshí shì mǐfàn, bú shì miànbāo.	Chez nous, l’aliment de base est le riz, pas le pain.
+跳高	tiàogāo	saut en hauteur ; faire du saut en hauteur	跳远 tiàoyuǎn = saut en longueur ; 跳高 est aussi un verbe : 他跳高 = il fait du saut en hauteur		他每天下午都在操场练习跳高。	Tā měitiān xiàwǔ dōu zài cāochǎng liànxí tiàogāo.	Tous les après-midi, il s’entraîne au saut en hauteur sur le terrain de sport.
+家电	jiādiàn	électroménager, appareils électriques de la maison	abrév. de 家用电器 jiāyòng diànqì ; frigo, télévision, machine à laver… ; 家电店 = magasin d’électroménager		搬进新家以后，我们买了很多新家电。	Bān jìn xīn jiā yǐhòu, wǒmen mǎi le hěn duō xīn jiādiàn.	Après avoir emménagé dans notre nouveau logement, nous avons acheté beaucoup d’appareils électroménagers neufs.
+压岁钱	yāsuìqián	étrennes du Nouvel An chinois (argent offert aux enfants dans une enveloppe rouge)	donné par les aînés pendant la fête du Printemps, dans un 红包 hóngbāo (enveloppe rouge)		过年的时候，爷爷奶奶给了我很多压岁钱。	Guònián de shíhou, yéye nǎinai gěi le wǒ hěn duō yāsuìqián.	Au Nouvel An, mes grands-parents m’ont donné beaucoup d’étrennes.
+西餐	xīcān	cuisine occidentale, repas à l’occidentale	classif. : 份 fèn, 顿 dùn ; contraire : 中餐 zhōngcān (cuisine chinoise) ; 西餐厅 = restaurant occidental		今天我不想吃中餐，我们去吃西餐吧。	Jīntiān wǒ bù xiǎng chī zhōngcān, wǒmen qù chī xīcān ba.	Aujourd’hui, je n’ai pas envie de cuisine chinoise ; allons manger occidental.
+短处	duǎnchù	défaut, point faible, faiblesse	contraire : 长处 chángchù (point fort, qualité) ; 缺点 quēdiǎn = défaut, lacune (plus général)		每个人都有自己的长处和短处。	Měi ge rén dōu yǒu zìjǐ de chángchù hé duǎnchù.	Chacun a ses points forts et ses points faibles.
+酸甜苦辣	suāntiánkǔlà	les joies et les peines de la vie ; toutes les saveurs (lit. aigre, doux, amer, piquant)	au figuré, avec 尝 ou 经历 : 尝过酸甜苦辣 = avoir connu toutes les saveurs de la vie		她一个人在国外生活了十年，尝过了人生的酸甜苦辣。	Tā yí ge rén zài guówài shēnghuó le shí nián, cháng guo le rénshēng de suāntiánkǔlà.	Elle a vécu dix ans seule à l’étranger, et elle a connu les joies et les peines de la vie.
+闭幕式	bìmùshì	cérémonie de clôture	contraire : 开幕式 kāimùshì (cérémonie d’ouverture) ; 闭幕 bìmù = clore, tomber le rideau		明天晚上是运动会的闭幕式，我们一起去看吧。	Míngtiān wǎnshang shì yùndònghuì de bìmùshì, wǒmen yìqǐ qù kàn ba.	Demain soir a lieu la cérémonie de clôture de la compétition sportive ; allons la voir ensemble.
+尺子
+毛笔	máobǐ	pinceau chinois (pour écrire ou peindre)	classif. : 支 zhī ou 枝 zhī ; 毛笔字 = caractères écrits au pinceau (calligraphie) ; 钢笔 gāngbǐ = stylo-plume		他用毛笔写的字很漂亮。	Tā yòng máobǐ xiě de zì hěn piàoliang.	Les caractères qu’il écrit au pinceau sont très beaux.
+占线
+跳远	tiàoyuǎn	saut en longueur ; faire du saut en longueur	跳高 tiàogāo = saut en hauteur ; 跳远 est aussi un verbe : 他跳远 = il fait du saut en longueur		他跳远跳了六米，得了第一名。	Tā tiàoyuǎn tiào le liù mǐ, dé le dìyī míng.	Au saut en longueur, il a sauté six mètres et a pris la première place.
+没法儿	méifǎr	ne pas avoir moyen de, ne pas pouvoir (familier) ; on n’y peut rien	familier, surtout dans le nord ; = 没办法 méi bànfǎ ; 没法儿 + verbe : 没法儿走 = impossible de partir		下这么大的雨，我们没法儿出去玩了。	Xià zhème dà de yǔ, wǒmen méifǎr chūqu wán le.	Avec une pluie pareille, on ne peut plus sortir jouer.
+电子版	diànzǐbǎn	version électronique, version numérique (d’un livre, d’un document)	contraire : 纸质版 zhǐzhìbǎn (version papier) ; 电子书 diànzǐshū = livre électronique		这本书有电子版，你可以在手机上看。	Zhè běn shū yǒu diànzǐbǎn, nǐ kěyǐ zài shǒujī shàng kàn.	Ce livre existe en version électronique, tu peux le lire sur ton téléphone.
+连忙
+拼音
+生肖	shēngxiào	signe du zodiaque chinois (animal de l’année de naissance)	douze animaux qui se succèdent chaque année ; 我属马 wǒ shǔ mǎ = je suis du signe du cheval		我的生肖是马，你的生肖是什么？	Wǒ de shēngxiào shì mǎ, nǐ de shēngxiào shì shénme?	Mon signe du zodiaque chinois est le cheval, et toi, quel est ton signe ?
+安全带	ānquándài	ceinture de sécurité	系安全带 jì ānquándài = attacher sa ceinture ; 系 se lit jì (nouer) ici, pas xì		开车的时候，一定要系好安全带。	Kāichē de shíhou, yídìng yào jì hǎo ānquándài.	Quand on conduit, il faut absolument attacher sa ceinture de sécurité.
+便利店	biànlìdiàn	supérette, petit magasin de proximité ouvert tard	souvent ouvert vingt-quatre heures sur vingt-quatre ; on y trouve boissons, en-cas, plats préparés ; 超市 chāoshì = supermarché (plus grand)		我家旁边有一家二十四小时的便利店。	Wǒ jiā pángbiān yǒu yì jiā èrshísì xiǎoshí de biànlìdiàn.	À côté de chez moi, il y a une supérette ouverte vingt-quatre heures sur vingt-quatre.
+不符	bùfú	ne pas correspondre (à), ne pas être conforme (à)	écrit ; 与…不符 / 和…不符 : 与事实不符 = ne pas correspondre aux faits ; contraire : 相符 xiāngfú (correspondre)		你说的话和事实不符。	Nǐ shuō de huà hé shìshí bùfú.	Ce que tu dis ne correspond pas aux faits.
+橙子	chéngzi	orange (fruit)	à ne pas confondre avec 橘子 júzi (mandarine) ; 橙汁 chéngzhī = jus d’orange		这个橙子又大又甜，你尝尝。	Zhège chéngzi yòu dà yòu tián, nǐ chángchang.	Cette orange est grosse et sucrée, goûte-la.
+池	chí	bassin, petit étang ; réservoir (dans des composés)	surtout dans des composés : 游泳池 yóuyǒngchí = piscine ; 电池 diànchí = pile ; 池塘 chítáng = étang	游泳池	公园里有一个小池，池里有很多鱼。	Gōngyuán lǐ yǒu yí ge xiǎo chí, chí lǐ yǒu hěn duō yú.	Dans le parc, il y a un petit bassin où nagent beaucoup de poissons.
+充值	chōngzhí	recharger (un compte, une carte prépayée), créditer	充值一百元 = recharger de cent yuans ; se dit d’une carte, d’un compte ou d’une appli ; 充话费 chōng huàfèi = recharger le crédit d’un téléphone		我的公交卡里没钱了，要去充值。	Wǒ de gōngjiāokǎ lǐ méi qián le, yào qù chōngzhí.	Ma carte de bus n’a plus d’argent, je dois aller la recharger.
+点赞	diǎnzàn	mettre un « j’aime » (sur un réseau social) ; approuver, saluer	点 diǎn (cliquer) + 赞 zàn (louer) ; 给…点赞 = mettre un « j’aime » à… ; au figuré : 为你点赞 = bravo à toi		我发的照片已经有一百个人点赞了。	Wǒ fā de zhàopiàn yǐjing yǒu yìbǎi ge rén diǎnzàn le.	Cent personnes ont déjà mis un « j’aime » à la photo que j’ai publiée.
+电商	diànshāng	commerce en ligne, commerce électronique ; entreprise de vente en ligne	abrév. de 电子商务 diànzǐ shāngwù ; 电商平台 = plateforme de vente en ligne		这几年电商发展得很快，很多人都在网上买东西。	Zhè jǐ nián diànshāng fāzhǎn de hěn kuài, hěn duō rén dōu zài wǎngshàng mǎi dōngxi.	Ces dernières années, le commerce en ligne se développe très vite, et beaucoup de gens achètent sur Internet.
+二维码	èrwéimǎ	code QR (code à deux dimensions)	扫二维码 sǎo èrwéimǎ = scanner un code QR ; 二维 èrwéi = à deux dimensions		请用手机扫一下这个二维码。	Qǐng yòng shǒujī sǎo yíxià zhège èrwéimǎ.	Veuillez scanner ce code QR avec votre téléphone.
+发音	fāyīn	prononcer ; prononciation	insiste sur l’articulation des sons : 你的发音很好 = ta prononciation est très bonne ; 读音 dúyīn = lecture d’un caractère écrit		老师，这个字怎么发音？	Lǎoshī, zhège zì zěnme fāyīn?	Professeur, comment prononce-t-on ce caractère ?
+非洲	Fēizhōu	Afrique	洲 zhōu = continent : 亚洲 Yàzhōu (Asie), 欧洲 Ōuzhōu (Europe), 美洲 Měizhōu (Amériques)		我暑假想去非洲旅游。	Wǒ shǔjià xiǎng qù Fēizhōu lǚyóu.	Pendant les vacances d’été, je voudrais voyager en Afrique.
+改天	gǎitiān	un autre jour, un de ces jours ; remettre à un autre jour	改天再说 = on en reparle un autre jour ; 改天请你吃饭 = un de ces jours je t’invite à manger ; à ne pas confondre avec 改变 gǎibiàn (changer)		今天我没有时间，我们改天再见面吧。	Jīntiān wǒ méiyǒu shíjiān, wǒmen gǎitiān zài jiànmiàn ba.	Je n’ai pas le temps aujourd’hui ; voyons-nous un autre jour.
+各行各业	gèhánggèyè	tous les métiers, tous les secteurs d’activité	行 se lit háng ici (branche), pas xíng ; 行业 hángyè = secteur d’activité ; 各行各业的人 = des gens de tous les métiers		这个城市里有各行各业的人。	Zhège chéngshì lǐ yǒu gèhánggèyè de rén.	Dans cette ville, il y a des gens de tous les métiers.
+贵姓	guìxìng	votre nom de famille (politesse) : 您贵姓？ = puis-je savoir votre nom ?	réponse : 免贵，我姓王 = (humblement) je m’appelle Wang ; 贵 guì (précieux) ne s’emploie jamais pour soi-même		请问，您贵姓？	Qǐngwèn, nín guìxìng?	Excusez-moi, puis-je savoir votre nom de famille ?
+降水	jiàngshuǐ	précipitations (pluie, neige…) ; tomber (pluie, neige)	terme de météo ; 降水量 jiàngshuǐliàng = quantité de précipitations ; 降雨 jiàngyǔ = pluie, 降雪 jiàngxuě = chute de neige		今年夏天，这个地方的降水特别多。	Jīnnián xiàtiān, zhège dìfang de jiàngshuǐ tèbié duō.	Cet été, il y a eu particulièrement beaucoup de précipitations dans cette région.
+久远	jiǔyuǎn	lointain, reculé (dans le temps), très ancien	pour le temps passé : 年代久远 = d’une époque très ancienne ; 遥远 yáoyuǎn = lointain (surtout dans l’espace)		那是很久远的事情了，我已经记不清了。	Nà shì hěn jiǔyuǎn de shìqing le, wǒ yǐjing jì bu qīng le.	Ça remonte à très longtemps, je ne m’en souviens plus très bien.
+客服	kèfú	service client ; conseiller du service client	abrév. de 客户服务 kèhù fúwù ; 联系客服 = contacter le service client ; 在线客服 = service client en ligne		如果有问题，你可以给客服打电话。	Rúguǒ yǒu wèntí, nǐ kěyǐ gěi kèfú dǎ diànhuà.	S’il y a un problème, tu peux appeler le service client.
+派出所	pàichūsuǒ	poste de police de quartier, commissariat local	on y déclare une perte ou un vol ; 报警 bàojǐng = appeler la police		我的钱包丢了，我要去派出所。	Wǒ de qiánbāo diū le, wǒ yào qù pàichūsuǒ.	J’ai perdu mon portefeuille, je dois aller au poste de police.
+轻重	qīngzhòng	gravité, importance relative ; poids (léger ou lourd)	不知轻重 = ne pas avoir le sens de la mesure ; 轻重缓急 = degré de gravité et d’urgence (priorités) ; 重 se lit zhòng ici		做事情要分清轻重，先做最重要的。	Zuò shìqing yào fēnqīng qīngzhòng, xiān zuò zuì zhòngyào de.	Quand on fait quelque chose, il faut distinguer l’important de l’accessoire et commencer par le plus important.
+人际	rénjì	entre les personnes, interpersonnel	presque toujours devant 关系 ou 交往 : 人际关系 rénjì guānxi = relations humaines ; 人际交往 = relations sociales		他很会说话，人际关系特别好。	Tā hěn huì shuōhuà, rénjì guānxi tèbié hǎo.	Il sait vraiment parler aux gens, ses relations avec les autres sont excellentes.
+商家	shāngjiā	commerçant, vendeur ; enseigne, boutique (côté vendeur)	face à l’acheteur, 顾客 gùkè (client) ; peut être une boutique, une entreprise ou un vendeur en ligne ; 商店 shāngdiàn = le magasin (le lieu)		商家为了卖出更多东西，常常在节日打折。	Shāngjiā wèile mài chū gèng duō dōngxi, chángcháng zài jiérì dǎzhé.	Pour vendre davantage, les commerçants font souvent des soldes lors des fêtes.
+上传	shàngchuán	téléverser, mettre en ligne (un fichier, une photo)	contraire : 下载 xiàzǎi (télécharger) ; 传 se lit chuán ici (transmettre)		我把旅行的照片上传到了网上。	Wǒ bǎ lǚxíng de zhàopiàn shàngchuán dào le wǎngshàng.	J’ai mis mes photos de voyage en ligne.
+省份	shěngfèn	province (division administrative de la Chine)	省 shěng = province ; 省会 shěnghuì = capitale de province		中国有很多省份，我去过其中的五个。	Zhōngguó yǒu hěn duō shěngfèn, wǒ qù guo qízhōng de wǔ ge.	La Chine compte beaucoup de provinces ; j’en ai visité cinq.
+甜品	tiánpǐn	dessert, douceur, pâtisserie sucrée	gâteaux, glaces, crèmes, soupes sucrées ; 点心 diǎnxin = petit gâteau, pâtisserie ; 甜点 tiándiǎn est proche		吃完饭以后，我们一起去吃甜品吧。	Chī wán fàn yǐhòu, wǒmen yìqǐ qù chī tiánpǐn ba.	Après le repas, allons manger un dessert ensemble.
+退还	tuìhuán	rendre, restituer ; rembourser (ce qu’on a reçu)	style officiel ou commercial : 退还押金 = rendre la caution ; 退货 tuìhuò = retourner un article ; 退钱 tuì qián = rembourser	退还给你	东西有问题，商店会退还你的钱。	Dōngxi yǒu wèntí, shāngdiàn huì tuìhuán nǐ de qián.	S’il y a un problème avec l’article, le magasin te rendra ton argent.
+相册	xiàngcè	album photo	aussi l’album du téléphone : 手机相册 ; 照片 zhàopiàn = photo		奶奶的相册里有很多老照片。	Nǎinai de xiàngcè lǐ yǒu hěn duō lǎo zhàopiàn.	Dans l’album photo de grand-mère, il y a beaucoup de vieilles photos.
+雪糕	xuěgāo	glace sur bâtonnet (esquimau)	classif. : 根 gēn ; 冰淇淋 bīngqílín = crème glacée en pot ou en cornet		天气太热了，我想吃一根雪糕。	Tiānqì tài rè le, wǒ xiǎng chī yì gēn xuěgāo.	Il fait trop chaud, j’ai envie de manger une glace.
+邮寄	yóujì	envoyer par la poste, expédier	邮寄包裹 = envoyer un colis ; 寄 jì (envoyer) est plus courant ; 邮寄 insiste sur le service postal		我想把这些书邮寄到国外。	Wǒ xiǎng bǎ zhèxiē shū yóujì dào guówài.	Je voudrais envoyer ces livres par la poste à l’étranger.
+油条	yóutiáo	youtiao (long beignet frit salé, mangé au petit-déjeuner)	classif. : 根 gēn ; se mange souvent avec du lait de soja, 豆浆 dòujiāng		今天早上我在路边买了两根油条。	Jīntiān zǎoshang wǒ zài lùbiān mǎi le liǎng gēn yóutiáo.	Ce matin, j’ai acheté deux youtiao au bord de la route.
+语文	yǔwén	chinois (matière scolaire : langue et littérature)	la langue maternelle enseignée à l’école en Chine ; 语文课 = cours de chinois ; pour la langue étudiée par les étrangers : 汉语 Hànyǔ, 中文 Zhōngwén		我最喜欢上语文课，因为老师常常讲有意思的故事。	Wǒ zuì xǐhuan shàng yǔwén kè, yīnwèi lǎoshī chángcháng jiǎng yǒu yìsi de gùshi.	Ce que j’aime le plus, c’est le cours de chinois, parce que le professeur raconte souvent des histoires intéressantes.
+运费	yùnfèi	frais de transport, frais de port	免运费 miǎn yùnfèi = frais de port offerts ; 运 yùn = transporter ; 邮费 yóufèi = frais postaux		这些东西不贵，但是运费很贵。	Zhèxiē dōngxi bú guì, dànshì yùnfèi hěn guì.	Ces articles ne sont pas chers, mais les frais de port sont élevés.
+职场	zhíchǎng	monde du travail, milieu professionnel	职场新人 = débutant dans la vie active ; 工作 gōngzuò = travail (le mot général)		刚进入职场的时候，我什么都不懂，同事们帮了我很多。	Gāng jìnrù zhíchǎng de shíhou, wǒ shénme dōu bù dǒng, tóngshìmen bāng le wǒ hěn duō.	Quand je venais d’entrer dans le monde du travail, je ne comprenais rien, et mes collègues m’ont beaucoup aidé.
