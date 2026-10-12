@@ -1,7 +1,7 @@
 /* 形音义 : service worker.
    Réseau d’abord (4 s au plus), copie locale sinon : l’appli marche hors ligne et prend d’elle-même
    les listes de mots mises à jour dans decks/ dès qu’il y a du réseau. */
-const VERSION = "56ab27a8e3";
+const VERSION = "42d1a20a0a";
 const CACHE = "xingyinyi-" + VERSION;
 const CORE = ["index.html", "manifest.webmanifest", "apple-touch-icon.png", "icon-192.png", "icon-512.png", "icon-maskable-512.png"];
 const EXTRA = ["fonts/andika-400-ext.woff2", "fonts/andika-400-latin.woff2", "fonts/andika-700-ext.woff2", "fonts/andika-700-latin.woff2", "fonts/wenkai.woff2", "decks/decks.json", "decks/perso.tsv", "decks/hsk3.tsv", "decks/hsk2.tsv", "decks/hsk1.tsv", "decks/hsk30-1.tsv", "decks/hsk30-2.tsv", "decks/hsk30-3.tsv", "decks/hsk4.tsv", "decks/hsk30-4.tsv", "decks/hsk5.tsv", "decks/hsk30-5.tsv"];
@@ -32,6 +32,7 @@ function clean(res) {   // a redirected response cannot answer a page navigation
 self.addEventListener("fetch", event => {
   const req = event.request;
   if (req.method !== "GET" || new URL(req.url).origin !== self.location.origin) return;
+  if (new URL(req.url).pathname.includes("/traits/")) return;   // the stroke order: kept by the app itself (traits-xingyinyi)
   const key = keyOf(req.url);
   const network = fetch(req.url, { cache: "no-cache", credentials: "same-origin" });
   // keep a copy of every good answer, even when it arrives after the 4 s fallback

@@ -22,6 +22,7 @@ compilation : `index.html` contient tout le HTML, le CSS et le JavaScript. C'est
 | `outils/hsk/` | Production des listes HSK 4-6 (2.0) et HSK 1-6 (3.0, programme 2026) : sources sous licence MIT, `inventaire.py`, `lots.py`, `revue.py`, `controle.py`, `assembler.py`, `consignes.md` (rédaction et relecture par agents), `LISEZMOI.md` ; `travail/` est ignoré par git. |
 | `outils/pinyin_auto.py`, `lexique_*.tsv`, `syllabes.txt`, `caracteres_hsk1-3.txt` | Pinyin automatique aux conventions des manuels ; liste des caractères HSK 1-3. |
 | `outils/version_appli.py` | À lancer après toute modification de l'appli (voir plus bas). |
+| `traits/`, `outils/traits.py` | Ordre des traits : `00.json`…`31.json` (caractère rangé par code % 32 → contours SVG des traits et lignes médianes, repère 1024 × 1024, y vers le haut, base à 900), `index.json` (version `v`), `ARPHICPL.TXT` (licence Arphic Public License, à garder telle quelle). Produits par `py outils\traits.py <graphics.txt>` depuis Make Me a Hanzi (github.com/skishore/makemeahanzi, fichier non gardé dans le dépôt) pour les caractères de `COVER`. |
 | `tests/` | Tests Playwright (`test_seance.py`, `test_seaux.py`, `test_listes.py`, `test_dico.py`, aides communes dans `commun.py`) ; `tests/donnees/decks` est une copie figée des listes d'origine, avec les anciens champs `mode`/`parJour` (ne pas la synchroniser avec `decks/` ni la modifier). |
 | `LISEZMOI.md` | Guide de l'utilisateur, en français. À tenir à jour quand une fonction visible change. |
 
@@ -35,6 +36,7 @@ py tests\test_listes.py                # listes du téléphone, publication GitH
 py tests\test_dico.py                  # dictionnaire : renvois, mot de plusieurs listes, Afficher, partage, publication
 py outils\decks.py verifier            # contrôle de decks/
 py outils\version_appli.py             # après une modification de index.html, sw.js, des icônes ou des polices
+py outils\traits.py <graphics.txt>     # refaire traits/ (ordre des traits), ARPHICPL.TXT à côté de graphics.txt
 ```
 
 Prérequis des tests (une fois) : `py -m pip install playwright pypinyin` puis
@@ -67,7 +69,8 @@ l'iPhone : Réglages › Appli › Vérifier. Le téléphone peut lui aussi écr
   propres caches `xingyinyi-…`), `xingyinyi.github` (dépôt et jeton,
   jamais dans les sauvegardes), `xingyinyi.publie` (garde contre les fichiers d'avant une publication : Pages pas encore à jour, copie
   du service worker hors ligne ; voir Publication),
-  `xingyinyi.avant-seaux` (`KEY_OLD` : copie brute de l'état d'avant les seaux, écrite une seule fois par
+  cache `traits-xingyinyi` (paquets de `traits/`, gardés hors ligne ; sw.js laisse passer `traits/` sans y toucher) et
+  `xingyinyi.traits` (version des paquets gardés), `xingyinyi.avant-seaux` (`KEY_OLD` : copie brute de l'état d'avant les seaux, écrite une seule fois par
   `loadState` lors de la migration, lue par aucun code ; à garder pour pouvoir récupérer l'ancienne progression).
 - **État** : `{v:2, sched:1, settings, cards, edits, custom, lists, tel, listEdits, sent, decks, log, test, learn}`. `custom` :
   mots créés sur le téléphone (définitions, ids `u-…` ; `c` copié pour l'ordinateur, `m` corrigé, en ms) ; `lists` :
@@ -226,6 +229,11 @@ l'iPhone : Réglages › Appli › Vérifier. Le téléphone peut lui aussi écr
   (形音义 allumés selon `kn`, aussi sous la carte et dans `#kn-counts` de Progrès), `knText` (fiche du mot).
   Progrès : sections Apprentissage (`#learn-go`, `#learn-info`) et Sens connus (`#kn-counts`, `#sens-go`,
   `#sens-info`) ; écran de fin : `#learn-start`.
+- **Ordre des traits** (fiche du mot, `#sheet-traits`) : `renderTraits(el, mot)` (chaque caractère CJK une fois),
+  `strokesOf(ch)` / `traitPack(n)` (mémoire, puis cache `traits-xingyinyi`, puis réseau), `traitHTML` (grande case avec
+  la ligne médiane de chaque trait découpée par son contour, `.ta` ; une case par étape, `use.t-done`/`t-new`/`t-todo`),
+  `traceTraits` (« Animer » : `strokeDashoffset` trait après trait, rien si mouvement réduit), `prefetchTraits` (5 s
+  après le démarrage, en ligne : les 32 paquets, de nouveau quand `index.json` change de version).
 - **Publication** : `publishGitHub` (API Git Data, un seul commit : trees, commits, refs ; jeton à
   accès fin, permission Contents en lecture et écriture ; nouvelles entrées de decks.json sans
   `mode`) : listes du téléphone dans leur jumelle (lignes complètes pour les mots du téléphone, renvois pour les

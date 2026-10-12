@@ -139,6 +139,9 @@ et télécharge une voix de bonne qualité.
   accents ou français) parcourt tout le dictionnaire, listes masquées comprises. Filtres
   d’avancement : À voir, En cours, Acquis (les deux derniers seaux). La fiche d’un mot indique ses
   listes, son seau et sa prochaine révision ; **Listes…** l’ajoute à une de tes listes ou l’en retire.
+  En bas, l’**ordre des traits** de chaque caractère : une case par trait, le nouveau en couleur, et
+  **Animer** pour voir le caractère se tracer. Ces données (3 Mo environ) se téléchargent une fois,
+  en arrière-plan, puis restent sur le téléphone, hors ligne compris.
   Si la recherche ne trouve rien, **Créer la fiche « … »** ouvre le formulaire déjà rempli avec ce
   que tu as tapé.
 - **Progrès** : mots passés, en tout et par liste, ce qu’il reste à voir au premier tour et quand

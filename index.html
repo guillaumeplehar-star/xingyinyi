@@ -360,6 +360,22 @@ input[type=range]{width:120px;accent-color:var(--accent)}
 .about{font-size:13px;color:var(--pencil);margin:18px 0 0;max-width:62ch}
 .about p{margin:0 0 8px}
 
+/* ---------- stroke order (word sheet) ---------- */
+.traits-title{font-size:13px;color:var(--faint);margin:22px 0 4px}
+.trait{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--rule)}
+.trait .big{flex:none;display:flex;flex-direction:column;align-items:center;gap:6px;width:112px}
+.trait .big svg{width:112px;height:112px;display:block}
+.trait .big small{font-size:13px;color:var(--pencil)}
+.trait .steps{display:flex;flex-wrap:wrap;gap:4px;align-content:flex-start;min-width:0}
+.trait .steps svg{width:42px;height:42px;display:block}
+.trait .none{font-size:14px;color:var(--pencil);margin:6px 0 0}
+.trait .tf{fill:none;stroke:var(--grid);stroke-width:14}
+.trait .tl{stroke:var(--grid-soft);stroke-width:8;stroke-dasharray:28 22}
+.trait .t-todo,.trait .tb{fill:var(--rule)}
+.trait .t-done{fill:var(--ink)}
+.trait .t-new{fill:var(--accent)}
+.trait .ta{fill:none;stroke:var(--ink);stroke-width:200;stroke-linecap:round;stroke-linejoin:round}
+
 /* ---------- sheet ---------- */
 .sheet{position:fixed;inset:0;z-index:20;display:flex;flex-direction:column;justify-content:flex-end}
 .sheet .veil{position:absolute;inset:0;background:var(--veil)}
@@ -636,8 +652,9 @@ textarea.mono{white-space:pre;overflow-x:auto}
 
       <div class="about">
         <p id="about-lists"></p>
-        <p>Phrases d’exemple écrites avec les seuls caractères des niveaux 1 à 3. Traductions françaises faites pour cette appli.</p>
+        <p>Phrases d’exemple écrites avec les seuls caractères du niveau du mot ou en dessous. Traductions françaises faites pour cette appli.</p>
         <p>Polices : LXGW WenKai et Andika, sous licence SIL Open Font License.</p>
+        <p>Ordre des traits : Make Me a Hanzi, tiré des polices Arphic PL KaitiM GB et UKai, sous licence Arphic Public License (fichier traits/ARPHICPL.TXT du dépôt).</p>
       </div>
     </section>
   </main>
@@ -675,7 +692,7 @@ const SYLL = new Set(("chuang shuang zhuang biang chang cheng chong chuai chuan 
 const LEGACY = ["阿姨","啊","矮","爱好","安静","把","班","搬","办法","办公室","半","帮忙","包","饱","北方","被","鼻子","比较","比赛","笔记本","必须","变化","别人","冰箱","不但","而且","菜单","参加","草","层","差","超市","衬衫","成绩","城市","迟到","除了","船","春","词典","聪明","打扫","打算","带","担心","蛋糕","当然","地","灯","地方","地铁","地图","电梯","电子邮件","东","冬","动物","短","段","锻炼","多么","饿","耳朵","发","发烧","发现","方便","放","放心","分","附近","复习","干净","感冒","感兴趣","刚才","个子","根据","跟","更","公斤","公园","故事","刮风","关","关系","关心","关于","国家","过","过去","还是","害怕","黑板","后来","护照","花","画","坏","欢迎","还","环境","换","黄河","回答","会议","或者","几乎","机会","极","记得","季节","检查","简单","见面","健康","讲","教","角","脚","接","街道","节目","节日","结婚","结束","解决","借","经常","经过","经理","久","旧","句子","决定","可爱","渴","刻","客人","空调","口","哭","裤子","筷子","蓝","老","离开","礼物","历史","脸","练习","辆","聊天","了解","邻居","留学","楼","绿","马","马上","满意","帽子","米","面包","明白","拿","奶奶","南","难","难过","年级","年轻","鸟","努力","爬山","盘子","胖","皮鞋","啤酒","瓶子","其实","其他","奇怪","骑","起飞","起来","清楚","请假","秋","裙子","然后","热情","认为","认真","容易","如果","伞","上网","生气","声音","世界","试","瘦","叔叔","舒服","树","数学","刷牙","双","水平","司机","太阳","特别","疼","提高","体育","甜","条","同事","同意","头发","突然","图书馆","腿","完成","碗","万","忘记","为","为了","位","文化","西","习惯","洗手间","洗澡","夏","先","相信","香蕉","向","像","小心","校长","新闻","新鲜","信用卡","行李箱","熊猫","需要","选择","要求","爷爷","一般","一边","一定","一共","一会儿","一样","一直","以前","音乐","银行","饮料","应该","影响","用","游戏","有名","又","遇到","元","愿意","月亮","越","站","张","长","着急","照顾","照片","照相机","只","只有","才","中间","中文","终于","种","重要","周末","主要","注意","自己","自行车","总是","嘴","最后","最近","作业"];
 const IS_PWA = true;
 const XH = 0.5078;
-const BUILD = "12 octobre 2026 à 8 h 51";
+const BUILD = "12 octobre 2026 à 12 h 46";
 
 /* ---------- utilities ---------- */
 const $ = (s, r = document) => r.querySelector(s);
@@ -2513,7 +2530,7 @@ function renderSettings() {
   $("#reset-confirm").hidden = true;
   const names = BASE.map(L => L.nom);
   $("#about-lists").textContent = names.length
-    ? `Listes${NB}: ${names.join(", ")}. HSK 1 à 3 : listes officielles HSK 2.0 (révision de 2012), présentées du mot le plus fréquent au plus rare.`
+    ? `Listes${NB}: ${names.join(", ")}. Listes HSK : HSK 2.0 (liste officielle de 2012) et HSK 3.0 (programme de 2026), chacune du mot le plus fréquent au plus rare.`
     : "Aucune liste chargée.";
 }
 
@@ -2536,6 +2553,92 @@ function openSheet(title, html, onOpen, plain) {
 function closeSheet() { $("#sheet").hidden = true; $("#sheet-body").innerHTML = ""; sheetPrism = null; }
 let sheetPrism = null;
 
+/* ---------- stroke order: traits/NN.json, from Make Me a Hanzi (Arphic Public License, traits/ARPHICPL.TXT) ---------- */
+// A character is in packet code % 32: { "爱": [[outlines of the strokes, SVG], [medians: [[x, y], …], …]] }, box of 1024
+// with y up and the baseline at 900. The packets are kept on the phone (cache TCACHE, version in TKEY), fetched once in
+// the background (prefetchTraits) or when a sheet needs one; sw.js leaves traits/ alone.
+const TCACHE = "traits-xingyinyi", TKEY = "xingyinyi.traits", TPACKS = 32;
+const traitPacks = new Map();                      // packet number -> promise of its data
+const traitUrl = n => "traits/" + String(n).padStart(2, "0") + ".json";
+function traitPack(n) {
+  if (traitPacks.has(n)) return traitPacks.get(n);
+  const p = (async () => {
+    try { if (window.caches) { const r = await (await caches.open(TCACHE)).match(traitUrl(n)); if (r) return await r.json(); } } catch (e) {}
+    try {
+      const r = await fetch(traitUrl(n), { cache: "no-cache" });
+      if (!r.ok) return null;
+      try { if (window.caches) await (await caches.open(TCACHE)).put(traitUrl(n), r.clone()); } catch (e) {}
+      return await r.json();
+    } catch (e) { return null; }
+  })();
+  traitPacks.set(n, p);
+  p.then(d => { if (!d) traitPacks.delete(n); });  // not there (offline, never fetched): asked again next time
+  return p;
+}
+async function strokesOf(ch) { const d = await traitPack(ch.codePointAt(0) % TPACKS); return (d && d[ch]) || null; }
+async function prefetchTraits() {
+  // every packet once on the phone, for offline use; all of them again when the data change (index.json)
+  if (EMBEDDED || !window.caches || navigator.onLine === false) return;
+  try {
+    const r = await fetch("traits/index.json", { cache: "no-cache" });
+    if (!r.ok) return;
+    const idx = await r.json(), cache = await caches.open(TCACHE);
+    let have = null;
+    try { have = localStorage.getItem(TKEY); } catch (e) {}
+    for (let n = 0; n < (idx.paquets || TPACKS); n++) {
+      if (have === idx.v && await cache.match(traitUrl(n))) continue;
+      const res = await fetch(traitUrl(n), { cache: "no-cache" });
+      if (!res.ok) return;
+      await cache.put(traitUrl(n), res);
+      await new Promise(ok => setTimeout(ok, 150));   // one packet after the other, without hurry
+    }
+    if (have !== idx.v) traitPacks.clear();
+    try { localStorage.setItem(TKEY, idx.v); } catch (e) {}
+  } catch (e) {}
+}
+let traitSeq = 0;
+const TGRID = '<rect class="tf" x="7" y="7" width="1010" height="1010"/><path class="tl" d="M0 512H1024M512 0V1024"/>';
+function traitHTML(ch, data) {
+  // one character: the whole of it (Animer traces it stroke by stroke), then a box per stroke, the new one in colour
+  if (!data) return `<div class="trait"><div class="big"><span class="zh" lang="zh-Hans" style="font-size:64px;line-height:112px">${esc(ch)}</span></div><p class="none">Ordre des traits indisponible pour ce caractère.</p></div>`;
+  const [strokes, medians] = data, id = "tr" + (++traitSeq), n = strokes.length;
+  const g = inner => `<g transform="scale(1,-1) translate(0,-900)">${inner}</g>`;
+  const defs = `<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>${strokes.map((d, i) => `<path id="${id}-${i}" d="${d}"/><clipPath id="${id}-c${i}"><path d="${d}"/></clipPath>`).join("")}</defs></svg>`;
+  const big = strokes.map((d, i) => {
+    const pts = medians[i], len = Math.round(pts.reduce((a, q, j) => (j ? a + Math.hypot(q[0] - pts[j - 1][0], q[1] - pts[j - 1][1]) : 0), 0)) + 1;
+    return `<use href="#${id}-${i}" class="tb"/><path class="ta" clip-path="url(#${id}-c${i})" d="M${pts.map(q => q.join(" ")).join("L")}" data-len="${len}" style="stroke-dasharray:${len} ${2 * len + 400}"/>`;
+  }).join("");
+  const steps = strokes.map((_, k) => `<svg viewBox="0 0 1024 1024" role="img" aria-label="Trait ${k + 1} sur ${n}">${TGRID}${g(strokes.map((__, i) =>
+    `<use href="#${id}-${i}" class="${i < k ? "t-done" : i === k ? "t-new" : "t-todo"}"/>`).join(""))}</svg>`).join("");
+  return `<div class="trait">${defs}<div class="big"><svg viewBox="0 0 1024 1024" role="img" aria-label="${esc(ch)}, ${plural(n, "trait", "traits")}">${TGRID}${g(big)}</svg>` +
+    `<small>${plural(n, "trait", "traits")}</small><button type="button" class="btn small" data-trace>Animer</button></div><div class="steps">${steps}</div></div>`;
+}
+function traceTraits(box) {
+  // the strokes of the big box drawn again one after the other (the whole character at once if motion is reduced)
+  const paths = [...box.querySelectorAll(".ta")];
+  if (!paths.length || !paths[0].animate) return;
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  let t = 0;
+  for (const p of paths) {
+    const len = +p.dataset.len, dur = Math.max(260, Math.min(900, len * 0.9));
+    p.getAnimations().forEach(a => a.cancel());
+    p.animate([{ strokeDashoffset: len + 2 }, { strokeDashoffset: 0 }], { duration: dur, delay: t, fill: "both", easing: "ease-in-out" });
+    t += dur + 140;
+  }
+}
+async function renderTraits(el, word) {
+  // the stroke order of each character of a word (each one once), in the word sheet
+  const chars = [...new Set([...String(word || "")].filter(c => /[㐀-鿿]/.test(c)))];
+  if (!el || !chars.length) return;
+  el.innerHTML = `<p class="traits-title">Ordre des traits</p><p class="meta" data-wait>Chargement…</p>`;
+  const data = await Promise.all(chars.map(strokesOf));
+  if (!el.isConnected) return;
+  if (data.every(d => !d) && navigator.onLine === false) {
+    el.querySelector("[data-wait]").textContent = "Hors ligne : l’ordre des traits arrive à la prochaine ouverture de l’appli avec du réseau.";
+    return;
+  }
+  el.innerHTML = `<p class="traits-title">Ordre des traits</p>` + chars.map((c, i) => traitHTML(c, data[i])).join("");
+}
 function wordSheet(id) {
   const w = BYID.get(id); if (!w) return;
   const c = card(id), today = dayNum();
@@ -2555,8 +2658,11 @@ function wordSheet(id) {
       ${c && c.r ? '<button type="button" class="btn" data-act="reset">Remettre à zéro</button>' : ""}
       ${isPhoneWord(w) ? '<button type="button" class="btn danger" data-act="delete">Supprimer</button>' : ""}
     </div>
-    <div id="word-confirm"></div>`, body => {
+    <div id="word-confirm"></div>
+    <div id="sheet-traits"></div>`, body => {
       sheetPrism = new Prism($("#sheet-stage", body), { maxW: 340 });
+      renderTraits($("#sheet-traits", body), w.h);
+      body.addEventListener("click", e => { const b = e.target.closest("[data-trace]"); if (b) traceTraits(b.closest(".trait")); });
       sheetPrism.show(w, 0);
       fitSlip($("#sheet-ex", body));
       bindSlip($("#sheet-ex", body), () => w);
@@ -3605,6 +3711,7 @@ function init() {
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { prism.layout(); fitSlip($("#example")); });
   rebuildDeck();                                    // the lists of the phone, before those of decks/ arrive
   bootLists();
+  setTimeout(prefetchTraits, 5000);                 // the stroke order, kept for offline use, once the lists are in
   if (migratedV1) toast("Progression de la première version reprise. Nouveau planning en seaux : tous les mots repartent du seau 0.", 6000, true);
   else if (migratedSched) toast("Nouveau planning en seaux : tous les mots repartent du seau 0 pour un premier tour complet.", 6000, true);
   if (state.test) toast(`Test en pause${NB}: encore ${plural(state.test.queue.length, "mot", "mots")}. Reprends-le depuis Progrès.`, 4000);

@@ -469,6 +469,60 @@ def main():
               "another sense of the same first word (打印 « imprimer (en couleurs) ») is another word", mg)
         check(mg["tel"] == ["u-k3", mg["inP"]] and mg["sent"] == {} and mg["pending"] == 2,
               "Ajoutés ici: the words sent and arrived leave it; a word added here though Perso has it stays and waits for nothing", mg)
+
+        # ------------------------------------------------------------ the stroke order in the word sheet
+        TR = """() => [...document.querySelectorAll('#sheet-traits .trait')].map(t => ({
+            label: (t.querySelector('.big svg') || {}).ariaLabel || null, n: t.querySelectorAll('.steps svg').length,
+            steps: [...t.querySelectorAll('.steps svg')].map(v => ['t-done', 't-new', 't-todo'].map(c => v.querySelectorAll('use.' + c).length)),
+            none: (t.querySelector('.none') || {}).textContent || null }))"""
+        page.evaluate("() => wordSheet('hsk1:爱')")
+        page.wait_for_selector("#sheet-traits .trait")
+        tr = page.evaluate(TR)
+        n = page.evaluate("async () => (await strokesOf('爱'))[0].length")
+        check(len(tr) == 1 and tr[0]["n"] == n == 10 and nb(tr[0]["label"]) == "爱, 10 traits"
+              and tr[0]["steps"] == [[k, 1, n - 1 - k] for k in range(n)],
+              "word sheet: the stroke order of 爱, a box per stroke, the strokes before it, the new one, the ones after", tr)
+        shot(page, "dico-09-traits")
+        page.click("#sheet-traits [data-trace]")
+        page.wait_for_timeout(200)
+        an = page.evaluate("""() => { const ps = [...document.querySelectorAll('#sheet-traits .ta')];
+            return { n: ps.length, anims: ps.filter(p => p.getAnimations().length).length,
+                first: getComputedStyle(ps[ps.length - 1]).strokeDashoffset }; }""")
+        check(an["n"] == 10 and an["anims"] == 10 and an["first"] not in ("0px", "0"),
+              "Animer: each stroke drawn in turn (the last one still hidden at the start)", an)
+        page.click("#sheet .close")
+        page.evaluate("() => wordSheet('perso:打印')")
+        page.wait_for_selector("#sheet-traits .trait")
+        tr = page.evaluate(TR)
+        check([nb(t["label"]).split(",")[0] for t in tr] == ["打", "印"], "a word of two characters: one block each", tr)
+        page.click("#sheet .close")
+        none = page.evaluate("""async () => { const d = document.createElement('div'); document.body.appendChild(d);
+            await renderTraits(d, '鿿a…'); const t = d.textContent; d.remove(); return t; }""")
+        check("Ordre des traits indisponible pour ce caractère." in none, "a character without stroke data: said so; other signs left out", none)
+
+        # the packets are kept for offline use, by the app and not by the service worker
+        page.evaluate("async () => { await caches.delete('traits-xingyinyi'); localStorage.removeItem('xingyinyi.traits'); await prefetchTraits(); }")
+        kept = page.evaluate("""async () => {
+            const keys = (await (await caches.open('traits-xingyinyi')).keys()).map(r => r.url.split('/').pop()).sort();
+            const v = (await (await fetch('traits/index.json')).json()).v;
+            const sw = (await Promise.all((await caches.keys()).filter(k => k.startsWith('xingyinyi-'))
+                .map(async k => (await (await caches.open(k)).keys()).map(r => r.url)))).flat().filter(u => u.includes('/traits/'));
+            return { n: keys.length, first: keys[0], last: keys[31], same: localStorage.getItem('xingyinyi.traits') === v, sw: sw.length }; }""")
+        check(kept == {"n": 32, "first": "00.json", "last": "31.json", "same": True, "sw": 0},
+              "the 32 packets kept by the app (cache traits-xingyinyi, with their version), none in the service worker's cache", kept)
+        ctx.set_offline(True)
+        page.evaluate("() => { traitPacks.clear(); wordSheet('hsk1:谢谢'); }")
+        page.wait_for_selector("#sheet-traits .trait")
+        tr = page.evaluate(TR)
+        check(len(tr) == 1 and nb(tr[0]["label"]).startswith("谢, ") and tr[0]["n"] > 5, "offline: the stroke order from the phone; 谢谢 shows 谢 once", tr)
+        page.click("#sheet .close")
+        off = page.evaluate("""async () => { await caches.delete('traits-xingyinyi'); traitPacks.clear();
+            const f = window.fetch; window.fetch = () => Promise.reject(new TypeError('hors ligne'));
+            const d = document.createElement('div'); document.body.appendChild(d);
+            try { await renderTraits(d, '爱'); } finally { window.fetch = f; }
+            const t = d.textContent; d.remove(); return t; }""")
+        ctx.set_offline(False)
+        check("Hors ligne" in nb(off) and "prochaine ouverture" in off, "offline before the packets arrived: said so", off)
         ctx.close()
         browser.close()
     httpd.shutdown()
