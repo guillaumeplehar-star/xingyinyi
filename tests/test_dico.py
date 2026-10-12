@@ -118,6 +118,19 @@ def main():
             free: !!document.querySelector('#deck-settings .switch[data-show="sans"]'),
             fixed: [...document.querySelectorAll('#deck-settings .set small')].filter(s => s.textContent.includes('liste figée')).length })""")
         check(rows == {"deck": 4, "show": 5, "free": True, "fixed": 3}, "Réglages: Réviser and Afficher for each list, Afficher for the words of no list", rows)
+        groups = page.evaluate("""() => { const out = [];
+            for (const el of document.querySelector('#deck-settings').children) {
+                if (el.matches('h3.deck-group')) out.push([el.textContent, []]);
+                const sw = el.querySelector('.switch[data-show]');
+                if (sw && out.length) out[out.length - 1][1].push(sw.dataset.show);
+            }
+            return out; }""")
+        check(groups == [["HSK 2.0", ["hsk1"]], ["HSK 3.0", ["hsk30-1"]], ["Autres listes", ["big"]], ["Mes listes", ["perso", "sans"]]],
+              "Réglages: the lists in groups, HSK 2.0, HSK 3.0, other fixed lists, then the user's lists and the words of no list", groups)
+        lv = page.evaluate("""() => { const L = n => ({ id: 'hsk' + n, nom: 'HSK ' + n + ' (2.0)', fixe: true });
+            return [listGroup({ id: 'hsk30-4', nom: 'HSK 4 (3.0)', fixe: true }), listGroup(L(5)), listGroup({ id: 'p-x', nom: 'Cours', phone: true }),
+                    listGroup({ id: 'perso', nom: 'Perso' }), listGroup({ id: 'x', nom: 'HSK 6 (3.0)', fixe: true })]; }""")
+        check(lv == ["hsk3", "hsk2", "mine", "mine", "hsk3"], "listGroup: by id, else by the name of the list", lv)
         page.click('#deck-settings .switch[data-show="hsk30-1"]')
         page.click('#deck-settings .switch[data-show="sans"]')
         shot(page, "dico-01-settings")

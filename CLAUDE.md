@@ -219,7 +219,8 @@ l'iPhone : Réglages › Appli › Vérifier. Le téléphone peut lui aussi écr
   liste », nouvelle) ; un mot déjà au dictionnaire est proposé (`data-take`) et un même mot refusé. Partage :
   `listFileText` (première ligne `# 形音义 : liste « nom »`, renvois pour les mots des listes figées, lignes complètes
   sinon), `shareList` (menu de partage, sinon téléchargement et copie) ; `importSheet` reconnaît ce format
-  (`SHARED`) et `importShared` crée une liste du téléphone. Réglages : `deckRowHTML` (interrupteurs
+  (`SHARED`) et `importShared` crée une liste du téléphone. Réglages : listes rangées par `deckGroupsHTML` (`DECK_GROUPS`, `listGroup` : HSK 2.0, HSK 3.0, chacune par niveau, autres
+  listes figées, « Mes listes » avec les mots sans liste), `deckRowHTML` (interrupteurs
   `.switch[data-deck]` Réviser et `.switch[data-show]` Afficher), `freeRowHTML` (mots sans liste).
   Mots : filtres `data-f` (`new` = `inPass`, `known` = seau ≥ max(1, dernier − 1)), `meterHTML`, `knHTML`
   (形音义 allumés selon `kn`, aussi sous la carte et dans `#kn-counts` de Progrès), `knText` (fiche du mot).

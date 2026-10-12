@@ -145,7 +145,7 @@ et télécharge une voix de bonne qualité.
   il sera fini à ton rythme, le rythme à tenir avant l’examen, le nombre de mots dans chaque seau
   et les révisions prévues sur la semaine. C’est aussi là que tu lances un **apprentissage**, une **évaluation**, un
   **test complet**, un test **nouveau sens** ou un **entraînement libre** (section 5).
-- **Réglages** : pour chaque liste, **Réviser** (elle entre dans la file) et **Afficher** (ses mots
+- **Réglages** : les listes rangées en HSK 2.0, HSK 3.0 et Mes listes ; pour chaque liste, **Réviser** (elle entre dans la file) et **Afficher** (ses mots
   apparaissent dans Mots › Toutes) ; seaux et délais, nombre de mots par apprentissage et par évaluation, date de l’examen,
   publication sur GitHub, affichage des cartes et voix, mise à jour de l’appli (Appli › Vérifier),
   sauvegarde.
