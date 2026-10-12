@@ -500,6 +500,31 @@ def main():
             await renderTraits(d, '鿿a…'); const t = d.textContent; d.remove(); return t; }""")
         check("Ordre des traits indisponible pour ce caractère." in none, "a character without stroke data: said so; other signs left out", none)
 
+        # ------------------------------------------------------------ the 形 face: Traits traces the characters in their cells
+        page.evaluate("() => wordSheet('perso:打印')")
+        page.wait_for_selector("#sheet-stage .face[data-face='0'] [data-trace-form]")
+        page.click("#sheet-stage .face[data-face='0'] [data-trace-form]")
+        page.wait_for_selector("#sheet-stage .tzg.tracing .tz-tr")
+        page.wait_for_timeout(200)
+        tf = page.evaluate("""async () => { const st = document.querySelector('#sheet-stage');
+            const ta = [...st.querySelectorAll('.tz-tr .ta')];
+            return { face: sheetPrism.face, cells: st.querySelectorAll('.tzg').length, tracing: st.querySelectorAll('.tzg.tracing').length,
+                strokes: ta.length, want: (await strokesOf('打'))[0].length + (await strokesOf('印'))[0].length,
+                anims: ta.filter(p => p.getAnimations().length).length,
+                glyph: getComputedStyle(st.querySelector('.tzg.tracing > span')).visibility }; }""")
+        check(tf["face"] == 0 and tf["cells"] == tf["tracing"] == 2 and tf["strokes"] == tf["want"] == tf["anims"] and tf["glyph"] == "hidden",
+              "形 face, Traits: the card stays on 形, each character traced stroke by stroke in its cell, one after the other", tf)
+        shot(page, "dico-10-traits-forme")
+        page.click("#sheet-stage .face[data-face='0'] [data-trace-form]")
+        again = page.evaluate("() => document.querySelectorAll('#sheet-stage .tz-tr').length")
+        check(again == 2, "Traits again: traced again, in the same cells", again)
+        page.click("#sheet .close")
+        study = page.evaluate("""() => { showView('study'); prism.layout(); prism.show(BYID.get('hsk1:爱'), 0);
+            const b = document.querySelector('#stage .face[data-face="0"] [data-trace-form]'), cell = document.querySelector('#stage .tzg');
+            const out = { button: !!b && nb(b.textContent) === 'Traits', cell: Math.round(cell.getBoundingClientRect().height) };
+            study.build(); return out; }""".replace("nb(b.textContent)", "b.textContent.trim()"))
+        check(study["button"] and study["cell"] >= 100, "the card of the review has the button too, the cell still large", study)
+
         # the packets are kept for offline use, by the app and not by the service worker
         page.evaluate("async () => { await caches.delete('traits-xingyinyi'); localStorage.removeItem('xingyinyi.traits'); await prefetchTraits(); }")
         kept = page.evaluate("""async () => {

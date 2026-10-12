@@ -190,7 +190,9 @@ l'iPhone : Réglages › Appli › Vérifier. Le téléphone peut lui aussi écr
   pause »), sinon retour à la file (`res.cut` : questions restées sans réponse, « Test des sens arrêté »). `next()`
   prend un jeton `tok` : une carte encore en train de glisser (170 ms) n'est pas dessinée si une autre a été demandée entre-temps. `grade(g)` : 0 = ×, 1 = √ (touches
   1 et 2) ; il n'y a plus de 3e note.
-- **Interface** : classe `Prism` (rotation 3D, `fit()` ajuste les tailles ; face 音 : pinyin du mot,
+- **Interface** : classe `Prism` (rotation 3D, `fit()` ajuste les tailles ; face 形 : cases 田字格 `.tzg`, phrase
+  `.form-ex`, bouton `[data-trace-form]` « Traits » (`traceForm` : chaque caractère tracé dans sa case par un `traceSVG`
+  posé sur la police, `.tz-tr`, la police cachée par `.tzg.tracing`) ; face 音 : pinyin du mot,
   phrase en pinyin `.sound-ex` par `markPinyin` qui souligne les syllabes du mot sans tenir compte des tons,
   boutons `[data-say]` « Mot » et `[data-say-ex]` « Phrase », ou « Écouter » seul sans exemple), bandeau 例
   (`slipHTML`, `renderSlip`, `revealSlip` ; en révision il montre la phrase en caractères et, sous

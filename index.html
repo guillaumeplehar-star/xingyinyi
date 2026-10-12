@@ -375,6 +375,10 @@ input[type=range]{width:120px;accent-color:var(--accent)}
 .trait .t-done{fill:var(--ink)}
 .trait .t-new{fill:var(--accent)}
 .trait .ta{fill:none;stroke:var(--ink);stroke-width:200;stroke-linecap:round;stroke-linejoin:round}
+.tz-tr{position:absolute;left:10%;top:10%;width:80%;height:80%;pointer-events:none}
+.tzg.tracing > span{visibility:hidden}
+.tz-tr .tb{fill:var(--rule)}
+.tz-tr .ta{fill:none;stroke:var(--ink);stroke-width:200;stroke-linecap:round;stroke-linejoin:round}
 
 /* ---------- sheet ---------- */
 .sheet{position:fixed;inset:0;z-index:20;display:flex;flex-direction:column;justify-content:flex-end}
@@ -692,7 +696,7 @@ const SYLL = new Set(("chuang shuang zhuang biang chang cheng chong chuai chuan 
 const LEGACY = ["阿姨","啊","矮","爱好","安静","把","班","搬","办法","办公室","半","帮忙","包","饱","北方","被","鼻子","比较","比赛","笔记本","必须","变化","别人","冰箱","不但","而且","菜单","参加","草","层","差","超市","衬衫","成绩","城市","迟到","除了","船","春","词典","聪明","打扫","打算","带","担心","蛋糕","当然","地","灯","地方","地铁","地图","电梯","电子邮件","东","冬","动物","短","段","锻炼","多么","饿","耳朵","发","发烧","发现","方便","放","放心","分","附近","复习","干净","感冒","感兴趣","刚才","个子","根据","跟","更","公斤","公园","故事","刮风","关","关系","关心","关于","国家","过","过去","还是","害怕","黑板","后来","护照","花","画","坏","欢迎","还","环境","换","黄河","回答","会议","或者","几乎","机会","极","记得","季节","检查","简单","见面","健康","讲","教","角","脚","接","街道","节目","节日","结婚","结束","解决","借","经常","经过","经理","久","旧","句子","决定","可爱","渴","刻","客人","空调","口","哭","裤子","筷子","蓝","老","离开","礼物","历史","脸","练习","辆","聊天","了解","邻居","留学","楼","绿","马","马上","满意","帽子","米","面包","明白","拿","奶奶","南","难","难过","年级","年轻","鸟","努力","爬山","盘子","胖","皮鞋","啤酒","瓶子","其实","其他","奇怪","骑","起飞","起来","清楚","请假","秋","裙子","然后","热情","认为","认真","容易","如果","伞","上网","生气","声音","世界","试","瘦","叔叔","舒服","树","数学","刷牙","双","水平","司机","太阳","特别","疼","提高","体育","甜","条","同事","同意","头发","突然","图书馆","腿","完成","碗","万","忘记","为","为了","位","文化","西","习惯","洗手间","洗澡","夏","先","相信","香蕉","向","像","小心","校长","新闻","新鲜","信用卡","行李箱","熊猫","需要","选择","要求","爷爷","一般","一边","一定","一共","一会儿","一样","一直","以前","音乐","银行","饮料","应该","影响","用","游戏","有名","又","遇到","元","愿意","月亮","越","站","张","长","着急","照顾","照片","照相机","只","只有","才","中间","中文","终于","种","重要","周末","主要","注意","自己","自行车","总是","嘴","最后","最近","作业"];
 const IS_PWA = true;
 const XH = 0.5078;
-const BUILD = "12 octobre 2026 à 12 h 46";
+const BUILD = "12 octobre 2026 à 13 h 15";
 
 /* ---------- utilities ---------- */
 const $ = (s, r = document) => r.querySelector(s);
@@ -1501,6 +1505,7 @@ const tts = {
 };
 
 /* ---------- the prism ---------- */
+const BRUSH = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 19.5l1.1-4.4L15.4 5.3a1.9 1.9 0 0 1 2.7 0l.6.6a1.9 1.9 0 0 1 0 2.7L8.9 18.4z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M13.6 7.1l3.3 3.3" fill="none" stroke="currentColor" stroke-width="1.7"/></svg>';
 const SPEAKER = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" fill="currentColor"/><path d="M15.5 8.8a4.5 4.5 0 0 1 0 6.4M18 6.3a8 8 0 0 1 0 11.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>';
 const CHEVRON = '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 function triSVG(k) {
@@ -1573,7 +1578,10 @@ class Prism {
     const cells = [...w.h].map(ch => `<div class="tzg${sys}"><span lang="zh-Hans">${esc(ch)}</span></div>`).join("");
     const head = k => `<div class="face-head"><span class="face-tag"><span class="zh">${FACE_NAMES[k][0]}</span>${FACE_NAMES[k][1]}</span>${triSVG(k)}</div>`;
     const fex = w.e && state.settings.exOnForm ? `<p class="form-ex${covered(w.e) ? "" : " sysfont"}" lang="zh-Hans">${markHead(w.e, w.h)}</p>` : "";
-    this.faces[0].innerHTML = head(0) + `<div class="face-body"><div class="tzg-row">${cells}</div>${fex}</div>`;
+    const trace = [...w.h].some(isHan) ? `<div class="speaks"><button type="button" class="speak" data-trace-form aria-label="Tracer les caractères trait par trait">${BRUSH}Traits</button></div>` : "";
+    this.faces[0].innerHTML = head(0) + `<div class="face-body"><div class="tzg-row">${cells}</div>${fex}${trace}</div>`;
+    const tf = $("[data-trace-form]", this.faces[0]);
+    if (tf) tf.addEventListener("click", e => { e.stopPropagation(); traceForm(this.faces[0], w.h); });
     const sex = w.ep && state.settings.exOnForm ? `<p class="sound-ex${tones}">${markPinyin(w.ep, w.p, w.e, w.h)}</p>` : "";
     const say = w.e ? `<button type="button" class="speak" data-say aria-label="Écouter le mot">${SPEAKER}Mot</button>` +
       `<button type="button" class="speak" data-say-ex aria-label="Écouter la phrase">${SPEAKER}Phrase</button>`
@@ -1617,7 +1625,8 @@ class Prism {
       while (fex.scrollWidth > this.w - 34 && fs > 13) { fs -= 1; fex.style.setProperty("--fxs", fs + "px"); }
       exH = fex.offsetHeight + 14;
     }
-    const innerW = this.w - 30, innerH = this.h - 70 - exH;
+    const tf = $(".speaks", this.faces[0]), tfH = tf ? tf.offsetHeight + 10 : 0;   // the Traits button
+    const innerW = this.w - 30, innerH = this.h - 70 - exH - tfH;
     const cell = Math.floor(Math.min(156, innerH, (innerW + (n - 1) * 1.5) / n));
     $(".tzg-row", this.faces[0]).style.setProperty("--cell", cell + "px");
     // 音: pinyin sized to the width (and to the height left by the sentence), staff lines drawn on its metrics
@@ -2613,22 +2622,51 @@ function traitHTML(ch, data) {
   return `<div class="trait">${defs}<div class="big"><svg viewBox="0 0 1024 1024" role="img" aria-label="${esc(ch)}, ${plural(n, "trait", "traits")}">${TGRID}${g(big)}</svg>` +
     `<small>${plural(n, "trait", "traits")}</small><button type="button" class="btn small" data-trace>Animer</button></div><div class="steps">${steps}</div></div>`;
 }
-function traceTraits(box) {
-  // the strokes of the big box drawn again one after the other (the whole character at once if motion is reduced)
-  const paths = [...box.querySelectorAll(".ta")];
-  if (!paths.length || !paths[0].animate) return;
-  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-  let t = 0;
+function tracePaths(paths, t0 = 0) {
+  // strokes (.ta: median line clipped by the outline) drawn one after the other from t0 ms; returns when the last ends.
+  // Motion reduced: each stroke appears at once, in turn.
+  if (!paths.length || !paths[0].animate) return t0;
+  const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let t = t0;
   for (const p of paths) {
-    const len = +p.dataset.len, dur = Math.max(260, Math.min(900, len * 0.9));
+    const len = +p.dataset.len, dur = still ? 1 : Math.max(260, Math.min(900, len * 0.9));
     p.getAnimations().forEach(a => a.cancel());
     p.animate([{ strokeDashoffset: len + 2 }, { strokeDashoffset: 0 }], { duration: dur, delay: t, fill: "both", easing: "ease-in-out" });
-    t += dur + 140;
+    t += still ? 450 : dur + 140;
   }
+  return t;
+}
+function traceTraits(box) { tracePaths([...box.querySelectorAll(".ta")]); }   // the big box of the sheet, again
+function traceSVG(data) {
+  // a character to trace in a copybook cell of the 形 face: each stroke's outline, faint, under its median line
+  const [strokes, medians] = data, id = "tz" + (++traitSeq);
+  const parts = strokes.map((d, i) => {
+    const pts = medians[i], len = Math.round(pts.reduce((a, q, j) => (j ? a + Math.hypot(q[0] - pts[j - 1][0], q[1] - pts[j - 1][1]) : 0), 0)) + 1;
+    return `<clipPath id="${id}-c${i}"><path d="${d}"/></clipPath><path class="tb" d="${d}"/>` +
+      `<path class="ta" clip-path="url(#${id}-c${i})" d="M${pts.map(q => q.join(" ")).join("L")}" data-len="${len}" style="stroke-dasharray:${len} ${2 * len + 400}"/>`;
+  }).join("");
+  return `<svg class="tz-tr" viewBox="0 0 1024 1024" aria-hidden="true"><g transform="scale(1,-1) translate(0,-900)">${parts}</g></svg>`;
+}
+async function traceForm(face, word) {
+  // 形: the characters of the word traced stroke by stroke in their cells, one after the other (again on each tap)
+  const cells = [...face.querySelectorAll(".tzg")], chars = [...word];
+  const data = await Promise.all(chars.map(c => (isHan(c) ? strokesOf(c) : null)));
+  if (!cells.length || !cells[0].isConnected) return;   // the card shows another word now
+  if (!data.some(Boolean)) {
+    toast(navigator.onLine === false ? "Hors ligne : l’ordre des traits arrive à la prochaine ouverture de l’appli avec du réseau."
+      : "Ordre des traits indisponible pour ce mot.");
+    return;
+  }
+  let t = 0;
+  cells.forEach((cell, i) => {
+    if (!data[i]) return;
+    if (!cell.querySelector(".tz-tr")) { cell.insertAdjacentHTML("beforeend", traceSVG(data[i])); cell.classList.add("tracing"); }
+    t = tracePaths([...cell.querySelectorAll(".tz-tr .ta")], t) + 250;
+  });
 }
 async function renderTraits(el, word) {
   // the stroke order of each character of a word (each one once), in the word sheet
-  const chars = [...new Set([...String(word || "")].filter(c => /[㐀-鿿]/.test(c)))];
+  const chars = [...new Set([...String(word || "")].filter(isHan))];
   if (!el || !chars.length) return;
   el.innerHTML = `<p class="traits-title">Ordre des traits</p><p class="meta" data-wait>Chargement…</p>`;
   const data = await Promise.all(chars.map(strokesOf));

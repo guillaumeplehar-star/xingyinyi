@@ -124,7 +124,8 @@ et télécharge une voix de bonne qualité.
 
 - **Réviser** : touche la carte ou fais-la glisser pour la tourner. La face 形 montre déjà la
   phrase d’exemple en caractères, la face 音 la montre en pinyin (réglable) ; sur 音, **Mot** et
-  **Phrase** lisent à voix haute le mot ou la phrase. Dès que la carte a tourné, la phrase en
+  **Phrase** lisent à voix haute le mot ou la phrase ; sur 形, **Traits** trace les caractères trait par
+  trait dans leurs cases (touche de nouveau pour revoir le tracé). Dès que la carte a tourné, la phrase en
   caractères se découvre sous la carte (例) ; « Traduction » affiche sa traduction. Pendant la révision, le pinyin de
   la phrase n’est que sur la face 音 ; la fiche du mot (onglet Mots) montre tout.
   Note-toi ensuite : × **Raté** ou √ **Réussi** (au clavier : 1 et 2). Sous chaque bouton, l’appli
