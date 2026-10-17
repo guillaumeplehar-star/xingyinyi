@@ -192,7 +192,8 @@ l'iPhone : Réglages › Appli › Vérifier. Le téléphone peut lui aussi écr
   1 et 2) ; il n'y a plus de 3e note.
 - **Interface** : classe `Prism` (rotation 3D, `fit()` ajuste les tailles ; face 形 : cases 田字格 `.tzg`, phrase
   `.form-ex`, bouton `[data-trace-form]` « Traits » (`traceForm` : chaque caractère tracé dans sa case par un `traceSVG`
-  posé sur la police, `.tz-tr`, la police cachée par `.tzg.tracing`) ; face 音 : pinyin du mot,
+  posé sur la police, `.tz-tr`, la police cachée par `.tzg.tracing`) et `[data-steps]` « Décomposer » (`showSteps` :
+  feuille avec `renderTraits` en révision, défilement jusqu'à `#sheet-traits` dans la fiche du mot) ; face 音 : pinyin du mot,
   phrase en pinyin `.sound-ex` par `markPinyin` qui souligne les syllabes du mot sans tenir compte des tons,
   boutons `[data-say]` « Mot » et `[data-say-ex]` « Phrase », ou « Écouter » seul sans exemple), bandeau 例
   (`slipHTML`, `renderSlip`, `revealSlip` ; en révision il montre la phrase en caractères et, sous
@@ -257,7 +258,9 @@ l'iPhone : Réglages › Appli › Vérifier. Le téléphone peut lui aussi écr
 
 - Textes de l'interface en français, tutoiement, majuscule en début de phrase seulement.
   Typographie : espace fine insécable (constante `NB`) avant `: ; ! ?`, apostrophe `’`,
-  guillemets « », nombre et nom liés par une espace insécable (`plural`).
+  guillemets « », nombre et nom liés par une espace insécable (`plural`). Les listes de `decks/` écrivent
+  souvent une espace ordinaire : sens, note et traduction de l'exemple passent par `frTypo` à l'affichage
+  (`senseItems`, note de la face 义, `slipHTML`, `wordRowHTML`), jamais dans les données.
 - Couleurs des tons fixes (`--t1` rouge, `--t2` orange, `--t3` bleu, `--t4` violet, `--t5` gris),
   thèmes clair (cahier d'écolier) et sombre (tableau noir) par jetons CSS sur `:root`,
   `prefers-color-scheme` et `[data-theme]`. Toute nouvelle couleur passe par un jeton défini dans les

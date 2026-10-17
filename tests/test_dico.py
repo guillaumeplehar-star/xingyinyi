@@ -525,6 +525,45 @@ def main():
             study.build(); return out; }""".replace("nb(b.textContent)", "b.textContent.trim()"))
         check(study["button"] and study["cell"] >= 100, "the card of the review has the button too, the cell still large", study)
 
+        # French typography on display: the lists write a plain space before : ; ! ? », the app shows a no-break one
+        typo = page.evaluate("""() => { const w = { h: '嘛', p: 'ma', f: 'particule : évidence', n: 'ton familier !', e: '好嘛。', ef: 'Bon, voyons : « oui » ?' };
+            const d = document.createElement('div'); d.innerHTML = '<ol>' + senseItems(w) + '</ol>' + slipHTML(w, 'full');
+            return { f: d.querySelector('li').textContent, ef: d.querySelector('.ex-fr').textContent }; }""")
+        check(typo["f"] == "particule : évidence" and typo["ef"] == "Bon, voyons : « oui » ?".replace(" ?", " ?"),
+              "senses and translation: a narrow no-break space before : ? » and after «, so no line starts with a colon", typo)
+
+        # ------------------------------------------------------------ 形, « Décomposer »: each character step by step, at the bottom
+        page.evaluate("() => { showView('study'); prism.layout(); prism.show(BYID.get('perso:打印'), 0); }")
+        page.click("#stage .face[data-face='0'] [data-steps]")
+        page.wait_for_selector("#sheet:not([hidden]) #sheet-traits .trait .steps svg")
+        dec = page.evaluate("""async () => ({ title: document.querySelector('#sheet-title').textContent, face: prism.face,
+            chars: [...document.querySelectorAll('#sheet-traits .trait .big svg')].map(s => s.getAttribute('aria-label')),
+            steps: [...document.querySelectorAll('#sheet-traits .trait')].map(t => t.querySelectorAll('.steps svg').length),
+            want: [(await strokesOf('打'))[0].length, (await strokesOf('印'))[0].length],
+            label: document.querySelector('#stage [data-steps]').textContent.trim(),
+            name: document.querySelector('#stage [data-steps]').getAttribute('aria-label') })""")
+        check(dec["title"] == "打印" and dec["face"] == 0 and len(dec["chars"]) == 2 and dec["chars"][0].startswith("打")
+              and dec["steps"] == dec["want"] and dec["label"] == "Décomposer" and dec["name"].startswith("Décomposer"),
+              "review, 形 face, Décomposer: a sheet at the bottom, each character with one box per stroke; the card does not turn", dec)
+        shot(page, "dico-11-decomposer")
+        page.click("#sheet-traits .trait [data-trace]")
+        anim = page.evaluate("() => [...document.querySelector('#sheet-traits .trait').querySelectorAll('.ta')].filter(p => p.getAnimations().length).length")
+        check(anim > 0, "the decomposition sheet: Animer traces the character", anim)
+        page.click("#sheet .close")
+        page.evaluate("() => study.build()")
+        page.evaluate("() => wordSheet('perso:打印')")
+        page.wait_for_selector("#sheet-traits .trait")
+        page.evaluate("() => { document.querySelector('#sheet-body').scrollTop = 0; }")
+        page.click("#sheet-stage .face[data-face='0'] [data-steps]")
+        page.wait_for_timeout(700)
+        own = page.evaluate("""() => { const b = document.querySelector('#sheet-body'), t = document.querySelector('#sheet-traits');
+            const sc = [b, b.parentElement, document.querySelector('#sheet')].find(e => e && e.scrollTop > 0);
+            return { title: document.querySelector('#sheet-title').textContent, stage: !!document.querySelector('#sheet-stage'),
+                     scrolled: !!sc, top: Math.round(t.getBoundingClientRect().top), vh: innerHeight }; }""")
+        check(own["title"] == "打印" and own["stage"] and own["scrolled"] and own["top"] < own["vh"],
+              "word sheet, Décomposer: no second sheet, it scrolls down to the stroke order", own)
+        page.click("#sheet .close")
+
         # the packets are kept for offline use, by the app and not by the service worker
         page.evaluate("async () => { await caches.delete('traits-xingyinyi'); localStorage.removeItem('xingyinyi.traits'); await prefetchTraits(); }")
         kept = page.evaluate("""async () => {

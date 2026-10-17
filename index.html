@@ -362,6 +362,7 @@ input[type=range]{width:120px;accent-color:var(--accent)}
 
 /* ---------- stroke order (word sheet) ---------- */
 .traits-title{font-size:13px;color:var(--faint);margin:22px 0 4px}
+.traits-only .traits-title{margin-top:2px}
 .trait{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--rule)}
 .trait .big{flex:none;display:flex;flex-direction:column;align-items:center;gap:6px;width:112px}
 .trait .big svg{width:112px;height:112px;display:block}
@@ -696,7 +697,7 @@ const SYLL = new Set(("chuang shuang zhuang biang chang cheng chong chuai chuan 
 const LEGACY = ["阿姨","啊","矮","爱好","安静","把","班","搬","办法","办公室","半","帮忙","包","饱","北方","被","鼻子","比较","比赛","笔记本","必须","变化","别人","冰箱","不但","而且","菜单","参加","草","层","差","超市","衬衫","成绩","城市","迟到","除了","船","春","词典","聪明","打扫","打算","带","担心","蛋糕","当然","地","灯","地方","地铁","地图","电梯","电子邮件","东","冬","动物","短","段","锻炼","多么","饿","耳朵","发","发烧","发现","方便","放","放心","分","附近","复习","干净","感冒","感兴趣","刚才","个子","根据","跟","更","公斤","公园","故事","刮风","关","关系","关心","关于","国家","过","过去","还是","害怕","黑板","后来","护照","花","画","坏","欢迎","还","环境","换","黄河","回答","会议","或者","几乎","机会","极","记得","季节","检查","简单","见面","健康","讲","教","角","脚","接","街道","节目","节日","结婚","结束","解决","借","经常","经过","经理","久","旧","句子","决定","可爱","渴","刻","客人","空调","口","哭","裤子","筷子","蓝","老","离开","礼物","历史","脸","练习","辆","聊天","了解","邻居","留学","楼","绿","马","马上","满意","帽子","米","面包","明白","拿","奶奶","南","难","难过","年级","年轻","鸟","努力","爬山","盘子","胖","皮鞋","啤酒","瓶子","其实","其他","奇怪","骑","起飞","起来","清楚","请假","秋","裙子","然后","热情","认为","认真","容易","如果","伞","上网","生气","声音","世界","试","瘦","叔叔","舒服","树","数学","刷牙","双","水平","司机","太阳","特别","疼","提高","体育","甜","条","同事","同意","头发","突然","图书馆","腿","完成","碗","万","忘记","为","为了","位","文化","西","习惯","洗手间","洗澡","夏","先","相信","香蕉","向","像","小心","校长","新闻","新鲜","信用卡","行李箱","熊猫","需要","选择","要求","爷爷","一般","一边","一定","一共","一会儿","一样","一直","以前","音乐","银行","饮料","应该","影响","用","游戏","有名","又","遇到","元","愿意","月亮","越","站","张","长","着急","照顾","照片","照相机","只","只有","才","中间","中文","终于","种","重要","周末","主要","注意","自己","自行车","总是","嘴","最后","最近","作业"];
 const IS_PWA = true;
 const XH = 0.5078;
-const BUILD = "12 octobre 2026 à 13 h 15";
+const BUILD = "17 octobre 2026 à 9 h 24";
 
 /* ---------- utilities ---------- */
 const $ = (s, r = document) => r.querySelector(s);
@@ -1506,6 +1507,7 @@ const tts = {
 
 /* ---------- the prism ---------- */
 const BRUSH = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 19.5l1.1-4.4L15.4 5.3a1.9 1.9 0 0 1 2.7 0l.6.6a1.9 1.9 0 0 1 0 2.7L8.9 18.4z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M13.6 7.1l3.3 3.3" fill="none" stroke="currentColor" stroke-width="1.7"/></svg>';
+const STEPS_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="7" height="7" rx="1.2" fill="none" stroke="currentColor" stroke-width="1.6"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.2" fill="none" stroke="currentColor" stroke-width="1.6"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.2" fill="none" stroke="currentColor" stroke-width="1.6"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M5.5 7h3M15.5 7h3M17 5v4M5.5 17h3M7 15v4M5.5 19h3M15.5 17h3M17 15v4M15.5 19h3" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>';
 const SPEAKER = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" fill="currentColor"/><path d="M15.5 8.8a4.5 4.5 0 0 1 0 6.4M18 6.3a8 8 0 0 1 0 11.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>';
 const CHEVRON = '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 function triSVG(k) {
@@ -1517,7 +1519,7 @@ function triSVG(k) {
 function senseItems(w) {
   const parts = String(w.f || "").split(/\s*;\s*/).map(s => s.trim()).filter(Boolean);
   const mask = s => (w.h ? s.split(w.h).join("～") : s);
-  const zhWrap = s => esc(s).replace(/([㐀-鿿～][㐀-鿿～…]*)/g, '<span class="zhi">$1</span>');
+  const zhWrap = s => esc(frTypo(s)).replace(/([㐀-鿿～][㐀-鿿～…]*)/g, '<span class="zhi">$1</span>');
   if (!parts.length) return '<li><span>—</span></li>';
   return parts.map((s, i) => `<li>${parts.length > 1 ? `<span class="no">${CIRCLED[i] || "•"}</span>` : ""}<span>${zhWrap(mask(s))}</span></li>`).join("");
 }
@@ -1578,10 +1580,13 @@ class Prism {
     const cells = [...w.h].map(ch => `<div class="tzg${sys}"><span lang="zh-Hans">${esc(ch)}</span></div>`).join("");
     const head = k => `<div class="face-head"><span class="face-tag"><span class="zh">${FACE_NAMES[k][0]}</span>${FACE_NAMES[k][1]}</span>${triSVG(k)}</div>`;
     const fex = w.e && state.settings.exOnForm ? `<p class="form-ex${covered(w.e) ? "" : " sysfont"}" lang="zh-Hans">${markHead(w.e, w.h)}</p>` : "";
-    const trace = [...w.h].some(isHan) ? `<div class="speaks"><button type="button" class="speak" data-trace-form aria-label="Tracer les caractères trait par trait">${BRUSH}Traits</button></div>` : "";
+    const trace = [...w.h].some(isHan) ? `<div class="speaks"><button type="button" class="speak" data-trace-form aria-label="Traits${NB}: tracer chaque caractère dans sa case">${BRUSH}Traits</button>` +
+      `<button type="button" class="speak" data-steps aria-label="Décomposer chaque caractère, trait par trait">${STEPS_ICON}Décomposer</button></div>` : "";
     this.faces[0].innerHTML = head(0) + `<div class="face-body"><div class="tzg-row">${cells}</div>${fex}${trace}</div>`;
     const tf = $("[data-trace-form]", this.faces[0]);
     if (tf) tf.addEventListener("click", e => { e.stopPropagation(); traceForm(this.faces[0], w.h); });
+    const sb0 = $("[data-steps]", this.faces[0]);
+    if (sb0) sb0.addEventListener("click", e => { e.stopPropagation(); showSteps(this.root, w); });
     const sex = w.ep && state.settings.exOnForm ? `<p class="sound-ex${tones}">${markPinyin(w.ep, w.p, w.e, w.h)}</p>` : "";
     const say = w.e ? `<button type="button" class="speak" data-say aria-label="Écouter le mot">${SPEAKER}Mot</button>` +
       `<button type="button" class="speak" data-say-ex aria-label="Écouter la phrase">${SPEAKER}Phrase</button>`
@@ -1590,7 +1595,7 @@ class Prism {
       `<div class="face-body"><div class="staff"><div class="lines"><i></i><i></i><i class="base"></i><i></i></div>` +
       `<div class="py${tones}">${w.p ? pinyinHTML(w.p) : "—"}</div></div>${sex}` +
       (tts.ok ? `<div class="speaks">${say}</div>` : "") + "</div>";
-    const note = w.n ? `<p class="note" data-note><span class="tag">注</span><span>${esc(w.n)}</span></p>` : "";
+    const note = w.n ? `<p class="note" data-note><span class="tag">注</span><span>${esc(frTypo(w.n))}</span></p>` : "";
     this.faces[2].innerHTML = head(2) + `<div class="face-body"><ol class="senses">${senseItems(w)}</ol>${note}</div>`;
     const sb = $("[data-say]", this.faces[1]);
     if (sb) sb.addEventListener("click", e => { e.stopPropagation(); tts.say(w.s || w.h, sb); });
@@ -1708,7 +1713,7 @@ function slipHTML(w, mode) {                      // mode: "covered" (card not t
   if (!w || !w.e) return `<div class="ex empty"><span class="tag" aria-hidden="true">例</span><p class="ex-none">Pas encore de phrase d’exemple pour ce mot.</p></div>`;
   const open = mode === "full" || !!state.settings.exDetails;
   const tones = state.settings.toneColors ? " tones" : "";
-  const extra = (w.ep && mode === "full" ? `<p class="ex-py${tones}">${markPinyin(w.ep, w.p, w.e, w.h)}</p>` : "") + (w.ef ? `<p class="ex-fr" lang="fr">${esc(w.ef)}</p>` : "");
+  const extra = (w.ep && mode === "full" ? `<p class="ex-py${tones}">${markPinyin(w.ep, w.p, w.e, w.h)}</p>` : "") + (w.ef ? `<p class="ex-fr" lang="fr">${esc(frTypo(w.ef))}</p>` : "");
   const toggle = mode !== "full" && extra
     ? `<button type="button" class="ex-toggle" data-ex-toggle aria-expanded="${open}">${CHEVRON}${open ? "Masquer" : "Traduction"}</button>` : "";
   return `<div class="ex${mode === "covered" ? " covered" : ""}${open ? " open" : ""}">` +
@@ -2282,7 +2287,7 @@ function wordRowHTML(w, tones) {
     where = L ? L.nom + (w.lists.length > 1 ? " +" + (w.lists.length - 1) : "") : "sans liste";
   }
   return `<li><button type="button" class="wrow" data-id="${esc(w.id)}"><span class="h${covered(w.h) ? "" : " sysfont"}" lang="zh-Hans">${esc(w.h)}</span>` +
-    `<span class="m"><span class="p${tones}">${w.p ? pinyinHTML(w.p) : "—"}</span><span class="f">${esc(first)}</span></span>` +
+    `<span class="m"><span class="p${tones}">${w.p ? pinyinHTML(w.p) : "—"}</span><span class="f">${esc(frTypo(first))}</span></span>` +
     `<span class="r"><span class="km">${knHTML(w.id)}${meterHTML(bucketOf(w.id))}</span>${where ? `<span class="dk">${esc(where)}</span>` : ""}</span></button></li>`;
 }
 function moreWords() {
@@ -2676,6 +2681,16 @@ async function renderTraits(el, word) {
     return;
   }
   el.innerHTML = `<p class="traits-title">Ordre des traits</p>` + chars.map((c, i) => traitHTML(c, data[i])).join("");
+}
+function showSteps(root, w) {
+  // 形, « Décomposer »: each character of the word step by step, at the bottom. The word sheet has them under its
+  // buttons already (scrolled to); the review opens a sheet with them.
+  const own = root.closest("#sheet") && $("#sheet-traits");
+  if (own) { own.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" }); return; }
+  openSheet(w.h, `<div id="sheet-traits" class="traits-only"></div>`, body => {
+    renderTraits($("#sheet-traits", body), w.h);
+    body.addEventListener("click", e => { const b = e.target.closest("[data-trace]"); if (b) traceTraits(b.closest(".trait")); });
+  });
 }
 function wordSheet(id) {
   const w = BYID.get(id); if (!w) return;

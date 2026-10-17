@@ -82,6 +82,22 @@
       "actif": false,
       "afficher": false,
       "fixe": true
+    },
+    {
+      "id": "hsk6",
+      "nom": "HSK 6 (2.0)",
+      "fichier": "hsk6.tsv",
+      "actif": false,
+      "afficher": false,
+      "fixe": true
+    },
+    {
+      "id": "hsk30-6",
+      "nom": "HSK 6 (3.0)",
+      "fichier": "hsk30-6.tsv",
+      "actif": false,
+      "afficher": false,
+      "fixe": true
     }
   ]
 }

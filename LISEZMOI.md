@@ -22,8 +22,8 @@ Ce que contient le dossier :
 
 Listes fournies : HSK 1 à 6 (2.0), les listes officielles HSK 2.0 de 2012, celles de l’examen de
 novembre ; HSK 1 à 6 (3.0), le programme d’examen HSK 3.0 de 2026 ; Perso (vide, pour tes mots).
-HSK 1 à 3 (2.0) sont actives au départ, les autres attendent dans Réglages (section 5). Les listes
-HSK 4 à 6 et HSK 3.0 arrivent au fur et à mesure que leurs fiches sont rédigées et relues.
+HSK 1 à 3 (2.0) sont actives au départ, les autres attendent dans Réglages (section 5). Les fiches
+des listes HSK 4 à 6 et HSK 3.0 ont été rédigées puis relues une à une.
 
 **Un mot n’existe qu’une fois** dans le dictionnaire (mêmes caractères, même pinyin, même sens) et
 appartient à toutes les listes qui le contiennent : 爱 est dans HSK 1 (2.0) et dans HSK 1 (3.0),
@@ -125,7 +125,8 @@ et télécharge une voix de bonne qualité.
 - **Réviser** : touche la carte ou fais-la glisser pour la tourner. La face 形 montre déjà la
   phrase d’exemple en caractères, la face 音 la montre en pinyin (réglable) ; sur 音, **Mot** et
   **Phrase** lisent à voix haute le mot ou la phrase ; sur 形, **Traits** trace les caractères trait par
-  trait dans leurs cases (touche de nouveau pour revoir le tracé). Dès que la carte a tourné, la phrase en
+  trait dans leurs cases (touche de nouveau pour revoir le tracé) et **Décomposer** ouvre en bas chaque
+  caractère décomposé, une case par trait. Dès que la carte a tourné, la phrase en
   caractères se découvre sous la carte (例) ; « Traduction » affiche sa traduction. Pendant la révision, le pinyin de
   la phrase n’est que sur la face 音 ; la fiche du mot (onglet Mots) montre tout.
   Note-toi ensuite : × **Raté** ou √ **Réussi** (au clavier : 1 et 2). Sous chaque bouton, l’appli
