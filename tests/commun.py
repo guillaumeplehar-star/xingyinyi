@@ -74,9 +74,10 @@ def fresh_copy(name):
     return dst
 
 
-def new_page(browser, errors, scheme="light", size=(390, 844), offline_ok=False):
-    ctx = browser.new_context(viewport={"width": size[0], "height": size[1]}, device_scale_factor=2,
-                              is_mobile=True, has_touch=True, color_scheme=scheme, locale="fr-FR")
+def new_page(browser, errors, scheme="light", size=(390, 844), offline_ok=False, mobile=True):
+    # mobile=False: a computer (a mouse that hovers, one pixel per pixel)
+    ctx = browser.new_context(viewport={"width": size[0], "height": size[1]}, device_scale_factor=2 if mobile else 1,
+                              is_mobile=mobile, has_touch=mobile, color_scheme=scheme, locale="fr-FR")
     page = ctx.new_page()
 
     def on_console(m):

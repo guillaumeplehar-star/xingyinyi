@@ -244,15 +244,22 @@ l'iPhone : Réglages › Appli › Vérifier. Le téléphone peut lui aussi écr
   contents` (`.brand` en haut du menu, `.top-r` compteurs et ＋), `.tabs` en menu à gauche (placé avant `<main>` dans la
   page pour l'ordre de tabulation, `order: 1` le garde en bas sur téléphone) ; révision : `#study-card` en grille (carte à
   gauche, `.status`, `#example`, `#actions` et `.keys` à droite), `studyRoom` ne retire que `.startface`, carte jusqu'à
-  1100 px de large et de la hauteur de la fenêtre (`maxW` fonction), `fit()` agrandit cellules, textes et boutons (`--ks`)
-  avec `k` (1 sur téléphone), `layout()` agrandit la perspective avec la carte (sinon ses faces de côté débordent) ;
-  feuilles ouvertes à droite (`.panel`) ; la fiche du mot (`openSheet(…, beside)`, seule `wordSheet` le demande) se
-  range à côté de la liste dans Mots si la fenêtre fait 1200 px (`DOCK`) : `.sheet.dock`, `.app.docked` (marge de `main`,
-  sa barre de défilement reste visible), sans voile ni `aria-modal`, ligne du mot marquée (`sheetWord`, `aria-current`) ;
-  `showView` la ferme, `DOCK` qui ne tient plus la remet sous un voile. Progrès et Réglages en colonnes de 460 px
+  1100 px de large (sa colonne de la grille, 1116 px) et de la hauteur de la fenêtre (`maxW(room)` fonction, `room` = ce que
+  rend `fill`, calculé une fois par `layout()`), `fit()` agrandit cellules, textes et boutons (`--ks`) avec `k` (rapport à
+  `CARD_W` = 380, la largeur sur téléphone ; 1 sur téléphone) et réduit chaque texte trop grand par `shrink` (par moitiés :
+  la taille que trouvait la boucle pas à pas, en quelques mises en page), la perspective de `.stage` suit `--pk` (largeur /
+  `CARD_W`, posé par `layout()` ; sinon les faces de côté débordent ; `perspective: 1150px` d'abord pour un moteur sans
+  `max()`) ; largeurs en variables sur `.app` : `--nav` (menu), `--side` (feuille), `--dock` (place prise par la fiche à côté
+  de la liste) ; feuilles ouvertes à droite (`.panel`) ; la fiche du mot (`openSheet(…, beside)` : l'id du mot, seule
+  `wordSheet` le donne) se range à côté de la liste dans Mots (`current`) si la fenêtre fait 1200 px (`DOCK`) : `setDock(id)`
+  (`sheetWord`, `.sheet.dock`, `.app.docked` qui réduit `.app` de `--dock` : la barre de défilement de `main` reste visible ;
+  sans voile ni `aria-modal`, ligne du mot marquée `aria-current`, le focus reste dans la liste, sur cette ligne si un clic
+  ne l'y a pas mis, Safari) ; `showView` la ferme, `DOCK` qui ne tient plus la remet sous un voile (`setDock(null)`, le
+  focus va dans la feuille). Progrès et Réglages en colonnes de 460 px
   (`column-width` ; groupes de Réglages en `<section class="sgroup">`), Mots en colonnes à partir de 1500 px. Un clic de
-  souris sur un bouton de la carte lui retire le focus (Espace tourne de nouveau la carte) ; Espace ou Entrée sur l'entrée
-  courante du menu tourne la carte, sur une autre l'ouvre.
+  souris sur un bouton de la révision (`#view-study`, écouteur à la capture : certains boutons arrêtent le clic) lui retire
+  le focus (Espace tourne de nouveau la carte) ; Espace ou Entrée sur l'entrée courante du menu tourne la carte, sur une
+  autre l'ouvre ; sans carte à l'écran (`#study-card` caché : écran de fin, chargement), les touches ne font rien.
 - **Ordre des traits** (fiche du mot, `#sheet-traits`) : `renderTraits(el, mot)` (chaque caractère CJK une fois),
   `strokesOf(ch)` / `traitPack(n)` (mémoire, puis cache `traits-xingyinyi`, puis réseau), `traitHTML` (grande case avec
   la ligne médiane de chaque trait découpée par son contour, `.ta` ; une case par étape, `use.t-done`/`t-new`/`t-todo`),

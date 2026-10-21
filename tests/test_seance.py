@@ -17,6 +17,16 @@ from playwright.sync_api import sync_playwright
 from commun import check, serve, fresh_copy, new_page, wait_ready, shot, finish, answer, nb
 
 COUNTS = "() => [...document.querySelectorAll('#counts .count')].map(s => [+s.querySelector('b').textContent, s.lastChild.textContent])"
+RECT = "const r = s => document.querySelector(s).getBoundingClientRect();"   # in page.evaluate: r(selector), its box
+BARS = "() => { " + RECT + " return { tabs: r('.tabs').top, main: r('#main').bottom, card: prism.w }; }"   # the menu below main: a phone
+# the sheet and the list: rows marked, the word beside the list, the focus (on the marked row, in the sheet, elsewhere)
+SHEET = """() => { const s = document.querySelector('#sheet'), row = document.querySelector('#wlist .wrow[aria-current]');
+    return { marked: [...document.querySelectorAll('#wlist .wrow[aria-current]')].map(b => b.dataset.id), open: sheetWord, shown: !s.hidden,
+             modal: s.querySelector('.panel').getAttribute('aria-modal'),
+             focus: row && document.activeElement === row ? 'row' : s.contains(document.activeElement) ? 'sheet' : document.activeElement.tagName }; }"""
+# boxes of the main parts of the page, to compare the light and dark layouts
+LAYOUT = """() => [...document.querySelectorAll('.tabs, #main, #stage, #actions, #example, #sheet .panel')]
+    .map(e => { const b = e.getBoundingClientRect(); return [b.left, b.top, b.width, b.height].map(Math.round); })"""
 DELAYS_OUT = ["1 j", "3 j", "1 sem.", "2 sem.", "1 mois", "2 mois"]
 
 # progression enregistrée par une version à boîtes et quotas (v2 sans « sched »)
@@ -441,103 +451,130 @@ def main():
 
         # ------------------------------------------------------------ a computer screen (the installed app, 900 px and more)
         print("== ordinateur")
-        for scheme in ("light", "dark"):
-            ctx = browser.new_context(viewport={"width": 1366, "height": 768}, color_scheme=scheme, locale="fr-FR")
-            page = ctx.new_page()
-            page.on("console", lambda m: m.type in ("error", "warning") and errors.append("pc %s: %s" % (m.type, m.text)))
-            page.on("pageerror", lambda e: errors.append("pc pageerror: %s" % e))
-            page.goto(url)
-            wait_ready(page)
-            lay = page.evaluate("""() => { const r = s => document.querySelector(s).getBoundingClientRect();
-                const tabs = [...document.querySelectorAll('.tab')].map(t => t.getBoundingClientRect());
-                return { nav: r('.tabs').right, brand: r('.brand').left, mainL: r('#main').left, column: tabs.every((t, i) => !i || t.top > tabs[i - 1].top),
-                  stage: r('#stage'), example: r('#example'), turn: r('#turnbtn'), card: [prism.w, prism.h], main: r('#main').height,
-                  keys: getComputedStyle(document.querySelector('.keys')).display }; }""")
-            check(lay["column"] and lay["nav"] <= lay["mainL"] + 1 and lay["brand"] < 30,
-                  scheme + ": the sections in a menu on the left, the name above them", lay)
-            check(lay["example"]["left"] > lay["stage"]["left"] + lay["card"][0] and lay["turn"]["left"] > lay["stage"]["left"] + lay["card"][0]
-                  and lay["card"][0] >= 500 and lay["card"][1] <= lay["main"], scheme + ": a large card, the example and the answers beside it", lay)
-            check(lay["keys"] == "block", scheme + ": the keyboard keys under the answers", lay["keys"])
-            page.click("#turnbtn")
-            page.wait_for_timeout(700)
-            shot(page, "pc-01-revision-" + scheme)
-            page.keyboard.press("2")
-            page.wait_for_function("() => study.ready")
-            page.click(".tab[data-view='words']")
-            page.click("#wlist .wrow >> nth=1")
+        ctx, page = new_page(browser, errors, size=(1366, 768), mobile=False)
+        page.goto(url)
+        wait_ready(page)
+
+        def shots(name):        # each screen in light, then in dark: the same layout (console errors in dark are caught too)
+            shot(page, name + "-light")
+            light = page.evaluate(LAYOUT)
+            page.emulate_media(color_scheme="dark")
+            shot(page, name + "-dark")
+            dark = page.evaluate(LAYOUT)
+            check(dark == light, name + ": the same layout in dark", {"light": light, "dark": dark})
+            page.emulate_media(color_scheme="light")
+
+        def open_word(n):       # Mots: the sheet of the list's n-th word
+            page.click("#wlist .wrow >> nth=%d" % n)
             page.wait_for_selector("#sheet:not([hidden]) #sheet-stage")
-            first = page.evaluate("() => document.querySelector('#sheet-title').textContent")
-            dock = page.evaluate("""() => { const s = document.querySelector('#sheet'), row = document.querySelector('#wlist .wrow').getBoundingClientRect();
-                return { dock: s.classList.contains('dock'), veil: getComputedStyle(s.querySelector('.veil')).display, left: s.getBoundingClientRect().left, row: row.right }; }""")
-            check(dock["dock"] and dock["veil"] == "none" and dock["left"] >= dock["row"] - 1,
-                  scheme + ": Mots, the word's sheet beside the list (no veil, the list stays usable)", dock)
-            mark = page.evaluate("""() => { const m = document.querySelector('main'), r = m.getBoundingClientRect(), s = document.querySelector('#sheet').getBoundingClientRect();
-                return { marked: [...document.querySelectorAll('#wlist .wrow[aria-current]')].map(b => b.dataset.id), open: sheetWord,
-                         modal: document.querySelector('.panel').getAttribute('aria-modal'), mainRight: r.right, sheetLeft: s.left }; }""")
-            check(mark["marked"] == [mark["open"]] and mark["modal"] == "false" and mark["mainRight"] <= mark["sheetLeft"] + 1,
-                  scheme + ": its row marked, the sheet not modal, the list's scroll bar left of it", mark)
-            page.click("#wlist .wrow >> nth=2")
-            page.wait_for_function("(t) => document.querySelector('#sheet-title').textContent !== t", arg=first)
-            check(True, scheme + ": another word of the list: its sheet in the same place")
-            shot(page, "pc-02-mots-" + scheme)
-            page.click("#btn-add")
-            page.wait_for_selector("#sheet:not([hidden]) #f-p")
-            form = page.evaluate("() => ({ dock: document.querySelector('#sheet').classList.contains('dock'), veil: getComputedStyle(document.querySelector('#sheet .veil')).display })")
-            check(not form["dock"] and form["veil"] != "none", scheme + ": a form keeps its veil (a click on the list cannot lose it)", form)
-            page.keyboard.press("Escape")
-            page.click("#wlist .wrow >> nth=1")
-            page.wait_for_selector("#sheet.dock:not([hidden])")
-            page.click(".tab[data-view='progress']")
-            prog = page.evaluate("""() => ({ sheet: document.querySelector('#sheet').hidden,
-                lefts: [...new Set([...document.querySelectorAll('#view-progress .section')].map(x => Math.round(x.getBoundingClientRect().left)))].length })""")
-            check(prog["sheet"] and prog["lefts"] >= 2, scheme + ": another section closes the word's sheet; Progrès in columns", prog)
-            shot(page, "pc-03-progres-" + scheme)
-            page.click(".tab[data-view='settings']")
-            check(page.evaluate("() => new Set([...document.querySelectorAll('#view-settings .sgroup')].map(x => Math.round(x.getBoundingClientRect().left))).size") >= 2,
-                  scheme + ": Réglages in columns")
-            shot(page, "pc-04-reglages-" + scheme)
-            page.click(".tab[data-view='study']")
-            page.evaluate("() => showSteps(prism.root, BYID.get(study.cur))")
-            page.wait_for_selector("#sheet:not([hidden]) #sheet-traits")
-            side = page.evaluate("() => { const s = document.querySelector('#sheet'); return { dock: s.classList.contains('dock'), panel: s.querySelector('.panel').getBoundingClientRect().left, w: innerWidth }; }")
-            check(not side["dock"] and side["panel"] > side["w"] / 3, scheme + ": elsewhere, a sheet opens on the right, over a veil", side)
-            page.keyboard.press("Escape")
-            page.focus(".tab[data-view='words']")
-            page.keyboard.press("Enter")
-            check(page.evaluate("() => current") == "words", scheme + ": Enter on another entry of the menu opens it (does not turn the card)")
-            page.click(".tab[data-view='study']")
-            for w, h in ((1000, 700), (900, 700), (1536, 700), (2560, 1440)):
-                page.set_viewport_size({"width": w, "height": h})
-                page.wait_for_timeout(250)
-                page.evaluate("() => { redrawCurrent(); prism.layout(); }")
-                page.click("#turnbtn")
-                page.wait_for_timeout(650)
-                fitv = page.evaluate("""() => { const m = document.querySelector('#main'), st = document.querySelector('#stage').getBoundingClientRect(),
-                    a = document.querySelector('#actions').getBoundingClientRect(), mr = m.getBoundingClientRect();
-                    return { sx: m.scrollWidth - m.clientWidth, sy: m.scrollHeight - m.clientHeight, left: st.left >= mr.left, right: a.right <= mr.right + 1, card: [prism.w, prism.h] }; }""")
-                check(fitv["sx"] <= 0 and fitv["sy"] <= 0 and fitv["left"] and fitv["right"],
-                      "%s: %d×%d, the card and the answers fit the window, no scroll bar" % (scheme, w, h), fitv)
-                if (w, h) == (2560, 1440):
-                    check(fitv["card"][0] >= 900, scheme + ": a large screen, a large card", fitv["card"])
-                    shot(page, "pc-05-grand-ecran-" + scheme)
-                page.keyboard.press("2")
-                page.wait_for_function("() => study.ready")
-            page.set_viewport_size({"width": 1000, "height": 700})
-            page.click(".tab[data-view='words']")
-            page.click("#wlist .wrow >> nth=1")
-            page.wait_for_selector("#sheet:not([hidden]) #sheet-stage")
-            check(page.evaluate("() => !document.querySelector('#sheet').classList.contains('dock')"),
-                  scheme + ": 1000 px: no room beside the list, the word's sheet over a veil")
-            page.keyboard.press("Escape")
-            page.set_viewport_size({"width": 932, "height": 430})
+
+        # the card's sizes found by halving (shrink) are those of the old loop, size after size
+        same = page.evaluate("""() => { const loop = (start, floor, step, cut) => { let s = start; while (s > cut && s > floor) s -= step; return s; };
+            for (const [start, floor, step] of [[19, 13, 1], [49, 13, 1], [16, 15, 1], [46, 18, 2], [79, 18, 2], [12, 13, 1]])
+              for (let cut = 0; cut <= start + 1; cut++) {
+                let v = 0; const got = shrink(start, floor, step, x => { v = x; }, () => v > cut);
+                if (got !== loop(start, floor, step, cut) || v !== got) return [start, floor, step, cut, got, v];
+              }
+            return true; }""")
+        check(same is True, "the sizes on the card: the halving finds what the loop did", same)
+        lay = page.evaluate("() => { " + RECT + """ const tabs = [...document.querySelectorAll('.tab')].map(t => t.getBoundingClientRect());
+            return { nav: r('.tabs').right, brand: r('.brand').left, mainL: r('#main').left, column: tabs.every((t, i) => !i || t.top > tabs[i - 1].top),
+              stage: r('#stage'), example: r('#example'), turn: r('#turnbtn'), card: [prism.w, prism.h], main: r('#main').height,
+              keys: getComputedStyle(document.querySelector('.keys')).display }; }""")
+        check(lay["column"] and lay["nav"] <= lay["mainL"] + 1 and lay["brand"] < 30, "the sections in a menu on the left, the name above them", lay)
+        check(lay["example"]["left"] > lay["stage"]["left"] + lay["card"][0] and lay["turn"]["left"] > lay["stage"]["left"] + lay["card"][0]
+              and lay["card"][0] >= 500 and lay["card"][1] <= lay["main"], "a large card, the example and the answers beside it", lay)
+        check(lay["keys"] == "block", "the keyboard keys under the answers", lay["keys"])
+        page.click("#turnbtn")
+        page.wait_for_timeout(700)
+        shots("pc-01-revision")
+        answer(page, 1, key=True)
+        page.click(".tab[data-view='words']")
+        open_word(1)
+        first = page.evaluate(SHEET)["open"]
+        dock = page.evaluate("""() => { const s = document.querySelector('#sheet'), left = s.getBoundingClientRect().left;
+            return { dock: s.classList.contains('dock'), veil: getComputedStyle(s.querySelector('.veil')).display, modal: s.querySelector('.panel').getAttribute('aria-modal'),
+                     row: document.querySelector('#wlist .wrow').getBoundingClientRect().right <= left + 1,
+                     scroll: document.querySelector('main').getBoundingClientRect().right <= left + 1 }; }""")
+        check(dock["dock"] and dock["veil"] == "none" and dock["modal"] == "false" and dock["row"] and dock["scroll"],
+              "Mots: the word's sheet beside the list, not modal (the list stays usable, its scroll bar left of the sheet)", dock)
+        page.click("#wlist .wrow >> nth=2")
+        page.wait_for_function("(t) => sheetWord && sheetWord !== t", arg=first)
+        mark = page.evaluate(SHEET)
+        check(mark["marked"] == [mark["open"]] and mark["focus"] == "row",
+              "another word of the list: its sheet in the same place, its row marked instead, the focus still on it", mark)
+        shots("pc-02-mots")
+        # a click that leaves no focus on the row (Safari): the focus goes to the word's row, not into the sheet
+        page.evaluate("() => { document.activeElement.blur(); wordSheet(document.querySelectorAll('#wlist .wrow')[3].dataset.id); }")
+        page.wait_for_timeout(120)
+        mark = page.evaluate(SHEET)
+        check(mark["marked"] == [mark["open"]] and mark["focus"] == "row", "a sheet beside the list opened without focus: the focus on its row", mark)
+        page.set_viewport_size({"width": 1000, "height": 768})
+        page.wait_for_function("() => !document.querySelector('#sheet').classList.contains('dock')")
+        mark = page.evaluate(SHEET)
+        check(mark["shown"] and mark["modal"] == "true" and mark["marked"] == [] and mark["open"] is None and mark["focus"] == "sheet",
+              "the window made narrower: the sheet over a veil, its row no longer marked, the focus in the sheet", mark)
+        page.keyboard.press("Escape")
+        page.set_viewport_size({"width": 1366, "height": 768})
+        page.click("#btn-add")
+        page.wait_for_selector("#sheet:not([hidden]) #f-p")
+        form = page.evaluate("() => ({ dock: document.querySelector('#sheet').classList.contains('dock'), veil: getComputedStyle(document.querySelector('#sheet .veil')).display })")
+        check(not form["dock"] and form["veil"] != "none", "a form keeps its veil (a click on the list cannot lose it)", form)
+        page.keyboard.press("Escape")
+        open_word(1)
+        page.click(".tab[data-view='progress']")
+        prog = page.evaluate("""() => ({ sheet: document.querySelector('#sheet').hidden,
+            lefts: [...new Set([...document.querySelectorAll('#view-progress .section')].map(x => Math.round(x.getBoundingClientRect().left)))].length })""")
+        check(prog["sheet"] and prog["lefts"] >= 2, "another section closes the word's sheet; Progrès in columns", prog)
+        shots("pc-03-progres")
+        page.click(".tab[data-view='settings']")
+        check(page.evaluate("() => new Set([...document.querySelectorAll('#view-settings .sgroup')].map(x => Math.round(x.getBoundingClientRect().left))).size") >= 2,
+              "Réglages in columns")
+        shots("pc-04-reglages")
+        page.click(".tab[data-view='study']")
+        page.evaluate("() => showSteps(prism.root, BYID.get(study.cur))")
+        page.wait_for_selector("#sheet:not([hidden]) #sheet-traits")
+        side = page.evaluate("() => { const s = document.querySelector('#sheet'); return { dock: s.classList.contains('dock'), panel: s.querySelector('.panel').getBoundingClientRect().left, w: innerWidth }; }")
+        check(not side["dock"] and side["panel"] > side["w"] / 3, "elsewhere, a sheet opens on the right, over a veil", side)
+        page.keyboard.press("Escape")
+        page.click("#startface button[aria-checked='true']")
+        page.keyboard.press(" ")
+        check(page.evaluate("() => prism.turns !== prism.start"), "Space after a mouse click on « D’abord »: the card turns")
+        page.focus(".tab[data-view='words']")
+        page.keyboard.press("Enter")
+        check(page.evaluate("() => current") == "words", "Enter on another entry of the menu opens it (does not turn the card)")
+        page.click(".tab[data-view='study']")
+        for w, h in ((1000, 700), (900, 700), (1536, 700), (2560, 1440)):
+            page.set_viewport_size({"width": w, "height": h})
             page.wait_for_timeout(250)
-            land = page.evaluate("() => { const r = s => document.querySelector(s).getBoundingClientRect(); return { tabs: r('.tabs').top, main: r('#main').bottom }; }")
-            check(land["tabs"] >= land["main"] - 1, scheme + ": a large phone held sideways keeps the phone's layout", land)
-            page.set_viewport_size({"width": 390, "height": 844})
-            page.wait_for_timeout(300)
-            phone = page.evaluate("() => { const r = s => document.querySelector(s).getBoundingClientRect(); return { tabs: r('.tabs').top, main: r('#main').bottom, card: prism.w }; }")
-            check(phone["tabs"] >= phone["main"] - 1 and phone["card"] <= 380, scheme + ": the window made narrow: the phone's layout again", phone)
-            ctx.close()
+            page.evaluate("() => { redrawCurrent(); prism.layout(); }")
+            page.click("#turnbtn")
+            page.wait_for_timeout(650)
+            fitv = page.evaluate("""() => { const m = document.querySelector('#main'), st = document.querySelector('#stage').getBoundingClientRect(),
+                a = document.querySelector('#actions').getBoundingClientRect(), mr = m.getBoundingClientRect();
+                return { sx: m.scrollWidth - m.clientWidth, sy: m.scrollHeight - m.clientHeight, left: st.left >= mr.left, right: a.right <= mr.right + 1, card: [prism.w, prism.h] }; }""")
+            check(fitv["sx"] <= 0 and fitv["sy"] <= 0 and fitv["left"] and fitv["right"], "%d×%d: the card and the answers fit the window, no scroll bar" % (w, h), fitv)
+            if (w, h) == (2560, 1440):
+                check(fitv["card"][0] >= 900, "a large screen, a large card", fitv["card"])
+                shots("pc-05-grand-ecran")
+            answer(page, 1, key=True)
+        turns = page.evaluate("() => { showDone(); document.activeElement.blur(); return prism.turns; }")
+        page.keyboard.press(" ")
+        after = page.evaluate("() => ({ turns: prism.turns, grades: document.querySelector('#grades').hidden })")
+        check(after["turns"] == turns and after["grades"], "the end screen: Space turns no hidden card", after)
+        page.set_viewport_size({"width": 1000, "height": 700})
+        page.click(".tab[data-view='words']")
+        open_word(1)
+        check(page.evaluate("() => !document.querySelector('#sheet').classList.contains('dock')"), "1000 px: no room beside the list, the word's sheet over a veil")
+        page.keyboard.press("Escape")
+        page.set_viewport_size({"width": 932, "height": 430})
+        land = page.evaluate(BARS)
+        check(land["tabs"] >= land["main"] - 1, "a large phone held sideways keeps the phone's layout", land)
+        page.set_viewport_size({"width": 390, "height": 844})
+        page.wait_for_timeout(300)
+        phone = page.evaluate(BARS)
+        check(phone["tabs"] >= phone["main"] - 1 and phone["card"] <= 380, "the window made narrow: the phone's layout again", phone)
+        ctx.close()
         httpd.shutdown()
 
         browser.close()

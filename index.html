@@ -85,7 +85,7 @@ button{cursor:pointer}
 .keys{display:none;margin:14px 2px 0;font-size:13px;color:var(--faint);text-align:center}
 .keys kbd{font-family:var(--ui);font-size:12px;border:1px solid var(--rule);border-bottom-width:2px;border-radius:5px;padding:0 5px;
   background:var(--page);color:var(--pencil)}
-.counts{display:flex;gap:6px;margin-left:auto}
+.counts{display:flex;gap:6px}
 .newcard{appearance:none;flex:none;width:36px;height:36px;border-radius:50%;border:1.5px solid var(--rule);background:var(--page);
   color:var(--ink);font-size:22px;line-height:1;display:grid;place-items:center;padding:0}
 .count{display:flex;align-items:baseline;gap:5px;padding:4px 10px;border:1px solid var(--rule);border-radius:999px;
@@ -114,7 +114,9 @@ main{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch}
 @media (max-width:369px){ .seg .w{display:none} }
 
 /* ---------- prism ---------- */
-.stage{position:relative;width:100%;perspective:1150px;perspective-origin:50% 40%;touch-action:pan-y;
+/* the perspective grows with a card wider than a phone's (--pk = its width / CARD_W, set by Prism): otherwise its side faces,
+   nearer, spill out; the plain 1150px first for an engine without max() */
+.stage{position:relative;width:100%;perspective:1150px;perspective:max(1150px, calc(1150px * var(--pk, 1)));perspective-origin:50% 40%;touch-action:pan-y;
   user-select:none;-webkit-user-select:none;outline:none;transition:opacity .16s ease,transform .16s ease}
 .stage.swap{opacity:0;transform:translateX(-14px)}
 .stage::after{content:"";position:absolute;left:12%;right:12%;bottom:-14px;height:22px;border-radius:50%;
@@ -434,7 +436,10 @@ textarea.mono{white-space:pre;overflow-x:auto}
 
 /* ---------- computer screen (the installed app in its window, a tablet held sideways): 900 px and more ---------- */
 @media (min-width:900px) and (min-height:500px){
-  .app{display:grid;grid-template-columns:200px minmax(0,1fr);grid-template-rows:auto minmax(0,1fr)}
+  /* --nav: the menu; --side: a sheet; --dock: the room the word's sheet takes beside the list (.app.docked) */
+  .app{--nav:200px;--side:min(560px,46vw);--dock:0px;display:grid;grid-template-columns:var(--nav) minmax(0,1fr);grid-template-rows:auto minmax(0,1fr);
+    padding-right:var(--dock)}
+  .app.docked{--dock:var(--side)}   /* the content keeps the rest: main's scroll bar stays left of the sheet */
   .top{display:contents}
   .brand{grid-column:1;grid-row:1;padding:20px 22px 14px calc(22px + env(safe-area-inset-left,0px));font-size:30px;background:var(--page);border-right:1px solid var(--rule)}
   .top-r{grid-column:2;grid-row:1;padding:12px 32px 8px}
@@ -447,11 +452,11 @@ textarea.mono{white-space:pre;overflow-x:auto}
   .tab[aria-current="page"]::before{top:9px;bottom:9px;left:0;right:auto;width:3px;height:auto;border-radius:0 2px 2px 0}
   .view{max-width:1600px;padding:8px 32px 40px}
   #view-study{max-width:none}
-  .toast{bottom:calc(24px + env(safe-area-inset-bottom,0px));left:calc(50% + 100px)}   /* the middle of the content */
-  .updatebar{left:216px}
+  .toast{bottom:calc(24px + env(safe-area-inset-bottom,0px));left:calc((100% + var(--nav) - var(--dock)) / 2)}   /* the middle of the content */
+  .updatebar{left:calc(var(--nav) + 16px);right:calc(var(--dock) + 16px)}
   .ltabs{flex-wrap:wrap;row-gap:2px;overflow:visible}
   .wrow[aria-current]{background:var(--page);box-shadow:inset 3px 0 0 var(--grid)}
-  /* review: the card on the left, the example and the answers beside it */
+  /* review: the card on the left (its column caps it: 1116 px, a card of 1100), the example and the answers beside it */
   .startface{max-width:560px;margin-left:auto;margin-right:auto}
   .done,.loading,#free-note{max-width:680px;margin-left:auto;margin-right:auto}
   #free-note{text-align:center}
@@ -465,15 +470,11 @@ textarea.mono{white-space:pre;overflow-x:auto}
   .keys{grid-area:keys}
   /* the sheets open from the right; in Mots, the word's sheet stays beside the list */
   .sheet{flex-direction:row;justify-content:flex-end}
-  .panel{height:100%;max-height:none;width:min(560px,46vw);max-width:none;margin:0;border-radius:18px 0 0 18px;
+  .panel{height:100%;max-height:none;width:var(--side);max-width:none;margin:0;border-radius:18px 0 0 18px;
     padding:14px calc(24px + env(safe-area-inset-right,0px)) calc(22px + env(safe-area-inset-bottom,0px)) 24px;box-shadow:-8px 0 30px var(--shadow)}
-  .sheet.dock{left:auto;width:min(560px,46vw)}
+  .sheet.dock{left:auto;width:var(--side)}
   .sheet.dock .veil{display:none}
-  .sheet.dock .panel{width:100%;border-radius:0;box-shadow:none;border-left:1px solid var(--rule)}
-  .app.docked main{margin-right:min(560px,46vw)}      /* the list keeps its scroll bar, left of the sheet */
-  .app.docked .top-r{padding-right:calc(min(560px,46vw) + 32px)}
-  .app.docked .toast{left:calc((100% - min(560px,46vw) + 200px) / 2)}
-  .app.docked .updatebar{right:calc(min(560px,46vw) + 16px)}
+  .sheet.dock .panel{border-radius:0;box-shadow:none;border-left:1px solid var(--rule)}
   /* Progrès and Réglages in two columns */
   #view-progress,#view-settings{column-width:460px;column-gap:44px}   /* two columns, three on a large screen */
   #view-progress .section,#view-settings .sgroup{break-inside:avoid}
@@ -780,7 +781,7 @@ const SYLL = new Set(("chuang shuang zhuang biang chang cheng chong chuai chuan 
 const LEGACY = ["阿姨","啊","矮","爱好","安静","把","班","搬","办法","办公室","半","帮忙","包","饱","北方","被","鼻子","比较","比赛","笔记本","必须","变化","别人","冰箱","不但","而且","菜单","参加","草","层","差","超市","衬衫","成绩","城市","迟到","除了","船","春","词典","聪明","打扫","打算","带","担心","蛋糕","当然","地","灯","地方","地铁","地图","电梯","电子邮件","东","冬","动物","短","段","锻炼","多么","饿","耳朵","发","发烧","发现","方便","放","放心","分","附近","复习","干净","感冒","感兴趣","刚才","个子","根据","跟","更","公斤","公园","故事","刮风","关","关系","关心","关于","国家","过","过去","还是","害怕","黑板","后来","护照","花","画","坏","欢迎","还","环境","换","黄河","回答","会议","或者","几乎","机会","极","记得","季节","检查","简单","见面","健康","讲","教","角","脚","接","街道","节目","节日","结婚","结束","解决","借","经常","经过","经理","久","旧","句子","决定","可爱","渴","刻","客人","空调","口","哭","裤子","筷子","蓝","老","离开","礼物","历史","脸","练习","辆","聊天","了解","邻居","留学","楼","绿","马","马上","满意","帽子","米","面包","明白","拿","奶奶","南","难","难过","年级","年轻","鸟","努力","爬山","盘子","胖","皮鞋","啤酒","瓶子","其实","其他","奇怪","骑","起飞","起来","清楚","请假","秋","裙子","然后","热情","认为","认真","容易","如果","伞","上网","生气","声音","世界","试","瘦","叔叔","舒服","树","数学","刷牙","双","水平","司机","太阳","特别","疼","提高","体育","甜","条","同事","同意","头发","突然","图书馆","腿","完成","碗","万","忘记","为","为了","位","文化","西","习惯","洗手间","洗澡","夏","先","相信","香蕉","向","像","小心","校长","新闻","新鲜","信用卡","行李箱","熊猫","需要","选择","要求","爷爷","一般","一边","一定","一共","一会儿","一样","一直","以前","音乐","银行","饮料","应该","影响","用","游戏","有名","又","遇到","元","愿意","月亮","越","站","张","长","着急","照顾","照片","照相机","只","只有","才","中间","中文","终于","种","重要","周末","主要","注意","自己","自行车","总是","嘴","最后","最近","作业"];
 const IS_PWA = true;
 const XH = 0.5078;
-const BUILD = "21 octobre 2026 à 18 h 40";
+const BUILD = "21 octobre 2026 à 22 h 35";
 
 /* ---------- utilities ---------- */
 const $ = (s, r = document) => r.querySelector(s);
@@ -1626,6 +1627,17 @@ function senseItems(w) {
   return parts.map((s, i) => `<li>${parts.length > 1 ? `<span class="no">${CIRCLED[i] || "•"}</span>` : ""}<span>${zhWrap(mask(s))}</span></li>`).join("");
 }
 
+const CARD_W = 380;   // the card's width on a phone; a larger one (computer) scales its texts (fit) and its perspective (CSS .stage)
+// the first size from `start` down by `step` at which over() turns false, `floor` at the latest (what the loop
+// `while (over() && size > floor) size -= step` finds), by halving: a few layouts, even from the large sizes of a large card
+function shrink(start, floor, step, set, over) {
+  set(start);
+  if (!over()) return start;
+  let lo = 0, hi = Math.max(0, Math.ceil((start - floor) / step));   // in steps: lo is over, the answer is at most hi
+  while (hi - lo > 1) { const m = (lo + hi) >> 1; set(start - m * step); if (over()) lo = m; else hi = m; }
+  set(start - hi * step);
+  return start - hi * step;
+}
 class Prism {
   constructor(root, opts = {}) {
     this.root = root; this.opts = opts;
@@ -1655,17 +1667,14 @@ class Prism {
   get face() { return ((this.turns % 3) + 3) % 3; }
   layout() {
     const avail = this.root.clientWidth || 320;
-    const max = typeof this.opts.maxW === "function" ? this.opts.maxW() : this.opts.maxW;
-    const w = Math.round(Math.min(avail - 16, max || 380));
+    const room = this.opts.fill ? this.opts.fill() : 0;   // vertical space the view can give the card
+    const max = typeof this.opts.maxW === "function" ? this.opts.maxW(room) : this.opts.maxW;
+    const w = Math.round(Math.min(avail - 16, max || CARD_W));
     let h = Math.round(w * 0.86);
-    if (this.opts.fill) {
-      const room = this.opts.fill();                 // vertical space the view can give the card
-      if (room) h = Math.round(Math.min(w * 1.18, Math.max(w * 0.74, room)));
-    }
+    if (room) h = Math.round(Math.min(w * 1.18, Math.max(w * 0.74, room)));
     this.w = w; this.h = h; this.a = w / (2 * Math.sqrt(3));
     this.root.style.height = h + "px";
-    // the perspective grows with a large card (computer): otherwise its side faces, nearer, spill out of the view
-    this.root.style.perspective = w > 380 ? Math.round(1150 * w / 380) + "px" : "";
+    this.root.style.setProperty("--pk", (w / CARD_W).toFixed(3));   // the stage's perspective follows the card (CSS .stage)
     this.el.style.setProperty("--pw", w + "px");
     this.el.style.setProperty("--ph", h + "px");
     this.faces.forEach((f, i) => { f.style.transform = `rotateY(${i * 120}deg) translateZ(${this.a.toFixed(2)}px)`; });
@@ -1725,16 +1734,14 @@ class Prism {
   }
   fit() {
     const w = this.word; if (!w) return;
-    const k = Math.max(1, Math.min(this.w / 380, this.h / 330, 2.6));   // a larger card (computer): larger characters
+    const k = Math.max(1, Math.min(this.w / CARD_W, this.h / 330, 2.6));   // a larger card (computer): larger characters
     this.root.style.setProperty("--ks", Math.min(k, 1.5).toFixed(2));   // and larger buttons on it
     // 形: one copybook cell per character
     const n = Math.max(1, [...w.h].length);
     const fex = $(".form-ex", this.faces[0]);
     let exH = 0;
     if (fex) {
-      let fs = Math.round(19 * k);
-      fex.style.setProperty("--fxs", fs + "px");
-      while (fex.scrollWidth > this.w - 34 && fs > 13) { fs -= 1; fex.style.setProperty("--fxs", fs + "px"); }
+      shrink(Math.round(19 * k), 13, 1, v => fex.style.setProperty("--fxs", v + "px"), () => fex.scrollWidth > this.w - 34);
       exH = fex.offsetHeight + 14;
     }
     const tf = $(".speaks", this.faces[0]), tfH = tf ? tf.offsetHeight + 10 : 0;   // the Traits button
@@ -1744,17 +1751,13 @@ class Prism {
     // 音: pinyin sized to the width (and to the height left by the sentence), staff lines drawn on its metrics
     const py = $(".py", this.faces[1]), sx = $(".sound-ex", this.faces[1]), body1 = $(".face-body", this.faces[1]);
     if (sx) {
-      let xs = Math.round(16 * k);
       sx.classList.remove("wrap");
-      sx.style.setProperty("--sxs", xs + "px");
-      while (sx.scrollWidth > this.w - 34 && xs > 15) { xs -= 1; sx.style.setProperty("--sxs", xs + "px"); }
+      shrink(Math.round(16 * k), 15, 1, v => sx.style.setProperty("--sxs", v + "px"), () => sx.scrollWidth > this.w - 34);
       if (sx.scrollWidth > this.w - 34) sx.classList.add("wrap");
     }
-    let fs = Math.round(46 * k);
-    py.style.fontSize = fs + "px";
     const room = this.w - 44;
     const tall = () => body1.clientHeight > 0 && [...body1.children].reduce((a, el) => a + outer(el), 0) > body1.clientHeight;
-    while ((py.scrollWidth > room || tall()) && fs > 18) { fs -= 2; py.style.fontSize = fs + "px"; }
+    const fs = shrink(Math.round(46 * k), 18, 2, v => { py.style.fontSize = v + "px"; }, () => py.scrollWidth > room || tall());
     if (sx) for (let xs = 14; tall() && xs >= 13; xs--) sx.style.setProperty("--sxs", xs + "px");
     const probe = document.createElement("span");
     probe.style.cssText = "display:inline-block;width:0;height:0;vertical-align:baseline";
@@ -1770,9 +1773,7 @@ class Prism {
     const wasHidden = note ? note.hidden : false;
     if (note) note.hidden = false;
     const need = () => ol.offsetHeight + (note ? note.offsetHeight + 11 : 0);
-    let s = Math.round(19 * k);
-    ol.style.setProperty("--fs", s + "px");
-    while (need() > body.clientHeight && s > 13) { s -= 1; ol.style.setProperty("--fs", s + "px"); }
+    shrink(Math.round(19 * k), 13, 1, v => ol.style.setProperty("--fs", v + "px"), () => need() > body.clientHeight);
     if (note) note.hidden = wasHidden;
   }
 }
@@ -2352,7 +2353,7 @@ function testSheet() {
 let prism = null;
 let current = "study";
 function showView(v) {
-  if (!$("#sheet").hidden && $("#sheet").classList.contains("dock")) closeSheet();   // the word's sheet beside the list
+  if (sheetWord) closeSheet();                     // the word's sheet beside the list
   current = v;
   $$(".tab").forEach(t => { if (t.dataset.view === v) t.setAttribute("aria-current", "page"); else t.removeAttribute("aria-current"); });
   for (const name of ["study", "words", "progress", "settings"]) $("#view-" + name).hidden = name !== v;
@@ -2660,6 +2661,7 @@ function renderSettings() {
 }
 
 /* ---------- sheet ---------- */
+// beside: the word whose sheet this is, kept beside the list where the window has the room (Mots on a computer)
 function openSheet(title, html, onOpen, plain, beside) {
   const h = $("#sheet-title");
   h.textContent = title;
@@ -2668,24 +2670,32 @@ function openSheet(title, html, onOpen, plain, beside) {
   const old = $("#sheet-body"), nb = old.cloneNode(false);
   old.replaceWith(nb);
   nb.innerHTML = html;
-  // the word's sheet, in Mots on a computer: beside the list, which stays usable (no veil, not modal); forms keep the veil
-  const dock = !!beside && DOCK.matches && current === "words";
-  $("#sheet").classList.toggle("dock", dock); $("#app").classList.toggle("docked", dock);
-  $(".panel", $("#sheet")).setAttribute("aria-modal", String(!dock));
+  setDock(beside && DOCK.matches && current === "words" ? beside : null);   // forms keep the veil
   $("#sheet").hidden = false;
   if (onOpen) onOpen($("#sheet-body"));
   setTimeout(() => {                                  // never steal the focus from a field already tapped
     if ($("#sheet").contains(document.activeElement)) return;
-    if (dock && $("#wlist").contains(document.activeElement)) return;   // going down the list, word after word
+    if (sheetWord) {                                  // beside the list: the focus stays in it, going down it word after word
+      const row = $("#wlist .wrow[aria-current]");   // (a click leaves no focus on a button in Safari: on the word's row)
+      if (row && !$("#wlist").contains(document.activeElement)) row.focus({ preventScroll: true });
+      return;
+    }
     const f = $("#sheet-body [autofocus]") || $(".close", $("#sheet")); if (f) f.focus();
   }, 30);
 }
-function closeSheet() {
-  $("#sheet").hidden = true; $("#sheet-body").innerHTML = ""; sheetPrism = null; $("#app").classList.remove("docked");
-  sheetWord = null; $$("#wlist .wrow[aria-current]").forEach(r => r.removeAttribute("aria-current"));
-}
+function closeSheet() { $("#sheet").hidden = true; $("#sheet-body").innerHTML = ""; sheetPrism = null; setDock(null); }
 let sheetWord = null;                              // the word whose sheet is open beside the list (its row is marked)
 let sheetPrism = null;
+// the word's sheet beside the list, which stays usable (no veil, not modal), or (null) a sheet over a veil
+function setDock(id) {
+  if (id !== sheetWord) {
+    const was = sheetWord && $("#wlist .wrow[aria-current]"); if (was) was.removeAttribute("aria-current");
+    const row = id && $(`#wlist .wrow[data-id="${CSS.escape(id)}"]`); if (row) row.setAttribute("aria-current", "true");
+    sheetWord = id;
+  }
+  $("#sheet").classList.toggle("dock", !!id); $("#app").classList.toggle("docked", !!id);
+  $(".panel", $("#sheet")).setAttribute("aria-modal", String(!id));
+}
 
 /* ---------- stroke order: traits/NN.json, from Make Me a Hanzi (Arphic Public License, traits/ARPHICPL.TXT) ---------- */
 // A character is in packet code % 32: { "爱": [[outlines of the strokes, SVG], [medians: [[x, y], …], …]] }, box of 1024
@@ -2833,8 +2843,6 @@ function wordSheet(id) {
     </div>
     <div id="word-confirm"></div>
     <div id="sheet-traits"></div>`, body => {
-      sheetWord = $("#sheet").classList.contains("dock") ? id : null;
-      $$("#wlist .wrow").forEach(r => { if (r.dataset.id === sheetWord) r.setAttribute("aria-current", "true"); else r.removeAttribute("aria-current"); });
       sheetPrism = new Prism($("#sheet-stage", body), { maxW: () => (WIDE.matches ? 440 : 340) });
       renderTraits($("#sheet-traits", body), w.h);
       body.addEventListener("click", e => { const b = e.target.closest("[data-trace]"); if (b) traceTraits(b.closest(".trait")); });
@@ -2867,7 +2875,7 @@ function wordSheet(id) {
         sw.setAttribute("aria-checked", String(inList(sw.dataset.inl, id)));
         toast(on ? `« ${w.h} » ajouté à ${L.nom}` : `« ${w.h} » retiré de ${L.nom}`);
       });
-    }, false, true);
+    }, false, id);
 }
 
 function formHTML(w) {
@@ -4054,12 +4062,12 @@ function studyRoom() {
   const main = $("#main"), view = $("#view-study");
   if (!main || view.hidden || $("#study-card").hidden) return 0;
   const cs = getComputedStyle(view);
-  if (WIDE.matches) return main.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom) - outer($(".startface")) -
-    ($("#free-note").hidden ? 0 : outer($("#free-note"))) - 24;
+  const room = main.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom) - outer($(".startface")) -
+    ($("#free-note").hidden ? 0 : outer($("#free-note")));
+  if (WIDE.matches) return room - 24;
   const slot = $("#example");
   const slotH = parseFloat(getComputedStyle(slot).minHeight) + parseFloat(getComputedStyle(slot).marginBottom);
-  return main.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom) - outer($(".startface")) -
-    outer($(".status")) - slotH - Math.max(76, $("#actions").offsetHeight) - ($("#free-note").hidden ? 0 : outer($("#free-note"))) - 2;
+  return room - outer($(".status")) - slotH - Math.max(76, $("#actions").offsetHeight) - 2;
 }
 function renderStartFace() {
   const lock = study.mode === "sens" && !!study.cur, f = String(lock ? study.curFace : state.settings.startFace);
@@ -4079,7 +4087,7 @@ function redrawCurrent() {
 function init() {
   tts.init();
   // a larger card on a computer screen (the installed app in its window)
-  prism = new Prism($("#stage"), { maxW: () => (WIDE.matches ? Math.round(Math.min(1100, studyRoom() / 0.9)) : 380), fill: studyRoom, onTurn: p => {
+  prism = new Prism($("#stage"), { maxW: room => (WIDE.matches ? room / 0.9 : CARD_W), fill: studyRoom, onTurn: p => {
     renderCardStatus();
     const turned = p.seen.size >= 2;
     setActions(turned);
@@ -4272,19 +4280,22 @@ function init() {
   $("#sheet").addEventListener("click", e => { if (e.target.closest("[data-close]")) closeSheet(); });
   document.addEventListener("keydown", e => {
     if (e.key === "Escape" && !$("#sheet").hidden) { closeSheet(); return; }
-    if (current !== "study" || !$("#sheet").hidden || /INPUT|TEXTAREA|SELECT/.test((e.target && e.target.tagName) || "")) return;
+    // no card on screen (end screen, loading): nothing to turn or to hear
+    if (current !== "study" || !$("#sheet").hidden || $("#study-card").hidden || /INPUT|TEXTAREA|SELECT/.test((e.target && e.target.tagName) || "")) return;
     if (!$("#grades").hidden && ["1", "2"].includes(e.key)) study.grade(+e.key - 1);
     else if ((e.key === " " || e.key === "Enter") && (e.target === document.body || e.target.closest('.tab[aria-current="page"]'))) { e.preventDefault(); prism.turn(1); }
     else if (e.key.toLowerCase() === "a" && study.cur) { const w = BYID.get(study.cur); tts.say(w.s || w.h); }
     else if (e.key.toLowerCase() === "e" && study.cur && prism.seen.size >= 2) { const w = BYID.get(study.cur); if (w.e) tts.say(w.e); }
   });
 
-  DOCK.addEventListener("change", () => {
-    if (DOCK.matches || !$("#sheet").classList.contains("dock")) return;
-    $("#sheet").classList.remove("dock"); $("#app").classList.remove("docked"); $(".panel", $("#sheet")).setAttribute("aria-modal", "true");
+  DOCK.addEventListener("change", () => {           // no more room: the sheet over a veil, modal, so the focus goes in it
+    if (DOCK.matches || !sheetWord) return;
+    setDock(null);
+    if (!$("#sheet").contains(document.activeElement)) $(".close", $("#sheet")).focus();
   });
-  // a click with the mouse leaves no focus on the card's buttons: Space turns the card again (the keyboard keeps its focus)
-  $("#study-card").addEventListener("click", e => { const b = e.target.closest("button"); if (b && e.detail) b.blur(); });
+  // a click with the mouse leaves no focus on the buttons of the review: Space turns the card again (the keyboard keeps its
+  // focus); caught before the buttons' own handlers, some of which stop the click
+  $("#view-study").addEventListener("click", e => { const b = e.target.closest("button"); if (b && e.detail) b.blur(); }, true);
   let rt = 0;
   window.addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(() => { prism.layout(); fitSlip($("#example")); if (sheetPrism) sheetPrism.layout(); }, 120); });
   window.addEventListener("online", () => syncSoon(500));
