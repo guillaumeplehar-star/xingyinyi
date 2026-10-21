@@ -239,6 +239,20 @@ l'iPhone : Réglages › Appli › Vérifier. Le téléphone peut lui aussi écr
   (形音义 allumés selon `kn`, aussi sous la carte et dans `#kn-counts` de Progrès), `knText` (fiche du mot).
   Progrès : sections Apprentissage (`#learn-go`, `#learn-info`) et Sens connus (`#kn-counts`, `#sens-go`,
   `#sens-info`) ; écran de fin : `#learn-start`.
+- **Écran d'ordinateur** (900 px de large et 500 de haut au moins : `WIDE = matchMedia(...)`, bloc CSS « computer screen » à
+  la fin du `<style>` ; en dessous, et pour un téléphone couché, rien ne change) : `.app` en grille, `.top` en `display:
+  contents` (`.brand` en haut du menu, `.top-r` compteurs et ＋), `.tabs` en menu à gauche (placé avant `<main>` dans la
+  page pour l'ordre de tabulation, `order: 1` le garde en bas sur téléphone) ; révision : `#study-card` en grille (carte à
+  gauche, `.status`, `#example`, `#actions` et `.keys` à droite), `studyRoom` ne retire que `.startface`, carte jusqu'à
+  1100 px de large et de la hauteur de la fenêtre (`maxW` fonction), `fit()` agrandit cellules, textes et boutons (`--ks`)
+  avec `k` (1 sur téléphone), `layout()` agrandit la perspective avec la carte (sinon ses faces de côté débordent) ;
+  feuilles ouvertes à droite (`.panel`) ; la fiche du mot (`openSheet(…, beside)`, seule `wordSheet` le demande) se
+  range à côté de la liste dans Mots si la fenêtre fait 1200 px (`DOCK`) : `.sheet.dock`, `.app.docked` (marge de `main`,
+  sa barre de défilement reste visible), sans voile ni `aria-modal`, ligne du mot marquée (`sheetWord`, `aria-current`) ;
+  `showView` la ferme, `DOCK` qui ne tient plus la remet sous un voile. Progrès et Réglages en colonnes de 460 px
+  (`column-width` ; groupes de Réglages en `<section class="sgroup">`), Mots en colonnes à partir de 1500 px. Un clic de
+  souris sur un bouton de la carte lui retire le focus (Espace tourne de nouveau la carte) ; Espace ou Entrée sur l'entrée
+  courante du menu tourne la carte, sur une autre l'ouvre.
 - **Ordre des traits** (fiche du mot, `#sheet-traits`) : `renderTraits(el, mot)` (chaque caractère CJK une fois),
   `strokesOf(ch)` / `traitPack(n)` (mémoire, puis cache `traits-xingyinyi`, puis réseau), `traitHTML` (grande case avec
   la ligne médiane de chaque trait découpée par son contour, `.ta` ; une case par étape, `use.t-done`/`t-new`/`t-todo`),
@@ -261,7 +275,7 @@ l'iPhone : Réglages › Appli › Vérifier. Le téléphone peut lui aussi écr
   listes de decks/ plus récentes, `listsAt`) : `mergeTel` ne retire pas les ids inconnus ni les `listEdits`, `dropSameEdits` et
   `syncDeckSettings` attendent, et l'appli relit ses listes. `SYNC_URL` : adresse du serveur, https://xingyinyi-sync.guillaume-plehar.workers.dev
   (vide : champ dans Réglages ; `test_sync.py` la remplace par le serveur local dans ses copies du site). Ordinateur : `beforeinstallprompt` → `#install-row` « Installer sur cet ordinateur » ; carte plus grande
-  (`maxW` de `Prism` peut être une fonction : 440 px si la fenêtre fait 900 × 760 au moins). Revue : `codeKey` (seuls lettres
+  (`maxW` de `Prism` peut être une fonction). Revue : `codeKey` (seuls lettres
   et chiffres du code comptent ; un code tapé inconnu du serveur demande « Créer ce code », sauf celui de `syncMade`),
   `renameDoc` (les renommages `moved` appliqués à la base et aux deux côtés avant la fusion), `still()` (« Arrêter » ou un
   autre code pendant l'échange : rien n'est réécrit), `reloadState` (une autre fenêtre a enregistré : écouteur `storage`,
@@ -311,7 +325,7 @@ l'iPhone : Réglages › Appli › Vérifier. Le téléphone peut lui aussi écr
 
 ## Vérifier un changement
 
-1. `py tests\test_seance.py`, `py tests\test_seaux.py`, `py tests\test_listes.py`, `py tests\test_dico.py` et, si la
+1. `py tests\test_seance.py` (dont l'écran d'ordinateur, 1366 × 768), `py tests\test_seaux.py`, `py tests\test_listes.py`, `py tests\test_dico.py` et, si la
    synchronisation change, `py tests\test_sync.py` et `node tests\test_serveur_sync.mjs` ; ajoute un test
    pour toute nouvelle fonction. Tout changement du planning (seaux, file, évaluation, migration)
    passe par `tests/test_seaux.py`.

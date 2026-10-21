@@ -428,7 +428,7 @@ def main():
             B.wait_for_timeout(100)
             check(B.evaluate("() => window.__prompted") == 1 and B.is_hidden("#install-row"), "Installer: the browser's own dialog, then the button goes")
             card_w = B.evaluate("() => { showView('study'); prism.layout(); return prism.w; }")
-            check(card_w == 440, "a larger card on a computer screen", card_w)
+            check(card_w >= 540, "a larger card on a computer screen", card_w)
             A.emulate_media(color_scheme="dark")
             A.evaluate("() => { showView('settings'); document.querySelector('#sync-box').scrollIntoView(); }")
             shot(A, "sync-06-sombre")

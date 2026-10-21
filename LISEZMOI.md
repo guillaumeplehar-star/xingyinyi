@@ -485,8 +485,11 @@ avant le passage aux seaux se restaure aussi, mais tous ses mots repartent du se
 Ouvre l’adresse de l’appli (`https://TON-IDENTIFIANT.github.io/xingyinyi/`) dans **Edge** ou
 **Chrome**, puis Réglages › Appli › **Installer sur cet ordinateur** (ou l’icône « Installer » au bout
 de la barre d’adresse). L’appli s’ouvre alors dans sa propre fenêtre, depuis le menu Démarrer,
-marche hors ligne et se met à jour comme sur l’iPhone. Au clavier : **Espace** tourne la carte,
-**1** et **2** notent × et √, **A** lit le mot, **E** la phrase.
+marche hors ligne et se met à jour comme sur l’iPhone. Sur un écran large, les sections passent dans
+un menu à gauche ; en révision, la carte s’agrandit et l’exemple et les réponses se rangent à côté ;
+dans Mots, la fiche d’un mot s’ouvre à côté de la liste, qui reste utilisable ; Progrès et Réglages
+tiennent sur deux colonnes. Une fenêtre étroite reprend la mise en page du téléphone. Au clavier :
+**Espace** tourne la carte, **1** et **2** notent × et √, **A** lit le mot, **E** la phrase.
 
 ### 7.3 Synchroniser l’iPhone et l’ordinateur
 
