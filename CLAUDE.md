@@ -23,7 +23,8 @@ compilation : `index.html` contient tout le HTML, le CSS et le JavaScript. C'est
 | `outils/pinyin_auto.py`, `lexique_*.tsv`, `syllabes.txt`, `caracteres_hsk1-3.txt` | Pinyin automatique aux conventions des manuels ; liste des caractères HSK 1-3. |
 | `outils/version_appli.py` | À lancer après toute modification de l'appli (voir plus bas). |
 | `traits/`, `outils/traits.py` | Ordre des traits : `00.json`…`31.json` (caractère rangé par code % 32 → contours SVG des traits et lignes médianes, repère 1024 × 1024, y vers le haut, base à 900), `index.json` (version `v`), `ARPHICPL.TXT` (licence Arphic Public License, à garder telle quelle). Produits par `py outils\traits.py <graphics.txt>` depuis Make Me a Hanzi (github.com/skishore/makemeahanzi, fichier non gardé dans le dépôt) pour les caractères de `COVER`. |
-| `tests/` | Tests Playwright (`test_seance.py`, `test_seaux.py`, `test_listes.py`, `test_dico.py`, aides communes dans `commun.py`) ; `tests/donnees/decks` est une copie figée des listes d'origine, avec les anciens champs `mode`/`parJour` (ne pas la synchroniser avec `decks/` ni la modifier). |
+| `outils/sync/` | Serveur de synchronisation des appareils : `worker.mjs` (Cloudflare Worker + base D1 liée sous le nom `DB`, un document versionné par code, 409 sur une version dépassée, une copie par jour, 30 au plus), `serveur_local.mjs` (le même avec `node:sqlite`, pour les tests et pour essayer), `LISEZMOI.md` (adresses ; mise en place : `LISEZMOI.md` principal, section 7.4). |
+| `tests/` | Tests Playwright (`test_seance.py`, `test_seaux.py`, `test_listes.py`, `test_dico.py`, `test_sync.py` deux appareils et le serveur local, aides communes dans `commun.py`) et `test_serveur_sync.mjs` (le serveur seul, Node) ; `tests/donnees/decks` est une copie figée des listes d'origine, avec les anciens champs `mode`/`parJour` (ne pas la synchroniser avec `decks/` ni la modifier). |
 | `LISEZMOI.md` | Guide de l'utilisateur, en français. À tenir à jour quand une fonction visible change. |
 
 ## Commandes (PowerShell : une commande par ligne, pas de `&&`)
@@ -34,6 +35,9 @@ py tests\test_seance.py                # séance complète, clair et sombre, hor
 py tests\test_seaux.py                 # seaux, file, réglages des délais, évaluation, migration du planning
 py tests\test_listes.py                # listes du téléphone, publication GitHub simulée (environ 1 min)
 py tests\test_dico.py                  # dictionnaire : renvois, mot de plusieurs listes, Afficher, partage, publication
+py tests\test_sync.py                  # deux appareils synchronisés par le serveur local (demande Node 22.13 ou plus)
+node tests\test_serveur_sync.mjs       # le serveur de synchronisation seul
+node outils\sync\serveur_local.mjs     # le serveur de synchronisation sur http://localhost:8787
 py outils\decks.py verifier            # contrôle de decks/
 py outils\version_appli.py             # après une modification de index.html, sw.js, des icônes ou des polices
 py outils\traits.py <graphics.txt>     # refaire traits/ (ordre des traits), ARPHICPL.TXT à côté de graphics.txt
@@ -70,9 +74,12 @@ l'iPhone : Réglages › Appli › Vérifier. Le téléphone peut lui aussi écr
   jamais dans les sauvegardes), `xingyinyi.publie` (garde contre les fichiers d'avant une publication : Pages pas encore à jour, copie
   du service worker hors ligne ; voir Publication),
   cache `traits-xingyinyi` (paquets de `traits/`, gardés hors ligne ; sw.js laisse passer `traits/` sans y toucher) et
-  `xingyinyi.traits` (version des paquets gardés), `xingyinyi.avant-seaux` (`KEY_OLD` : copie brute de l'état d'avant les seaux, écrite une seule fois par
+  `xingyinyi.traits` (version des paquets gardés), `xingyinyi.sync` (synchronisation : `{url, code, key = SHA-256 de
+  "xingyinyi:" + code, at dernière réussite, err dernier échec, listsAt}`, jamais dans les sauvegardes) et `xingyinyi.sync-base`
+  (`{v, doc}` : le dernier document échangé avec le serveur, base de la fusion), `xingyinyi.sync-pending` (empreintes
+  `docHash` des derniers envois : un envoi reçu par le serveur dont la réponse s'est perdue devient la base, `ours`), `xingyinyi.avant-seaux` (`KEY_OLD` : copie brute de l'état d'avant les seaux, écrite une seule fois par
   `loadState` lors de la migration, lue par aucun code ; à garder pour pouvoir récupérer l'ancienne progression).
-- **État** : `{v:2, sched:1, settings, cards, edits, custom, lists, tel, listEdits, sent, decks, log, test, learn}`. `custom` :
+- **État** : `{v:2, sched:1, settings, cards, edits, custom, lists, tel, listEdits, sent, decks, log, moved, test, learn}`. `custom` :
   mots créés sur le téléphone (définitions, ids `u-…` ; `c` copié pour l'ordinateur, `m` corrigé, en ms) ; `lists` :
   listes du téléphone `{id, nom, ids}` ; `tel` : ids de « Ajoutés ici » ; `listEdits[id] = {add, del}` : mots ajoutés à
   une liste de decks/ non figée ou retirés, en attente de publication ; `sent[id]` : ids qu'une liste du téléphone a
@@ -144,7 +151,7 @@ l'iPhone : Réglages › Appli › Vérifier. Le téléphone peut lui aussi écr
   Perso pour « Ajoutés ici », même nom sinon, liste où il a été ajouté, fichier dictionnaire, puis dans une liste figée ;
   sinon la seule ligne de ces caractères d'un tel fichier au même premier sens, si aucun autre mot n'a sa lecture (pinyin
   corrigé sur l'ordinateur). Corrigé ici après la copie (`m` > `c`), ses champs différents restent en corrections.
-  `moveWord` déplace la carte (la plus révisée gagne) et renomme l'id dans les listes, `listEdits`, `sent` et la séance
+  `moveWord` déplace la carte (la plus avancée gagne, `cardAhead` ; noté dans `state.moved`, ancien id → nouvel id) et renomme l'id dans les listes, `listEdits`, `sent` et la séance
   (`renameInStudy`) ; quand tous les fichiers sont là (`listsWhole`), les ids disparus quittent les listes du téléphone
   et `listEdits.add` ; puis les listes du téléphone perdent les mots envoyés (`sent`) désormais dans leur jumelle, et
   `listEdits` ce que le fichier contient déjà),
@@ -237,6 +244,31 @@ l'iPhone : Réglages › Appli › Vérifier. Le téléphone peut lui aussi écr
   la ligne médiane de chaque trait découpée par son contour, `.ta` ; une case par étape, `use.t-done`/`t-new`/`t-todo`),
   `traceTraits` (« Animer » : `strokeDashoffset` trait après trait, rien si mouvement réduit), `prefetchTraits` (5 s
   après le démarrage, en ligne : les 32 paquets, de nouveau quand `index.json` change de version).
+- **Synchronisation des appareils** (Réglages › `#sync-box`, `renderSync`, `renderSyncStatus`, `syncJoin`, `copiesSheet`) :
+  `docOf(state)` donne le document partagé (pris comme après un rechargement, `normalizeState` : ce qu'il complète n'est pas
+  un changement ; tout sauf `DEVICE_SETTINGS` = `autoAudio`, `rate`, et sauf `test`, `learn`, le jeton GitHub ; `custom`, `lists`
+  en maps par id ; `listsAt`), `stateFromDoc` l'inverse, `applyDoc` l'applique (`recomputeDue` si les délais changent, `mergeTel`,
+  `afterDeckChange`). `mergeDocs(base, ici, serveur)` : `mergeMap` (une clé changée d'un seul côté prend ce côté, même plus
+  bas, suppression comprise ; changée des deux côtés : la règle de la collection, même à valeur égale), `mergeCard` (la
+  progression la plus avancée, `cardAhead` : seau, puis `d`, `t`, `r` ; `r` et `l` additionnés depuis la base ; remise à zéro
+  d'un côté et révision de l'autre : la carte reste), `mergeDay` (historique additionné), `mergeSet` (ids des listes : ajout
+  ou retrait d'un côté), réglages : ceux de l'appareil qui fusionne ; sans base (premier code sur un appareil) : maximum,
+  union, réglages du côté le plus avancé. `syncNow` : sans changement ici, `GET ?have=v` ; sinon `PUT {v de la base}` ; un 409
+  apporte le document du serveur, fusion, nouvel envoi ; les changements faits pendant l'échange restent (`mergeDocs(local, now,
+  …)`) ; `checkDoc` refuse un document d'une version plus récente (`SYNC_FMT`, `SCHED`). `syncSoon(ms, dirty)` (jamais plus
+  tard qu'une synchronisation déjà prévue) : `save()` (20 s), démarrage (`useLists` « first »), retour au premier plan,
+  réseau retrouvé ; mise en arrière-plan : tout de suite si un changement attend. `listsBehind()` (un autre appareil a des
+  listes de decks/ plus récentes, `listsAt`) : `mergeTel` ne retire pas les ids inconnus ni les `listEdits`, `dropSameEdits` et
+  `syncDeckSettings` attendent, et l'appli relit ses listes. `SYNC_URL` : adresse du serveur, https://xingyinyi-sync.guillaume-plehar.workers.dev
+  (vide : champ dans Réglages ; `test_sync.py` la remplace par le serveur local dans ses copies du site). Ordinateur : `beforeinstallprompt` → `#install-row` « Installer sur cet ordinateur » ; carte plus grande
+  (`maxW` de `Prism` peut être une fonction : 440 px si la fenêtre fait 900 × 760 au moins). Revue : `codeKey` (seuls lettres
+  et chiffres du code comptent ; un code tapé inconnu du serveur demande « Créer ce code », sauf celui de `syncMade`),
+  `renameDoc` (les renommages `moved` appliqués à la base et aux deux côtés avant la fusion), `still()` (« Arrêter » ou un
+  autre code pendant l'échange : rien n'est réécrit), `reloadState` (une autre fenêtre a enregistré : écouteur `storage`,
+  `lastSaved`, et au début de `syncNow`), `listsSig`/`listsH` (empreinte du contenu des listes : `listsBehind` exige un
+  contenu différent et plus récent ; `noteLists` avant `applyDoc`), `tel` fusionné en trois voies (ordre stable), `test` et
+  `learn` gardés tels quels par `stateFromDoc`, manifeste `launch_handler` focus-existing. Serveur : versions = heure en ms
+  (jamais réutilisées), `MAX_CODES` (5 par défaut, 403 au-delà), documents de 1 Mo au plus.
 - **Publication** : `publishGitHub` (API Git Data, un seul commit : trees, commits, refs ; jeton à
   accès fin, permission Contents en lecture et écriture ; nouvelles entrées de decks.json sans
   `mode`) : listes du téléphone dans leur jumelle (lignes complètes pour les mots du téléphone, renvois pour les
@@ -279,7 +311,8 @@ l'iPhone : Réglages › Appli › Vérifier. Le téléphone peut lui aussi écr
 
 ## Vérifier un changement
 
-1. `py tests\test_seance.py`, `py tests\test_seaux.py` et `py tests\test_listes.py` ; ajoute un test
+1. `py tests\test_seance.py`, `py tests\test_seaux.py`, `py tests\test_listes.py`, `py tests\test_dico.py` et, si la
+   synchronisation change, `py tests\test_sync.py` et `node tests\test_serveur_sync.mjs` ; ajoute un test
    pour toute nouvelle fonction. Tout changement du planning (seaux, file, évaluation, migration)
    passe par `tests/test_seaux.py`.
 2. Regarde le résultat : captures dans `tests/sortie/captures`, ou `py -m http.server 8000` avec les

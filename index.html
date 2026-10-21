@@ -399,7 +399,8 @@ input[type=range]{width:120px;accent-color:var(--accent)}
 .field textarea{min-height:84px;resize:vertical}
 .field .hint{font-size:12px;color:var(--pencil)}
 .field .hint.warn{color:var(--pen)}
-.field .err{font-size:13px;color:var(--pen)}
+.field .err,.field.err,.explain.err{font-size:13px;color:var(--pen)}
+.ghbox .code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:15px;letter-spacing:.02em;overflow-wrap:anywhere}
 .more{margin:4px 0 12px;border-top:1px solid var(--rule);padding-top:10px}
 .more summary{font-size:14px;font-weight:700;cursor:pointer;margin-bottom:10px}
 .preview-py{font-size:18px;min-height:26px}
@@ -463,16 +464,16 @@ textarea.mono{white-space:pre;overflow-x:auto}
         </div>
         <div class="exslot" id="example"></div>
         <div class="actions" id="actions">
-          <button type="button" class="turnbtn" id="turnbtn">
+          <button type="button" class="turnbtn" id="turnbtn" title="Espace" aria-keyshortcuts="Space">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 0 1 13.7-5.6M20 12a8 8 0 0 1-13.7 5.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M18 3v4h-4M6 21v-4h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
             Tourner la carte
           </button>
           <div class="grades" id="grades" hidden>
-            <button type="button" class="grade" data-g="0" aria-describedby="gi0">
+            <button type="button" class="grade" data-g="0" aria-describedby="gi0" title="Touche 1" aria-keyshortcuts="1">
               <svg class="mk" viewBox="0 0 64 64" aria-hidden="true"><path d="M17 17c10 9 19 19 30 30M47 16c-9 10-18 20-30 31" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/></svg>
               <span class="gl">Raté</span><span class="gi" id="gi0">seau 0</span>
             </button>
-            <button type="button" class="grade" data-g="1" aria-describedby="gi1">
+            <button type="button" class="grade" data-g="1" aria-describedby="gi1" title="Touche 2" aria-keyshortcuts="2">
               <svg class="mk" viewBox="0 0 64 64" aria-hidden="true"><path d="M12 34c6 4 10 9 14 15 8-15 16-27 27-38" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>
               <span class="gl">Réussi</span><span class="gi" id="gi1">seau 1</span>
             </button>
@@ -643,6 +644,13 @@ textarea.mono{white-space:pre;overflow-x:auto}
         <div class="t"><b>Mettre à jour l’appli</b><small id="app-version"></small></div>
         <button type="button" class="btn small" id="app-update">Vérifier</button>
       </div>
+      <div class="set" id="install-row" hidden>
+        <div class="t"><b>Installer sur cet ordinateur</b><small>Une fenêtre à part et une icône dans le menu Démarrer ; l’appli marche aussi hors ligne.</small></div>
+        <button type="button" class="btn small" id="app-install">Installer</button>
+      </div>
+
+      <p class="group-title">Synchroniser les appareils</p>
+      <div class="ghbox" id="sync-box"></div>
 
       <p class="group-title">Sauvegarde</p>
       <p class="explain" id="storage-note"></p>
@@ -697,7 +705,7 @@ const SYLL = new Set(("chuang shuang zhuang biang chang cheng chong chuai chuan 
 const LEGACY = ["阿姨","啊","矮","爱好","安静","把","班","搬","办法","办公室","半","帮忙","包","饱","北方","被","鼻子","比较","比赛","笔记本","必须","变化","别人","冰箱","不但","而且","菜单","参加","草","层","差","超市","衬衫","成绩","城市","迟到","除了","船","春","词典","聪明","打扫","打算","带","担心","蛋糕","当然","地","灯","地方","地铁","地图","电梯","电子邮件","东","冬","动物","短","段","锻炼","多么","饿","耳朵","发","发烧","发现","方便","放","放心","分","附近","复习","干净","感冒","感兴趣","刚才","个子","根据","跟","更","公斤","公园","故事","刮风","关","关系","关心","关于","国家","过","过去","还是","害怕","黑板","后来","护照","花","画","坏","欢迎","还","环境","换","黄河","回答","会议","或者","几乎","机会","极","记得","季节","检查","简单","见面","健康","讲","教","角","脚","接","街道","节目","节日","结婚","结束","解决","借","经常","经过","经理","久","旧","句子","决定","可爱","渴","刻","客人","空调","口","哭","裤子","筷子","蓝","老","离开","礼物","历史","脸","练习","辆","聊天","了解","邻居","留学","楼","绿","马","马上","满意","帽子","米","面包","明白","拿","奶奶","南","难","难过","年级","年轻","鸟","努力","爬山","盘子","胖","皮鞋","啤酒","瓶子","其实","其他","奇怪","骑","起飞","起来","清楚","请假","秋","裙子","然后","热情","认为","认真","容易","如果","伞","上网","生气","声音","世界","试","瘦","叔叔","舒服","树","数学","刷牙","双","水平","司机","太阳","特别","疼","提高","体育","甜","条","同事","同意","头发","突然","图书馆","腿","完成","碗","万","忘记","为","为了","位","文化","西","习惯","洗手间","洗澡","夏","先","相信","香蕉","向","像","小心","校长","新闻","新鲜","信用卡","行李箱","熊猫","需要","选择","要求","爷爷","一般","一边","一定","一共","一会儿","一样","一直","以前","音乐","银行","饮料","应该","影响","用","游戏","有名","又","遇到","元","愿意","月亮","越","站","张","长","着急","照顾","照片","照相机","只","只有","才","中间","中文","终于","种","重要","周末","主要","注意","自己","自行车","总是","嘴","最后","最近","作业"];
 const IS_PWA = true;
 const XH = 0.5078;
-const BUILD = "17 octobre 2026 à 9 h 24";
+const BUILD = "21 octobre 2026 à 17 h 48";
 
 /* ---------- utilities ---------- */
 const $ = (s, r = document) => r.querySelector(s);
@@ -858,7 +866,7 @@ const KEY = "xingyinyi.v2", KEY_V1 = "xingyinyi.v1", LKEY = "xingyinyi.listes";
 const KEY_OLD = "xingyinyi.avant-seaux";          // the progress as it was before the switch to buckets, kept once
 const DEFAULTS = { evalSize: 20, learnSize: 20, startFace: 0, autoAudio: true, rate: 0.8, toneColors: true, exDetails: false, exOnForm: true, exam: "2026-11-29" };
 let storageOK = true, migratedV1 = false, migratedSched = false;
-function freshState() { return { v: 2, sched: SCHED, settings: { ...DEFAULTS, delays: [...DELAYS] }, cards: {}, edits: {}, custom: [], lists: [], tel: [], listEdits: {}, sent: {}, decks: {}, log: {}, test: null, learn: null }; }
+function freshState() { return { v: 2, sched: SCHED, settings: { ...DEFAULTS, delays: [...DELAYS] }, cards: {}, edits: {}, custom: [], lists: [], tel: [], listEdits: {}, sent: {}, decks: {}, log: {}, moved: {}, test: null, learn: null }; }
 const strs = a => (Array.isArray(a) ? a.filter(x => typeof x === "string") : []);
 function cleanListEdits(e) {                     // words added to or taken out of a list of decks/ on this phone, not yet published
   const out = {};
@@ -871,6 +879,11 @@ function cleanListEdits(e) {                     // words added to or taken out 
 function cleanSent(x) {                           // the ids each phone list sent to its twin list (publication, copy)
   const out = {};
   for (const [id, a] of Object.entries(x && typeof x === "object" ? x : {})) { const ids = strs(a); if (ids.length) out[id] = ids; }
+  return out;
+}
+function cleanMoved(x) {                          // words of a device that moved to decks/ (moveWord): old id -> new id
+  const out = {};
+  for (const [k, v] of Object.entries(x && typeof x === "object" ? x : {})) if (typeof v === "string" && v && v !== k) out[k] = v;
   return out;
 }
 function cleanDelays(a) {
@@ -903,6 +916,7 @@ function normalizeState(s) {
     st.tel = strs(s.tel);
     st.listEdits = cleanListEdits(s.listEdits);
     st.sent = cleanSent(s.sent);
+    st.moved = cleanMoved(s.moved);
   }
   // a correction saved by an older version with an empty voice text (s: "", which the form never writes): the file's stays
   for (const [id, e] of Object.entries(st.edits)) {
@@ -980,13 +994,18 @@ function loadState() {
   } catch (e) { storageOK = false; return freshState(); }
 }
 let state = loadState();
+let syncApplying = false, syncDirtyAt = 0, syncTimer = 0, syncTimerAt = 0;   // shared progress (see « sync between devices »)
+let lastSaved = null;                             // what this window last wrote (another window may write too)
 function save() {
   try {
     const today = dayNum();
     for (const k of Object.keys(state.log)) if (+k < today - 120) delete state.log[k];
-    localStorage.setItem(KEY, JSON.stringify(state));
+    const txt = JSON.stringify(state);
+    localStorage.setItem(KEY, txt);
+    lastSaved = txt;
     storageOK = true;
   } catch (e) { storageOK = false; }
+  if (!syncApplying) syncSoon(20000, true);       // a change here: sent to the server once things calm down
 }
 if (IS_PWA && navigator.storage && navigator.storage.persist) { navigator.storage.persist().catch(() => {}); }
 
@@ -1053,7 +1072,7 @@ function buildLists(src) {
 }
 let BASE = [];                                   // the files of decks.json, in priority order
 let LISTS = [], DECK = [], BYID = new Map(), LISTBYID = new Map(), DEFS = new Map(), FIXED = new Set();
-let listsAt = 0, listsChecked = 0, listsReady = false;
+let listsAt = 0, listsSig = "", listsChecked = 0, listsReady = false;   // listsSig: fingerprint of the lists' content
 function listsWhole() { return listsReady && !BASE.some(L => L.missing); }   // every file of decks.json is here
 function isPhone(id) { return id === TEL || state.lists.some(x => x.id === id); }
 function showList(L) { return L.id !== TEL || L.words.length > 0; }
@@ -1117,9 +1136,11 @@ function isPhoneWord(w) { return !!w && !!w.phone; }
 function editable(L) { return !!L && !L.fixe; }                                 // the phone may add words to it, or take some out
 function syncDeckSettings() {
   // What decks.json says wins whenever it changes; otherwise the phone's own switches stay.
+  const behind = listsBehind();                   // another device has newer lists: the switches it set stand
   for (const L of BASE) {
     if (L.dico) continue;
     const d = state.decks[L.id] || (state.decks[L.id] = {});
+    if (behind && "cfgOn" in d) continue;
     if (d.cfgOn !== L.actif) { d.cfgOn = L.actif; d.on = L.actif; }
     if (d.cfgShow !== L.afficher) { d.cfgShow = L.afficher; d.show = L.afficher; }
   }
@@ -1133,8 +1154,10 @@ function repoTwin(phoneId) {
 }
 function moveWord(from, to) {                     // a word of the phone becomes a word of decks/: its card and its places follow
   const a = state.cards[from], b = state.cards[to];
-  if (a && (!b || (a.r || 0) > (b.r || 0))) state.cards[to] = a;
+  if (a && (!b || cardAhead(a, b))) state.cards[to] = a;     // the more advanced progress, as a sync between devices
   delete state.cards[from];
+  state.moved[from] = to;                          // the other devices rename it too when they merge (mergeDocs)
+  for (const [k, v] of Object.entries(state.moved)) if (v === from) state.moved[k] = to;
   const ren = ids => [...new Set(ids.map(i => (i === from ? to : i)))];
   state.tel = ren(state.tel);
   for (const P of state.lists) P.ids = ren(P.ids);
@@ -1188,7 +1211,8 @@ function mergeTel() {
     moved.push(L ? L.nom : target.home);
   }
   if (moved.length) rebuildDeck();
-  if (listsWhole()) {                             // words that are no more (a line changed on the computer)
+  const behind = listsBehind();                   // another device has newer lists: words unknown here may be in them
+  if (listsWhole() && !behind) {                  // words that are no more (a line changed on the computer)
     const here = id => BYID.has(id);
     state.tel = state.tel.filter(here);
     for (const P of state.lists) P.ids = P.ids.filter(here);
@@ -1207,7 +1231,7 @@ function mergeTel() {
     const P = k === TEL ? tel : state.lists.find(x => x.id === k), a = P ? state.sent[k].filter(id => P.ids.includes(id)) : [];
     if (a.length) state.sent[k] = a; else delete state.sent[k];
   }
-  for (const [lid, e] of Object.entries(state.listEdits)) {
+  for (const [lid, e] of Object.entries(behind ? {} : state.listEdits)) {
     const R = LISTBYID.get(lid);
     if (R && R.missing) continue;
     if (!R || R.fixe) { delete state.listEdits[lid]; continue; }
@@ -1239,6 +1263,7 @@ function renameInStudy(from, to) {
   if (L) { L.ids = [...new Set(L.ids.map(ren))]; L.got = new Set([...L.got].map(ren)); }
 }
 function dropSameEdits() {                        // a correction that the file now has
+  if (listsBehind()) return;                      // (not with lists older than another device's)
   for (const [id, e] of Object.entries(state.edits)) {
     const w = DEFS.get(id);
     if (w && !w.phone && Object.keys(e).every(k => cellOf(e, k) === cellOf(w, k))) delete state.edits[id];
@@ -1328,6 +1353,7 @@ function useLists(src, why, prevSrc) {
   const before = BASE.length ? BASE : (prevSrc ? buildLists(prevSrc) : []);
   BASE = buildLists(src);
   listsAt = src.at || 0;
+  listsSig = hashStr(JSON.stringify(src.config) + Object.keys(src.texts || {}).sort().map(k => k + "\n" + src.texts[k]).join("\n"));
   listsReady = true;
   syncDeckSettings();
   rebuildDeck();
@@ -1346,6 +1372,7 @@ function useLists(src, why, prevSrc) {
   if (current === "settings") renderSettings();
   // the learning in progress when the app was closed comes back where it was
   if (!(why === "first" && state.learn && study.mode === "line" && study.resumeLearn())) study.build(why !== "first" && !!study.cur);
+  if (why === "first") syncSoon(200);              // the progress of the other devices
 }
 let checking = false;
 async function refreshLists(first, manual) {
@@ -1553,7 +1580,8 @@ class Prism {
   get face() { return ((this.turns % 3) + 3) % 3; }
   layout() {
     const avail = this.root.clientWidth || 320;
-    const w = Math.round(Math.min(avail - 16, this.opts.maxW || 380));
+    const max = typeof this.opts.maxW === "function" ? this.opts.maxW() : this.opts.maxW;
+    const w = Math.round(Math.min(avail - 16, max || 380));
     let h = Math.round(w * 0.86);
     if (this.opts.fill) {
       const room = this.opts.fill();                 // vertical space the view can give the card
@@ -2530,7 +2558,9 @@ function renderSettings() {
   $("#sw-ex").setAttribute("aria-checked", String(!!s.exDetails));
   $("#sw-exform").setAttribute("aria-checked", String(!!s.exOnForm));
   renderGh();
+  renderSync();
   $("#app-title").hidden = $("#app-row").hidden = !IS_PWA;
+  $("#install-row").hidden = !installEvt;
   $("#app-version").textContent = BUILD ? `Version du ${BUILD}.` : "";
   $("#sw-auto").setAttribute("aria-checked", String(!!s.autoAudio));
   $("#sw-tones").setAttribute("aria-checked", String(!!s.toneColors));
@@ -2538,7 +2568,8 @@ function renderSettings() {
   updateVoiceInfo();
   $("#storage-note").textContent = !storageOK
     ? "Ce navigateur bloque l’enregistrement : ta progression sera perdue à la fermeture. Copie la sauvegarde avant de partir."
-    : IS_PWA ? "Ta progression est enregistrée sur ce téléphone seulement : elle n’est ni dans le dépôt GitHub ni dans un compte. Exporte un fichier de temps en temps."
+    : syncOn() ? "Ta progression est enregistrée sur cet appareil et sur le serveur de synchronisation, qui en garde une copie par jour. Un fichier exporté de temps en temps reste une bonne précaution."
+    : IS_PWA ? "Ta progression est enregistrée sur cet appareil seulement : elle n’est ni dans le dépôt GitHub ni dans un compte. Exporte un fichier de temps en temps, ou synchronise tes appareils."
              : "Ta progression est enregistrée dans ce navigateur. Garde une copie de temps en temps.";
   $("#bk-file").hidden = !IS_PWA;
   $("#reset-confirm").hidden = true;
@@ -3167,7 +3198,7 @@ async function exportFile() {
 }
 function restoreSheet() {
   openSheet("Restaurer une sauvegarde", `
-    <p class="meta" style="margin-top:0">Colle une sauvegarde ou choisis le fichier exporté. Elle remplace la progression actuelle.</p>
+    <p class="meta" style="margin-top:0">Colle une sauvegarde ou choisis le fichier exporté. Elle remplace la progression actuelle${syncOn() ? ", ici et sur les appareils synchronisés" : ""}.</p>
     <div class="field"><label for="rs-t">Sauvegarde</label><textarea id="rs-t" rows="6" class="mono" placeholder='{"app":"xingyinyi", …}'></textarea></div>
     <div class="field"><label for="rs-f">Ou un fichier</label><input type="file" id="rs-f" accept=".json,application/json,text/plain"></div>
     <p class="field err" id="rs-err" hidden></p>
@@ -3191,6 +3222,381 @@ function restoreSheet() {
         } catch (e) { err.hidden = false; err.textContent = "Ce texte n’est pas une sauvegarde de cette appli. Vérifie qu’il commence par {\"app\":\"xingyinyi\"."; }
       });
     }, true);
+}
+
+/* ---------- sync between devices (server: outils/sync/worker.mjs, on Cloudflare) ---------- */
+// The devices that share a code keep one document on the server: the progress of each word and the history, the words,
+// lists and corrections made on a device, and the settings, except those of the device itself (the voice). Each device
+// keeps the document it last agreed on with the server (its base). A sync merges, key by key, what changed here since
+// the base with what changed on the server: a word changed on one side only takes that side, a word changed on both
+// keeps the more advanced progress (bucket, then due day, then last review), review counts and history add up. The
+// server refuses a write made on an old version (409, with what it has now): the device merges again and resends.
+// A device whose lists of decks/ are older than another's (listsBehind) leaves out what depends on them: words gone
+// from the lists, corrections the files now have, switches of decks.json; it reloads its lists instead.
+const SYNC_URL = "https://xingyinyi-sync.guillaume-plehar.workers.dev";   // the server (outils/sync/worker.mjs on Cloudflare); empty: typed in Réglages
+const SKEY = "xingyinyi.sync", SBASE = "xingyinyi.sync-base", SYNC_FMT = 1;
+const DEVICE_SETTINGS = ["autoAudio", "rate"];      // each device its own voice
+const SYNC_ERRORS = { 0: "pas de connexion avec le serveur", 404: "adresse du serveur introuvable (vérifie-la)",
+  403: "le serveur a déjà tous les codes qu’il accepte (variable MAX_CODES du Worker)",
+  413: "progression trop grosse pour le serveur", 500: "le serveur a un problème (base D1 liée sous le nom DB ?)" };
+let syncBusy = false, syncRerun = false, syncNote = "";
+function syncCfg() { try { const c = JSON.parse(localStorage.getItem(SKEY) || "null"); return c && c.key && c.url ? c : null; } catch (e) { return null; } }
+function syncOn() { return !!syncCfg(); }
+function writeSyncCfg(c) { try { if (c) localStorage.setItem(SKEY, JSON.stringify(c)); else localStorage.removeItem(SKEY); } catch (e) {} }
+function readBase() { try { const b = JSON.parse(localStorage.getItem(SBASE) || "null"); return b && b.doc && Number.isInteger(b.v) ? b : null; } catch (e) { return null; } }
+function writeBase(v, doc) {
+  // a base that cannot be written must not stay old (the next merge would count the same reviews again): none then
+  try { localStorage.removeItem(SPEND); if (doc) localStorage.setItem(SBASE, JSON.stringify({ v, doc })); else localStorage.removeItem(SBASE); }
+  catch (e) { try { localStorage.removeItem(SBASE); } catch (x) {} }
+}
+function readPending() { try { const a = JSON.parse(localStorage.getItem(SPEND) || "[]"); return Array.isArray(a) ? a : []; } catch (e) { return []; } }
+function writePending(h) { try { localStorage.setItem(SPEND, JSON.stringify([...readPending(), h].slice(-6))); } catch (e) {} }
+function listsBehind() { const c = syncCfg(); return !!c && (c.listsAt || 0) > listsAt && !!c.listsH && c.listsH !== listsSig; }
+function noteLists(cfg, doc) {                      // the newest lists a device of this code has seen
+  if (doc && (doc.listsAt || 0) > (cfg.listsAt || 0)) { cfg.listsAt = doc.listsAt; cfg.listsH = doc.listsH || ""; }
+}
+const SPEND = "xingyinyi.sync-pending";            // fingerprints of the last documents sent, until the server says it has one
+const docHash = d => { const t = canon(d); return hashStr(t) + "." + t.length; };
+function reloadState(raw) {
+  // another window of the app (the installed one and a tab, on the computer) saved: this one goes on from there
+  try {
+    const s = normalizeState(JSON.parse(raw)), keep = state;
+    s.test = keep.test; s.learn = keep.learn;
+    state = s; lastSaved = raw;
+    rebuildDeck(); afterDeckChange();
+  } catch (e) {}
+}
+const clone = x => JSON.parse(JSON.stringify(x));
+const canon = x => JSON.stringify(x, (k, v) => (v && typeof v === "object" && !Array.isArray(v)
+  ? Object.fromEntries(Object.keys(v).sort().map(n => [n, v[n]])) : v));
+const same = (a, b) => a === b || canon(a) === canon(b);
+function docOf(st) {
+  // what the devices share, as maps keyed by id. A copy (the state can change while the server answers), taken as a
+  // reload would see it: what normalizeState fills in (known ways, due days…) is not a change of this device.
+  const m = migratedSched;
+  st = normalizeState(clone(st));
+  migratedSched = m;
+  const settings = {}, c = syncCfg() || {}, mine = listsAt >= (c.listsAt || 0);
+  for (const [k, v] of Object.entries(st.settings)) if (!DEVICE_SETTINGS.includes(k)) settings[k] = v;
+  return { fmt: SYNC_FMT, sched: SCHED, listsAt: mine ? listsAt : c.listsAt, listsH: mine ? listsSig : c.listsH || "", settings,
+    cards: st.cards, log: st.log, custom: Object.fromEntries(st.custom.map(w => [w.id, w])), lists: Object.fromEntries(st.lists.map(P => [P.id, { nom: P.nom, ids: P.ids }])),
+    tel: st.tel, edits: st.edits, listEdits: st.listEdits, sent: st.sent, decks: st.decks, moved: st.moved };
+}
+function stateFromDoc(doc, st) {
+  // a state made of a shared document, with what stays this device's own (voice, test or learning in progress)
+  doc = clone(doc);
+  const settings = { ...(doc.settings || {}) };
+  for (const k of DEVICE_SETTINGS) { if (k in st.settings) settings[k] = st.settings[k]; else delete settings[k]; }
+  const out = normalizeState({ v: 2, sched: doc.sched || SCHED, settings, cards: doc.cards, edits: doc.edits, custom: Object.values(doc.custom || {}),
+    lists: Object.entries(doc.lists || {}).map(([id, P]) => ({ id, nom: P && P.nom, ids: P && P.ids })), tel: doc.tel,
+    listEdits: doc.listEdits, sent: doc.sent, decks: doc.decks, log: doc.log, moved: doc.moved });
+  out.test = st.test; out.learn = st.learn;        // the very objects the session in progress writes to
+  return out;
+}
+function renameDoc(d, M) {
+  // a document as if the words moved to decks/ (moveWord, on any device) had moved here too: old ids become new ones
+  if (!d || !d.cards) return d;
+  const to = id => { let x = id; for (let n = 0; M[x] && n < 20; n++) x = M[x]; return x; };
+  const cards = {};
+  for (const [id, c] of Object.entries(d.cards)) { const k = to(id); cards[k] = cards[k] && !cardAhead(c, cards[k]) ? cards[k] : c; }
+  const ids = a => (Array.isArray(a) ? [...new Set(a.map(to))] : a);
+  const each = (m, f) => Object.fromEntries(Object.entries(m || {}).map(([k, v]) => [k, v && f(v)]));
+  return { ...d, cards, tel: ids(d.tel), lists: each(d.lists, P => ({ ...P, ids: ids(P.ids) })),
+    listEdits: each(d.listEdits, e => ({ add: ids(e.add), del: ids(e.del) })), sent: each(d.sent, ids) };
+}
+function mergeMap(b, l, r, both) {
+  // three-way merge of two maps changed since b: a key changed on one side takes that side (a removal too); a key
+  // changed on both goes to both(here, there, base, key), even when both sides now hold the same value (two reviews
+  // that end alike are still two reviews). Keys of this device first, in their order.
+  b = b || {}; l = l || {}; r = r || {};
+  const out = {};
+  for (const k of new Set([...Object.keys(l), ...Object.keys(r), ...Object.keys(b)])) {
+    const lv = l[k], rv = r[k], bv = b[k];
+    if (lv === undefined && rv === undefined) continue;
+    const v = same(lv, bv) ? rv : same(rv, bv) ? lv : both(lv, rv, bv, k);
+    if (v !== undefined) out[k] = v;
+  }
+  return out;
+}
+function mergeSet(b, l, r) {
+  // ids of a list: one added on either side comes in, one removed on either side goes (without a base: both)
+  const B = new Set(b || []), L = new Set(l || []), R = new Set(r || []);
+  return [...new Set([...(l || []), ...(r || [])])].filter(x => (L.has(x) && R.has(x)) || (!B.has(x) && (L.has(x) || R.has(x))));
+}
+function cardAhead(a, b) {
+  // the more advanced progress: higher bucket, then later due day, then later last review, then more reviews
+  const k = c => [c.b || 0, c.b > 0 ? c.d || 0 : 0, c.t || 0, c.r || 0];
+  const x = k(a), y = k(b);
+  for (let i = 0; i < x.length; i++) if (x[i] !== y[i]) return x[i] > y[i];
+  return true;
+}
+function mergeCard(l, r, b, add) {
+  // a word reviewed on both devices since the last sync: the more advanced progress wins; reviews and lapses add up
+  if (!l || !r) return l || r;                     // put back to zero on one side, reviewed on the other: the progress stays
+  const win = cardAhead(l, r) ? l : r, out = { ...win };
+  for (const f of ["r", "l"]) out[f] = add(l[f] || 0, r[f] || 0, (b && b[f]) || 0);
+  const s = [l.s, r.s].filter(Number.isFinite); if (s.length) out.s = Math.min(...s);
+  if ((l.b || 0) === (r.b || 0)) out.kn = ((l.kn || 0) | (r.kn || 0)) & 7;
+  return out;
+}
+function mergeDay(l, r, b, add) {                   // a day of the history: the counts add up
+  const out = {};
+  for (const f of new Set([...Object.keys(l || {}), ...Object.keys(r || {})])) out[f] = add((l && +l[f]) || 0, (r && +r[f]) || 0, (b && +b[f]) || 0);
+  return out;
+}
+function mergeDocs(b, l, r) {
+  // b: the document last agreed on with the server (null the first time this device syncs), l: this device, r: the server.
+  // A setting changed on both sides keeps this device's; the first time, the side with the more progress.
+  const seenN = d => Object.values(d.cards || {}).filter(c => c && c.r).length;
+  const mine = b || seenN(l) >= seenN(r);
+  // a word moved to decks/ on one device and still under its old id on another: the same word, under its new id
+  const M = { ...((b && b.moved) || {}), ...(r.moved || {}), ...(l.moved || {}) };
+  if (Object.keys(M).length) { b = renameDoc(b, M); l = renameDoc(l, M); r = renameDoc(r, M); }
+  const B = b || {};
+  const pick = (x, y) => (mine ? (x !== undefined ? x : y) : (y !== undefined ? y : x));
+  const fields = (x, y, z) => (!x || !y ? x || y : mergeMap(z, x, y, pick));
+  // counts: what each side added since the base (a word or a day new on both sides: from 0); the first time, the larger
+  const add = (x, y, z) => (b ? Math.max(0, x + y - z) : Math.max(x, y));
+  return {
+    fmt: SYNC_FMT, sched: SCHED, ...((l.listsAt || 0) >= (r.listsAt || 0) ? { listsAt: l.listsAt || 0, listsH: l.listsH || "" } : { listsAt: r.listsAt, listsH: r.listsH || "" }),
+    settings: mergeMap(B.settings, l.settings, r.settings, pick),
+    cards: mergeMap(B.cards, l.cards, r.cards, (x, y, z) => mergeCard(x, y, z, add)),
+    log: mergeMap(B.log, l.log, r.log, (x, y, z) => mergeDay(x, y, z, add)),
+    custom: mergeMap(B.custom, l.custom, r.custom, fields),
+    lists: mergeMap(B.lists, l.lists, r.lists, (x, y, z) => (!x || !y ? x || y : { nom: pick(x.nom, y.nom), ids: mergeSet(z && z.ids, x.ids, y.ids) })),
+    tel: same(l.tel, B.tel) ? r.tel : same(r.tel, B.tel) ? l.tel : mergeSet(B.tel, l.tel, r.tel),
+    edits: mergeMap(B.edits, l.edits, r.edits, fields),
+    listEdits: mergeMap(B.listEdits, l.listEdits, r.listEdits, (x, y, z) => (!x || !y ? x || y : { add: mergeSet(z && z.add, x.add, y.add), del: mergeSet(z && z.del, x.del, y.del) })),
+    sent: mergeMap(B.sent, l.sent, r.sent, (x, y, z) => mergeSet(z, x, y)),
+    decks: mergeMap(B.decks, l.decks, r.decks, fields),
+    moved: mergeMap(B.moved, l.moved, r.moved, pick),
+  };
+}
+function checkDoc(doc) {
+  if (!doc || typeof doc !== "object") return null;
+  if ((doc.fmt || 1) > SYNC_FMT || (doc.sched || 1) > SCHED)
+    throw Object.assign(new Error("la progression partagée vient d’une version plus récente de l’appli : mets cet appareil à jour (Réglages › Appli › Vérifier)"), { keep: true });
+  return doc;                                      // (a new SCHED will have to migrate an older document here, as normalizeState does)
+}
+function applyDoc(doc) {
+  // (the caller has noted the document's lists first, noteLists: listsBehind must know them while mergeTel runs)
+  const delays = canon(state.settings.delays), face = state.settings.startFace;
+  syncApplying = true;
+  try {
+    state = stateFromDoc(doc, state);
+    if (canon(state.settings.delays) !== delays) recomputeDue();
+    if (listsReady) { syncDeckSettings(); rebuildDeck(); mergeTel(); dropSameEdits(); }
+    rebuildDeck(); save();
+  } finally { syncApplying = false; }
+  if (state.settings.startFace !== face) renderStartFace();
+  afterDeckChange();
+  if (listsBehind() && Date.now() - listsChecked > 60e3) refreshLists(false, false);   // another device has newer lists
+}
+async function syncCall(cfg, method, suffix, body) {
+  const ctl = new AbortController(), timer = setTimeout(() => ctl.abort(), 20000);
+  let res, json = null;
+  try {
+    res = await fetch(cfg.url + "/p/" + cfg.key + suffix, { method, cache: "no-store", signal: ctl.signal,
+      headers: body ? { "Content-Type": "application/json" } : {}, body: body ? JSON.stringify(body) : undefined });
+    clearTimeout(timer);
+    json = await res.json();
+  } catch (e) { if (!res) throw new Error(SYNC_ERRORS[0]); }
+  finally { clearTimeout(timer); }
+  if (res.status === 409 && json) return { conflict: true, v: json.v, data: json.data };
+  if (!res.ok || !json) throw Object.assign(new Error(SYNC_ERRORS[res.status] || `erreur du serveur ${res.status}${json && json.error ? " : " + json.error : ""}`), { keep: res.status === 403 || res.status === 413 });
+  return json;
+}
+function syncSoon(ms, dirty) {
+  // a sync in ms milliseconds, unless one is planned sooner (a change here: at most 20 s after it, while answering)
+  if (!syncOn()) return;
+  if (dirty && !syncDirtyAt) syncDirtyAt = Date.now();
+  const at = Date.now() + ms;
+  if (syncTimer && syncTimerAt <= at) return;
+  clearTimeout(syncTimer); syncTimerAt = at;
+  syncTimer = setTimeout(() => { syncTimer = 0; syncNow(false); }, ms);
+}
+async function syncNow(manual) {
+  // returns {ok, n words changed here by the server, fresh: the server had nothing}, or null when nothing ran
+  const cfg = syncCfg();
+  if (!cfg) return null;
+  if (!listsReady) { syncSoon(2000); return null; }   // the merge needs the lists (words moved, words gone)
+  if (syncBusy) { syncRerun = true; return null; }
+  syncBusy = true; clearTimeout(syncTimer); syncTimer = 0;
+  const dirtyAt = syncDirtyAt; syncDirtyAt = 0;
+  // still the same code? (« Arrêter » or another code while the server answers: this exchange writes nothing)
+  const still = () => { const c = syncCfg(); return !!c && c.key === cfg.key; };
+  syncNote = "busy"; renderSyncStatus();
+  try {
+    const raw = localStorage.getItem(KEY);
+    if (raw && lastSaved !== null && raw !== lastSaved) reloadState(raw);   // another window saved since
+    let base = readBase();
+    const local = docOf(state);
+    const ours = d => !!d && readPending().includes(docHash(d));
+    let remote;                                    // {v, doc} on the server (doc null: nothing there)
+    if (base && same(local, base.doc)) {           // nothing new here: anything new there?
+      const r = await syncCall(cfg, "GET", "?have=" + base.v);
+      if (!still()) return null;
+      if (r.v === base.v && !("data" in r)) { syncDone(cfg); return { ok: true, n: 0 }; }
+      remote = { v: r.v, doc: r.data || null };
+    } else if (!base) {
+      const r = await syncCall(cfg, "GET", "");
+      if (!still()) return null;
+      remote = { v: r.v, doc: r.data || null };
+    } else remote = { v: base.v, doc: base.doc };  // most often the server still has the base: the write tells
+    const fresh = !remote.doc;
+    let result = null;
+    for (let i = 0; i < 5 && !result; i++) {
+      const rdoc = checkDoc(remote.doc);
+      // a document this device sent but whose answer was lost (the app went to sleep): it is the base, not a change
+      if (rdoc && ours(rdoc)) { base = { v: remote.v, doc: rdoc }; writeBase(remote.v, rdoc); }
+      if (rdoc && same(local, rdoc)) { result = { v: remote.v, doc: rdoc }; break; }
+      // nothing on the server (first device, or a server emptied): this device's document as it is
+      const merged = rdoc ? mergeDocs(base && base.doc, local, rdoc) : local;
+      if (rdoc && same(merged, rdoc)) { result = { v: remote.v, doc: rdoc }; break; }
+      const text = JSON.stringify(merged);
+      if (text.length > 1e6) throw Object.assign(new Error(SYNC_ERRORS[413]), { keep: true });
+      writePending(docHash(merged));
+      const put = await syncCall(cfg, "PUT", "", { v: rdoc ? remote.v : 0, data: merged });
+      if (!still()) return null;
+      if (put.conflict) { remote = { v: put.v, doc: put.data || null }; continue; }
+      result = { v: put.v, doc: merged };
+    }
+    if (!result) throw new Error("le serveur a changé plusieurs fois pendant l’échange, réessaie");
+    // what changed here while the server answered stays
+    const now = docOf(state);
+    const fin = same(now, local) ? result.doc : mergeDocs(local, now, result.doc);
+    const n = Object.keys({ ...now.cards, ...fin.cards }).filter(id => !same(now.cards[id], fin.cards[id])).length;
+    noteLists(cfg, result.doc); writeSyncCfg(cfg);   // before applyDoc: listsBehind must know the newest lists
+    if (!same(fin, now)) applyDoc(fin);
+    writeBase(result.v, result.doc);
+    syncDone(cfg);
+    if (!same(docOf(state), result.doc)) syncSoon(1500, true);   // more to send: changes made meanwhile, words moved here…
+    if (n && !manual && base) toast(`Progression reçue d’un autre appareil${NB}: ${plural(n, "mot", "mots")}.`);
+    return { ok: true, n, fresh };
+  } catch (e) {
+    if (!still()) return null;
+    cfg.err = (e && e.message) || String(e); writeSyncCfg(cfg); syncNote = "";
+    if (dirtyAt) syncDirtyAt = dirtyAt;
+    if (!e.keep) syncSoon(120e3);                  // try again later (or as soon as the network is back)
+    if (manual) toast("Synchronisation impossible : " + cfg.err + ".", 5000);
+    return { ok: false, err: cfg.err };
+  } finally {
+    syncBusy = false;
+    syncNote = "";
+    renderSyncStatus();
+    if (syncRerun) { syncRerun = false; syncSoon(300); }
+  }
+}
+function syncDone(cfg) { cfg.at = Date.now(); cfg.err = ""; writeSyncCfg(cfg); syncNote = ""; }
+function normCode(s) { return String(s || "").trim().toLowerCase().replace(/[\s_]+/g, "-").replace(/-+/g, "-"); }   // as shown
+function codeKey(s) {                               // what counts in a code: its letters and digits (lan-shu… = Lan Shu… = lanshu…)
+  return String(s || "").normalize("NFKD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]/g, "");
+}
+let syncMade = "";                                 // the last code « Créer un code » proposed
+async function sha256(text) {
+  const h = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
+  return [...new Uint8Array(h)].map(x => x.toString(16).padStart(2, "0")).join("");
+}
+function newSyncCode() {                            // four pinyin syllables and a number: about 38 bits, easy to type
+  const syl = [...SYLL].filter(s => /^[bcdfghjklmnpqrstwxyz]+[aeiou]+n?g?$/.test(s) && s.length >= 2 && s.length <= 4);
+  const r = crypto.getRandomValues(new Uint32Array(5));
+  return [0, 1, 2, 3].map(i => syl[r[i] % syl.length]).join("-") + "-" + (10 + (r[4] % 90));
+}
+const hourText = d => `${d.getHours()}${NB}h${NB}${String(d.getMinutes()).padStart(2, "0")}`;
+function dateText(t) { const d = new Date(t); return `${d.toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long" })} à ${hourText(d)}`; }
+function agoText(t) {
+  const m = Math.round((Date.now() - t) / 60e3);
+  if (m < 1) return "à l’instant";
+  if (m < 60) return `il y a ${plural(m, "minute", "minutes")}`;
+  const d = new Date(t);
+  return d.toDateString() === new Date().toDateString() ? `à ${hourText(d)}` : `le ${d.toLocaleDateString("fr-FR", { day: "numeric", month: "long" })} à ${hourText(d)}`;
+}
+function renderSyncStatus() {
+  const el = $("#sync-status"), c = syncCfg();
+  if (!el || !c) return;
+  el.textContent = frTypo(syncNote === "busy" ? "Synchronisation…" : c.err
+    ? `Dernier essai : ${c.err}.${c.at ? ` Dernière synchronisation réussie ${agoText(c.at)}.` : ""}`
+    : c.at ? `Synchronisé ${agoText(c.at)}.` : "Pas encore synchronisé.");
+  el.classList.toggle("err", !!c.err && syncNote !== "busy");
+}
+function renderSync() {
+  const box = $("#sync-box"), c = syncCfg();
+  if (c) {
+    box.innerHTML = `<p class="explain" style="margin-top:0">Code commun${NB}: <b class="code" id="sync-code-shown">${esc(c.code)}</b>. Tape le même code sur chaque appareil (Réglages › Synchroniser les appareils). Un mot travaillé sur deux appareils à la fois garde sa progression la plus avancée.</p>
+      <p class="explain" id="sync-status" role="status"></p>
+      <div class="btnrow"><button type="button" class="btn primary" data-sync="now">Synchroniser maintenant</button><button type="button" class="btn" data-sync="copy">Copier le code</button><button type="button" class="btn" data-sync="copies">Copies du serveur…</button><button type="button" class="btn ghost" data-sync="stop">Arrêter sur cet appareil</button></div>
+      <div id="sync-confirm"></div>`;
+    renderSyncStatus();
+    return;
+  }
+  box.innerHTML = `<p class="explain" style="margin-top:0">Pour retrouver la même progression sur l’iPhone et sur l’ordinateur${NB}: choisis un code et tape-le sur chaque appareil. Ils s’envoient alors leurs révisions, leurs mots, leurs listes et leurs réglages (pas la voix). Un mot travaillé sur deux appareils à la fois garde sa progression la plus avancée.</p>
+    <div class="field"><label for="sync-code">Code commun</label><input id="sync-code" placeholder="ex. lan-shu-qiao-mei-58" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false"></div>
+    <div class="field"${SYNC_URL ? " hidden" : ""}><label for="sync-url">Adresse du serveur</label><input id="sync-url" type="url" value="${esc(SYNC_URL)}" placeholder="https://xingyinyi-sync.….workers.dev" autocomplete="off" autocapitalize="off" spellcheck="false"></div>
+    <p class="explain" id="sync-hint" hidden></p>
+    <p class="field err" id="sync-err" hidden></p>
+    <div class="btnrow"><button type="button" class="btn primary" data-sync="join">Utiliser ce code</button><button type="button" class="btn" data-sync="new">Créer un code</button></div>`;
+}
+async function syncJoin(sure) {
+  const err = $("#sync-err"), fail = m => { err.hidden = false; err.textContent = frTypo(m); };
+  const code = normCode($("#sync-code").value), url = ($("#sync-url").value || SYNC_URL).trim().replace(/\/+$/, "").replace(/\/sante$/, "");
+  if (codeKey(code).length < 8) return fail("Le code doit avoir au moins 8 lettres ou chiffres. « Créer un code » en propose un.");
+  if (!/^https:\/\/[^/]+|^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(url)) return fail("Indique l’adresse du serveur, qui commence par https:// (voir LISEZMOI, section 7.4).");
+  if (!window.crypto || !crypto.subtle) return fail("Ce navigateur ne peut pas calculer l’empreinte du code (il faut une page en https).");
+  const btn = $("[data-sync='join']"); btn.disabled = true; btn.textContent = "Connexion…";
+  try {
+    for (let i = 0; syncBusy && i < 300; i++) await new Promise(ok => setTimeout(ok, 100));   // an exchange of before ends first
+    let ok = false;
+    try { const r = await fetch(url + "/sante", { cache: "no-store" }); ok = r.ok && (await r.json()) === "ok"; } catch (e) {}
+    if (!ok) return fail("Le serveur ne répond pas à cette adresse. Vérifie-la, et que la base D1 est bien liée (LISEZMOI, section 7.4).");
+    const cfg = { url, code, key: await sha256("xingyinyi:" + codeKey(code)), at: 0, err: "", listsAt: 0, listsH: "" };
+    if (!sure && codeKey(code) !== codeKey(syncMade)) {
+      // a code typed by hand that no device uses yet: a typo would make a second shared progress without a word
+      let empty = false;
+      try { empty = !(await syncCall(cfg, "GET", "")).data; } catch (e) { return fail("Le serveur ne répond pas : " + e.message + "."); }
+      if (empty) {
+        err.hidden = false;
+        err.innerHTML = `${esc(frTypo("Aucun appareil n’utilise encore ce code. Vérifie-le s’il vient d’un autre appareil ; sinon, crée-le."))}<span class="btnrow" style="display:flex;margin-top:8px"><button type="button" class="btn" data-sync="join-new">Créer ce code</button></span>`;
+        return;
+      }
+    }
+    writeSyncCfg(cfg);
+    writeBase(0, null);
+    const res = await syncNow(true);
+    renderSettings();
+    if (res && res.ok) toast(res.fresh ? "Code créé : ta progression est maintenant sur le serveur." :
+      `Code enregistré : progression fusionnée avec celle du serveur${res.n ? ` (${plural(res.n, "mot mis", "mots mis")} à jour ici)` : ""}.`, 4000);
+  } finally { if (btn.isConnected) { btn.disabled = false; btn.textContent = "Utiliser ce code"; } }
+}
+async function copiesSheet() {
+  const c = syncCfg(); if (!c) return;
+  openSheet("Copies du serveur", `<p class="meta" style="margin-top:0">Le serveur garde une copie de la progression partagée par jour d’utilisation, 30 au plus. Reprendre une copie la renvoie à tous les appareils.</p><div id="copies-list"><p class="meta">Chargement…</p></div>`, async body => {
+    const list = $("#copies-list", body);
+    try {
+      const { copies } = await syncCall(c, "GET", "/copies");
+      if (!list.isConnected) return;
+      list.innerHTML = copies.length ? `<ul class="inlists">${copies.map(x => `<li><span>${esc(dateText(x.at))}</span><button type="button" class="btn small" data-copy="${x.at}">Reprendre</button></li>`).join("")}</ul><div id="copy-confirm"></div>`
+        : `<p class="meta">${frTypo("Pas encore de copie : la première est faite au prochain envoi, puis une par jour d’utilisation.")}</p>`;
+    } catch (e) { if (list.isConnected) list.innerHTML = `<p class="meta">${esc(frTypo("Liste impossible à lire : " + e.message + "."))}</p>`; }
+    body.addEventListener("click", async e => {
+      const b = e.target.closest("[data-copy]"), yes = e.target.closest("[data-copy-yes]");
+      if (b) {
+        $("#copy-confirm", body).innerHTML = `<div class="confirm"><p>Revenir à la progression du ${esc(b.closest("li").firstElementChild.textContent)}${NB}? Ce qui a été fait depuis, sur tous les appareils, sera perdu.</p><div class="btnrow"><button type="button" class="btn danger" data-copy-yes="${b.dataset.copy}">Reprendre cette copie</button><button type="button" class="btn" data-close>Annuler</button></div></div>`;
+        return;
+      }
+      if (!yes) return;
+      yes.disabled = true;
+      try {
+        const copy = await syncCall(c, "GET", "/copies/" + yes.dataset.copyYes), cur = await syncCall(c, "GET", "");
+        checkDoc(copy.data);
+        writeBase(cur.v, checkDoc(cur.data));      // the server as it is now is the base: the copy becomes this device's change
+        noteLists(c, cur.data); writeSyncCfg(c);
+        applyDoc(copy.data);
+        closeSheet();
+        const res = await syncNow(true);
+        if (res && res.ok) toast("Copie reprise : elle part vers les autres appareils.");
+      } catch (x) { yes.disabled = false; toast("Copie impossible à reprendre : " + (x.message || x) + ".", 5000); }
+    });
+  }, true);
 }
 
 /* ---------- publish from the phone (GitHub API) ---------- */
@@ -3576,7 +3982,8 @@ function redrawCurrent() {
 }
 function init() {
   tts.init();
-  prism = new Prism($("#stage"), { maxW: 380, fill: studyRoom, onTurn: p => {
+  // a larger card on a computer screen (the installed app in its window), when the window has the room
+  prism = new Prism($("#stage"), { maxW: () => (innerWidth >= 900 && innerHeight >= 760 ? 440 : 380), fill: studyRoom, onTurn: p => {
     renderCardStatus();
     const turned = p.seen.size >= 2;
     setActions(turned);
@@ -3726,6 +4133,29 @@ function init() {
     if (b.dataset.gh === "logout") { try { localStorage.removeItem(GKEY); } catch (x) {} renderSettings(); toast("Jeton GitHub oublié"); }
   });
   $("#app-update").addEventListener("click", updateApp);
+  $("#app-install").addEventListener("click", async () => {
+    if (!installEvt) return;
+    const e = installEvt; installEvt = null;
+    try { await e.prompt(); await e.userChoice; } catch (x) {}
+    renderSettings();
+  });
+  $("#sync-box").addEventListener("click", e => {
+    const b = e.target.closest("[data-sync]"); if (!b) return;
+    const a = b.dataset.sync, box = $("#sync-confirm");
+    if (a === "join") syncJoin(false);
+    if (a === "join-new") syncJoin(true);
+    if (a === "new") {
+      $("#sync-code").value = syncMade = newSyncCode(); $("#sync-err").hidden = true;
+      const h = $("#sync-hint"); h.hidden = false;
+      h.textContent = frTypo("Note ce code : tu le taperas sur l’autre appareil. Puis touche « Utiliser ce code ».");
+    }
+    if (a === "now") syncNow(true).then(r => { if (r && r.ok) toast(r.n ? `Synchronisé${NB}: ${plural(r.n, "mot mis", "mots mis")} à jour ici.` : "Synchronisé : rien de nouveau."); });
+    if (a === "copy") { const c = syncCfg(); if (c) navigator.clipboard.writeText(c.code).then(() => toast("Code copié"), () => toast("Copie impossible : recopie le code à la main.")); }
+    if (a === "copies") copiesSheet();
+    if (a === "stop") box.innerHTML = `<div class="confirm"><p>Arrêter la synchronisation sur cet appareil${NB}? Sa progression reste ici, et celle du serveur reste pour les autres appareils.</p><div class="btnrow"><button type="button" class="btn danger" data-sync="stop-yes">Arrêter</button><button type="button" class="btn" data-sync="cancel">Annuler</button></div></div>`;
+    if (a === "cancel") box.innerHTML = "";
+    if (a === "stop-yes") { writeSyncCfg(null); writeBase(0, null); clearTimeout(syncTimer); syncTimer = 0; syncDirtyAt = 0; renderSettings(); toast("Synchronisation arrêtée sur cet appareil"); }
+  });
   $("#sw-auto").addEventListener("click", () => { state.settings.autoAudio = !state.settings.autoAudio; save(); renderSettings(); });
   $("#sw-tones").addEventListener("click", () => { state.settings.toneColors = !state.settings.toneColors; save(); renderSettings(); redrawCurrent(); });
   $("#rate").addEventListener("change", e => { state.settings.rate = +e.target.value; save(); tts.say("你好，我们开始复习吧"); });
@@ -3734,7 +4164,7 @@ function init() {
   $("#bk-restore").addEventListener("click", restoreSheet);
   $("#reset").addEventListener("click", () => {
     const box = $("#reset-confirm"); box.hidden = false;
-    box.innerHTML = `<div class="confirm"><p>Toute la progression, tes corrections et les mots ajoutés sur ce téléphone seront effacés. Les réglages et les listes du dépôt restent.</p><div class="btnrow"><button type="button" class="btn danger" id="reset-yes">Tout effacer</button><button type="button" class="btn" id="reset-no">Annuler</button></div></div>`;
+    box.innerHTML = `<div class="confirm"><p>Toute la progression, tes corrections et les mots ajoutés seront effacés sur cet appareil. Les réglages et les listes du dépôt restent.${syncOn() ? ` Avec la synchronisation, ils le seront aussi sur les autres appareils du même code${NB}: pour ne repartir de zéro qu’ici, arrête d’abord la synchronisation sur cet appareil.` : ""}</p><div class="btnrow"><button type="button" class="btn danger" id="reset-yes">Tout effacer</button><button type="button" class="btn" id="reset-no">Annuler</button></div></div>`;
     $("#reset-no").addEventListener("click", () => { box.hidden = true; });
     $("#reset-yes").addEventListener("click", () => {
       const keep = { settings: state.settings, decks: state.decks };
@@ -3748,15 +4178,20 @@ function init() {
     if (e.key === "Escape" && !$("#sheet").hidden) { closeSheet(); return; }
     if (current !== "study" || !$("#sheet").hidden || /INPUT|TEXTAREA|SELECT/.test((e.target && e.target.tagName) || "")) return;
     if (!$("#grades").hidden && ["1", "2"].includes(e.key)) study.grade(+e.key - 1);
-    else if ((e.key === " " || e.key === "Enter") && e.target === document.body) { e.preventDefault(); prism.turn(1); }
-    else if (e.key === "a" && study.cur) { const w = BYID.get(study.cur); tts.say(w.s || w.h); }
-    else if (e.key === "e" && study.cur && prism.seen.size >= 2) { const w = BYID.get(study.cur); if (w.e) tts.say(w.e); }
+    else if ((e.key === " " || e.key === "Enter") && (e.target === document.body || e.target.closest(".tab"))) { e.preventDefault(); prism.turn(1); }
+    else if (e.key.toLowerCase() === "a" && study.cur) { const w = BYID.get(study.cur); tts.say(w.s || w.h); }
+    else if (e.key.toLowerCase() === "e" && study.cur && prism.seen.size >= 2) { const w = BYID.get(study.cur); if (w.e) tts.say(w.e); }
   });
 
   let rt = 0;
   window.addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(() => { prism.layout(); fitSlip($("#example")); if (sheetPrism) sheetPrism.layout(); }, 120); });
+  window.addEventListener("online", () => syncSoon(500));
+  window.addEventListener("storage", e => { if (e.key === KEY && e.newValue && e.newValue !== lastSaved) reloadState(e.newValue); });   // another window
+  window.addEventListener("focus", () => { const sc = syncCfg(); if (sc && Date.now() - (sc.at || 0) > 60e3) syncSoon(300); });     // a window clicked again
   document.addEventListener("visibilitychange", () => {
-    if (document.visibilityState !== "visible") return;
+    if (document.visibilityState === "hidden") { if (syncDirtyAt) syncNow(false); return; }   // what was done here, sent before the app sleeps
+    const sc = syncCfg();
+    if (sc && Date.now() - (sc.at || 0) > 60e3) syncSoon(300);
     if (listsReady && study.day !== dayNum() && study.mode === "line") study.build();
     if (!EMBEDDED && Date.now() - listsChecked > 30 * 60e3) refreshLists(false, false);
     if (swReg && Date.now() - swChecked > 30 * 60e3) { swChecked = Date.now(); swReg.update().catch(() => {}); }
@@ -3776,7 +4211,9 @@ function init() {
     }).catch(() => {});
   }
 }
-let swReg = null, swChecked = Date.now();
+let swReg = null, swChecked = Date.now(), installEvt = null;
+window.addEventListener("beforeinstallprompt", e => { e.preventDefault(); installEvt = e; if (current === "settings") renderSettings(); });   // Edge, Chrome
+window.addEventListener("appinstalled", () => { installEvt = null; toast("Appli installée : elle est dans le menu Démarrer."); if (current === "settings") renderSettings(); });
 init();
 </script>
 

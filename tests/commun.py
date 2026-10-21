@@ -45,9 +45,16 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         super().end_headers()
 
 
+class Server(socketserver.ThreadingTCPServer):
+    def handle_error(self, request, client_address):
+        # a page closed while a file was on its way: nothing to report
+        if not isinstance(sys.exc_info()[1], (ConnectionAbortedError, ConnectionResetError, BrokenPipeError)):
+            super().handle_error(request, client_address)
+
+
 def serve(folder):
     handler = functools.partial(Handler, directory=folder)
-    httpd = socketserver.ThreadingTCPServer(("127.0.0.1", 0), handler)
+    httpd = Server(("127.0.0.1", 0), handler)
     httpd.daemon_threads = True
     threading.Thread(target=httpd.serve_forever, daemon=True).start()
     return httpd, "http://127.0.0.1:%d/" % httpd.server_address[1]

@@ -7,7 +7,8 @@ où tu peux aussi l’écouter.
 
 L’appli tourne sur l’iPhone, hors ligne, depuis l’écran d’accueil. Les listes de mots vivent dans
 ce dossier, sur ton ordinateur : tu les modifies, tu publies avec git, et le téléphone se met à jour
-tout seul. Ta progression, elle, reste sur le téléphone.
+tout seul. Ta progression, elle, reste sur l’appareil, ou passe d’un appareil à l’autre si tu les
+synchronises (section 7). L’appli s’installe aussi sur l’ordinateur.
 
 Ce que contient le dossier :
 
@@ -470,12 +471,95 @@ listes y renvoient par une ligne sans traduction (section 3). Les listes HSK 4 �
 produites par `outils/hsk/` (voir `outils/hsk/LISEZMOI.md`).
 
 
-## 7. Sauvegarder la progression
+## 7. Sauvegarder, ordinateur, appareils synchronisés
 
-La progression n’existe que sur le téléphone. Réglages › **Exporter un fichier** l’enregistre
+### 7.1 Sauvegarder
+
+La progression est enregistrée sur chaque appareil. Réglages › **Exporter un fichier** l’enregistre
 dans Fichiers (iCloud Drive, par exemple) ; « Restaurer » la recharge. Supprimer l’icône de
-l’appli supprime aussi sa progression : exporte d’abord. Une sauvegarde faite avant le passage
-aux seaux se restaure aussi, mais tous ses mots repartent du seau 0 (voir section 8).
+l’appli supprime aussi sa progression : exporte d’abord, ou synchronise (7.3). Une sauvegarde faite
+avant le passage aux seaux se restaure aussi, mais tous ses mots repartent du seau 0 (voir section 8).
+
+### 7.2 L’appli sur l’ordinateur
+
+Ouvre l’adresse de l’appli (`https://TON-IDENTIFIANT.github.io/xingyinyi/`) dans **Edge** ou
+**Chrome**, puis Réglages › Appli › **Installer sur cet ordinateur** (ou l’icône « Installer » au bout
+de la barre d’adresse). L’appli s’ouvre alors dans sa propre fenêtre, depuis le menu Démarrer,
+marche hors ligne et se met à jour comme sur l’iPhone. Au clavier : **Espace** tourne la carte,
+**1** et **2** notent × et √, **A** lit le mot, **E** la phrase.
+
+### 7.3 Synchroniser l’iPhone et l’ordinateur
+
+Chaque appareil a sa propre progression. Pour retrouver la même partout, donne-leur un **code
+commun** (Réglages › **Synchroniser les appareils**) :
+
+1. Sur l’iPhone : **Créer un code** propose un code de quatre syllabes et un nombre (par exemple
+   `lan-shu-qiao-mei-58`) ; note-le. Puis **Utiliser ce code** : ta progression part sur le serveur.
+2. Sur l’ordinateur : tape le même code (seuls lettres et chiffres comptent : majuscules, espaces et tirets non),
+   puis **Utiliser ce code** : l’ordinateur reçoit la progression de l’iPhone, fusionnée avec la sienne.
+
+Un code tapé que personne n’utilise encore est d’abord à confirmer (« Créer ce code ») : vérifie-le,
+une faute de frappe ferait une seconde progression partagée.
+
+Ensuite, tout est automatique : chaque appareil envoie ses réponses une vingtaine de secondes après,
+et dès que tu passes à une autre appli ; si tu fermes l’appli juste après une réponse, elle part à la
+prochaine ouverture. Il reçoit les réponses des autres à l’ouverture et quand tu y reviens. Sans réseau, il attend et envoie tout au retour de la connexion. **Synchroniser
+maintenant** force l’échange.
+
+Ce qui passe d’un appareil à l’autre : la progression de chaque mot, l’historique de Progrès, les
+mots, listes et corrections créés sur un appareil, les réglages (listes actives, seaux, nombres de
+mots, date de l’examen…). Restent propres à chaque appareil : la voix (prononciation automatique,
+vitesse), le jeton GitHub, un test ou un apprentissage en cours.
+
+**En cas de conflit**, c’est-à-dire un mot travaillé sur les deux appareils entre deux
+synchronisations, le mot garde sa progression **la plus avancée** (le seau le plus haut, puis la
+révision la plus récente), et ses révisions s’additionnent. Un mot changé d’un seul côté prend
+simplement ce côté, même s’il a été raté : rater un mot sur l’ordinateur le renvoie bien au seau 0
+sur l’iPhone. Un réglage changé des deux côtés garde celui de l’appareil qui synchronise en second.
+
+**Copies du serveur.** Le serveur garde une copie de la progression partagée par jour d’usage,
+30 au plus. Réglages › Synchroniser les appareils › **Copies du serveur…** permet de revenir à l’une
+d’elles, pour tous les appareils (ce qui a été fait depuis est perdu).
+
+**Arrêter sur cet appareil** le détache du code : sa progression reste, celle du serveur aussi.
+Attention : « Effacer toute la progression » et « Restaurer » valent pour tous les appareils
+synchronisés ; pour repartir de zéro sur un seul, arrête d’abord la synchronisation sur celui-là.
+
+Le code sert de clé : quiconque le connaît peut lire et changer ta progression. Préfère celui que
+propose « Créer un code » à un mot facile à deviner. Le serveur ne reçoit jamais le code lui-même,
+seulement son empreinte.
+
+### 7.4 Mettre en place le serveur (une seule fois)
+
+**C’est fait** : le serveur de cette appli tourne à l’adresse
+`https://xingyinyi-sync.guillaume-plehar.workers.dev`, inscrite dans l’appli (constante `SYNC_URL`
+de `index.html`). Les étapes ci-dessous servent à le refaire, sur un autre compte par exemple.
+
+Le serveur est un petit programme (`outils/sync/worker.mjs`) qui tourne gratuitement chez
+Cloudflare, avec une petite base de données (D1). L’offre gratuite (100 000 requêtes par jour,
+500 Mo par base) dépasse de loin ce qu’il faut. Son adresse étant publique, le serveur n’accepte que
+5 codes (variable `MAX_CODES` du programme, dans ses réglages, pour en permettre plus). Depuis l’ordinateur :
+
+1. Crée un compte sur https://dash.cloudflare.com/sign-up (gratuit, sans carte bancaire).
+2. **La base** : dans le menu de gauche, « Storage & Databases » › « D1 SQL Database » ›
+   « Create » ; nom `xingyinyi` ; « Create ». Rien d’autre à y faire : le programme crée ses tables.
+3. **Le programme** : « Compute (Workers) » › « Workers & Pages » › « Create » › « Start with Hello
+   World! » ; nom `xingyinyi-sync` ; « Deploy ». Puis « Edit code » : efface tout, colle le contenu
+   du fichier `outils/sync/worker.mjs` du dépôt, et « Deploy ».
+4. **Relier les deux** : dans le programme `xingyinyi-sync`, onglet « Bindings » (ou « Settings » ›
+   « Bindings ») › « Add binding » › « D1 database » ; « Variable name » : `DB` (en majuscules) ;
+   base : `xingyinyi` ; « Add Binding », puis redéploie si Cloudflare le propose.
+5. **Vérifier** : son adresse s’affiche sur la page du programme, du genre
+   `https://xingyinyi-sync.TON-SOUS-DOMAINE.workers.dev`. Ouvre-la en y ajoutant `/sante` : la page
+   doit afficher `"ok"`. Sinon, la liaison de l’étape 4 manque, ou son nom n’est pas `DB`.
+
+Cette adresse (sans `/sante`) va dans la constante `SYNC_URL` de `index.html` (Claude Code s’en
+charge) : il ne reste alors que le code à taper sur chaque appareil. Laissée vide, l’appli demande
+l’adresse dans Réglages › Synchroniser les appareils.
+
+Pour essayer sans Cloudflare, le même serveur tourne sur l’ordinateur (Node 22.13 ou plus) :
+`node outils/sync/serveur_local.mjs`, adresse `http://localhost:8787` (la progression s’y perd à
+l’arrêt, sauf avec `--base fichier.sqlite`).
 
 
 ## 8. Installer une nouvelle version de l’appli
