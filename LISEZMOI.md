@@ -158,9 +158,11 @@ et télécharge une voix de bonne qualité.
   rouvre le crayon une fois le réseau revenu.
   **Chercher par clé** : le bouton **部** montre les clés (部首) des caractères, rangées par nombre de
   traits, avec leurs formes simplifiées (讠, 钅, 纟…) et leurs formes de côté en petit (亻 pour 人, 氵 pour
-  水…). Touche la clé, puis le caractère parmi les siens, rangés par traits en plus de la clé : il s’ajoute
-  à la recherche, comme un caractère dessiné. Seuls les caractères des mots du dictionnaire sont
-  proposés. Les clés viennent de la base Unihan d’Unicode.
+  水…), une ligne par nombre de traits. Touche la clé : ses caractères viennent, un par ligne, du moins
+  au plus de traits (le nombre de traits du caractère entier est au bout de la ligne, compté comme dans
+  « Décomposer »), avec leur pinyin et le sens du caractère seul, ou à défaut des mots qui le contiennent.
+  Touche le bon : il s’ajoute à la recherche, comme un caractère dessiné. Seuls les caractères des mots du
+  dictionnaire sont proposés. Les clés viennent de la base Unihan d’Unicode.
 - **Progrès** : mots passés, en tout et par liste, ce qu’il reste à voir au premier tour et quand
   il sera fini à ton rythme, le rythme à tenir avant l’examen, le nombre de mots dans chaque seau
   et les révisions prévues sur la semaine. C’est aussi là que tu lances un **apprentissage**, une **évaluation**, un

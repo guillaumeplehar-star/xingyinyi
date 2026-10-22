@@ -179,18 +179,48 @@ def main():
         page.click("#keys-open")
         page.wait_for_selector("#keypad:not([hidden])")
         keys = page.evaluate("""() => { const marks = [...document.querySelectorAll('#keys-list .kn')].map(m => +m.textContent);
+            const groups = [...document.querySelectorAll('#keys-list .kgroup')], top = e => e.getBoundingClientRect().top;
             return { n: document.querySelectorAll('#keys-list [data-key]').length, marks, sorted: marks.every((m, i) => !i || m > marks[i - 1]),
+                     lines: groups.length === marks.length && groups.every((g, i) => !i || top(g) >= groups[i - 1].getBoundingClientRect().bottom),
                      pad: document.querySelector('#drawpad').hidden, wide: (m => m.scrollWidth - m.clientWidth)(document.querySelector('#main')) }; }""")
-        check(keys["n"] > 150 and keys["sorted"] and keys["marks"][0] == 1 and keys["pad"] and keys["wide"] <= 0,
-              "部: the keys, ranged by their strokes (1, 2, 3…); the drawing pad closed", keys)
+        check(keys["n"] > 150 and keys["sorted"] and keys["marks"][0] == 1 and keys["lines"] and keys["pad"] and keys["wide"] <= 0,
+              "部: the keys, a line per number of strokes (1, 2, 3…); the drawing pad closed", keys)
         shot(page, "dessin-04-cles")
         page.fill("#q", "ren")
         page.click('#keys-list [data-key] >> text="讠"')
-        chars = page.evaluate("""() => ({ list: [...document.querySelectorAll('#keys-list [data-ch]')].map(b => b.dataset.ch),
-            marks: [...document.querySelectorAll('#keys-list .kn')].map(m => m.textContent), back: !document.querySelector('#keys-back').hidden,
-            dict: [...document.querySelectorAll('#keys-list [data-ch]')].every(b => DECK.some(w => w.h.includes(b.dataset.ch))) })""")
-        check("认" in chars["list"] and "说" in chars["list"] and chars["marks"][0].startswith("+") and chars["back"] and chars["dict"],
-              "the key 讠: its characters (认, 说…), ranged by strokes besides the key, all in the dictionary", chars)
+        chars = page.evaluate("""async () => { const lines = [...document.querySelectorAll('#keys-list .kline')], l = document.querySelector('#keys-list');
+            const n = lines.map(b => parseInt(b.querySelector('.ks').textContent.replace(/\\D+/g, ' ').trim()));
+            const line = ch => (b => b && [b.querySelector('.kp').textContent, b.querySelector('.ks').textContent.replace(/[\\s\\u202f\\u00a0,]+/g, ' ').trim()])(l.querySelector(`.kline[data-ch="${ch}"]`));
+            const drawn = await Promise.all(lines.slice(0, 12).map(async (b, i) => ((await strokesOf(b.dataset.ch)) || [[]])[0].length === n[i]));
+            return { list: lines.map(b => b.dataset.ch), sorted: n.every((x, i) => !i || x >= n[i - 1]), drawn: drawn.every(Boolean),
+                     ren: line('认'), shuo: line('说'), back: !document.querySelector('#keys-back').hidden,
+                     each: lines.every((b, i) => !i || b.getBoundingClientRect().top >= lines[i - 1].getBoundingClientRect().bottom - 1),
+                     full: lines.every(b => b.getBoundingClientRect().width >= l.clientWidth - 30), wide: l.scrollWidth - l.clientWidth,
+                     dict: lines.every(b => DECK.some(w => w.h.includes(b.dataset.ch))) }; }""")
+        check("认" in chars["list"] and "说" in chars["list"] and chars["sorted"] and chars["drawn"] and chars["back"] and chars["dict"]
+              and chars["ren"] == ["rèn", "4 traits"] and chars["shuo"][1] == "9 traits" and "shuō" in chars["shuo"][0],
+              "the key 讠: its characters (认, 说…), from the fewest strokes, as many as in their stroke order, all in the dictionary", chars)
+        check(chars["each"] and chars["full"] and chars["wide"] <= 0, "phone: one line per character, across the list", chars)
+        lines = page.evaluate("""() => { const out = {}; for (const ch of ['草', '子', '西', '长']) {
+            keyAt = CLES.findIndex(k => Object.values(k[3]).some(cs => cs.includes(ch))); keysRender();
+            const b = document.querySelector(`.kline[data-ch="${ch}"]`);
+            out[ch] = [b.querySelector('.kp').textContent, b.querySelector('.kf').textContent.replace(/^, /, ''), b.querySelector('.ks').textContent.replace(/[\\s\\u202f\\u00a0,]+/g, ' ').trim()]; }
+            const zhang = DECK.filter(w => w.h === '长'), first = out['长'][0].split(' / ')[0];
+            out.zhang = (zhang.find(w => pinyinText(w.p) === first) || {}).f;
+            out.alone = DECK.some(w => w.h === '子');
+            out.sense = firstSense('suffixe (椅子 = chaise ; 桌子 = table) ; autre');
+            keyAt = CLES.findIndex(k => k[1] === '讠'); keysRender(); return out; }""")
+        check(lines["草"][2] == "9 traits" and lines["子"][0] == "zǐ" and not lines["alone"] and lines["西"][0] == "xī"
+              and sorted(lines["长"][0].split(" / ")) == ["cháng", "zhǎng"] and lines["zhang"].startswith(lines["长"][1])
+              and lines["sense"] == "suffixe (椅子 = chaise ; 桌子 = table)",
+              "a line: strokes as taught (草 9, not Unihan's 10), the readings without a neutral tone beside the same toned "
+              "syllable (子 zǐ, 西 xī), the sense of the first reading (长), a sense not cut inside brackets", lines)
+        zi = page.evaluate("""() => { const w = { id: 'u-zi', h: '子', p: 'zi', f: 'suffixe de nom (椅子 = chaise ; 桌子 = table) ; autre' };
+            DECK.push(w); keyAt = CLES.findIndex(k => k[1] === '子'); keysRender();
+            const b = document.querySelector('.kline[data-ch="子"]'), out = [b.querySelector('.kp').textContent, b.querySelector('.kf').textContent.replace(/^, /, '')];
+            DECK.pop(); keyAt = CLES.findIndex(k => k[1] === '讠'); keysRender(); return out; }""")
+        check(zi == ["zi / zǐ", "suffixe de nom (椅子 = chaise ; 桌子 = table)"],
+              "子 a word alone (neutral zi): its reading first, even neutral, and its sense, then zǐ of the other words", zi)
         shot(page, "dessin-05-cle-yan")
         page.click('#keys-list [data-ch="认"]')
         after = page.evaluate("() => [document.querySelector('#q').value, !!document.querySelector('#keys-list [data-key]'), document.querySelector('#keys-hint').textContent]")

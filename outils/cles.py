@@ -4,9 +4,10 @@
 Lit la base Unihan d'Unicode (https://www.unicode.org/Public/UCD/latest/ucd/Unihan.zip, décompressé ; licence Unicode,
 https://www.unicode.org/license.txt) : kRSUnicode (clé du Kangxi, ' pour sa forme simplifiée, et traits restants) et
 kTotalStrokes ; et CJKRadicals.txt (même adresse) : le caractère de chaque clé. Les caractères : ceux de la police de
-l'appli (COVER dans index.html) et ceux de la colonne hanzi des listes de decks/. Écrit dans index.html la constante
-CLES : [numéro de la clé, formes montrées (la première en grand), traits de la clé, {traits restants: caractères}],
-triée par traits de la clé puis par numéro.
+l'appli (COVER dans index.html) et ceux de la colonne hanzi des listes de decks/. Le nombre de traits d'un caractère
+vient de traits/ (ordre des traits, comptes des manuels : Unihan compte 艹, 辶… comme les formes anciennes), sinon
+traits de la clé + traits restants. Écrit dans index.html la constante CLES : [numéro de la clé, formes montrées (la
+première en grand), traits de la clé, {traits du caractère: caractères}], triée par traits de la clé puis par numéro.
 
   py outils\\cles.py <dossier Unihan décompressé> <CJKRadicals.txt>
 """
@@ -69,6 +70,12 @@ def main():
                 for line in fh:
                     chars.update(HAN.findall(re.split(r"\t| {2,}", line.strip(), 1)[0]))
     chars = {c for c in chars if HAN.match(c)}
+    drawn = {}                                     # strokes of a character in traits/ (as the app animates them)
+    folder = os.path.join(ROOT, "traits")
+    for name in os.listdir(folder):
+        if re.fullmatch(r"\d+\.json", name):
+            with io.open(os.path.join(folder, name), encoding="utf-8") as fh:
+                drawn.update((ch, len(v[0])) for ch, v in json.load(fh).items())
 
     keys, missing = {}, []
     for ch in sorted(chars):
@@ -76,15 +83,18 @@ def main():
             missing.append(ch)
             continue
         num, rest = rs[ch].split(".")
-        keys.setdefault(num, {}).setdefault(int(rest), []).append(ch)
+        keys.setdefault(num, []).append((ch, int(rest)))
     out = []
-    for num, by in keys.items():
+    for num, cs in keys.items():
         shown = FORMS.get(num, form.get(num, ""))
         if not shown:
-            missing.extend(c for cs in by.values() for c in cs)
+            missing.extend(c for c, _ in cs)
             continue
         n = STROKES.get(shown[0], strokes.get(shown[0], 0))
-        out.append([num, shown, n, {str(r): "".join(sorted(cs, key=lambda c: (strokes.get(c, 99), c))) for r, cs in sorted(by.items())}])
+        by = {}
+        for c, rest in cs:
+            by.setdefault(drawn.get(c, n + rest), []).append(c)
+        out.append([num, shown, n, {str(t): "".join(sorted(by[t])) for t in sorted(by)}])
     out.sort(key=lambda k: (k[2], int(k[0].rstrip("'")), k[0]))
 
     line = "const CLES = " + json.dumps(out, ensure_ascii=False, separators=(",", ":")) + ";"

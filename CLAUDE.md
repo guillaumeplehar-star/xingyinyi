@@ -23,7 +23,7 @@ compilation : `index.html` contient tout le HTML, le CSS et le JavaScript. C'est
 | `outils/pinyin_auto.py`, `lexique_*.tsv`, `syllabes.txt`, `caracteres_hsk1-3.txt` | Pinyin automatique aux conventions des manuels ; liste des caractères HSK 1-3. |
 | `outils/version_appli.py` | À lancer après toute modification de l'appli (voir plus bas). |
 | `traits/`, `outils/traits.py` | Ordre des traits : `00.json`…`31.json` (caractère rangé par code % 32 → contours SVG des traits et lignes médianes, repère 1024 × 1024, y vers le haut, base à 900), `index.json` (version `v`), `ARPHICPL.TXT` (licence Arphic Public License, à garder telle quelle). Produits par `py outils\traits.py <graphics.txt>` depuis Make Me a Hanzi (github.com/skishore/makemeahanzi, fichier non gardé dans le dépôt) pour les caractères de `COVER`. |
-| `outils/cles.py` | Clés (部首) des caractères pour la recherche par clé : lit la base Unihan d'Unicode (`Unihan.zip` et `CJKRadicals.txt` de unicode.org, non gardés dans le dépôt ; licence Unicode) et réécrit la ligne `const CLES = …;` de `index.html` pour les caractères de `COVER` et de `decks/`. Formes de côté (`FORMS` : 亻 pour 人…) et traits des formes simplifiées (`STROKES` : 艹 3, 辶 3, 阝 2…) fixés dans l'outil. |
+| `outils/cles.py` | Clés (部首) des caractères pour la recherche par clé : lit la base Unihan d'Unicode (`Unihan.zip` et `CJKRadicals.txt` de unicode.org, non gardés dans le dépôt ; licence Unicode) et réécrit la ligne `const CLES = …;` de `index.html` pour les caractères de `COVER` et de `decks/` ; le nombre de traits d'un caractère vient de `traits/` (Unihan compte 艹, 辶… comme les formes anciennes : 草 10 au lieu de 9), sinon traits de la clé + traits restants. Formes de côté (`FORMS` : 亻 pour 人…) et traits des formes simplifiées (`STROKES` : 艹 3, 辶 3, 阝 2…) fixés dans l'outil. |
 | `outils/sync/` | Serveur de synchronisation des appareils : `worker.mjs` (Cloudflare Worker + base D1 liée sous le nom `DB`, un document versionné par code, 409 sur une version dépassée, une copie par jour, 30 au plus), `serveur_local.mjs` (le même avec `node:sqlite`, pour les tests et pour essayer), `LISEZMOI.md` (adresses ; mise en place : `LISEZMOI.md` principal, section 7.4). |
 | `tests/` | Tests Playwright (`test_seance.py`, `test_seaux.py`, `test_listes.py`, `test_dico.py`, `test_affichage.py` (onglet Affichage), `test_dessin.py` (recherche en dessinant et par clé), `test_sync.py` deux appareils et le serveur local, avec le test et l'apprentissage partagés, aides communes dans `commun.py`) et `test_serveur_sync.mjs` (le serveur seul, Node) ; `tests/donnees/decks` est une copie figée des listes d'origine, avec les anciens champs `mode`/`parJour` (ne pas la synchroniser avec `decks/` ni la modifier). |
 | `LISEZMOI.md` | Guide de l'utilisateur, en français. À tenir à jour quand une fonction visible change. |
@@ -325,9 +325,14 @@ l'iPhone : Réglages › Appli › Vérifier. Le téléphone peut lui aussi écr
   focus revient sur la case). La case suit la grille d'Affichage (`.pad-box`, `svg.mzg`). `traitPack` abandonne une
   requête au bout de 20 s.
 - **Caractère par sa clé** (Mots, bouton `#keys-open` 部, `#keypad`) : `CLES` (ligne écrite par `outils\cles.py` : `[numéro
-  du Kangxi (' : forme simplifiée), formes montrées (la première en grand), traits de la clé, {traits restants : caractères}]`,
-  triée par traits de la clé), `keysRender` (`keyAt` null : les clés, marques `.kn` de leurs traits, 阝 « 右 »/« 左 » ; sinon
-  les caractères de la clé, par traits restants ; seulement les clés et caractères des mots de `DECK`), `keysOpen` (la case
+  du Kangxi (' : forme simplifiée), formes montrées (la première en grand), traits de la clé, {traits du caractère : caractères}]`,
+  triée par traits de la clé), `keysRender` (`keyAt` null : les clés, une ligne `.kgroup` par nombre de traits (marque `.kn`,
+  clés dans `.kkeys`), 阝 « 右 »/« 左 » ; sinon les caractères de la clé, `#keys-list.chars`, une ligne `.kline` chacun par
+  `keyCharHTML` : caractère, lectures (celle du mot qu'il fait seul d'abord, puis les plus fréquentes dans les mots qui le
+  contiennent ; un ton neutre n'est pas montré à côté de la même syllabe avec un ton, ni le r de 这儿, ni une majuscule),
+  sens de ce mot seul pour la première lecture (`firstSense` : jusqu'au premier `;` hors parenthèses), sinon les mots les
+  plus courts qui le contiennent, nombre de traits ; du moins au plus de traits, les plus employés d'abord ; en colonnes sur
+  l'ordinateur ; seulement les clés et caractères des mots de `DECK`), `keysOpen` (la case
   de dessin se ferme : un panneau à la fois), `bindKeys`. Un caractère choisi passe par `searchAdd` (comme un dessiné), puis
   les clés reviennent. Dessin : `guessChars(…, 50)` dans `pad.top`, `pad.n` montrés (10, puis 10 de plus par `#pad-more`).
 - **Ordre des traits** (fiche du mot, `#sheet-traits`) : `renderTraits(el, mot)` (chaque caractère CJK une fois),
