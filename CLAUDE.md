@@ -24,7 +24,7 @@ compilation : `index.html` contient tout le HTML, le CSS et le JavaScript. C'est
 | `outils/version_appli.py` | À lancer après toute modification de l'appli (voir plus bas). |
 | `traits/`, `outils/traits.py` | Ordre des traits : `00.json`…`31.json` (caractère rangé par code % 32 → contours SVG des traits et lignes médianes, repère 1024 × 1024, y vers le haut, base à 900), `index.json` (version `v`), `ARPHICPL.TXT` (licence Arphic Public License, à garder telle quelle). Produits par `py outils\traits.py <graphics.txt>` depuis Make Me a Hanzi (github.com/skishore/makemeahanzi, fichier non gardé dans le dépôt) pour les caractères de `COVER`. |
 | `outils/sync/` | Serveur de synchronisation des appareils : `worker.mjs` (Cloudflare Worker + base D1 liée sous le nom `DB`, un document versionné par code, 409 sur une version dépassée, une copie par jour, 30 au plus), `serveur_local.mjs` (le même avec `node:sqlite`, pour les tests et pour essayer), `LISEZMOI.md` (adresses ; mise en place : `LISEZMOI.md` principal, section 7.4). |
-| `tests/` | Tests Playwright (`test_seance.py`, `test_seaux.py`, `test_listes.py`, `test_dico.py`, `test_sync.py` deux appareils et le serveur local, aides communes dans `commun.py`) et `test_serveur_sync.mjs` (le serveur seul, Node) ; `tests/donnees/decks` est une copie figée des listes d'origine, avec les anciens champs `mode`/`parJour` (ne pas la synchroniser avec `decks/` ni la modifier). |
+| `tests/` | Tests Playwright (`test_seance.py`, `test_seaux.py`, `test_listes.py`, `test_dico.py`, `test_affichage.py` (onglet Affichage), `test_dessin.py` (recherche en dessinant), `test_sync.py` deux appareils et le serveur local, aides communes dans `commun.py`) et `test_serveur_sync.mjs` (le serveur seul, Node) ; `tests/donnees/decks` est une copie figée des listes d'origine, avec les anciens champs `mode`/`parJour` (ne pas la synchroniser avec `decks/` ni la modifier). |
 | `LISEZMOI.md` | Guide de l'utilisateur, en français. À tenir à jour quand une fonction visible change. |
 
 ## Commandes (PowerShell : une commande par ligne, pas de `&&`)
@@ -35,6 +35,8 @@ py tests\test_seance.py                # séance complète, clair et sombre, hor
 py tests\test_seaux.py                 # seaux, file, réglages des délais, évaluation, migration du planning
 py tests\test_listes.py                # listes du téléphone, publication GitHub simulée (environ 1 min)
 py tests\test_dico.py                  # dictionnaire : renvois, mot de plusieurs listes, Afficher, partage, publication
+py tests\test_affichage.py             # Affichage : thèmes, taille du texte, police, grille, pinyin en chiffres, tons, animations
+py tests\test_dessin.py                # Mots : caractère dessiné (reconnaissance sans ordre des traits), au doigt et à la souris
 py tests\test_sync.py                  # deux appareils synchronisés par le serveur local (demande Node 22.13 ou plus)
 node tests\test_serveur_sync.mjs       # le serveur de synchronisation seul
 node outils\sync\serveur_local.mjs     # le serveur de synchronisation sur http://localhost:8787
@@ -57,6 +59,12 @@ l'iPhone : Réglages › Appli › Vérifier. Le téléphone peut lui aussi écr
 
 ## Repères dans index.html
 
+- **Affichage, avant le premier rendu** (`<script>` à la fin de `<head>`) : `LOOK` (valeurs permises : `themes`, `dark`,
+  `text` (facteurs de taille), `zh`, `grid`, `tones`, `motion`), `applyLook(settings)` pose sur `<html>` `data-theme` (absent :
+  Automatique), `data-mode` (`dark`/`light` effectif, pour les couleurs des tons), `--tz` et `data-text` (taille du texte),
+  `data-zh`, `data-grid`, `data-tones`, `data-motion="reduce"` (choix d'Affichage ou de l'appareil : `reducedMotion()`),
+  `data-compact`, et la couleur des `<meta name="theme-color">` ; lancé d'abord sur les réglages lus dans `xingyinyi.v2`, puis
+  par `init`, `setLook`, `applyDoc`, `reloadState`, la restauration, et quand le mode clair ou sombre de l'appareil change.
 - **Constantes du haut** : `EMBEDDED` (null ici ; servait à l'aperçu claude.ai), `COVER` (caractères
   présents dans la police), `SYLL` (421 syllabes, ü noté v), `LEGACY` (ordre officiel HSK 3 pour
   migrer la première version), `IS_PWA`, `XH` (hauteur d'x d'Andika), `BUILD`. Planning :
@@ -90,7 +98,11 @@ l'iPhone : Réglages › Appli › Vérifier. Le téléphone peut lui aussi écr
   dernier seau, `topBucket()` ; 1 à 9 délais), `evalSize` (mots par évaluation et par test « nouveau sens »,
   20, de 5 à 100), `learnSize` (mots par apprentissage, 20, de 5 à 50),
   `startFace`, `autoAudio`, `rate`, `toneColors`, `exDetails` (traduction de l'exemple ouverte d'office
-  sous la carte), `exOnForm` (phrase sur les faces : caractères sur 形, pinyin sur 音 ; le nom est resté), `exam`.
+  sous la carte), `exOnForm` (phrase sur les faces : caractères sur 形, pinyin sur 音 ; le nom est resté), `exam` ; Affichage :
+  `theme` (`auto`, `light` Cahier, `paper`, `sepia`, `contrast`, `dark` Tableau noir, `night`), `textSize` (`s`, `m`, `l`,
+  `xl`), `zhFont` (`kai`, `hei`, `song`), `grid` (`tian`, `mi`, `none`), `pinyinNum`, `tonePalette` (`app`, `pleco`, `mdbg` ;
+  « Aucune » = `toneColors` faux), `motion` (`auto`, `full`, `reduce`), `compact` ; `normalizeState` remet une valeur inconnue
+  à celle de `DEFAULTS`.
   `decks[id] = {on, cfgOn, show, cfgShow}` (interrupteurs Réviser et Afficher du téléphone ; `cfgOn`/`cfgShow` = derniers
   `actif`/`afficher` lus dans decks.json, qui l'emportent quand ils changent : `syncDeckSettings` ; `decks.sans.show` :
   mots sans liste dans Mots › Toutes). `log[jour] = {n premières vues,
@@ -197,14 +209,14 @@ l'iPhone : Réglages › Appli › Vérifier. Le téléphone peut lui aussi écr
   pause »), sinon retour à la file (`res.cut` : questions restées sans réponse, « Test des sens arrêté »). `next()`
   prend un jeton `tok` : une carte encore en train de glisser (170 ms) n'est pas dessinée si une autre a été demandée entre-temps. `grade(g)` : 0 = ×, 1 = √ (touches
   1 et 2) ; il n'y a plus de 3e note.
-- **Interface** : classe `Prism` (rotation 3D, `fit()` ajuste les tailles ; face 形 : cases 田字格 `.tzg`, phrase
+- **Interface** : classe `Prism` (rotation 3D, `fit()` ajuste les tailles, `layout()` rétrécit la carte quand la hauteur manque avec un texte agrandi ; face 形 : cases 田字格 `.tzg`, phrase
   `.form-ex`, bouton `[data-trace-form]` « Traits » (`traceForm` : chaque caractère tracé dans sa case par un `traceSVG`
   posé sur la police, `.tz-tr`, la police cachée par `.tzg.tracing`) et `[data-steps]` « Décomposer » (`showSteps` :
   feuille avec `renderTraits` en révision, défilement jusqu'à `#sheet-traits` dans la fiche du mot) ; face 音 : pinyin du mot,
   phrase en pinyin `.sound-ex` par `markPinyin` qui souligne les syllabes du mot sans tenir compte des tons,
   boutons `[data-say]` « Mot » et `[data-say-ex]` « Phrase », ou « Écouter » seul sans exemple), bandeau 例
   (`slipHTML`, `renderSlip`, `revealSlip` ; en révision il montre la phrase en caractères et, sous
-  « Traduction », sa traduction seulement ; la fiche du mot, mode `full`, y ajoute le pinyin), vues `study`/`words`/`progress`/`settings`,
+  « Traduction », sa traduction seulement ; la fiche du mot, mode `full`, y ajoute le pinyin), vues `study`/`words`/`progress`/`display`/`settings`,
   bouton ＋ de l'en-tête (`#btn-new`) et recherche sans résultat → `addSheet` (`prefillFrom`),
   feuilles (`openSheet`, `wordSheet` qui indique le seau), `toast(msg, ms, hold)` (applique `frTypo` ; `hold` garde un message important
   à l'écran, le dernier message arrivé entre-temps s'affiche ensuite).
@@ -220,7 +232,17 @@ l'iPhone : Réglages › Appli › Vérifier. Le téléphone peut lui aussi écr
   Progrès (`renderProgress`) : `#seen-n` mots passés, `#projection` (reste du premier tour, rythme
   `passPace` tiré de `log.p`, rythme pour l'examen), `#decktable` (Liste, Passés, À voir), colonnes
   des seaux `#boxes`/`#boxes-axis` par `drawCols` (`--n` posé en JS ; seau 0 = mots ratés), boutons
-  `#eval-go`/`#free-go`, `#eval-info`, `#forecast` (7 jours). Réglages (`renderSettings`) :
+  `#eval-go`/`#free-go`, `#eval-info`, `#forecast` (7 jours). Affichage (`renderDisplay`, `setLook`) : `#themes`
+  (`THEME_NAMES`, nuancier `.swatch` dont chaque `.swp[data-swatch]` prend les jetons de son thème), `#look-sample` (aperçu :
+  `cellsHTML`, `pinyinHTML`), choix `.seg.opt[data-look] [data-v]` et interrupteurs `.switch[data-look]` (un seul écouteur
+  sur `#view-display` ; `data-look="tones"` : `none` coupe `toneColors` ; `#themes` dessiné une fois, le focus y reste ; la carte
+  n'est redessinée que si `cardLook()` change ; une police absente de l'appareil, `fontHere` : son choix désactivé, `#zh-note`),
+  `#sw-exform`, `#sw-ex`, `#tone-legend` (venus de
+  Réglages › Cartes, devenu Voix). Pinyin en chiffres : `sylHTML`/`sylGap` (pour `pinyinHTML` et `markPinyin` : sans marque
+  de ton, chiffre après la syllabe, rien pour le ton neutre, syllabes séparées). Taille du texte : toutes les tailles en
+  px du `<style>` sont écrites `calc(Npx * var(--tz,1))` (`max(16px, …)` pour les champs), sauf l'en-tête et le menu ;
+  `fit()` et `fitSlip` multiplient leurs tailles de départ par le facteur. Grille : `cellsHTML` met dans chaque case un
+  `svg.mzg` (diagonales du 米字格). Réglages (`renderSettings`) :
   `#new-order`, `#deck-settings` (`.switch[data-deck]`), seaux `#bucket-settings`
   (`bucketRowsHTML`, `button[data-delay][data-b]`, `stepDelay` sur `DELAY_STEPS`) et
   `#bucket-btns` (`bucketBtnsHTML`, `data-bk` = `add`/`remove`/`reset`), `#eval-minus`/`#eval-plus`.
@@ -260,6 +282,20 @@ l'iPhone : Réglages › Appli › Vérifier. Le téléphone peut lui aussi écr
   souris sur un bouton de la révision (`#view-study`, écouteur à la capture : certains boutons arrêtent le clic) lui retire
   le focus (Espace tourne de nouveau la carte) ; Espace ou Entrée sur l'entrée courante du menu tourne la carte, sur une
   autre l'ouvre ; sans carte à l'écran (`#study-card` caché : écran de fin, chargement), les touches ne font rien.
+- **Caractère dessiné** (Mots, crayon `#draw-open`, `#drawpad`) : `shapeOf(strokes)` (forme d'un dessin sans ordre des
+  traits : grille `SHAPE_G` × `SHAPE_G` × 4 orientations, longueur de trait par case, autour du centre de gravité de l'encre et
+  à l'échelle de son étalement, flou, racine, longueur 1), `loadShapes()` (formes des ~3 040 caractères de `traits/`, médianes,
+  paquet par paquet dans `shapePacks`, gardés ; les paquets lus par `traitPack(n, false)`, sans rester en mémoire ;
+  `shapesReady`, `shapesMissing` : un paquet absent est redemandé quand la case se rouvre, `padOpen` ; tout est refait quand
+  `traits/` change de version), `guessChars(S, strokes, k)` (les k plus proches au cosinus, petite pénalité par trait de plus
+  ou de moins ; un trait sans longueur compte comme un point). Réglages choisis sur les médianes déformées, mélangées,
+  retournées et liées : `test_dessin.py` mesure le résultat (le bon caractère premier, ou parmi les dix). Case `pad` en SVG
+  (`#pad` : une `polyline` par trait, en fractions de la case, à l'encre du thème ; `strokes`, `cur`, `id` : un seul doigt à
+  la fois, un `pointercancel` n'en laisse rien ; `seq`/`shown` : dernière proposition affichée), `padDraw`, `padGuess`
+  (« Chargement… » tant que les formes ne sont pas prêtes), `padClear`, `padOpen`, `bindPad`. Un caractère touché remplace
+  dans `#q` ce qui n'est pas en caractères et s'y ajoute (`renderWords`), la case se vide, le message le dit (au clavier, le
+  focus revient sur la case). La case suit la grille d'Affichage (`.pad-box`, `svg.mzg`). `traitPack` abandonne une
+  requête au bout de 20 s.
 - **Ordre des traits** (fiche du mot, `#sheet-traits`) : `renderTraits(el, mot)` (chaque caractère CJK une fois),
   `strokesOf(ch)` / `traitPack(n)` (mémoire, puis cache `traits-xingyinyi`, puis réseau), `traitHTML` (grande case avec
   la ligne médiane de chaque trait découpée par son contour, `.ta` ; une case par étape, `use.t-done`/`t-new`/`t-todo`),
@@ -267,12 +303,12 @@ l'iPhone : Réglages › Appli › Vérifier. Le téléphone peut lui aussi écr
   après le démarrage, en ligne : les 32 paquets, de nouveau quand `index.json` change de version).
 - **Synchronisation des appareils** (Réglages › `#sync-box`, `renderSync`, `renderSyncStatus`, `syncJoin`, `copiesSheet`) :
   `docOf(state)` donne le document partagé (pris comme après un rechargement, `normalizeState` : ce qu'il complète n'est pas
-  un changement ; tout sauf `DEVICE_SETTINGS` = `autoAudio`, `rate`, et sauf `test`, `learn`, le jeton GitHub ; `custom`, `lists`
+  un changement ; tout sauf `DEVICE_SETTINGS` = `autoAudio`, `rate`, `theme`, `textSize`, `motion`, `compact`, `zhFont`, et sauf `test`, `learn`, le jeton GitHub ; `custom`, `lists`
   en maps par id ; `listsAt`), `stateFromDoc` l'inverse, `applyDoc` l'applique (`recomputeDue` si les délais changent, `mergeTel`,
   `afterDeckChange`). `mergeDocs(base, ici, serveur)` : `mergeMap` (une clé changée d'un seul côté prend ce côté, même plus
   bas, suppression comprise ; changée des deux côtés : la règle de la collection, même à valeur égale), `mergeCard` (la
   progression la plus avancée, `cardAhead` : seau, puis `d`, `t`, `r` ; `r` et `l` additionnés depuis la base ; remise à zéro
-  d'un côté et révision de l'autre : la carte reste), `mergeDay` (historique additionné), `mergeSet` (ids des listes : ajout
+  d'un côté et révision de l'autre : la carte reste), `mergeDay` (historique additionné), réglages absents d'un document (version d'avant) comptés à leur valeur de `DEFAULTS`, `mergeSet` (ids des listes : ajout
   ou retrait d'un côté), réglages : ceux de l'appareil qui fusionne ; sans base (premier code sur un appareil) : maximum,
   union, réglages du côté le plus avancé. `syncNow` : sans changement ici, `GET ?have=v` ; sinon `PUT {v de la base}` ; un 409
   apporte le document du serveur, fusion, nouvel envoi ; les changements faits pendant l'échange restent (`mergeDocs(local, now,
@@ -314,25 +350,29 @@ l'iPhone : Réglages › Appli › Vérifier. Le téléphone peut lui aussi écr
   guillemets « », nombre et nom liés par une espace insécable (`plural`). Les listes de `decks/` écrivent
   souvent une espace ordinaire : sens, note et traduction de l'exemple passent par `frTypo` à l'affichage
   (`senseItems`, note de la face 义, `slipHTML`, `wordRowHTML`), jamais dans les données.
-- Couleurs des tons fixes (`--t1` rouge, `--t2` orange, `--t3` bleu, `--t4` violet, `--t5` gris),
-  thèmes clair (cahier d'écolier) et sombre (tableau noir) par jetons CSS sur `:root`,
-  `prefers-color-scheme` et `[data-theme]`. Toute nouvelle couleur passe par un jeton défini dans les
-  trois blocs.
-- Polices : `--zh` (WenKai) pour le chinois, `--ui` (Andika : a et g à une boucle, comme à l'école).
+- Couleurs des tons (`--t1` rouge, `--t2` orange, `--t3` bleu, `--t4` violet, `--t5` gris ; Pleco et MDBG par
+  `[data-tones]`, clairs ou sombres selon `[data-mode]`, plus foncés pour Sépia et Contraste élevé), thèmes par jetons CSS : `:root` (Cahier, cahier d'écolier),
+  `prefers-color-scheme` sur `:root:not([data-theme])` (Tableau noir automatique), un bloc `:root[data-theme="…"]` par thème
+  (`dark` tableau noir, `paper`, `sepia`, `contrast`, `night`), chacun aussi pour `[data-swatch="…"]`. Toute nouvelle couleur
+  passe par un jeton défini dans chacun de ces blocs ; texte courant (`--ink`, `--pencil`, `--faint`, `--accent`, tons de chaque
+  palette) d'au moins 4,5 : 1 sur `--page` et `--bg` (`--grid` et `--pen` : traits, cadres, marques).
+- Polices : `--zh` (WenKai, `--zh-kai` ; `--zh-hei` et `--zh-song` selon Affichage, polices de l'appareil) pour le chinois,
+  `--ui` (Andika : a et g à une boucle, comme à l'école) ; le nom de l'appli reste en WenKai. Une taille de police passe par
+  `calc(Npx * var(--tz,1))` (taille du texte), sauf dans l'en-tête et le menu.
   Un mot dont un caractère manque à la police prend la classe `.sysfont` (`covered()`).
 - Phrases d'exemple : contenant le mot, avec les seuls caractères du niveau du mot ou en dessous (HSK 1-3 pour
   `decks/hsk1-3.tsv`, `outils/caracteres_hsk1-3.txt` ; `outils/hsk/controle.py` pour les autres) ; pinyin des manuels
   (tons neutres, 一 et 不 avec leur ton réel, 儿 collé).
 - iPhone : pas de `alert`/`confirm`/`prompt` (confirmations dans la page), champs en 16 px au moins
   (sinon Safari zoome), zones de sécurité `env(safe-area-inset-*)`, cibles tactiles d'au moins 34 px,
-  `prefers-reduced-motion` respecté.
+  animations réduites respectées (`[data-motion="reduce"]` en CSS, `reducedMotion()` en JS : l'appareil ou Affichage).
 - JavaScript sans dépendance ni bibliothèque externe, dans `index.html`. Pas de `console.log` laissé.
 - Messages et sorties des outils Python en UTF-8 (ils forcent `reconfigure`) ; commandes affichées en
   syntaxe Windows (`py outils\…`).
 
 ## Vérifier un changement
 
-1. `py tests\test_seance.py` (dont l'écran d'ordinateur, 1366 × 768), `py tests\test_seaux.py`, `py tests\test_listes.py`, `py tests\test_dico.py` et, si la
+1. `py tests\test_seance.py` (dont l'écran d'ordinateur, 1366 × 768), `py tests\test_seaux.py`, `py tests\test_listes.py`, `py tests\test_dico.py`, `py tests\test_affichage.py`, `py tests\test_dessin.py` et, si la
    synchronisation change, `py tests\test_sync.py` et `node tests\test_serveur_sync.mjs` ; ajoute un test
    pour toute nouvelle fonction. Tout changement du planning (seaux, file, évaluation, migration)
    passe par `tests/test_seaux.py`.

@@ -124,7 +124,7 @@ et télécharge une voix de bonne qualité.
 ## 2. Sur l’iPhone, au quotidien
 
 - **Réviser** : touche la carte ou fais-la glisser pour la tourner. La face 形 montre déjà la
-  phrase d’exemple en caractères, la face 音 la montre en pinyin (réglable) ; sur 音, **Mot** et
+  phrase d’exemple en caractères, la face 音 la montre en pinyin (Affichage › Exemples) ; sur 音, **Mot** et
   **Phrase** lisent à voix haute le mot ou la phrase ; sur 形, **Traits** trace les caractères trait par
   trait dans leurs cases (touche de nouveau pour revoir le tracé) et **Décomposer** ouvre en bas chaque
   caractère décomposé, une case par trait. Dès que la carte a tourné, la phrase en
@@ -147,14 +147,31 @@ et télécharge une voix de bonne qualité.
   en arrière-plan, puis restent sur le téléphone, hors ligne compris.
   Si la recherche ne trouve rien, **Créer la fiche « … »** ouvre le formulaire déjà rempli avec ce
   que tu as tapé.
+  **Chercher en dessinant** : le crayon à côté du champ de recherche ouvre une case où dessiner un
+  caractère au doigt (ou à la souris). L’ordre des traits, leur sens et leur nombre ne comptent pas :
+  après chaque trait, l’appli propose les dix caractères dont la forme ressemble le plus au dessin.
+  Touche le bon : il s’ajoute à la recherche (une recherche en pinyin ou en français laisse sa place
+  aux caractères), et la case se vide pour le caractère suivant. **Annuler le trait** retire le dernier
+  trait, **Effacer** tout le dessin. Les formes viennent des données de l’ordre des traits (environ
+  3 000 caractères, ceux des listes HSK) : hors ligne, elles doivent déjà être sur le téléphone ; sinon,
+  rouvre le crayon une fois le réseau revenu.
 - **Progrès** : mots passés, en tout et par liste, ce qu’il reste à voir au premier tour et quand
   il sera fini à ton rythme, le rythme à tenir avant l’examen, le nombre de mots dans chaque seau
   et les révisions prévues sur la semaine. C’est aussi là que tu lances un **apprentissage**, une **évaluation**, un
   **test complet**, un test **nouveau sens** ou un **entraînement libre** (section 5).
+- **Affichage** : le **thème** (Automatique, qui suit le mode clair ou sombre de l’appareil, Cahier, Papier blanc,
+  Sépia, Contraste élevé, Tableau noir, Nuit ; un aperçu montre l’effet), la **taille du texte** (petit à très grand :
+  listes, fiches, réglages et textes de la carte ; l’en-tête et le menu gardent la leur), la **liste des mots
+  compacte**, les **animations** (comme l’appareil, normales ou réduites : la carte tourne d’un coup), la **police
+  des caractères** (Kai, manuscrite, celle de l’appli ; Hei, d’écran ; Song, d’imprimerie : ces deux-là viennent des
+  polices de l’appareil), la **grille des cases** (田字格, 米字格 avec les diagonales, ou sans guides), le **pinyin en
+  chiffres** (ni3 hao3), les **couleurs des tons** (celles de l’appli, de Pleco, de MDBG, ou aucune) et la phrase
+  d’exemple (sur les faces, traduction ouverte d’office). Le thème, la taille du texte, les animations et la liste
+  compacte et la police restent propres à chaque appareil ; le reste suit la synchronisation (section 7.3). Une police
+  absente de l’appareil ne peut pas être choisie (Song n’existe pas sur l’iPhone).
 - **Réglages** : les listes rangées en HSK 2.0, HSK 3.0 et Mes listes ; pour chaque liste, **Réviser** (elle entre dans la file) et **Afficher** (ses mots
   apparaissent dans Mots › Toutes) ; seaux et délais, nombre de mots par apprentissage et par évaluation, date de l’examen,
-  publication sur GitHub, affichage des cartes et voix, mise à jour de l’appli (Appli › Vérifier),
-  sauvegarde.
+  publication sur GitHub, voix, mise à jour de l’appli (Appli › Vérifier), sauvegarde.
 
 Le premier tour suit l’ordre des listes actives : d’abord celles créées sur le téléphone (dont
 « Ajoutés ici »), puis Perso, HSK 3, HSK 2 et HSK 1, dans l’ordre de `decks/decks.json`. Dans
@@ -511,8 +528,9 @@ maintenant** force l’échange.
 
 Ce qui passe d’un appareil à l’autre : la progression de chaque mot, l’historique de Progrès, les
 mots, listes et corrections créés sur un appareil, les réglages (listes actives, seaux, nombres de
-mots, date de l’examen…). Restent propres à chaque appareil : la voix (prononciation automatique,
-vitesse), le jeton GitHub, un test ou un apprentissage en cours.
+mots, date de l’examen, grille, pinyin et couleurs des tons…). Restent propres à chaque appareil : la voix
+(prononciation automatique, vitesse), le thème, la taille du texte, la police, les animations, la liste compacte, le jeton GitHub,
+un test ou un apprentissage en cours.
 
 **En cas de conflit**, c’est-à-dire un mot travaillé sur les deux appareils entre deux
 synchronisations, le mot garde sa progression **la plus avancée** (le seau le plus haut, puis la

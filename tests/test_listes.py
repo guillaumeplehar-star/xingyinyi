@@ -106,8 +106,8 @@ def sound_face(page):
         const r = { speaks: !!f.querySelector('.speaks'), btn: !!f.querySelector('[data-say], [data-say-ex]'), sound: !!f.querySelector('.sound-ex') };
         tts.ok = true; redrawCurrent(); return r; }""")
     check(st == {"speaks": False, "btn": False, "sound": True}, "without speech synthesis: no buttons, the pinyin still shown", st)
-    # (d) the switch drives the sentence on both faces
-    page.click('.tab[data-view="settings"]')
+    # (d) the switch drives the sentence on both faces (Affichage)
+    page.click('.tab[data-view="display"]')
     lbl = nb(page.inner_text("#lbl-exform"))
     check("形" in lbl and "音" in lbl, "switch label names the 形 and 音 faces", lbl)
     check(nb(page.inner_text("#lbl-ex")) == "Traduction des exemples", "second switch: translation only", page.inner_text("#lbl-ex"))

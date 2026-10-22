@@ -27,6 +27,19 @@
    an example slip (例) that stays under a masking strip until the card is turned,
    teacher's red-pen grading, bottom tabs. Light = exercise book, dark = blackboard. */
 :root{
+  /* characters: 楷 (the default, LXGW WenKai), 黑 and 宋 from the device's fonts (Affichage › Police des caractères) */
+  --zh-kai:"WK","Kaiti SC","STKaiti","KaiTi","BiauKai","Songti SC","PingFang SC","Noto Serif SC",serif;
+  --zh-hei:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC","Noto Sans CJK SC","Source Han Sans SC",sans-serif;
+  --zh-song:"Songti SC","STSong","SimSun","NSimSun","Noto Serif SC","Noto Serif CJK SC","Source Han Serif SC",serif;
+  --zh:var(--zh-kai);
+  --zh-sys:"Kaiti SC","STKaiti","KaiTi","Songti SC","PingFang SC","Noto Serif SC","Noto Sans SC",serif;
+  --ui:"AndikaX",ui-rounded,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+:root[data-zh="hei"]{--zh:var(--zh-hei);--zh-sys:var(--zh-hei)}
+:root[data-zh="song"]{--zh:var(--zh-song);--zh-sys:var(--zh-song)}
+/* Themes (Affichage): each block defines every colour token; [data-swatch] gives a theme's colours to its swatch.
+   No data-theme: the device's light or dark (Automatique). */
+:root,[data-swatch="light"]{
   --bg:#e6ece4;        /* desk under the exercise book */
   --page:#f8faf4;      /* exercise-book paper */
   --ink:#1d2a22;       /* pen ink */
@@ -41,13 +54,10 @@
   --t1:#c62f2f; --t2:#a35300; --t3:#2453c4; --t4:#7a3db3; --t5:#5f6b64;
   --shadow:rgba(29,42,34,.20);
   --veil:rgba(29,42,34,.40);
-  --zh:"WK","Kaiti SC","STKaiti","KaiTi","BiauKai","Songti SC","PingFang SC","Noto Serif SC",serif;
-  --zh-sys:"Kaiti SC","STKaiti","KaiTi","Songti SC","PingFang SC","Noto Serif SC","Noto Sans SC",serif;
-  --ui:"AndikaX",ui-rounded,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
   color-scheme:light;
 }
 @media (prefers-color-scheme:dark){
-  :root:not([data-theme="light"]){
+  :root:not([data-theme]){
     --bg:#131c17; --page:#1b271f; --ink:#e3eae1; --pencil:#a9b8ae; --faint:#8b9b90; --rule:#2f4036;
     --grid:#7ab58f; --grid-soft:#3d6550; --pen:#f28c7d; --accent:#8fd0a6; --on-accent:#10201a;
     --t1:#ff8f86; --t2:#ffb35c; --t3:#97b6ff; --t4:#caa3ff; --t5:#9ba8a0;
@@ -55,17 +65,54 @@
     color-scheme:dark;
   }
 }
-:root[data-theme="dark"]{
+:root[data-theme="dark"],[data-swatch="dark"]{
   --bg:#131c17; --page:#1b271f; --ink:#e3eae1; --pencil:#a9b8ae; --faint:#8b9b90; --rule:#2f4036;
   --grid:#7ab58f; --grid-soft:#3d6550; --pen:#f28c7d; --accent:#8fd0a6; --on-accent:#10201a;
   --t1:#ff8f86; --t2:#ffb35c; --t3:#97b6ff; --t4:#caa3ff; --t5:#9ba8a0;
   --shadow:rgba(0,0,0,.55); --veil:rgba(0,0,0,.6);
   color-scheme:dark;
 }
+:root[data-theme="paper"],[data-swatch="paper"]{    /* papier blanc: white, black ink, little green */
+  --bg:#efefed; --page:#ffffff; --ink:#18191a; --pencil:#45494b; --faint:#5c6063; --rule:#d5d7d6;
+  --grid:#5d8a70; --grid-soft:#b9cdbf; --pen:#c42b20; --accent:#22684a; --on-accent:#ffffff;
+  --t1:#c62f2f; --t2:#a35300; --t3:#2453c4; --t4:#7a3db3; --t5:#5f6464;
+  --shadow:rgba(0,0,0,.14); --veil:rgba(0,0,0,.38);
+  color-scheme:light;
+}
+:root[data-theme="sepia"],[data-swatch="sepia"]{    /* sépia: cream paper, brown ink */
+  --bg:#e8dcc4; --page:#f7efdf; --ink:#3a2c1d; --pencil:#5b4a37; --faint:#6b5a45; --rule:#d9c8a8;
+  --grid:#8f6f42; --grid-soft:#d2bb92; --pen:#a8321f; --accent:#6f5126; --on-accent:#f7efdf;
+  --t1:#b02c24; --t2:#8f5200; --t3:#2c4fa6; --t4:#73398f; --t5:#6b5d4d;
+  --shadow:rgba(58,44,29,.20); --veil:rgba(58,44,29,.42);
+  color-scheme:light;
+}
+:root[data-theme="contrast"],[data-swatch="contrast"]{   /* contraste élevé: black on white, marked lines */
+  --bg:#e8e8e8; --page:#ffffff; --ink:#000000; --pencil:#1e1e1e; --faint:#333333; --rule:#707070;
+  --grid:#145c34; --grid-soft:#6f9f80; --pen:#a30000; --accent:#0b5230; --on-accent:#ffffff;
+  --t1:#b00000; --t2:#8a4100; --t3:#0035a8; --t4:#62199e; --t5:#3a3a3a;
+  --shadow:rgba(0,0,0,.35); --veil:rgba(0,0,0,.6);
+  color-scheme:light;
+}
+:root[data-theme="night"],[data-swatch="night"]{    /* nuit: nearly black (OLED), less light */
+  --bg:#000000; --page:#0c0f0d; --ink:#e2e7e3; --pencil:#a6b0a9; --faint:#8a948d; --rule:#252b27;
+  --grid:#6aa383; --grid-soft:#2a4436; --pen:#f28c7d; --accent:#8fd0a6; --on-accent:#08130d;
+  --t1:#ff8f86; --t2:#ffb35c; --t3:#97b6ff; --t4:#caa3ff; --t5:#9ba8a0;
+  --shadow:rgba(0,0,0,.8); --veil:rgba(0,0,0,.72);
+  color-scheme:dark;
+}
+/* tone colours (Affichage): Pleco's and MDBG's, light or dark (data-mode, set with the theme) */
+:root[data-tones="pleco"]{--t1:#b42828; --t2:#1b6d26; --t3:#2453c4; --t4:#7a3db3}
+:root[data-tones="pleco"][data-mode="dark"]{--t1:#ff8f86; --t2:#7fd88a; --t3:#97b6ff; --t4:#caa3ff}
+:root[data-tones="mdbg"]{--t1:#b42828; --t2:#9a4e00; --t3:#1b6d26; --t4:#2453c4}
+:root[data-tones="mdbg"][data-mode="dark"]{--t1:#ff8f86; --t2:#ffb35c; --t3:#7fd88a; --t4:#97b6ff}
+:root[data-theme="sepia"][data-tones="pleco"]{--t1:#b02c24; --t2:#1d6626; --t3:#2c4fa6; --t4:#73398f}
+:root[data-theme="sepia"][data-tones="mdbg"]{--t1:#b02c24; --t2:#8f5200; --t3:#1d6626; --t4:#2c4fa6}
+:root[data-theme="contrast"][data-tones="pleco"]{--t1:#b00000; --t2:#0d5a1c; --t3:#0035a8; --t4:#62199e}
+:root[data-theme="contrast"][data-tones="mdbg"]{--t1:#b00000; --t2:#8a4100; --t3:#0d5a1c; --t4:#0035a8}
 
 *{box-sizing:border-box}
 html,body{height:100%}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--ui);font-size:16px;line-height:1.45;
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--ui);font-size:calc(16px * var(--tz,1));line-height:1.45;
   -webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent;overscroll-behavior:none}
 [hidden]{display:none!important}
 button,input,textarea,select{font:inherit;color:inherit}
@@ -80,10 +127,10 @@ button{cursor:pointer}
 .app{position:fixed;inset:0;display:flex;flex-direction:column;padding-top:env(safe-area-inset-top,0px)}
 .top{flex:none;display:flex;align-items:center;justify-content:space-between;gap:12px;
   padding:10px 16px 6px;max-width:560px;width:100%;margin:0 auto}
-.brand{font-family:var(--zh);font-size:26px;line-height:1;letter-spacing:.06em;margin:0;font-weight:400}
+.brand{font-family:"WK",var(--zh);font-size:26px;line-height:1;letter-spacing:.06em;margin:0;font-weight:400}
 .top-r{display:flex;align-items:center;gap:12px;margin-left:auto}
-.keys{display:none;margin:14px 2px 0;font-size:13px;color:var(--faint);text-align:center}
-.keys kbd{font-family:var(--ui);font-size:12px;border:1px solid var(--rule);border-bottom-width:2px;border-radius:5px;padding:0 5px;
+.keys{display:none;margin:14px 2px 0;font-size:calc(13px * var(--tz,1));color:var(--faint);text-align:center}
+.keys kbd{font-family:var(--ui);font-size:calc(12px * var(--tz,1));border:1px solid var(--rule);border-bottom-width:2px;border-radius:5px;padding:0 5px;
   background:var(--page);color:var(--pencil)}
 .counts{display:flex;gap:6px}
 .newcard{appearance:none;flex:none;width:36px;height:36px;border-radius:50%;border:1.5px solid var(--rule);background:var(--page);
@@ -94,24 +141,27 @@ button{cursor:pointer}
 .count.free{border-style:dashed}
 main{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .view{max-width:560px;margin:0 auto;padding:6px 16px 24px}
-.tabs{order:1;flex:none;display:grid;grid-template-columns:repeat(4,minmax(0,140px));justify-content:center;background:var(--page);border-top:1px solid var(--rule);
+.tabs{order:1;flex:none;display:grid;grid-template-columns:repeat(5,minmax(0,120px));justify-content:center;background:var(--page);border-top:1px solid var(--rule);
   padding-bottom:env(safe-area-inset-bottom,0px)}
 .tab{appearance:none;border:0;background:none;color:var(--faint);padding:8px 0 7px;display:flex;flex-direction:column;
   align-items:center;gap:2px;font-size:12px;position:relative}
 .tab svg{width:24px;height:24px}
+/* the header and the menu keep their size whatever Affichage › Taille du texte (the content's texts) */
 .tab[aria-current="page"]{color:var(--ink)}
 .tab[aria-current="page"]::before{content:"";position:absolute;top:-1px;left:30%;right:30%;height:2px;background:var(--grid);border-radius:0 0 2px 2px}
 
 /* ---------- start-face control ---------- */
 .startface{display:flex;align-items:center;gap:10px;margin:2px 0 12px}
-.startface .lbl{flex:none;font-size:13px;color:var(--pencil)}
+.startface .lbl{flex:none;font-size:calc(13px * var(--tz,1));color:var(--pencil)}
 #startface[aria-disabled="true"]{opacity:.6}
 .seg{flex:1;min-width:0;display:grid;grid-template-columns:repeat(3,1fr) 1.15fr;border:1px solid var(--rule);border-radius:10px;background:var(--bg);padding:2px;gap:2px}
-.seg button{appearance:none;border:0;background:none;border-radius:8px;padding:5px 2px;font-size:13px;color:var(--pencil);min-height:34px;
-  display:flex;flex-wrap:wrap;align-content:center;align-items:baseline;justify-content:center;gap:3px;white-space:nowrap;min-width:0;overflow:hidden}
-.seg button .zh{font-size:17px;color:inherit}
+.seg button{appearance:none;border:0;background:none;border-radius:8px;padding:5px 3px;font-size:calc(13px * var(--tz,1));color:var(--pencil);min-height:34px;
+  display:flex;flex-wrap:wrap;align-content:center;align-items:baseline;justify-content:center;gap:3px;min-width:0;overflow:hidden;
+  line-height:1.2;text-align:center}
+.seg button .zh{font-size:calc(17px * var(--tz,1));color:inherit}
 .seg button[aria-checked="true"]{background:var(--page);color:var(--ink);box-shadow:0 1px 2px var(--shadow)}
 @media (max-width:369px){ .seg .w{display:none} }
+:root:is([data-text="l"],[data-text="xl"]) .startface .w{display:none}   /* a large text: 形 音 义 only */
 
 /* ---------- prism ---------- */
 /* the perspective grows with a card wider than a phone's (--pk = its width / CARD_W, set by Prism): otherwise its side faces,
@@ -127,8 +177,8 @@ main{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:var(--page);
   border:1px solid var(--rule);border-radius:10px;display:flex;flex-direction:column;padding:12px 14px 12px;overflow:hidden}
 .face-head{flex:none;display:flex;align-items:center;justify-content:space-between;min-height:24px}
-.face-tag{display:flex;align-items:baseline;gap:6px;font-size:13px;color:var(--faint)}
-.face-tag .zh{font-size:19px;color:var(--grid)}
+.face-tag{display:flex;align-items:baseline;gap:6px;font-size:calc(13px * var(--tz,1));color:var(--faint)}
+.face-tag .zh{font-size:calc(19px * var(--tz,1));color:var(--grid)}
 .tri{width:20px;height:18px}
 .tri path{fill:none;stroke:var(--rule);stroke-width:1.6;stroke-linecap:round}
 .tri path.on{stroke:var(--grid);stroke-width:3}
@@ -137,11 +187,15 @@ main{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch}
 /* 形 : copybook grid */
 .tzg-row{display:flex;justify-content:center;flex-wrap:nowrap}
 .tzg{position:relative;width:var(--cell);height:var(--cell);border:1.5px solid var(--grid);margin-left:-1.5px;
-  display:grid;place-items:center;
-  background-image:repeating-linear-gradient(to right,var(--grid-soft) 0 5px,transparent 5px 9px),
+  display:grid;place-items:center}
+.tzg,.pad-box{background-image:repeating-linear-gradient(to right,var(--grid-soft) 0 5px,transparent 5px 9px),
                    repeating-linear-gradient(to bottom,var(--grid-soft) 0 5px,transparent 5px 9px);
   background-size:100% 1.2px,1.2px 100%;background-position:0 50%,50% 0;background-repeat:no-repeat}
 .tzg:first-child{margin-left:0}
+:is(.tzg,.pad-box) .mzg{position:absolute;inset:0;width:100%;height:100%;display:none;pointer-events:none}
+:is(.tzg,.pad-box) .mzg path{fill:none;stroke:var(--grid-soft);stroke-width:1.2;stroke-dasharray:5 4;vector-effect:non-scaling-stroke}
+:root[data-grid="mi"] :is(.tzg,.pad-box) .mzg{display:block}
+:root[data-grid="none"] :is(.tzg,.pad-box){background-image:none}
 .tzg span{font-family:var(--zh);font-size:calc(var(--cell) * .80);line-height:1;transform:translateY(-.02em)}
 .tzg.sysfont span{font-family:var(--zh-sys);font-size:calc(var(--cell) * .74)}
 
@@ -161,7 +215,7 @@ main{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .sound-ex .sep{color:var(--faint)}
 .speaks{flex:none;display:flex;justify-content:center;gap:8px;margin-top:10px}
 .speak{appearance:none;border:1px solid var(--rule);background:var(--bg);border-radius:999px;display:flex;align-items:center;gap:6px;
-  min-height:34px;padding:6px 12px 6px 10px;font-size:calc(13px * var(--ks,1));color:var(--pencil)}
+  min-height:34px;padding:6px 12px 6px 10px;font-size:calc(13px * var(--ks,1) * var(--tz,1));color:var(--pencil)}
 .speak svg{width:calc(18px * var(--ks,1));height:calc(18px * var(--ks,1))}
 .speak.playing{color:var(--ink);border-color:var(--grid)}
 
@@ -170,11 +224,11 @@ main{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .senses li{display:flex;gap:.4em;text-wrap:pretty}
 .senses .no{flex:none;font-family:var(--zh);color:var(--grid);font-size:.95em;line-height:1.42}
 .senses .zhi{font-family:var(--zh);font-size:1.08em}
-.note{align-self:stretch;margin:.7em 0 0;font-size:13px;color:var(--pencil);display:flex;gap:6px;align-items:baseline}
-.tag{flex:none;font-family:var(--zh);font-size:13px;color:var(--grid);border:1px solid var(--grid);border-radius:3px;padding:0 3px;line-height:1.3}
+.note{align-self:stretch;margin:.7em 0 0;font-size:calc(13px * var(--tz,1));color:var(--pencil);display:flex;gap:6px;align-items:baseline}
+.tag{flex:none;font-family:var(--zh);font-size:calc(13px * var(--tz,1));color:var(--grid);border:1px solid var(--grid);border-radius:3px;padding:0 3px;line-height:1.3}
 
 /* status under the card */
-.status{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:20px 2px 10px;font-size:13px;color:var(--pencil);min-height:24px}
+.status{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:20px 2px 10px;font-size:calc(13px * var(--tz,1));color:var(--pencil);min-height:24px}
 .chips{display:flex;gap:6px;min-width:0}
 .chips .chip{flex:none}
 .chip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--rule);border-radius:999px;padding:2px 9px;background:var(--page);white-space:nowrap}
@@ -186,8 +240,8 @@ main{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .dots i.on{background:var(--grid)}
 
 /* 例 : example slip */
-.exslot{--exh:74px;min-height:var(--exh);margin:0 0 12px;display:flex;flex-direction:column}
-.exslot.open{--exh:94px}
+.exslot{--exh:calc(74px * var(--tz,1));min-height:var(--exh);margin:0 0 12px;display:flex;flex-direction:column}
+.exslot.open{--exh:calc(94px * var(--tz,1))}
 .ex{position:relative;flex:1;display:grid;grid-template-columns:auto minmax(0,1fr) auto;column-gap:10px;align-items:start;
   background:var(--page);border:1px solid var(--rule);border-radius:10px;padding:8px 8px 6px 10px}
 .ex .tag{margin-top:7px}
@@ -198,10 +252,10 @@ main{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .ex-zh mark,.form-ex mark,.sound-ex mark,.ex-py mark{background:none;color:var(--pen);text-decoration-line:underline;text-decoration-thickness:2px;text-decoration-color:var(--pen);text-underline-offset:.22em}
 .ex-more{display:none;align-self:stretch}
 .ex.open .ex-more{display:flex;flex-direction:column;gap:1px}
-.ex-py{margin:0;font-size:15px;line-height:1.35}
+.ex-py{margin:0;font-size:calc(15px * var(--tz,1));line-height:1.35}
 .ex-py .sep{color:var(--faint)}
-.ex-fr{margin:0;font-size:14px;line-height:1.35;color:var(--pencil);text-wrap:pretty}
-.ex-toggle{appearance:none;border:0;background:none;padding:3px 0 2px;font-size:13px;color:var(--pencil);display:inline-flex;align-items:center;gap:5px}
+.ex-fr{margin:0;font-size:calc(14px * var(--tz,1));line-height:1.35;color:var(--pencil);text-wrap:pretty}
+.ex-toggle{appearance:none;border:0;background:none;padding:3px 0 2px;font-size:calc(13px * var(--tz,1));color:var(--pencil);display:inline-flex;align-items:center;gap:5px}
 .ex-toggle svg{width:12px;height:12px;transition:transform .18s ease}
 .ex.open .ex-toggle svg{transform:rotate(180deg)}
 .ex-play{appearance:none;width:36px;height:36px;border-radius:50%;border:1px solid var(--rule);background:var(--bg);display:grid;place-items:center;color:var(--pencil);padding:0}
@@ -214,12 +268,12 @@ main{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .ex.covered .ex-text > :not(.ex-cover),.ex.covered .ex-play{visibility:hidden}
 .ex.empty{grid-template-columns:auto minmax(0,1fr);align-items:center;background:none;border-style:dashed}
 .ex.empty .tag{margin-top:0}
-.ex-none{margin:0;font-size:13px;color:var(--faint)}
+.ex-none{margin:0;font-size:calc(13px * var(--tz,1));color:var(--faint)}
 .exslot.insheet{min-height:0;margin:22px 0 0}
 
 /* grading */
 .actions{min-height:76px}
-.turnbtn{width:100%;height:64px;border-radius:14px;border:1.5px solid var(--ink);background:var(--page);font-size:17px;font-weight:700;
+.turnbtn{width:100%;height:64px;border-radius:14px;border:1.5px solid var(--ink);background:var(--page);font-size:calc(17px * var(--tz,1));font-weight:700;
   display:flex;align-items:center;justify-content:center;gap:10px}
 .turnbtn svg{width:22px;height:22px}
 .grades{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
@@ -227,8 +281,8 @@ main{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch}
   display:grid;grid-template-rows:30px auto auto;justify-items:center;align-content:center;gap:0}
 .grade:active{transform:translateY(1px)}
 .grade .mk{width:30px;height:30px;color:var(--pen)}
-.grade .gl{font-size:15px;font-weight:700;line-height:1.2}
-.grade .gi{font-size:12px;color:var(--faint);font-variant-numeric:tabular-nums}
+.grade .gl{font-size:calc(15px * var(--tz,1));font-weight:700;line-height:1.2}
+.grade .gi{font-size:calc(12px * var(--tz,1));color:var(--faint);font-variant-numeric:tabular-nums}
 .grade[data-g="1"]{border-color:var(--ink)}
 .stamp{position:absolute;left:50%;top:50%;width:132px;height:132px;margin:-66px 0 0 -66px;color:var(--pen);pointer-events:none;
   opacity:0;transform:rotate(-9deg) scale(1.3);z-index:5}
@@ -238,10 +292,10 @@ main{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch}
 
 /* session finished, loading */
 .done{padding:22px 4px 8px}
-.done h2{font-size:22px;margin:0 0 6px;text-wrap:balance}
+.done h2{font-size:calc(22px * var(--tz,1));margin:0 0 6px;text-wrap:balance}
 .done p{margin:0 0 10px;color:var(--pencil)}
 .done .row-btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
-.done .zh{color:var(--ink);font-size:19px;white-space:nowrap}
+.done .zh{color:var(--ink);font-size:calc(19px * var(--tz,1));white-space:nowrap}
 .evalres{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 12px}
 .test-btns{display:contents}
 .test-btns [data-test="resume"]{order:-1}
@@ -251,7 +305,7 @@ main{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .loading p{margin:0 0 12px;max-width:44ch}
 
 /* buttons */
-.btn{appearance:none;border:1.5px solid var(--rule);background:var(--page);border-radius:12px;padding:9px 14px;font-size:15px;
+.btn{appearance:none;border:1.5px solid var(--rule);background:var(--page);border-radius:12px;padding:9px 14px;font-size:calc(15px * var(--tz,1));
   display:inline-flex;align-items:center;gap:8px;font-weight:700;color:var(--ink)}
 .btn.primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
 .btn.danger{border-color:var(--pen);color:var(--pen)}
@@ -260,67 +314,89 @@ main{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch}
 
 /* ---------- words ---------- */
 .searchbar{display:flex;gap:8px;margin:4px 0 10px}
-.searchbar input{flex:1;min-width:0;border:1.5px solid var(--rule);background:var(--page);border-radius:12px;padding:9px 12px;font-size:16px}
+.searchbar .draw{flex:none;width:44px;padding:0;display:grid;place-items:center}
+.searchbar .draw svg{width:22px;height:22px}
+.searchbar .draw[aria-expanded="true"]{border-color:var(--accent);color:var(--accent)}
+/* Mots: a character drawn with the finger or the mouse */
+.drawpad{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-start;margin:0 0 12px}
+.pad-box{position:relative;flex:none;width:min(250px,64vw);aspect-ratio:1;border:1.5px solid var(--grid);background-color:var(--page);
+  user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
+#pad{position:absolute;inset:0;width:100%;height:100%;touch-action:none;cursor:crosshair;overflow:visible}
+#pad polyline{fill:none;stroke:var(--ink);stroke-width:7px;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+.pad-side{flex:1;min-width:170px;display:flex;flex-direction:column;gap:10px}
+.pad-hint{margin:0;font-size:calc(13px * var(--tz,1));color:var(--pencil)}
+.cands{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}
+.cands button{appearance:none;border:1px solid var(--rule);background:var(--page);border-radius:8px;min-height:46px;padding:3px 0;
+  font-family:var(--zh);font-size:calc(27px * var(--tz,1));line-height:1.2;color:var(--ink)}
+.cands button:first-child{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.pad-btns{display:flex;flex-wrap:wrap;gap:8px}
+.searchbar input{flex:1;min-width:0;border:1.5px solid var(--rule);background:var(--page);border-radius:12px;padding:9px 12px;font-size:max(16px, calc(16px * var(--tz,1)))}
 .ltabs{display:flex;gap:18px;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid var(--rule);margin:0 0 10px;padding:0 2px}
 .ltabs::-webkit-scrollbar{display:none}
-.ltabs button{appearance:none;border:0;background:none;padding:6px 0 8px;font-size:14px;color:var(--pencil);white-space:nowrap;position:relative}
+.ltabs button{appearance:none;border:0;background:none;padding:6px 0 8px;font-size:calc(14px * var(--tz,1));color:var(--pencil);white-space:nowrap;position:relative}
 .ltabs button.off{color:var(--faint)}
 .ltabs button[aria-pressed="true"]{color:var(--ink);font-weight:700}
 .ltabs button.add{color:var(--accent);font-weight:700}
 .ltabs button[aria-pressed="true"]::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;border-radius:2px;background:var(--grid)}
 .filters{display:flex;gap:6px;overflow-x:auto;padding:2px 0;margin-bottom:8px;scrollbar-width:none}
 .filters::-webkit-scrollbar{display:none}
-.filters button{appearance:none;border:1px solid var(--rule);background:none;border-radius:999px;padding:4px 11px;font-size:13px;color:var(--pencil);white-space:nowrap}
+.filters button{appearance:none;border:1px solid var(--rule);background:none;border-radius:999px;padding:4px 11px;font-size:calc(13px * var(--tz,1));color:var(--pencil);white-space:nowrap}
 .filters button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--page)}
 .list{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule)}
 .wrow{appearance:none;border:0;border-bottom:1px solid var(--rule);background:none;width:100%;text-align:left;padding:9px 2px;
   display:grid;grid-template-columns:minmax(64px,auto) 1fr auto;column-gap:12px;align-items:center}
-.wrow .h{font-family:var(--zh);font-size:24px;line-height:1.1;white-space:nowrap}
+.wrow .h{font-family:var(--zh);font-size:calc(24px * var(--tz,1));line-height:1.1;white-space:nowrap}
 .wrow .h.sysfont{font-family:var(--zh-sys)}
 .wrow .m{min-width:0;display:flex;flex-direction:column}
-.wrow .p{font-size:15px;line-height:1.25}
-.wrow .f{font-size:13px;color:var(--pencil);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wrow .p{font-size:calc(15px * var(--tz,1));line-height:1.25}
+.wrow .f{font-size:calc(13px * var(--tz,1));color:var(--pencil);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .wrow .r{display:flex;flex-direction:column;align-items:flex-end;gap:3px}
-.wrow .dk{font-size:11px;color:var(--faint);white-space:nowrap}
+.wrow .dk{font-size:calc(11px * var(--tz,1));color:var(--faint);white-space:nowrap}
 .wrow .km{display:flex;align-items:center;gap:6px}
-.kn{display:inline-flex;gap:2px;font-family:var(--zh);font-size:13px;line-height:1.1}
+:root[data-compact] .wrow{padding:4px 2px}
+:root[data-compact] .wrow .h{font-size:calc(19px * var(--tz,1))}
+:root[data-compact] .wrow .m{flex-direction:row;align-items:baseline;gap:10px}
+:root[data-compact] .wrow .p{flex:0 1 auto;max-width:62%;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+:root[data-compact] .wrow .f{flex:1 1 0}
+:root[data-compact] .wrow .r{flex-direction:row;align-items:center;gap:8px}
+.kn{display:inline-flex;gap:2px;font-family:var(--zh);font-size:calc(13px * var(--tz,1));line-height:1.1}
 .kn i{font-style:normal;color:var(--faint);opacity:.5}
 .kn i.on{color:var(--accent);opacity:1}
-.chip .kn{font-size:14px}
+.chip .kn{font-size:calc(14px * var(--tz,1))}
 .meter{display:flex;gap:2px}
 .meter i{width:5px;height:14px;border-radius:1.5px;background:var(--rule)}
 .meter i.on{background:var(--grid)}
-.list-foot{display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;align-items:center;margin-top:14px;color:var(--faint);font-size:13px}
+.list-foot{display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;align-items:center;margin-top:14px;color:var(--faint);font-size:calc(13px * var(--tz,1))}
 .list-foot .btnrow{margin:0}
 .listbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:-2px 0 10px}
 .more-row{list-style:none;padding:14px 0;text-align:center}
 .sws{display:flex;flex-direction:column;gap:6px;align-items:flex-end;flex:none}
-.sws .sw{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--pencil)}
+.sws .sw{display:flex;align-items:center;gap:8px;font-size:calc(13px * var(--tz,1));color:var(--pencil)}
 .inlists{margin:12px 0 0;padding:0;list-style:none;border-top:1px solid var(--rule)}
 .inlists li{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid var(--rule)}
 .inlists li span{min-width:0}
 .dupl{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:6px}
-.listbar .btn{padding:6px 12px;font-size:14px}
+.listbar .btn{padding:6px 12px;font-size:calc(14px * var(--tz,1))}
 .ghbox .field{margin-bottom:10px}
 .ghbox .btnrow{margin:6px 0}
-.set .btn.small{padding:5px 10px;font-size:13px}
+.set .btn.small{padding:5px 10px;font-size:calc(13px * var(--tz,1))}
 .empty{padding:28px 6px;color:var(--pencil);text-align:center}
 
 /* ---------- progress ---------- */
 .section{margin:6px 0 26px}
-.section h2{font-size:18px;margin:0 0 4px;text-wrap:balance}
-.section .sub{margin:0 0 12px;color:var(--pencil);font-size:14px}
+.section h2{font-size:calc(18px * var(--tz,1));margin:0 0 4px;text-wrap:balance}
+.section .sub{margin:0 0 12px;color:var(--pencil);font-size:calc(14px * var(--tz,1))}
 .seen{display:flex;align-items:baseline;gap:8px;margin:2px 0 8px}
-.seen b{font-size:44px;line-height:1;font-weight:700}
+.seen b{font-size:calc(44px * var(--tz,1));line-height:1;font-weight:700}
 .seen span{color:var(--pencil)}
 .bar{height:8px;border-radius:4px;background:var(--rule);overflow:hidden}
 .bar i{display:block;height:100%;background:var(--grid);border-radius:4px}
-.dt{width:100%;border-collapse:collapse;font-size:14px;margin-top:4px}
-.dt th{font-size:12px;color:var(--faint);font-weight:400;text-align:left;padding:0 8px 6px 0;border-bottom:1px solid var(--rule)}
+.dt{width:100%;border-collapse:collapse;font-size:calc(14px * var(--tz,1));margin-top:4px}
+.dt th{font-size:calc(12px * var(--tz,1));color:var(--faint);font-weight:400;text-align:left;padding:0 8px 6px 0;border-bottom:1px solid var(--rule)}
 .dt td{padding:9px 8px 9px 0;border-bottom:1px solid var(--rule);vertical-align:top}
 .dt th:last-child,.dt td:last-child{text-align:right;padding-right:0}
-.dt .nm b{display:block;font-size:15px;line-height:1.25}
-.dt .nm small{display:block;color:var(--pencil);font-size:12px;line-height:1.3}
+.dt .nm b{display:block;font-size:calc(15px * var(--tz,1));line-height:1.25}
+.dt .nm small{display:block;color:var(--pencil);font-size:calc(12px * var(--tz,1));line-height:1.3}
 .dt .sn{font-variant-numeric:tabular-nums;white-space:nowrap}
 .dt .off{color:var(--faint)}
 .mini{display:block;height:4px;border-radius:2px;background:var(--rule);margin-top:6px;width:72px;overflow:hidden}
@@ -331,23 +407,23 @@ main{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .col[aria-pressed="true"] i{background:var(--accent)}
 .axis span.on{color:var(--ink);font-weight:700}
 .axis{display:grid;grid-template-columns:repeat(var(--n),1fr);gap:4px;margin-top:6px;text-align:center}
-.axis span{font-size:12px;color:var(--faint);line-height:1.2}
-.axis b{display:block;font-size:14px;color:var(--ink);font-variant-numeric:tabular-nums}
-.detail{min-height:20px;margin:8px 0 0;font-size:13px;color:var(--pencil)}
-.explain{font-size:14px;color:var(--pencil);margin:10px 0 0;max-width:62ch}
-.explain .zh{color:var(--pen);font-size:16px;line-height:1}
+.axis span{font-size:calc(12px * var(--tz,1));color:var(--faint);line-height:1.2}
+.axis b{display:block;font-size:calc(14px * var(--tz,1));color:var(--ink);font-variant-numeric:tabular-nums}
+.detail{min-height:20px;margin:8px 0 0;font-size:calc(13px * var(--tz,1));color:var(--pencil)}
+.explain{font-size:calc(14px * var(--tz,1));color:var(--pencil);margin:10px 0 0;max-width:62ch}
+.explain .zh{color:var(--pen);font-size:calc(16px * var(--tz,1));line-height:1}
 
 /* ---------- settings ---------- */
 .set{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px 0;border-bottom:1px solid var(--rule)}
 .group-title + .set,.decks > .set:first-child{border-top:1px solid var(--rule)}
 .set .t{min-width:0}
-.set .t b{display:block;font-size:15px}
-.set .t small{display:block;color:var(--pencil);font-size:13px;line-height:1.35}
+.set .t b{display:block;font-size:calc(15px * var(--tz,1))}
+.set .t small{display:block;color:var(--pencil);font-size:calc(13px * var(--tz,1));line-height:1.35}
 .set .t small.warn{color:var(--pen)}
-.set input[type=date]{border:1.5px solid var(--rule);background:var(--page);border-radius:10px;padding:6px 8px;font-size:16px;min-width:0}
+.set input[type=date]{border:1.5px solid var(--rule);background:var(--page);border-radius:10px;padding:6px 8px;font-size:max(16px, calc(16px * var(--tz,1)));min-width:0}
 .stepper{display:flex;align-items:center;gap:6px;flex:none}
 .ctl{display:flex;align-items:center;gap:8px;flex:none}
-.stepper button{width:34px;height:34px;border-radius:10px;border:1.5px solid var(--rule);background:var(--page);font-size:18px;line-height:1}
+.stepper button{width:34px;height:34px;border-radius:10px;border:1.5px solid var(--rule);background:var(--page);font-size:calc(18px * var(--tz,1));line-height:1}
 .stepper output{min-width:2.2ch;text-align:center;font-weight:700;font-variant-numeric:tabular-nums}
 .stepper output.wide{min-width:5.4ch}
 .switch{appearance:none;width:48px;height:28px;border-radius:999px;background:var(--rule);position:relative;flex:none;border:0;transition:background .15s}
@@ -355,27 +431,48 @@ main{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .switch[aria-checked="true"]{background:var(--accent)}
 .switch[aria-checked="true"]::after{transform:translateX(20px)}
 input[type=range]{width:120px;accent-color:var(--accent)}
-.legend{display:flex;flex-wrap:wrap;gap:10px;font-size:15px;margin-top:4px}
+/* ---------- Affichage ---------- */
+.themes{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:10px;margin:2px 0 4px}
+.theme{appearance:none;border:1.5px solid var(--rule);border-radius:12px;background:var(--page);padding:7px;display:flex;flex-direction:column;gap:6px;
+  text-align:left;color:var(--ink);font-size:calc(14px * var(--tz,1))}
+.theme[aria-checked="true"]{border-color:var(--accent);box-shadow:0 0 0 1.5px var(--accent)}
+.theme .nm{padding:0 3px}
+.swatch{display:flex;height:52px;border-radius:8px;overflow:hidden;border:1px solid var(--rule)}
+.swp{flex:1;min-width:0;display:flex;align-items:center;justify-content:center;gap:7px;background:var(--bg);color:var(--ink)}
+.swp b{width:34px;height:34px;display:grid;place-items:center;background:var(--page);border:1.5px solid var(--grid);
+  font-family:var(--zh);font-weight:400;font-size:24px;line-height:1}
+.swp i{flex:none;position:relative;width:17px;height:17px}   /* the four tone colours */
+.swp i::before{content:"";position:absolute;left:0;top:0;width:7px;height:7px;border-radius:50%;background:var(--t1);
+  box-shadow:10px 0 var(--t2),0 10px var(--t3),10px 10px var(--t4)}
+.look-sample{display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;margin:12px 0 0;padding:12px;border:1px solid var(--rule);
+  border-radius:12px;background:var(--page)}
+.look-sample .tzg-row{--cell:58px}
+.look-sample .py{font-size:calc(22px * var(--tz,1));line-height:1.3}
+.look-sample .f{color:var(--pencil);font-size:calc(14px * var(--tz,1))}
+.set.col{flex-direction:column;align-items:stretch;gap:8px}
+.seg.opt{display:flex;flex:none}
+.seg.opt button{flex:1 1 0}
+.legend{display:flex;flex-wrap:wrap;gap:10px;font-size:calc(15px * var(--tz,1));margin-top:4px}
 .legend span{display:inline-flex;gap:4px;align-items:baseline}
-.legend small{color:var(--faint);font-size:12px}
-.group-title{font-size:13px;color:var(--faint);margin:24px 0 6px}
-.deck-group{font-size:15px;font-weight:700;color:var(--ink);margin:20px 0 6px}
+.legend small{color:var(--faint);font-size:calc(12px * var(--tz,1))}
+.group-title{font-size:calc(13px * var(--tz,1));color:var(--faint);margin:24px 0 6px}
+.deck-group{font-size:calc(15px * var(--tz,1));font-weight:700;color:var(--ink);margin:20px 0 6px}
 .decks > .deck-group:first-child{margin-top:6px}
 .deck-group + .set{border-top:1px solid var(--rule)}
 .btnrow{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
-.about{font-size:13px;color:var(--pencil);margin:18px 0 0;max-width:62ch}
+.about{font-size:calc(13px * var(--tz,1));color:var(--pencil);margin:18px 0 0;max-width:62ch}
 .about p{margin:0 0 8px}
 
 /* ---------- stroke order (word sheet) ---------- */
-.traits-title{font-size:13px;color:var(--faint);margin:22px 0 4px}
+.traits-title{font-size:calc(13px * var(--tz,1));color:var(--faint);margin:22px 0 4px}
 .traits-only .traits-title{margin-top:2px}
 .trait{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--rule)}
 .trait .big{flex:none;display:flex;flex-direction:column;align-items:center;gap:6px;width:112px}
 .trait .big svg{width:112px;height:112px;display:block}
-.trait .big small{font-size:13px;color:var(--pencil)}
+.trait .big small{font-size:calc(13px * var(--tz,1));color:var(--pencil)}
 .trait .steps{display:flex;flex-wrap:wrap;gap:4px;align-content:flex-start;min-width:0}
 .trait .steps svg{width:42px;height:42px;display:block}
-.trait .none{font-size:14px;color:var(--pencil);margin:6px 0 0}
+.trait .none{font-size:calc(14px * var(--tz,1));color:var(--pencil);margin:6px 0 0}
 .trait .tf{fill:none;stroke:var(--grid);stroke-width:14}
 .trait .tl{stroke:var(--grid-soft);stroke-width:8;stroke-dasharray:28 22}
 .trait .t-todo,.trait .tb{fill:var(--rule)}
@@ -394,41 +491,39 @@ input[type=range]{width:120px;accent-color:var(--accent)}
   padding:10px 16px calc(18px + env(safe-area-inset-bottom,0px));width:100%;max-width:560px;margin:0 auto;
   box-shadow:0 -8px 30px var(--shadow)}
 .panel-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px}
-.panel-head h2{font-size:18px;margin:0;font-family:var(--zh);font-weight:400;font-size:22px}
-.panel-head h2.plain{font-family:var(--ui);font-weight:700;font-size:18px}
-.close{appearance:none;border:0;background:var(--page);width:36px;height:36px;border-radius:50%;font-size:20px;line-height:1;color:var(--pencil)}
+.panel-head h2{font-size:calc(18px * var(--tz,1));margin:0;font-family:var(--zh);font-weight:400;font-size:calc(22px * var(--tz,1))}
+.panel-head h2.plain{font-family:var(--ui);font-weight:700;font-size:calc(18px * var(--tz,1))}
+.close{appearance:none;border:0;background:var(--page);width:36px;height:36px;border-radius:50%;font-size:calc(20px * var(--tz,1));line-height:1;color:var(--pencil)}
 .field{display:flex;flex-direction:column;gap:4px;margin:0 0 12px}
-.field label{font-size:13px;font-weight:700}
-.field select{border:1.5px solid var(--rule);background:var(--page);border-radius:10px;padding:8px 10px;font-size:16px}
-.exh{font-size:15px;margin:16px 0 4px}
-.field input,.field textarea{border:1.5px solid var(--rule);background:var(--page);border-radius:10px;padding:9px 11px;font-size:16px;width:100%}
+.field label{font-size:calc(13px * var(--tz,1));font-weight:700}
+.field select{border:1.5px solid var(--rule);background:var(--page);border-radius:10px;padding:8px 10px;font-size:max(16px, calc(16px * var(--tz,1)))}
+.exh{font-size:calc(15px * var(--tz,1));margin:16px 0 4px}
+.field input,.field textarea{border:1.5px solid var(--rule);background:var(--page);border-radius:10px;padding:9px 11px;font-size:max(16px, calc(16px * var(--tz,1)));width:100%}
 .field textarea{min-height:84px;resize:vertical}
-.field .hint{font-size:12px;color:var(--pencil)}
+.field .hint{font-size:calc(12px * var(--tz,1));color:var(--pencil)}
 .field .hint.warn{color:var(--pen)}
-.field .err,.field.err,.explain.err{font-size:13px;color:var(--pen)}
-.ghbox .code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:15px;letter-spacing:.02em;overflow-wrap:anywhere}
+.field .err,.field.err,.explain.err{font-size:calc(13px * var(--tz,1));color:var(--pen)}
+.ghbox .code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:calc(15px * var(--tz,1));letter-spacing:.02em;overflow-wrap:anywhere}
 .more{margin:4px 0 12px;border-top:1px solid var(--rule);padding-top:10px}
-.more summary{font-size:14px;font-weight:700;cursor:pointer;margin-bottom:10px}
-.preview-py{font-size:18px;min-height:26px}
-.meta{font-size:14px;color:var(--pencil);margin:12px 2px 4px}
+.more summary{font-size:calc(14px * var(--tz,1));font-weight:700;cursor:pointer;margin-bottom:10px}
+.preview-py{font-size:calc(18px * var(--tz,1));min-height:26px}
+.meta{font-size:calc(14px * var(--tz,1));color:var(--pencil);margin:12px 2px 4px}
 .confirm{border:1.5px solid var(--pen);border-radius:12px;padding:10px 12px;margin:10px 0;background:var(--page)}
 .confirm p{margin:0 0 8px}
-.mono{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px}
+.mono{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:calc(12px * var(--tz,1))}
 textarea.mono{white-space:pre;overflow-x:auto}
 
 /* toast, update bar */
 .toast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:30;
-  background:var(--ink);color:var(--page);padding:9px 16px;border-radius:12px;font-size:14px;width:max-content;max-width:calc(100% - 32px);
+  background:var(--ink);color:var(--page);padding:9px 16px;border-radius:12px;font-size:calc(14px * var(--tz,1));width:max-content;max-width:calc(100% - 32px);
   box-shadow:0 4px 18px var(--shadow);text-wrap:pretty;pointer-events:none}
 .updatebar{position:fixed;left:16px;right:16px;top:calc(8px + env(safe-area-inset-top,0px));z-index:25;max-width:528px;margin:0 auto;
   display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--page);border:1.5px solid var(--grid);
-  border-radius:12px;padding:8px 8px 8px 14px;font-size:14px;box-shadow:0 4px 18px var(--shadow)}
-.updatebar .btn{padding:6px 12px;font-size:14px}
+  border-radius:12px;padding:8px 8px 8px 14px;font-size:calc(14px * var(--tz,1));box-shadow:0 4px 18px var(--shadow)}
+.updatebar .btn{padding:6px 12px;font-size:calc(14px * var(--tz,1))}
 
-@media (prefers-reduced-motion:reduce){
-  .prism,.stage,.switch,.switch::after,.ex-cover,.ex-toggle svg{transition:none}
-  .stamp.show{animation:none;opacity:.92;transform:rotate(-9deg)}
-}
+:root[data-motion="reduce"] :is(.prism,.stage,.switch,.ex-cover,.ex-toggle svg),:root[data-motion="reduce"] .switch::after{transition:none}
+:root[data-motion="reduce"] .stamp.show{animation:none;opacity:.92;transform:rotate(-9deg)}
 @media (min-width:700px){
   .grade{height:84px}
   .actions{min-height:84px}
@@ -476,16 +571,50 @@ textarea.mono{white-space:pre;overflow-x:auto}
   .sheet.dock .veil{display:none}
   .sheet.dock .panel{border-radius:0;box-shadow:none;border-left:1px solid var(--rule)}
   /* Progrès and Réglages in two columns */
-  #view-progress,#view-settings{column-width:460px;column-gap:44px}   /* two columns, three on a large screen */
-  #view-progress .section,#view-settings .sgroup{break-inside:avoid}
-  #view-settings .sgroup{display:flow-root;margin-bottom:18px}
-  #view-settings .group-title{margin-top:8px}
+  #view-progress,#view-settings,#view-display{column-width:460px;column-gap:44px}   /* two columns, three on a large screen */
+  #view-progress .section,#view-settings .sgroup,#view-display .sgroup{break-inside:avoid}
+  :is(#view-settings,#view-display) .sgroup{display:flow-root;margin-bottom:18px}
+  :is(#view-settings,#view-display) .group-title{margin-top:8px}
 }
 @media (min-width:900px) and (min-height:500px) and (hover:hover){ .keys{display:block} }
 @media (min-width:1500px) and (min-height:500px){
   #wlist{display:grid;grid-template-columns:repeat(auto-fill,minmax(460px,1fr));column-gap:32px}   /* Mots: the words in columns */
 }
 </style>
+<script>
+/* The look of the app (Affichage): theme, text size, characters, grid, tones, motion, compact list, set on <html> before
+   the first paint from the saved settings, again by applyLook on each change and when the device's light or motion does. */
+const LOOK = {
+  themes: ["auto", "light", "paper", "sepia", "contrast", "dark", "night"], dark: ["dark", "night"],
+  text: { s: 0.9, m: 1, l: 1.12, xl: 1.25 }, zh: ["kai", "hei", "song"], grid: ["tian", "mi", "none"],
+  tones: ["app", "pleco", "mdbg"], motion: ["auto", "full", "reduce"],
+};
+const DARK_MQ = matchMedia("(prefers-color-scheme: dark)"), STILL_MQ = matchMedia("(prefers-reduced-motion: reduce)");
+let lookNow = {};
+function applyLook(s) {
+  lookNow = s || {};
+  const r = document.documentElement, one = (a, v) => (a.includes(v) ? v : a[0]);
+  const theme = one(LOOK.themes, lookNow.theme), motion = one(LOOK.motion, lookNow.motion);
+  if (theme === "auto") r.removeAttribute("data-theme"); else r.dataset.theme = theme;
+  r.dataset.mode = (theme === "auto" ? DARK_MQ.matches : LOOK.dark.includes(theme)) ? "dark" : "light";
+  r.dataset.text = lookNow.textSize in LOOK.text ? lookNow.textSize : "m";
+  r.style.setProperty("--tz", LOOK.text[r.dataset.text]);
+  r.dataset.zh = one(LOOK.zh, lookNow.zhFont);
+  r.dataset.grid = one(LOOK.grid, lookNow.grid);
+  r.dataset.tones = one(LOOK.tones, lookNow.tonePalette);
+  if (motion === "reduce" || (motion === "auto" && STILL_MQ.matches)) r.dataset.motion = "reduce"; else r.removeAttribute("data-motion");
+  r.toggleAttribute("data-compact", !!lookNow.compact);
+  // the browser's bar: the colour of the desk of a chosen theme, or the light and dark ones of Automatique
+  const bg = getComputedStyle(r).getPropertyValue("--bg").trim();
+  document.querySelectorAll('meta[name="theme-color"]').forEach(m => {
+    if (!m.dataset.auto) m.dataset.auto = m.content;
+    m.content = theme === "auto" ? m.dataset.auto : bg;
+  });
+}
+DARK_MQ.addEventListener("change", () => applyLook(lookNow));
+STILL_MQ.addEventListener("change", () => applyLook(lookNow));
+try { applyLook((JSON.parse(localStorage.getItem("xingyinyi.v2")) || {}).settings); } catch (e) { applyLook({}); }
+</script>
 </head>
 <body>
 
@@ -506,6 +635,8 @@ textarea.mono{white-space:pre;overflow-x:auto}
       <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-dasharray="2 2"/></svg>Mots</button>
     <button type="button" class="tab" data-view="progress">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 20V13M12 20V8M19 20V4M3 20.5h18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>Progrès</button>
+    <button type="button" class="tab" data-view="display">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M12 3.8a8.2 8.2 0 0 0 0 16.4Z" fill="currentColor"/></svg>Affichage</button>
     <button type="button" class="tab" data-view="settings">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h4M12 17h8" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="16" cy="7" r="2.2" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="10" cy="17" r="2.2" fill="none" stroke="currentColor" stroke-width="1.7"/></svg>Réglages</button>
   </nav>
@@ -574,7 +705,20 @@ textarea.mono{white-space:pre;overflow-x:auto}
       <div class="searchbar">
         <label class="sr" for="q">Chercher un mot</label>
         <input id="q" type="search" placeholder="汉字, pinyin ou français" autocomplete="off" autocapitalize="off" spellcheck="false">
+        <button type="button" class="btn draw" id="draw-open" aria-expanded="false" aria-controls="drawpad" aria-label="Dessiner un caractère" title="Dessiner un caractère"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 19.5l1.1-4.4L15.4 5.3a1.9 1.9 0 0 1 2.7 0l.6.6a1.9 1.9 0 0 1 0 2.7L8.9 18.4z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M13.6 7.1l3.3 3.3" fill="none" stroke="currentColor" stroke-width="1.7"/></svg></button>
         <button type="button" class="btn" id="btn-add">Ajouter</button>
+      </div>
+      <div class="drawpad" id="drawpad" hidden>
+        <div class="pad-box"><svg class="mzg" viewBox="0 0 10 10" preserveAspectRatio="none" aria-hidden="true"><path d="M0 0L10 10M10 0L0 10"/></svg>
+          <svg id="pad" viewBox="0 0 1 1" preserveAspectRatio="none" role="img" aria-label="Zone de dessin d’un caractère" tabindex="-1"></svg></div>
+        <div class="pad-side">
+          <p class="pad-hint" id="pad-hint" aria-live="polite"></p>
+          <div class="cands" id="pad-cands" role="group" aria-label="Caractères proposés"></div>
+          <div class="pad-btns">
+            <button type="button" class="btn small" id="pad-undo">Annuler le trait</button>
+            <button type="button" class="btn small" id="pad-clear">Effacer</button>
+          </div>
+        </div>
       </div>
       <div class="ltabs" id="wdeck" role="group" aria-label="Liste"></div>
       <div class="filters" id="filters" role="group" aria-label="Avancement">
@@ -642,6 +786,89 @@ textarea.mono{white-space:pre;overflow-x:auto}
       </div>
     </section>
 
+    <!-- DISPLAY -->
+    <section class="view" id="view-display" aria-label="Affichage" hidden>
+      <section class="sgroup">
+        <p class="group-title" id="lbl-theme" style="margin-top:8px">Thème</p>
+        <div class="themes" id="themes" role="radiogroup" aria-labelledby="lbl-theme" data-look="theme"></div>
+        <div class="look-sample" id="look-sample" aria-hidden="true"></div>
+        <p class="explain">Le thème, la taille du texte, la police, les animations et la liste compacte sont propres à cet appareil ; le reste vaut pour tous tes appareils synchronisés.</p>
+      </section>
+      <section class="sgroup">
+        <p class="group-title">Texte et mouvements</p>
+        <div class="set col">
+          <div class="t"><b id="lbl-tsize">Taille du texte</b><small>Listes, fiches, réglages et textes de la carte.</small></div>
+          <div class="seg opt" role="radiogroup" aria-labelledby="lbl-tsize" data-look="textSize">
+            <button type="button" role="radio" data-v="s">Petit</button>
+            <button type="button" role="radio" data-v="m">Normal</button>
+            <button type="button" role="radio" data-v="l">Grand</button>
+            <button type="button" role="radio" data-v="xl">Très grand</button>
+          </div>
+        </div>
+        <div class="set">
+          <div class="t"><b id="lbl-compact">Liste des mots compacte</b><small>Lignes plus serrées dans Mots, pour voir plus de mots à la fois.</small></div>
+          <button type="button" class="switch" role="switch" id="sw-compact" aria-labelledby="lbl-compact" aria-checked="false" data-look="compact"></button>
+        </div>
+        <div class="set col">
+          <div class="t"><b id="lbl-motion">Animations</b><small>Réduites : la carte tourne d’un coup, sans glisser.</small></div>
+          <div class="seg opt" role="radiogroup" aria-labelledby="lbl-motion" data-look="motion">
+            <button type="button" role="radio" data-v="auto">Comme l’appareil</button>
+            <button type="button" role="radio" data-v="full">Normales</button>
+            <button type="button" role="radio" data-v="reduce">Réduites</button>
+          </div>
+        </div>
+      </section>
+      <section class="sgroup">
+        <p class="group-title">Caractères et pinyin</p>
+        <div class="set col">
+          <div class="t"><b id="lbl-zhfont">Police des caractères</b><small><span class="zh">楷</span> Kai, manuscrite comme au cahier (celle de l’appli) ; <span class="zh">黑</span> Hei, les caractères d’écran ; <span class="zh">宋</span> Song, ceux des livres. Hei et Song viennent des polices de l’appareil, propres à chacun.</small><small class="warn" id="zh-note" hidden></small></div>
+          <div class="seg opt" role="radiogroup" aria-labelledby="lbl-zhfont" data-look="zhFont">
+            <button type="button" role="radio" data-v="kai"><span class="zh" style="font-family:var(--zh-kai)">字</span>Kai</button>
+            <button type="button" role="radio" data-v="hei"><span class="zh" style="font-family:var(--zh-hei)">字</span>Hei</button>
+            <button type="button" role="radio" data-v="song"><span class="zh" style="font-family:var(--zh-song)">字</span>Song</button>
+          </div>
+        </div>
+        <div class="set col">
+          <div class="t"><b id="lbl-grid">Grille des cases</b><small>Les guides en pointillé des cases de la face <span class="zh">形</span>.</small></div>
+          <div class="seg opt" role="radiogroup" aria-labelledby="lbl-grid" data-look="grid">
+            <button type="button" role="radio" data-v="tian"><span class="zh">田字格</span></button>
+            <button type="button" role="radio" data-v="mi"><span class="zh">米字格</span></button>
+            <button type="button" role="radio" data-v="none">Sans guides</button>
+          </div>
+        </div>
+        <div class="set">
+          <div class="t"><b id="lbl-pynum">Pinyin en chiffres</b><small>ni3 hao3 au lieu de nǐ hǎo, partout où le pinyin s’affiche.</small></div>
+          <button type="button" class="switch" role="switch" id="sw-pynum" aria-labelledby="lbl-pynum" aria-checked="false" data-look="pinyinNum"></button>
+        </div>
+        <div class="set col">
+          <div class="t"><b id="lbl-tones">Couleurs des tons</b><small>Celles de l’appli (1 rouge, 2 orange, 3 bleu, 4 violet), de Pleco (2 vert) ou de MDBG (3 vert, 4 bleu).</small>
+            <div class="legend tones" id="tone-legend" aria-hidden="true">
+              <span><span class="t1">ā</span><small>1</small></span><span><span class="t2">á</span><small>2</small></span>
+              <span><span class="t3">ǎ</span><small>3</small></span><span><span class="t4">à</span><small>4</small></span>
+              <span><span class="t5">a</span><small>neutre</small></span>
+            </div>
+          </div>
+          <div class="seg opt" role="radiogroup" aria-labelledby="lbl-tones" data-look="tones">
+            <button type="button" role="radio" data-v="app">Appli</button>
+            <button type="button" role="radio" data-v="pleco">Pleco</button>
+            <button type="button" role="radio" data-v="mdbg">MDBG</button>
+            <button type="button" role="radio" data-v="none">Aucune</button>
+          </div>
+        </div>
+      </section>
+      <section class="sgroup">
+        <p class="group-title">Exemples</p>
+        <div class="set">
+          <div class="t"><b id="lbl-exform">Exemple sur les faces <span class="zh">形</span> et <span class="zh">音</span></b><small>La phrase s’affiche en caractères sur <span class="zh">形</span> et en pinyin sur <span class="zh">音</span>, sans traduction. Sans ce réglage, son pinyin ne se voit que dans la fiche du mot.</small></div>
+          <button type="button" class="switch" role="switch" id="sw-exform" aria-labelledby="lbl-exform" aria-checked="true"></button>
+        </div>
+        <div class="set">
+          <div class="t"><b id="lbl-ex">Traduction des exemples</b><small>Affichée d’office sous la phrase quand la carte est tournée.</small></div>
+          <button type="button" class="switch" role="switch" id="sw-ex" aria-labelledby="lbl-ex" aria-checked="false"></button>
+        </div>
+      </section>
+    </section>
+
     <!-- SETTINGS -->
     <section class="view" id="view-settings" aria-label="Réglages" hidden>
       <section class="sgroup">
@@ -690,15 +917,7 @@ textarea.mono{white-space:pre;overflow-x:auto}
         <div class="ghbox" id="gh-box"></div>
       </section>
       <section class="sgroup">
-        <p class="group-title">Cartes</p>
-        <div class="set">
-          <div class="t"><b id="lbl-exform">Exemple sur les faces <span class="zh">形</span> et <span class="zh">音</span></b><small>La phrase s’affiche en caractères sur <span class="zh">形</span> et en pinyin sur <span class="zh">音</span>, sans traduction. Sans ce réglage, son pinyin ne se voit que dans la fiche du mot.</small></div>
-          <button type="button" class="switch" role="switch" id="sw-exform" aria-labelledby="lbl-exform" aria-checked="true"></button>
-        </div>
-        <div class="set">
-          <div class="t"><b id="lbl-ex">Traduction des exemples</b><small>Affichée d’office sous la phrase quand la carte est tournée.</small></div>
-          <button type="button" class="switch" role="switch" id="sw-ex" aria-labelledby="lbl-ex" aria-checked="false"></button>
-        </div>
+        <p class="group-title">Voix</p>
         <div class="set">
           <div class="t"><b id="lbl-auto">Prononcer automatiquement</b><small>Le mot est lu quand la face <span class="zh">音</span> apparaît.</small></div>
           <button type="button" class="switch" role="switch" id="sw-auto" aria-labelledby="lbl-auto" aria-checked="true"></button>
@@ -706,16 +925,6 @@ textarea.mono{white-space:pre;overflow-x:auto}
         <div class="set">
           <div class="t"><b><label for="rate">Vitesse de la voix</label></b><small id="voice-info">Voix chinoise de l’appareil.</small></div>
           <input type="range" id="rate" min="0.5" max="1.1" step="0.05" value="0.8">
-        </div>
-        <div class="set">
-          <div class="t"><b id="lbl-tones">Couleurs des tons</b>
-            <div class="legend tones" aria-hidden="true">
-              <span><span class="t1">ā</span><small>1</small></span><span><span class="t2">á</span><small>2</small></span>
-              <span><span class="t3">ǎ</span><small>3</small></span><span><span class="t4">à</span><small>4</small></span>
-              <span><span class="t5">a</span><small>neutre</small></span>
-            </div>
-          </div>
-          <button type="button" class="switch" role="switch" id="sw-tones" aria-labelledby="lbl-tones" aria-checked="true"></button>
         </div>
       </section>
       <section class="sgroup">
@@ -781,7 +990,7 @@ const SYLL = new Set(("chuang shuang zhuang biang chang cheng chong chuai chuan 
 const LEGACY = ["阿姨","啊","矮","爱好","安静","把","班","搬","办法","办公室","半","帮忙","包","饱","北方","被","鼻子","比较","比赛","笔记本","必须","变化","别人","冰箱","不但","而且","菜单","参加","草","层","差","超市","衬衫","成绩","城市","迟到","除了","船","春","词典","聪明","打扫","打算","带","担心","蛋糕","当然","地","灯","地方","地铁","地图","电梯","电子邮件","东","冬","动物","短","段","锻炼","多么","饿","耳朵","发","发烧","发现","方便","放","放心","分","附近","复习","干净","感冒","感兴趣","刚才","个子","根据","跟","更","公斤","公园","故事","刮风","关","关系","关心","关于","国家","过","过去","还是","害怕","黑板","后来","护照","花","画","坏","欢迎","还","环境","换","黄河","回答","会议","或者","几乎","机会","极","记得","季节","检查","简单","见面","健康","讲","教","角","脚","接","街道","节目","节日","结婚","结束","解决","借","经常","经过","经理","久","旧","句子","决定","可爱","渴","刻","客人","空调","口","哭","裤子","筷子","蓝","老","离开","礼物","历史","脸","练习","辆","聊天","了解","邻居","留学","楼","绿","马","马上","满意","帽子","米","面包","明白","拿","奶奶","南","难","难过","年级","年轻","鸟","努力","爬山","盘子","胖","皮鞋","啤酒","瓶子","其实","其他","奇怪","骑","起飞","起来","清楚","请假","秋","裙子","然后","热情","认为","认真","容易","如果","伞","上网","生气","声音","世界","试","瘦","叔叔","舒服","树","数学","刷牙","双","水平","司机","太阳","特别","疼","提高","体育","甜","条","同事","同意","头发","突然","图书馆","腿","完成","碗","万","忘记","为","为了","位","文化","西","习惯","洗手间","洗澡","夏","先","相信","香蕉","向","像","小心","校长","新闻","新鲜","信用卡","行李箱","熊猫","需要","选择","要求","爷爷","一般","一边","一定","一共","一会儿","一样","一直","以前","音乐","银行","饮料","应该","影响","用","游戏","有名","又","遇到","元","愿意","月亮","越","站","张","长","着急","照顾","照片","照相机","只","只有","才","中间","中文","终于","种","重要","周末","主要","注意","自己","自行车","总是","嘴","最后","最近","作业"];
 const IS_PWA = true;
 const XH = 0.5078;
-const BUILD = "21 octobre 2026 à 22 h 35";
+const BUILD = "22 octobre 2026 à 3 h 43";
 
 /* ---------- utilities ---------- */
 const $ = (s, r = document) => r.querySelector(s);
@@ -929,8 +1138,19 @@ function parsePinyin(p) {
   return toks;
 }
 function pinyinText(p) { return parsePinyin(p).map(t => t.sep || t.s).join(""); }
+// a token of parsePinyin as shown: a syllable with its tone mark, or (Affichage › Pinyin en chiffres) without it, its tone's
+// number after (none for the neutral tone), the syllables of a word then apart (ni3 hao3, xi1 an1)
+const TONE_MARKS = /[\u0300\u0301\u0304\u030c]/g;
+function sylHTML(toks, i) {
+  const t = toks[i], num = state.settings.pinyinNum;
+  if (t.sep) return `<span class="sep">${esc(num && t.sep === "’" ? " " : t.sep)}</span>`;
+  const s = num && t.t ? t.s.normalize("NFD").replace(TONE_MARKS, "").normalize("NFC") + (t.t < 5 ? t.t : "") : t.s;
+  return `<span class="t${t.t}">${esc(s)}</span>`;
+}
+const sylGap = (toks, i) => (state.settings.pinyinNum && i && !toks[i].sep && !toks[i - 1].sep ? " " : "");
 function pinyinHTML(p) {
-  return parsePinyin(p).map(t => t.sep ? `<span class="sep">${esc(t.sep)}</span>` : `<span class="t${t.t}">${esc(t.s)}</span>`).join("");
+  const toks = parsePinyin(p);
+  return toks.map((t, i) => sylGap(toks, i) + sylHTML(toks, i)).join("");
 }
 function fold(s) {
   return String(s || "").normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[üǖǘǚǜ]/g, "u").replace(/v/g, "u")
@@ -940,7 +1160,8 @@ function fold(s) {
 /* ---------- storage ---------- */
 const KEY = "xingyinyi.v2", KEY_V1 = "xingyinyi.v1", LKEY = "xingyinyi.listes";
 const KEY_OLD = "xingyinyi.avant-seaux";          // the progress as it was before the switch to buckets, kept once
-const DEFAULTS = { evalSize: 20, learnSize: 20, startFace: 0, autoAudio: true, rate: 0.8, toneColors: true, exDetails: false, exOnForm: true, exam: "2026-11-29" };
+const DEFAULTS = { evalSize: 20, learnSize: 20, startFace: 0, autoAudio: true, rate: 0.8, toneColors: true, exDetails: false, exOnForm: true, exam: "2026-11-29",
+  theme: "auto", textSize: "m", zhFont: "kai", grid: "tian", pinyinNum: false, tonePalette: "app", motion: "auto", compact: false };   // Affichage: LOOK
 let storageOK = true, migratedV1 = false, migratedSched = false;
 function freshState() { return { v: 2, sched: SCHED, settings: { ...DEFAULTS, delays: [...DELAYS] }, cards: {}, edits: {}, custom: [], lists: [], tel: [], listEdits: {}, sent: {}, decks: {}, log: {}, moved: {}, test: null, learn: null }; }
 const strs = a => (Array.isArray(a) ? a.filter(x => typeof x === "string") : []);
@@ -977,6 +1198,10 @@ function normalizeState(s) {
   st.settings.delays = cleanDelays(st.settings.delays);
   st.settings.evalSize = Math.max(5, Math.min(100, Math.round(+st.settings.evalSize) || DEFAULTS.evalSize));
   st.settings.learnSize = Math.max(5, Math.min(50, Math.round(+st.settings.learnSize) || DEFAULTS.learnSize));
+  for (const [k, a] of [["theme", LOOK.themes], ["zhFont", LOOK.zh], ["grid", LOOK.grid], ["tonePalette", LOOK.tones], ["motion", LOOK.motion]])
+    if (!a.includes(st.settings[k])) st.settings[k] = DEFAULTS[k];
+  if (!(st.settings.textSize in LOOK.text)) st.settings.textSize = DEFAULTS.textSize;
+  st.settings.pinyinNum = !!st.settings.pinyinNum; st.settings.compact = !!st.settings.compact;
   st.log = s.log && typeof s.log === "object" ? s.log : {};
   const obj = o => (o && typeof o === "object" ? o : {});
   if ((s.v || 1) < 2) {
@@ -1627,6 +1852,12 @@ function senseItems(w) {
   return parts.map((s, i) => `<li>${parts.length > 1 ? `<span class="no">${CIRCLED[i] || "•"}</span>` : ""}<span>${zhWrap(mask(s))}</span></li>`).join("");
 }
 
+// the copybook cells of a word, each with the 米字格 diagonals (shown by Affichage › Grille des cases)
+function cellsHTML(h) {
+  const sys = covered(h) ? "" : " sysfont";
+  return [...h].map(ch => `<div class="tzg${sys}"><svg class="mzg" viewBox="0 0 10 10" preserveAspectRatio="none" aria-hidden="true">` +
+    `<path d="M0 0L10 10M10 0L0 10"/></svg><span lang="zh-Hans">${esc(ch)}</span></div>`).join("");
+}
 const CARD_W = 380;   // the card's width on a phone; a larger one (computer) scales its texts (fit) and its perspective (CSS .stage)
 // the first size from `start` down by `step` at which over() turns false, `floor` at the latest (what the loop
 // `while (over() && size > floor) size -= step` finds), by halving: a few layouts, even from the large sizes of a large card
@@ -1669,7 +1900,10 @@ class Prism {
     const avail = this.root.clientWidth || 320;
     const room = this.opts.fill ? this.opts.fill() : 0;   // vertical space the view can give the card
     const max = typeof this.opts.maxW === "function" ? this.opts.maxW(room) : this.opts.maxW;
-    const w = Math.round(Math.min(avail - 16, max || CARD_W));
+    let w = Math.round(Math.min(avail - 16, max || CARD_W));
+    // a text made larger (Affichage) on a small phone, little height left: a narrower card, rather than answers below the
+    // screen (at the normal size the card keeps its width: its faces need it on the smallest phones)
+    if (room && room < w * 0.74 && (LOOK.text[state.settings.textSize] || 1) > 1) w = Math.round(Math.max(w * 0.75, room / 0.74));
     let h = Math.round(w * 0.86);
     if (room) h = Math.round(Math.min(w * 1.18, Math.max(w * 0.74, room)));
     this.w = w; this.h = h; this.a = w / (2 * Math.sqrt(3));
@@ -1691,7 +1925,7 @@ class Prism {
     this.word = w; this.start = start; this.turns = start; this.seen = new Set([start]);
     const tones = state.settings.toneColors ? " tones" : "";
     const sys = covered(w.h) ? "" : " sysfont";
-    const cells = [...w.h].map(ch => `<div class="tzg${sys}"><span lang="zh-Hans">${esc(ch)}</span></div>`).join("");
+    const cells = cellsHTML(w.h);
     const head = k => `<div class="face-head"><span class="face-tag"><span class="zh">${FACE_NAMES[k][0]}</span>${FACE_NAMES[k][1]}</span>${triSVG(k)}</div>`;
     const fex = w.e && state.settings.exOnForm ? `<p class="form-ex${covered(w.e) ? "" : " sysfont"}" lang="zh-Hans">${markHead(w.e, w.h)}</p>` : "";
     const trace = [...w.h].some(isHan) ? `<div class="speaks"><button type="button" class="speak" data-trace-form aria-label="Traits${NB}: tracer chaque caractère dans sa case">${BRUSH}Traits</button>` +
@@ -1736,12 +1970,13 @@ class Prism {
     const w = this.word; if (!w) return;
     const k = Math.max(1, Math.min(this.w / CARD_W, this.h / 330, 2.6));   // a larger card (computer): larger characters
     this.root.style.setProperty("--ks", Math.min(k, 1.5).toFixed(2));   // and larger buttons on it
+    const kt = k * (LOOK.text[state.settings.textSize] || 1);            // its texts: also the text size (Affichage)
     // 形: one copybook cell per character
     const n = Math.max(1, [...w.h].length);
     const fex = $(".form-ex", this.faces[0]);
     let exH = 0;
     if (fex) {
-      shrink(Math.round(19 * k), 13, 1, v => fex.style.setProperty("--fxs", v + "px"), () => fex.scrollWidth > this.w - 34);
+      shrink(Math.round(19 * kt), 13, 1, v => fex.style.setProperty("--fxs", v + "px"), () => fex.scrollWidth > this.w - 34);
       exH = fex.offsetHeight + 14;
     }
     const tf = $(".speaks", this.faces[0]), tfH = tf ? tf.offsetHeight + 10 : 0;   // the Traits button
@@ -1752,12 +1987,12 @@ class Prism {
     const py = $(".py", this.faces[1]), sx = $(".sound-ex", this.faces[1]), body1 = $(".face-body", this.faces[1]);
     if (sx) {
       sx.classList.remove("wrap");
-      shrink(Math.round(16 * k), 15, 1, v => sx.style.setProperty("--sxs", v + "px"), () => sx.scrollWidth > this.w - 34);
+      shrink(Math.round(16 * kt), 15, 1, v => sx.style.setProperty("--sxs", v + "px"), () => sx.scrollWidth > this.w - 34);
       if (sx.scrollWidth > this.w - 34) sx.classList.add("wrap");
     }
     const room = this.w - 44;
     const tall = () => body1.clientHeight > 0 && [...body1.children].reduce((a, el) => a + outer(el), 0) > body1.clientHeight;
-    const fs = shrink(Math.round(46 * k), 18, 2, v => { py.style.fontSize = v + "px"; }, () => py.scrollWidth > room || tall());
+    const fs = shrink(Math.round(46 * kt), 18, 2, v => { py.style.fontSize = v + "px"; }, () => py.scrollWidth > room || tall());
     if (sx) for (let xs = 14; tall() && xs >= 13; xs--) sx.style.setProperty("--sxs", xs + "px");
     const probe = document.createElement("span");
     probe.style.cssText = "display:inline-block;width:0;height:0;vertical-align:baseline";
@@ -1773,7 +2008,7 @@ class Prism {
     const wasHidden = note ? note.hidden : false;
     if (note) note.hidden = false;
     const need = () => ol.offsetHeight + (note ? note.offsetHeight + 11 : 0);
-    shrink(Math.round(19 * k), 13, 1, v => ol.style.setProperty("--fs", v + "px"), () => need() > body.clientHeight);
+    shrink(Math.round(19 * kt), 13, 1, v => ol.style.setProperty("--fs", v + "px"), () => need() > body.clientHeight);
     if (note) note.hidden = wasHidden;
   }
 }
@@ -1813,9 +2048,8 @@ function markPinyin(ep, p, e, h) {
     const k = syl.findIndex((_, i) => fits(i, want));
     if (k >= 0) { runs.push([k, k + want.length - 1]); break; }
   }
-  const span = t => t.sep ? `<span class="sep">${esc(t.sep)}</span>` : `<span class="t${t.t}">${esc(t.s)}</span>`;
   const open = new Set(runs.map(r => at[r[0]])), shut = new Set(runs.map(r => at[r[1]]));
-  return toks.map((t, i) => (open.has(i) ? "<mark>" : "") + span(t) + (shut.has(i) ? "</mark>" : "")).join("");
+  return toks.map((t, i) => sylGap(toks, i) + (open.has(i) ? "<mark>" : "") + sylHTML(toks, i) + (shut.has(i) ? "</mark>" : "")).join("");
 }
 function slipHTML(w, mode) {                      // mode: "covered" (card not turned yet), "shown", "full" (word sheet)
   if (!w || !w.e) return `<div class="ex empty"><span class="tag" aria-hidden="true">例</span><p class="ex-none">Pas encore de phrase d’exemple pour ce mot.</p></div>`;
@@ -1835,7 +2069,7 @@ function slipHTML(w, mode) {                      // mode: "covered" (card not t
 function fitSlip(root) {
   const zh = $(".ex-zh", root); if (!zh) return;
   zh.classList.remove("wrap");
-  let fs = 22;
+  let fs = Math.round(22 * (LOOK.text[state.settings.textSize] || 1));
   zh.style.setProperty("--exfs", fs + "px");
   while (zh.scrollWidth > zh.clientWidth + 1 && fs > 16) { fs -= 1; zh.style.setProperty("--exfs", fs + "px"); }
   if (zh.scrollWidth > zh.clientWidth + 1) zh.classList.add("wrap");
@@ -2119,7 +2353,7 @@ const study = {
     if (this.mode === "learn") learnSave();          // the word answered leaves the saved queue
     stampMark(g);
     const run = this.run;
-    setTimeout(() => { this.busy = false; if (run === this.run) this.next(false); }, matchMedia("(prefers-reduced-motion: reduce)").matches ? 200 : 430);
+    setTimeout(() => { this.busy = false; if (run === this.run) this.next(false); }, reducedMotion() ? 200 : 430);
   }
 };
 
@@ -2356,12 +2590,13 @@ function showView(v) {
   if (sheetWord) closeSheet();                     // the word's sheet beside the list
   current = v;
   $$(".tab").forEach(t => { if (t.dataset.view === v) t.setAttribute("aria-current", "page"); else t.removeAttribute("aria-current"); });
-  for (const name of ["study", "words", "progress", "settings"]) $("#view-" + name).hidden = name !== v;
+  for (const name of ["study", "words", "progress", "display", "settings"]) $("#view-" + name).hidden = name !== v;
   $("#main").scrollTop = 0;
   if (v === "study") requestAnimationFrame(() => { prism.layout(); fitSlip($("#example")); });
   if (v === "words") renderWords();
   if (v === "progress") renderProgress();
   if (v === "settings") renderSettings();
+  if (v === "display") renderDisplay();
 }
 
 /* words list */
@@ -2636,15 +2871,12 @@ function renderSettings() {
   $("#lists-check-row").hidden = !!EMBEDDED;
   renderListsInfo();
   $("#exam").value = s.exam || "";
-  $("#sw-ex").setAttribute("aria-checked", String(!!s.exDetails));
-  $("#sw-exform").setAttribute("aria-checked", String(!!s.exOnForm));
   renderGh();
   renderSync();
   $("#app-title").hidden = $("#app-row").hidden = !IS_PWA;
   $("#install-row").hidden = !installEvt;
   $("#app-version").textContent = BUILD ? `Version du ${BUILD}.` : "";
   $("#sw-auto").setAttribute("aria-checked", String(!!s.autoAudio));
-  $("#sw-tones").setAttribute("aria-checked", String(!!s.toneColors));
   $("#rate").value = s.rate;
   updateVoiceInfo();
   $("#storage-note").textContent = !storageOK
@@ -2658,6 +2890,47 @@ function renderSettings() {
   $("#about-lists").textContent = names.length
     ? `Listes${NB}: ${names.join(", ")}. Listes HSK : HSK 2.0 (liste officielle de 2012) et HSK 3.0 (programme de 2026), chacune du mot le plus fréquent au plus rare.`
     : "Aucune liste chargée.";
+}
+
+/* ---------- Affichage ---------- */
+const THEME_NAMES = { auto: "Automatique", light: "Cahier", paper: "Papier blanc", sepia: "Sépia", contrast: "Contraste élevé", dark: "Tableau noir", night: "Nuit" };
+// a font stack of Affichage on this device: a text measured in it differs from the same in a fallback font
+const fontsHere = new Map();
+function fontHere(look) {
+  if (!fontsHere.has(look)) {
+    const fams = getComputedStyle(document.documentElement).getPropertyValue("--zh-" + look).replace(/,\s*(serif|sans-serif)\s*$/, "").trim();
+    const c = document.createElement("canvas").getContext("2d"), t = "mmmmmmmmmmlli 字永和中";
+    fontsHere.set(look, !!fams && ["monospace", "serif"].some(g => {
+      c.font = "40px " + g; const w = c.measureText(t).width;
+      c.font = `40px ${fams}, ${g}`; return c.measureText(t).width !== w;
+    }));
+  }
+  return fontsHere.get(look);
+}
+function renderDisplay() {
+  const s = state.settings, half = t => `<span class="swp" data-swatch="${t}"><b>字</b><i></i></span>`;
+  if (!$("#themes").children.length) $("#themes").innerHTML = LOOK.themes.map(t => `<button type="button" class="theme" role="radio" data-v="${t}">` +
+    `<span class="swatch" aria-hidden="true">${t === "auto" ? half("light") + half("dark") : half(t)}</span><span class="nm">${THEME_NAMES[t]}</span></button>`).join("");
+  $$("#themes [data-v]").forEach(b => b.setAttribute("aria-checked", String(s.theme === b.dataset.v)));
+  const lack = ["hei", "song"].filter(f => !fontHere(f));
+  $$('[data-look="zhFont"] [data-v]').forEach(b => { b.disabled = lack.includes(b.dataset.v); });
+  $("#zh-note").hidden = !lack.length;
+  $("#zh-note").textContent = frTypo(lack.length ? `Pas de police ${lack.map(f => (f === "hei" ? "Hei" : "Song")).join(" ni ")} sur cet appareil.` : "");
+  const now = { textSize: s.textSize, motion: s.motion, zhFont: s.zhFont, grid: s.grid, tones: s.toneColors ? s.tonePalette : "none" };
+  $$("#view-display .seg[data-look] [data-v]").forEach(b => b.setAttribute("aria-checked", String(now[b.parentNode.dataset.look] === b.dataset.v)));
+  $$("#view-display .switch[data-look]").forEach(b => b.setAttribute("aria-checked", String(!!s[b.dataset.look])));
+  $("#sw-ex").setAttribute("aria-checked", String(!!s.exDetails));
+  $("#sw-exform").setAttribute("aria-checked", String(!!s.exOnForm));
+  $("#tone-legend").classList.toggle("tones", !!s.toneColors);
+  $("#look-sample").innerHTML = `<div class="tzg-row">${cellsHTML("你好")}</div>` +
+    `<div><p class="py${s.toneColors ? " tones" : ""}">${pinyinHTML("nǐ hǎo")}</p><p class="f">bonjour</p></div>`;
+}
+const cardLook = () => canon([state.settings.pinyinNum, state.settings.toneColors]);   // what the card's HTML shows
+function setLook(ch) {
+  const before = cardLook();
+  Object.assign(state.settings, ch); save(); applyLook(state.settings); renderDisplay();
+  if (cardLook() !== before) redrawCurrent();                                 // the card's pinyin
+  else if ("textSize" in ch || "zhFont" in ch) { prism.layout(); fitSlip($("#example")); }   // its texts' sizes
 }
 
 /* ---------- sheet ---------- */
@@ -2704,19 +2977,23 @@ function setDock(id) {
 const TCACHE = "traits-xingyinyi", TKEY = "xingyinyi.traits", TPACKS = 32;
 const traitPacks = new Map();                      // packet number -> promise of its data
 const traitUrl = n => "traits/" + String(n).padStart(2, "0") + ".json";
-function traitPack(n) {
+function traitPack(n, keep = true) {
+  // keep: the packet stays in memory (the sheets); the shapes of the drawn characters (loadShapes) only read it once
   if (traitPacks.has(n)) return traitPacks.get(n);
   const p = (async () => {
     try { if (window.caches) { const r = await (await caches.open(TCACHE)).match(traitUrl(n)); if (r) return await r.json(); } } catch (e) {}
+    const ctl = new AbortController(), timer = setTimeout(() => ctl.abort(), 20000);   // a request that hangs gives up
     try {
-      const r = await fetch(traitUrl(n), { cache: "no-cache" });
+      const r = await fetch(traitUrl(n), { cache: "no-cache", signal: ctl.signal });
       if (!r.ok) return null;
       try { if (window.caches) await (await caches.open(TCACHE)).put(traitUrl(n), r.clone()); } catch (e) {}
       return await r.json();
-    } catch (e) { return null; }
+    } catch (e) { return null; } finally { clearTimeout(timer); }
   })();
-  traitPacks.set(n, p);
-  p.then(d => { if (!d) traitPacks.delete(n); });  // not there (offline, never fetched): asked again next time
+  if (keep) {
+    traitPacks.set(n, p);
+    p.then(d => { if (!d) traitPacks.delete(n); });  // not there (offline, never fetched): asked again next time
+  }
   return p;
 }
 async function strokesOf(ch) { const d = await traitPack(ch.codePointAt(0) % TPACKS); return (d && d[ch]) || null; }
@@ -2736,10 +3013,164 @@ async function prefetchTraits() {
       await cache.put(traitUrl(n), res);
       await new Promise(ok => setTimeout(ok, 150));   // one packet after the other, without hurry
     }
-    if (have !== idx.v) traitPacks.clear();
+    if (have && have !== idx.v) { traitPacks.clear(); shapePacks.clear(); shapes = null; }   // other data: read again
     try { localStorage.setItem(TKEY, idx.v); } catch (e) {}
   } catch (e) {}
 }
+/* ---------- a character drawn (Mots): the closest shapes among the characters of traits/ ----------
+   Without regard to the order of the strokes, their direction or their number: the drawing and each character (the
+   medians of its strokes) become, on a SHAPE_G × SHAPE_G grid, the length of line in each of 4 orientations (—, ╲, |, ╱),
+   spread over the neighbouring cells and orientations, around the centre of gravity of the ink and scaled by its spread;
+   then a light blur, a square root, a unit length. The closest characters by cosine, a little penalty per stroke more or
+   less. Tuned on the medians themselves, distorted, shuffled, reversed and joined (tests/test_dessin.py). */
+const SHAPE_G = 12, SHAPE_D = 4, SHAPE_N = SHAPE_D * SHAPE_G * SHAPE_G;
+function shapeOf(strokes) {
+  // strokes: lists of [x, y], y down, any unit
+  const segs = [];
+  let L = 0, mx = 0, my = 0;
+  for (const st of strokes) for (let i = 1; i < st.length; i++) {
+    const [ax, ay] = st[i - 1], [bx, by] = st[i], l = Math.hypot(bx - ax, by - ay);
+    if (!l) continue;
+    segs.push([ax, ay, bx, by, l]); L += l; mx += l * (ax + bx) / 2; my += l * (ay + by) / 2;
+  }
+  const f = new Float32Array(SHAPE_N);
+  if (!L) return f;
+  mx /= L; my /= L;
+  let vx = 0, vy = 0;
+  for (const [ax, ay, bx, by, l] of segs) { vx += l * ((ax + bx) / 2 - mx) ** 2; vy += l * ((ay + by) / 2 - my) ** 2; }
+  const size = 3.5 * Math.sqrt(Math.max(vx, vy) / L) || 1, G = SHAPE_G, GG = G * G;
+  for (const [ax, ay, bx, by, l] of segs) {
+    let a = Math.atan2(by - ay, bx - ax); if (a < 0) a += Math.PI; if (a >= Math.PI) a -= Math.PI;
+    const da = a / (Math.PI / SHAPE_D), ia = Math.floor(da), fa = da - ia, n = Math.max(1, Math.ceil(l / size * G * 2));
+    for (let k = 0; k < n; k++) {
+      const t = (k + 0.5) / n, gx = ((ax + (bx - ax) * t - mx) / size + 0.5) * G - 0.5, gy = ((ay + (by - ay) * t - my) / size + 0.5) * G - 0.5;
+      const ix = Math.floor(gx), iy = Math.floor(gy), fx = gx - ix, fy = gy - iy, w = l / n;
+      for (let j = 0; j < 4; j++) {
+        const X = Math.min(G - 1, Math.max(0, ix + (j & 1))), Y = Math.min(G - 1, Math.max(0, iy + (j >> 1)));
+        const wxy = w * ((j & 1) ? fx : 1 - fx) * ((j >> 1) ? fy : 1 - fy);
+        f[(ia % SHAPE_D) * GG + Y * G + X] += wxy * (1 - fa);
+        f[((ia + 1) % SHAPE_D) * GG + Y * G + X] += wxy * fa;
+      }
+    }
+  }
+  const g = new Float32Array(SHAPE_N);              // [1 2 1] blur of each orientation's map
+  for (let d = 0; d < SHAPE_D; d++) for (let y = 0; y < G; y++) for (let x = 0; x < G; x++) {
+    let v = 0, wt = 0;
+    for (let j = -1; j <= 1; j++) for (let i = -1; i <= 1; i++) {
+      const X = x + i, Y = y + j; if (X < 0 || Y < 0 || X >= G || Y >= G) continue;
+      const k = (2 - Math.abs(i)) * (2 - Math.abs(j)); v += f[d * GG + Y * G + X] * k; wt += k;
+    }
+    g[d * GG + y * G + x] = Math.sqrt(v / wt);
+  }
+  let norm = 0;
+  for (let i = 0; i < SHAPE_N; i++) norm += g[i] * g[i];
+  norm = Math.sqrt(norm) || 1;
+  for (let i = 0; i < SHAPE_N; i++) g[i] /= norm;
+  return g;
+}
+const shapePacks = new Map();                      // packet number -> { chars, counts, feats (SHAPE_N per character) }
+let shapes = null, shapesReady = false, shapesMissing = 0;   // promise of { packs, missing }; done; packets not there
+function loadShapes() {
+  // the shapes of every character, packet by packet (those already made are kept); a packet missing (offline) is asked
+  // again when the pad opens next (padOpen), not at each stroke
+  if (!shapes) {
+    shapesReady = false;
+    shapes = Promise.all([...Array(TPACKS).keys()].map(async n => {
+      if (shapePacks.has(n)) return shapePacks.get(n);
+      const d = await traitPack(n, false);
+      if (!d) return null;
+      const chars = Object.keys(d), feats = new Float32Array(chars.length * SHAPE_N);
+      chars.forEach((ch, i) => feats.set(shapeOf(d[ch][1].map(st => st.map(([x, y]) => [x, -y]))), i * SHAPE_N));   // y up
+      const P = { chars, counts: chars.map(ch => d[ch][1].length), feats };
+      shapePacks.set(n, P);
+      return P;
+    })).then(got => {
+      shapesReady = true; shapesMissing = got.filter(x => !x).length;
+      return { packs: got.filter(Boolean), missing: shapesMissing };
+    });
+  }
+  return shapes;
+}
+function guessChars(S, strokes, k = 10) {
+  // the k characters closest to a drawing (strokes of [x, y], y down); a stroke without length (a tap) is a short dot
+  const st = strokes.map(p => (p.some(([x, y]) => x !== p[0][0] || y !== p[0][1]) ? p : [p[0], [p[0][0] + 0.02, p[0][1] + 0.02]]));
+  const f = shapeOf(st), n = strokes.length, best = [];
+  for (const P of S.packs) for (let c = 0; c < P.chars.length; c++) {
+    let dot = 0;
+    for (let i = 0, o = c * SHAPE_N; i < SHAPE_N; i++) dot += f[i] * P.feats[o + i];
+    const d = 1 - dot + 0.004 * Math.abs(P.counts[c] - n);
+    if (best.length < k || d < best[best.length - 1][0]) {
+      best.push([d, P.chars[c]]); best.sort((x, y) => x[0] - y[0]); if (best.length > k) best.pop();
+    }
+  }
+  return best.map(x => x[1]);
+}
+
+/* the drawing pad of Mots: strokes in fractions of the box, drawn as SVG lines in the theme's ink; one finger at a time */
+const pad = { strokes: [], cur: null, id: null, seq: 0, shown: 0 };   // shown: the last guess on screen (pad.seq when settled)
+const padPoints = st => (st.length > 1 ? st : [st[0], st[0]]).map(([x, y]) => x.toFixed(4) + "," + y.toFixed(4)).join(" ");
+function padDraw() { $("#pad").innerHTML = pad.strokes.map(st => `<polyline points="${padPoints(st)}"/>`).join(""); }
+async function padGuess() {
+  const seq = ++pad.seq, hint = $("#pad-hint"), cands = $("#pad-cands"), say = t => { hint.textContent = frTypo(t); };
+  if (!pad.strokes.length) {
+    cands.innerHTML = ""; pad.shown = seq;
+    say("Dessine un caractère, dans l’ordre de traits que tu veux : les caractères les plus proches s’affichent ici.");
+    return;
+  }
+  if (!shapesReady) say("Chargement des formes des caractères…");
+  const S = await loadShapes();
+  if (seq !== pad.seq) return;                     // another stroke since
+  if (!S.packs.length) {
+    cands.innerHTML = ""; pad.shown = seq;
+    say(navigator.onLine === false ? "Hors ligne : les formes des caractères arriveront avec du réseau (rouvre alors le crayon)."
+      : "Formes des caractères indisponibles pour l’instant : rouvre le crayon un peu plus tard.");
+    return;
+  }
+  cands.innerHTML = guessChars(S, pad.strokes).map(ch => `<button type="button" data-ch="${esc(ch)}" lang="zh-Hans">${esc(ch)}</button>`).join("");
+  pad.shown = seq;
+  say("Touche le bon caractère : il s’ajoute à la recherche." + (S.missing ? " Une partie des formes manque encore (rouvre le crayon avec du réseau)." : ""));
+}
+function padClear() { pad.strokes = []; pad.cur = null; pad.id = null; padDraw(); padGuess(); }
+function padOpen(open) {
+  $("#drawpad").hidden = !open;
+  $("#draw-open").setAttribute("aria-expanded", String(open));
+  if (open) { if (shapesMissing) shapes = null; padDraw(); padGuess(); loadShapes(); }   // the packets missing before: again
+}
+function bindPad() {
+  const c = $("#pad");
+  const at = e => { const r = c.getBoundingClientRect(); return [(e.clientX - r.left) / r.width, (e.clientY - r.top) / r.height]; };
+  c.addEventListener("pointerdown", e => {
+    if (e.button > 0 || pad.id !== null) return;   // a second finger (the thumb holding the phone) is left out
+    e.preventDefault();
+    try { c.setPointerCapture(e.pointerId); } catch (x) {}   // (a pointer the browser no longer knows)
+    pad.id = e.pointerId; pad.cur = [at(e)]; pad.strokes.push(pad.cur); padDraw();
+  });
+  c.addEventListener("pointermove", e => {
+    if (e.pointerId !== pad.id) return;
+    for (const ev of (e.getCoalescedEvents && e.getCoalescedEvents().length ? e.getCoalescedEvents() : [e])) pad.cur.push(at(ev));
+    if (c.lastElementChild) c.lastElementChild.setAttribute("points", padPoints(pad.cur));
+  });
+  const end = e => { if (e.pointerId !== pad.id) return; pad.id = null; pad.cur = null; padGuess(); };
+  c.addEventListener("pointerup", end);
+  c.addEventListener("lostpointercapture", end);
+  c.addEventListener("pointercancel", e => {       // the touch taken by the system: not a stroke
+    if (e.pointerId !== pad.id) return;
+    pad.id = null; pad.cur = null; pad.strokes.pop(); padDraw();
+  });
+  $("#draw-open").addEventListener("click", () => padOpen($("#drawpad").hidden));
+  $("#pad-undo").addEventListener("click", () => { pad.strokes.pop(); padDraw(); padGuess(); });
+  $("#pad-clear").addEventListener("click", padClear);
+  $("#pad-cands").addEventListener("click", e => {
+    const b = e.target.closest("[data-ch]"); if (!b) return;
+    const q = $("#q"), ch = b.dataset.ch;
+    q.value = [...q.value].filter(x => HAN.test(x)).join("") + ch;   // a search in pinyin or French gives way to the characters
+    renderWords();
+    padClear();                                    // ready for the next character
+    $("#pad-hint").textContent = frTypo(`« ${ch} » ajouté à la recherche ; dessine le caractère suivant.`);
+    if (!e.detail) c.focus();                      // chosen with the keyboard: the focus on the pad, the button gone
+  });
+}
+
 let traitSeq = 0;
 const TGRID = '<rect class="tf" x="7" y="7" width="1010" height="1010"/><path class="tl" d="M0 512H1024M512 0V1024"/>';
 function traitHTML(ch, data) {
@@ -2761,7 +3192,7 @@ function tracePaths(paths, t0 = 0) {
   // strokes (.ta: median line clipped by the outline) drawn one after the other from t0 ms; returns when the last ends.
   // Motion reduced: each stroke appears at once, in turn.
   if (!paths.length || !paths[0].animate) return t0;
-  const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const still = reducedMotion();
   let t = t0;
   for (const p of paths) {
     const len = +p.dataset.len, dur = still ? 1 : Math.max(260, Math.min(900, len * 0.9));
@@ -2816,7 +3247,7 @@ function showSteps(root, w) {
   // 形, « Décomposer »: each character of the word step by step, at the bottom. The word sheet has them under its
   // buttons already (scrolled to); the review opens a sheet with them.
   const own = root.closest("#sheet") && $("#sheet-traits");
-  if (own) { own.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" }); return; }
+  if (own) { own.scrollIntoView({ behavior: reducedMotion() ? "auto" : "smooth", block: "start" }); return; }
   openSheet(w.h, `<div id="sheet-traits" class="traits-only"></div>`, body => {
     renderTraits($("#sheet-traits", body), w.h);
     body.addEventListener("click", e => { const b = e.target.closest("[data-trace]"); if (b) traceTraits(b.closest(".trait")); });
@@ -3312,7 +3743,7 @@ function restoreSheet() {
           const data = JSON.parse($("#rs-t", body).value);
           const s = data && data.state;
           if (!s || typeof s.cards !== "object" || !s.settings) throw new Error("format");
-          state = normalizeState(s);
+          state = normalizeState(s); applyLook(state.settings);
           if (listsReady) { syncDeckSettings(); rebuildDeck(); mergeTel(); dropSameEdits(); }   // else useLists does it
           rebuildDeck(); save();
           closeSheet(); renderSettings(); study.build();      // a new state: the session starts again from its line
@@ -3334,7 +3765,7 @@ function restoreSheet() {
 // from the lists, corrections the files now have, switches of decks.json; it reloads its lists instead.
 const SYNC_URL = "https://xingyinyi-sync.guillaume-plehar.workers.dev";   // the server (outils/sync/worker.mjs on Cloudflare); empty: typed in Réglages
 const SKEY = "xingyinyi.sync", SBASE = "xingyinyi.sync-base", SYNC_FMT = 1;
-const DEVICE_SETTINGS = ["autoAudio", "rate"];      // each device its own voice
+const DEVICE_SETTINGS = ["autoAudio", "rate", "theme", "textSize", "motion", "compact", "zhFont"];   // each device its own voice, screen and fonts
 const SYNC_ERRORS = { 0: "pas de connexion avec le serveur", 404: "adresse du serveur introuvable (vérifie-la)",
   403: "le serveur a déjà tous les codes qu’il accepte (variable MAX_CODES du Worker)",
   413: "progression trop grosse pour le serveur", 500: "le serveur a un problème (base D1 liée sous le nom DB ?)" };
@@ -3359,10 +3790,13 @@ const docHash = d => { const t = canon(d); return hashStr(t) + "." + t.length; }
 function reloadState(raw) {
   // another window of the app (the installed one and a tab, on the computer) saved: this one goes on from there
   try {
-    const s = normalizeState(JSON.parse(raw)), keep = state;
+    const s = normalizeState(JSON.parse(raw)), keep = state, look = cardLook();
     s.test = keep.test; s.learn = keep.learn;
     state = s; lastSaved = raw;
-    rebuildDeck(); afterDeckChange();
+    applyLook(state.settings);
+    rebuildDeck();
+    if (cardLook() !== look) redrawCurrent();
+    afterDeckChange();
   } catch (e) {}
 }
 const clone = x => JSON.parse(JSON.stringify(x));
@@ -3456,9 +3890,11 @@ function mergeDocs(b, l, r) {
   const fields = (x, y, z) => (!x || !y ? x || y : mergeMap(z, x, y, pick));
   // counts: what each side added since the base (a word or a day new on both sides: from 0); the first time, the larger
   const add = (x, y, z) => (b ? Math.max(0, x + y - z) : Math.max(x, y));
+  // a setting missing from a document (written by a version from before it) counts as its default, not as a change
+  const dflt = x => (x ? { ...Object.fromEntries(Object.entries(DEFAULTS).filter(([k]) => !DEVICE_SETTINGS.includes(k))), ...x } : x);
   return {
     fmt: SYNC_FMT, sched: SCHED, ...((l.listsAt || 0) >= (r.listsAt || 0) ? { listsAt: l.listsAt || 0, listsH: l.listsH || "" } : { listsAt: r.listsAt, listsH: r.listsH || "" }),
-    settings: mergeMap(B.settings, l.settings, r.settings, pick),
+    settings: mergeMap(dflt(B.settings), dflt(l.settings), dflt(r.settings), pick),
     cards: mergeMap(B.cards, l.cards, r.cards, (x, y, z) => mergeCard(x, y, z, add)),
     log: mergeMap(B.log, l.log, r.log, (x, y, z) => mergeDay(x, y, z, add)),
     custom: mergeMap(B.custom, l.custom, r.custom, fields),
@@ -3480,6 +3916,7 @@ function checkDoc(doc) {
 function applyDoc(doc) {
   // (the caller has noted the document's lists first, noteLists: listsBehind must know them while mergeTel runs)
   const delays = canon(state.settings.delays), face = state.settings.startFace;
+  const look = cardLook();
   syncApplying = true;
   try {
     state = stateFromDoc(doc, state);
@@ -3488,6 +3925,8 @@ function applyDoc(doc) {
     rebuildDeck(); save();
   } finally { syncApplying = false; }
   if (state.settings.startFace !== face) renderStartFace();
+  applyLook(state.settings);
+  if (cardLook() !== look) redrawCurrent();
   afterDeckChange();
   if (listsBehind() && Date.now() - listsChecked > 60e3) refreshLists(false, false);   // another device has newer lists
 }
@@ -4049,10 +4488,12 @@ function afterDeckChange() {
   if (current === "words") renderWords();
   if (current === "progress") renderProgress();
   if (current === "settings") renderSettings();
+  if (current === "display") renderDisplay();
   study.build(true);
 }
 
 /* ---------- wiring ---------- */
+const reducedMotion = () => document.documentElement.dataset.motion === "reduce";   // the device's or Affichage's choice
 function outer(el) { if (!el) return 0; const cs = getComputedStyle(el); return el.offsetHeight + parseFloat(cs.marginTop) + parseFloat(cs.marginBottom); }
 const WIDE = matchMedia("(min-width: 900px) and (min-height: 500px)");   // the computer's layout (CSS « computer screen »)
 const DOCK = matchMedia("(min-width: 1200px) and (min-height: 500px)");  // room for the word's sheet beside the list
@@ -4085,6 +4526,7 @@ function redrawCurrent() {
   renderCardStatus();
 }
 function init() {
+  applyLook(state.settings);                       // as normalizeState left them
   tts.init();
   // a larger card on a computer screen (the installed app in its window)
   prism = new Prism($("#stage"), { maxW: room => (WIDE.matches ? room / 0.9 : CARD_W), fill: studyRoom, onTurn: p => {
@@ -4138,6 +4580,7 @@ function init() {
   $$(".tab").forEach(t => t.addEventListener("click", () => showView(t.dataset.view)));
 
   $("#q").addEventListener("input", renderWords);
+  bindPad();
   $("#wdeck").addEventListener("click", e => {
     if (e.target.closest("[data-newlist]")) { listNameSheet(); return; }
     const b = e.target.closest("button[data-deck]"); if (b) { wdeck = b.dataset.deck; renderWords(); }
@@ -4226,10 +4669,10 @@ function init() {
   $("#lists-check").addEventListener("click", () => refreshLists(false, true));
   $("#exam").addEventListener("change", e => { state.settings.exam = e.target.value || ""; save(); });
   $("#sw-ex").addEventListener("click", () => {
-    state.settings.exDetails = !state.settings.exDetails; save(); renderSettings();
+    state.settings.exDetails = !state.settings.exDetails; save(); renderDisplay();
     if (study.cur) { const ex = $("#example .ex"); renderSlip(BYID.get(study.cur), ex && ex.classList.contains("covered") ? "covered" : "shown"); }
   });
-  $("#sw-exform").addEventListener("click", () => { state.settings.exOnForm = !state.settings.exOnForm; save(); renderSettings(); redrawCurrent(); });
+  $("#sw-exform").addEventListener("click", () => { state.settings.exOnForm = !state.settings.exOnForm; save(); renderDisplay(); redrawCurrent(); });
   $("#gh-box").addEventListener("click", e => {
     const b = e.target.closest("[data-gh]"); if (!b) return;
     if (b.dataset.gh === "login") ghLogin();
@@ -4261,7 +4704,13 @@ function init() {
     if (a === "stop-yes") { writeSyncCfg(null); writeBase(0, null); clearTimeout(syncTimer); syncTimer = 0; syncDirtyAt = 0; renderSettings(); toast("Synchronisation arrêtée sur cet appareil"); }
   });
   $("#sw-auto").addEventListener("click", () => { state.settings.autoAudio = !state.settings.autoAudio; save(); renderSettings(); });
-  $("#sw-tones").addEventListener("click", () => { state.settings.toneColors = !state.settings.toneColors; save(); renderSettings(); redrawCurrent(); });
+  // Affichage: a choice (data-look on its group, data-v on its button) or a switch (data-look on it)
+  $("#view-display").addEventListener("click", e => {
+    const b = e.target.closest("[data-look] [data-v], .switch[data-look]"); if (!b) return;
+    const k = b.closest("[data-look]").dataset.look, v = b.dataset.v;
+    if (k === "tones") setLook(v === "none" ? { toneColors: false } : { toneColors: true, tonePalette: v });
+    else setLook({ [k]: b.classList.contains("switch") ? !state.settings[k] : v });
+  });
   $("#rate").addEventListener("change", e => { state.settings.rate = +e.target.value; save(); tts.say("你好，我们开始复习吧"); });
   $("#bk-copy").addEventListener("click", copyBackup);
   if (IS_PWA) $("#bk-file").addEventListener("click", () => exportFile());
