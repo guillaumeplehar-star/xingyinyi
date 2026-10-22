@@ -23,8 +23,9 @@ compilation : `index.html` contient tout le HTML, le CSS et le JavaScript. C'est
 | `outils/pinyin_auto.py`, `lexique_*.tsv`, `syllabes.txt`, `caracteres_hsk1-3.txt` | Pinyin automatique aux conventions des manuels ; liste des caractères HSK 1-3. |
 | `outils/version_appli.py` | À lancer après toute modification de l'appli (voir plus bas). |
 | `traits/`, `outils/traits.py` | Ordre des traits : `00.json`…`31.json` (caractère rangé par code % 32 → contours SVG des traits et lignes médianes, repère 1024 × 1024, y vers le haut, base à 900), `index.json` (version `v`), `ARPHICPL.TXT` (licence Arphic Public License, à garder telle quelle). Produits par `py outils\traits.py <graphics.txt>` depuis Make Me a Hanzi (github.com/skishore/makemeahanzi, fichier non gardé dans le dépôt) pour les caractères de `COVER`. |
+| `outils/cles.py` | Clés (部首) des caractères pour la recherche par clé : lit la base Unihan d'Unicode (`Unihan.zip` et `CJKRadicals.txt` de unicode.org, non gardés dans le dépôt ; licence Unicode) et réécrit la ligne `const CLES = …;` de `index.html` pour les caractères de `COVER` et de `decks/`. Formes de côté (`FORMS` : 亻 pour 人…) et traits des formes simplifiées (`STROKES` : 艹 3, 辶 3, 阝 2…) fixés dans l'outil. |
 | `outils/sync/` | Serveur de synchronisation des appareils : `worker.mjs` (Cloudflare Worker + base D1 liée sous le nom `DB`, un document versionné par code, 409 sur une version dépassée, une copie par jour, 30 au plus), `serveur_local.mjs` (le même avec `node:sqlite`, pour les tests et pour essayer), `LISEZMOI.md` (adresses ; mise en place : `LISEZMOI.md` principal, section 7.4). |
-| `tests/` | Tests Playwright (`test_seance.py`, `test_seaux.py`, `test_listes.py`, `test_dico.py`, `test_affichage.py` (onglet Affichage), `test_dessin.py` (recherche en dessinant), `test_sync.py` deux appareils et le serveur local, aides communes dans `commun.py`) et `test_serveur_sync.mjs` (le serveur seul, Node) ; `tests/donnees/decks` est une copie figée des listes d'origine, avec les anciens champs `mode`/`parJour` (ne pas la synchroniser avec `decks/` ni la modifier). |
+| `tests/` | Tests Playwright (`test_seance.py`, `test_seaux.py`, `test_listes.py`, `test_dico.py`, `test_affichage.py` (onglet Affichage), `test_dessin.py` (recherche en dessinant et par clé), `test_sync.py` deux appareils et le serveur local, aides communes dans `commun.py`) et `test_serveur_sync.mjs` (le serveur seul, Node) ; `tests/donnees/decks` est une copie figée des listes d'origine, avec les anciens champs `mode`/`parJour` (ne pas la synchroniser avec `decks/` ni la modifier). |
 | `LISEZMOI.md` | Guide de l'utilisateur, en français. À tenir à jour quand une fonction visible change. |
 
 ## Commandes (PowerShell : une commande par ligne, pas de `&&`)
@@ -43,6 +44,7 @@ node outils\sync\serveur_local.mjs     # le serveur de synchronisation sur http:
 py outils\decks.py verifier            # contrôle de decks/
 py outils\version_appli.py             # après une modification de index.html, sw.js, des icônes ou des polices
 py outils\traits.py <graphics.txt>     # refaire traits/ (ordre des traits), ARPHICPL.TXT à côté de graphics.txt
+py outils\cles.py <dossier Unihan> <CJKRadicals.txt>   # refaire CLES (clés des caractères) dans index.html
 ```
 
 Prérequis des tests (une fois) : `py -m pip install playwright pypinyin` puis
@@ -293,9 +295,15 @@ l'iPhone : Réglages › Appli › Vérifier. Le téléphone peut lui aussi écr
   (`#pad` : une `polyline` par trait, en fractions de la case, à l'encre du thème ; `strokes`, `cur`, `id` : un seul doigt à
   la fois, un `pointercancel` n'en laisse rien ; `seq`/`shown` : dernière proposition affichée), `padDraw`, `padGuess`
   (« Chargement… » tant que les formes ne sont pas prêtes), `padClear`, `padOpen`, `bindPad`. Un caractère touché remplace
-  dans `#q` ce qui n'est pas en caractères et s'y ajoute (`renderWords`), la case se vide, le message le dit (au clavier, le
+  dans `#q` ce qui n'est pas en caractères et s'y ajoute (`searchAdd`, `renderWords`), la case se vide, le message le dit (au clavier, le
   focus revient sur la case). La case suit la grille d'Affichage (`.pad-box`, `svg.mzg`). `traitPack` abandonne une
   requête au bout de 20 s.
+- **Caractère par sa clé** (Mots, bouton `#keys-open` 部, `#keypad`) : `CLES` (ligne écrite par `outils\cles.py` : `[numéro
+  du Kangxi (' : forme simplifiée), formes montrées (la première en grand), traits de la clé, {traits restants : caractères}]`,
+  triée par traits de la clé), `keysRender` (`keyAt` null : les clés, marques `.kn` de leurs traits, 阝 « 右 »/« 左 » ; sinon
+  les caractères de la clé, par traits restants ; seulement les clés et caractères des mots de `DECK`), `keysOpen` (la case
+  de dessin se ferme : un panneau à la fois), `bindKeys`. Un caractère choisi passe par `searchAdd` (comme un dessiné), puis
+  les clés reviennent. Dessin : `guessChars(…, 50)` dans `pad.top`, `pad.n` montrés (10, puis 10 de plus par `#pad-more`).
 - **Ordre des traits** (fiche du mot, `#sheet-traits`) : `renderTraits(el, mot)` (chaque caractère CJK une fois),
   `strokesOf(ch)` / `traitPack(n)` (mémoire, puis cache `traits-xingyinyi`, puis réseau), `traitHTML` (grande case avec
   la ligne médiane de chaque trait découpée par son contour, `.ta` ; une case par étape, `use.t-done`/`t-new`/`t-todo`),

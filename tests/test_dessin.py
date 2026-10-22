@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
-"""Mots › dessiner un caractère : reconnaissance sans ordre des traits (formes tirées de traits/), mesurée sur des
+"""Mots › dessiner un caractère (et le chercher par sa clé) : reconnaissance sans ordre des traits (formes tirées de traits/), mesurée sur des
 dessins faits des traits des caractères eux-mêmes, déformés, dans le désordre, à l'envers et parfois liés ; dessin au
 doigt (téléphone) et à la souris (ordinateur) ; la proposition touchée s'ajoute à la recherche ; annuler un trait,
-effacer ; hors ligne sans les formes ; mise en page.
+effacer ; plus de choix (du plus probable au moins probable) ; hors ligne sans les formes ; recherche par clé (部首,
+rangées par traits, caractères du dictionnaire seulement) ; mise en page.
 Lancer depuis la racine du dépôt :  py tests\\test_dessin.py
 """
 import json
@@ -114,6 +115,15 @@ def main():
         check(page.evaluate("() => pad.strokes.length") == n and page.evaluate("() => { const m = document.querySelector('#main'); return m.scrollWidth - m.clientWidth; }") <= 0,
               "each stroke kept; the pad within the phone's width")
         shot(page, "dessin-01-telephone")
+        more = []
+        for _ in range(4):
+            page.click("#pad-more")
+            more.append(len(page.evaluate(CANDS)))
+        ranked = page.evaluate("async () => guessChars(await loadShapes(), pad.strokes, 50)")
+        shown = page.evaluate(CANDS)
+        check(more == [20, 30, 40, 50] and shown == ranked and page.is_hidden("#pad-more") and shown[:10] == cands,
+              "Plus de choix: 10 more each time, up to 50, the most likely first", [more, shown[:12]])
+        shot(page, "dessin-03-plus-de-choix")
         page.click('#pad-cands [data-ch="好"]')
         page.wait_for_function("() => document.querySelector('#q').value === '好'")
         rows = page.evaluate("""() => [...document.querySelectorAll('#wlist .wrow')].map(r => BYID.get(r.dataset.id))
@@ -162,6 +172,38 @@ def main():
         check(mi == "block", "the pad follows Affichage › Grille des cases (米字格)", mi)
         page.click("#draw-open")
         check(page.is_hidden("#drawpad"), "the pen button closes the pad")
+        # ---- a character by its key
+        bar = page.evaluate("""() => { const b = document.querySelector('.searchbar'), r = s => document.querySelector(s).getBoundingClientRect();
+            return [b.scrollWidth - b.clientWidth, r('#q').width, ['#draw-open', '#keys-open', '#btn-add'].map(s => [Math.round(r(s).top), Math.round(r(s).height)])]; }""")
+        check(bar[0] <= 0 and bar[1] >= 120 and len(set(map(tuple, bar[2]))) == 1, "the search bar holds the field, the pen, 部 and Ajouter, all aligned", bar)
+        page.click("#keys-open")
+        page.wait_for_selector("#keypad:not([hidden])")
+        keys = page.evaluate("""() => { const marks = [...document.querySelectorAll('#keys-list .kn')].map(m => +m.textContent);
+            return { n: document.querySelectorAll('#keys-list [data-key]').length, marks, sorted: marks.every((m, i) => !i || m > marks[i - 1]),
+                     pad: document.querySelector('#drawpad').hidden, wide: (m => m.scrollWidth - m.clientWidth)(document.querySelector('#main')) }; }""")
+        check(keys["n"] > 150 and keys["sorted"] and keys["marks"][0] == 1 and keys["pad"] and keys["wide"] <= 0,
+              "部: the keys, ranged by their strokes (1, 2, 3…); the drawing pad closed", keys)
+        shot(page, "dessin-04-cles")
+        page.fill("#q", "ren")
+        page.click('#keys-list [data-key] >> text="讠"')
+        chars = page.evaluate("""() => ({ list: [...document.querySelectorAll('#keys-list [data-ch]')].map(b => b.dataset.ch),
+            marks: [...document.querySelectorAll('#keys-list .kn')].map(m => m.textContent), back: !document.querySelector('#keys-back').hidden,
+            dict: [...document.querySelectorAll('#keys-list [data-ch]')].every(b => DECK.some(w => w.h.includes(b.dataset.ch))) })""")
+        check("认" in chars["list"] and "说" in chars["list"] and chars["marks"][0].startswith("+") and chars["back"] and chars["dict"],
+              "the key 讠: its characters (认, 说…), ranged by strokes besides the key, all in the dictionary", chars)
+        shot(page, "dessin-05-cle-yan")
+        page.click('#keys-list [data-ch="认"]')
+        after = page.evaluate("() => [document.querySelector('#q').value, !!document.querySelector('#keys-list [data-key]'), document.querySelector('#keys-hint').textContent]")
+        check(after[0] == "认" and after[1] and "认" in after[2], "a character chosen: « ren » gives way to 认, the keys again for the next one", after)
+        page.click('#keys-list [data-key] >> text="亻"')
+        ren = page.evaluate("() => [...document.querySelectorAll('#keys-list [data-ch]')].map(b => b.dataset.ch)")
+        page.click("#keys-back")
+        check("们" in ren and "你" in ren and page.evaluate("() => !!document.querySelector('#keys-list [data-key]')"),
+              "亻 (人): 们, 你…; ← Clés goes back", ren[:12])
+        page.click("#draw-open")
+        check(page.is_hidden("#keypad") and page.is_visible("#drawpad"), "the pen closes the keys (one panel at a time)")
+        page.click("#draw-open")
+
         # offline before the shapes came: said so, the candidates of before cleared
         page.click("#draw-open")
         draw_finger(cdp, pad_points(page, page.evaluate(LINE)))
@@ -205,6 +247,14 @@ def main():
         page.keyboard.press("Enter")
         kb = page.evaluate("() => [document.activeElement.id, document.querySelector('#q').value, document.querySelector('#pad-hint').textContent]")
         check(kb[0] == "pad" and kb[1] == "国" and "国" in kb[2], "a candidate chosen with the keyboard: the focus back on the pad, the choice said", kb)
+        page.click("#keys-open")
+        page.focus('#keys-list [data-key]:nth-child(2)')
+        page.keyboard.press("Enter")
+        page.focus("#keys-list [data-ch]")
+        page.keyboard.press("Enter")
+        kk = page.evaluate("() => [document.activeElement.id, [...document.querySelector('#q').value].length]")
+        check(kk == ["keys-list", 2], "keys with the keyboard: a key, a character, the focus kept in the list", kk)
+        shot(page, "dessin-06-ordinateur-cles")
         ctx.close()
 
         browser.close()

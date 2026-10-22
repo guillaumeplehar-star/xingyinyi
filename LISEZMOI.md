@@ -149,12 +149,18 @@ et télécharge une voix de bonne qualité.
   que tu as tapé.
   **Chercher en dessinant** : le crayon à côté du champ de recherche ouvre une case où dessiner un
   caractère au doigt (ou à la souris). L’ordre des traits, leur sens et leur nombre ne comptent pas :
-  après chaque trait, l’appli propose les dix caractères dont la forme ressemble le plus au dessin.
+  après chaque trait, l’appli propose les dix caractères dont la forme ressemble le plus au dessin, du
+  plus probable au moins probable ; **Plus de choix** en ajoute dix à chaque fois (cinquante au plus).
   Touche le bon : il s’ajoute à la recherche (une recherche en pinyin ou en français laisse sa place
   aux caractères), et la case se vide pour le caractère suivant. **Annuler le trait** retire le dernier
   trait, **Effacer** tout le dessin. Les formes viennent des données de l’ordre des traits (environ
   3 000 caractères, ceux des listes HSK) : hors ligne, elles doivent déjà être sur le téléphone ; sinon,
   rouvre le crayon une fois le réseau revenu.
+  **Chercher par clé** : le bouton **部** montre les clés (部首) des caractères, rangées par nombre de
+  traits, avec leurs formes simplifiées (讠, 钅, 纟…) et leurs formes de côté en petit (亻 pour 人, 氵 pour
+  水…). Touche la clé, puis le caractère parmi les siens, rangés par traits en plus de la clé : il s’ajoute
+  à la recherche, comme un caractère dessiné. Seuls les caractères des mots du dictionnaire sont
+  proposés. Les clés viennent de la base Unihan d’Unicode.
 - **Progrès** : mots passés, en tout et par liste, ce qu’il reste à voir au premier tour et quand
   il sera fini à ton rythme, le rythme à tenir avant l’examen, le nombre de mots dans chaque seau
   et les révisions prévues sur la semaine. C’est aussi là que tu lances un **apprentissage**, une **évaluation**, un
