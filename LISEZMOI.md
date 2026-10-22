@@ -421,9 +421,26 @@ recommence avec les 20 mots, dans un nouvel ordre. Les tours ne touchent pas à 
 
 Quand tu as réussi les 20 mots dans un même tour, un **dernier passage** pose chaque mot une fois :
 un mot réussi passe au seau 1 (il revient demain), un mot raté reste au seau 0, à la fin de la
-file. **Arrêter** pendant les tours ne change rien ; pendant le dernier passage, il montre les
-résultats déjà obtenus. Si l’appli se ferme pendant un apprentissage (l’iPhone la ferme parfois en
-arrière-plan), elle le reprend à la réouverture, là où tu l’avais laissé.
+file.
+
+L’apprentissage est enregistré après chaque réponse. **Pause** l’interrompt, pendant les tours comme
+pendant le dernier passage : l’écran « Apprentissage en pause » dit où tu en es (le tour, les mots
+déjà vus et réussis). Tu le reprends plus tard, même après avoir fermé l’appli, avec **Reprendre
+l’apprentissage** (dans Progrès ou sur les écrans de fin), au même tour et au même mot. Lancer une
+évaluation, un test ou un entraînement pendant un apprentissage le met aussi en pause. Un mot réussi
+ailleurs entre-temps (dans la file, pendant un test…) a quitté le seau 0 : il ne fait plus partie de
+l’apprentissage quand tu le reprends.
+
+Un seul apprentissage à la fois : pour en commencer un autre, **Abandonner l’apprentissage** d’abord
+(tes seaux ne changent pas, sauf pour les mots déjà réussis au dernier passage, qui restent au
+seau 1). Si l’appli se ferme au milieu d’un apprentissage sans pause (l’iPhone la ferme parfois en
+arrière-plan), elle le reprend d’elle-même à la réouverture. Avec la synchronisation (section 7.3),
+l’apprentissage passe d’un appareil à l’autre : commencé sur l’iPhone, tu le reprends sur
+l’ordinateur au même tour et au même mot.
+
+Chaque apprentissage terminé s’inscrit dans Progrès › Apprentissage, sous les boutons : la date, le
+nombre de mots et de tours, le nombre de mots réussis au dernier passage ; touche une ligne pour voir
+ses mots réussis et ratés. Les cent derniers sont gardés.
 
 ### Les sens connus
 
@@ -451,7 +468,8 @@ les autres mots réussis gardent leur seau et leur date de retour.
 
 Le test est enregistré après chaque réponse. **Pause** l’interrompt et montre les résultats
 déjà obtenus ; tu peux le reprendre plus tard, même après avoir fermé l’appli, avec
-**Reprendre le test** (dans Progrès ou sur les écrans de fin). **Abandonner le test** l’arrête
+**Reprendre le test** (dans Progrès ou sur les écrans de fin), ici ou sur un autre appareil
+synchronisé (section 7.3). **Abandonner le test** l’arrête
 pour de bon : les réponses déjà données restent comptées. À la fin, l’appli affiche ton score,
 le résultat seau par seau (« Nouveaux » pour les mots pas encore vus) et les mots ratés.
 
@@ -532,17 +550,20 @@ et dès que tu passes à une autre appli ; si tu fermes l’appli juste après
 prochaine ouverture. Il reçoit les réponses des autres à l’ouverture et quand tu y reviens. Sans réseau, il attend et envoie tout au retour de la connexion. **Synchroniser
 maintenant** force l’échange.
 
-Ce qui passe d’un appareil à l’autre : la progression de chaque mot, l’historique de Progrès, les
+Ce qui passe d’un appareil à l’autre : la progression de chaque mot, l’historique de Progrès, le
+test complet et l’apprentissage en cours ou en pause, les apprentissages terminés, les
 mots, listes et corrections créés sur un appareil, les réglages (listes actives, seaux, nombres de
 mots, date de l’examen, grille, pinyin et couleurs des tons…). Restent propres à chaque appareil : la voix
-(prononciation automatique, vitesse), le thème, la taille du texte, la police, les animations, la liste compacte, le jeton GitHub,
-un test ou un apprentissage en cours.
+(prononciation automatique, vitesse), le thème, la taille du texte, la police, les animations, la liste compacte et le jeton GitHub.
 
 **En cas de conflit**, c’est-à-dire un mot travaillé sur les deux appareils entre deux
 synchronisations, le mot garde sa progression **la plus avancée** (le seau le plus haut, puis la
 révision la plus récente), et ses révisions s’additionnent. Un mot changé d’un seul côté prend
 simplement ce côté, même s’il a été raté : rater un mot sur l’ordinateur le renvoie bien au seau 0
 sur l’iPhone. Un réglage changé des deux côtés garde celui de l’appareil qui synchronise en second.
+Un test complet avancé sur les deux appareils garde toutes les réponses ; un apprentissage avancé
+sur les deux garde le plus avancé (le dernier passage, puis le tour le plus loin). Un test ou un
+apprentissage abandonné ou terminé sur un appareil l’est aussi sur l’autre.
 
 **Copies du serveur.** Le serveur garde une copie de la progression partagée par jour d’usage,
 30 au plus. Réglages › Synchroniser les appareils › **Copies du serveur…** permet de revenir à l’une

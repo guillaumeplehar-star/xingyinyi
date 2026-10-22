@@ -11,7 +11,9 @@ restaurée, liste modifiée ou désactivée pendant le test, cleanTest.
 Sens connus (kn) : migration dans normalizeState, bit de la face de départ posé par √ (file, évaluation), effacé par
 ×, affichage (Mots, fiche du mot, étiquette sous la carte, Progrès).
 Apprentissage : tirage dans le seau 0 des listes actives, taille réglable (5 à 50), boucle sans effet sur les cartes
-(√ appris et au bout, × trois cartes plus loin), dernier passage noté comme la file, Arrêter, écrans de fin.
+(√ appris et au bout, × trois cartes plus loin), dernier passage noté comme la file, écrans de fin ; Pause (enregistré,
+écran « Apprentissage en pause »), Reprendre (même tour, même mot, après un rechargement aussi), un seul à la fois,
+Abandonner (confirmé), autre mode lancé (mis en pause), mots réussis ailleurs entre-temps, historique de Progrès.
 Test d'un nouveau sens : mots connus dans un ou deux sens, une question par sens manquant, face de départ imposée,
 √ sans effet sur le planning, × au seau 0 sans aucun sens, autres questions du mot retirées, écran de fin par sens.
 Lancer depuis la racine du dépôt :  py tests\\test_seaux.py
@@ -825,18 +827,37 @@ def run_test_mode(browser, errors, scheme):
     cl = page.evaluate("""() => ({
         bad: [null, 'x', 3, [], {}, { queue: 'abc' }, { queue: [] }, { queue: [1, null, {}] }, { lists: ['perso'], queue: null }].map(cleanTest),
         fixed: cleanTest({ lists: 'perso', n: 'abc', queue: ['perso:打印', 5], ok: [['perso:安排', '3'], 'bad', [7, 1]],
-                           ko: [['perso:复印', -5], ['perso:照片', 'x']] }),
-        good: cleanTest({ lists: ['perso'], n: 6, queue: ['perso:打印'], ok: [['perso:安排', -1]], ko: [] }),
+                           ko: [['perso:复印', -5], ['perso:照片', 'x']], start: 'abc', at: -5 }),
+        good: cleanTest({ lists: ['perso'], n: 6, queue: ['perso:打印'], ok: [['perso:安排', -1]], ko: [], start: 1700000000000, at: 1700000000500 }),
         noTest: normalizeState({ v: 2, sched: 1, settings: { delays: [1, 3] }, cards: {} }).test,
         garbage: normalizeState({ v: 2, sched: 1, settings: { delays: [1, 3] }, cards: {}, test: { queue: 'x' } }).test,
         kept: normalizeState({ v: 2, sched: 1, settings: { delays: [1, 3] }, cards: {}, test: { lists: ['perso'], n: 2, queue: ['perso:打印'], ok: [], ko: [['perso:安排', 1]] } }).test,
         fresh: freshState().test })""")
     check(cl["bad"] == [None] * 9, S + "cleanTest rejects garbage and finished tests", cl["bad"])
-    check(cl["fixed"] == {"lists": [], "n": 4, "queue": ["perso:打印"], "ok": [["perso:安排", 3]], "ko": [["perso:复印", -1], ["perso:照片", 0]]},
+    old = page.evaluate("""(w) => { const raw = localStorage.getItem('xingyinyi.v2'), o = JSON.parse(raw);
+        o.test = { lists: ['perso'], n: 1, queue: [w], ok: [], ko: [] }; o.learn = { ids: [w], queue: [w] }; o.ended = [Date.now(), Date.now() + 1];
+        localStorage.setItem('xingyinyi.v2', JSON.stringify(o)); const st = loadState(); localStorage.setItem('xingyinyi.v2', raw);
+        return [st.test.start, st.learn.start, Date.now(), o.ended]; }""", W[0])
+    check(old[0] > 0 and old[1] > 0 and old[0] != old[1] and old[0] not in old[3] and old[1] not in old[3]
+          and abs(old[0] - old[2]) < 5000 and abs(old[1] - old[2]) < 5000,
+          S + "a test and a learning begun with a version from before: each its own start at load, none of those over", old)
+    # the last answer of a test ends it at once (a sync in the 430 ms before the end screen finds it over, not lost)
+    lt = page.evaluate("""async (w) => { const keep = state.test;
+        state.test = { lists: ['perso'], n: 1, queue: [w], ok: [], ko: [], start: 5, at: 5 }; save(); study.resumeTest();
+        await new Promise(r => { const t = setInterval(() => { if (study.ready) { clearInterval(t); r(); } }, 5); });
+        prism.turn(1); study.grade(1);
+        const then = [state.test, state.ended.includes(5), study.busy];
+        await new Promise(r => setTimeout(r, 600));
+        const out = { then, title: document.querySelector('#done-title').textContent, text: document.querySelector('#done-text').textContent };
+        state.test = keep; save(); return out; }""", W[0])
+    check(lt["then"] == [None, True, True] and lt["title"] == "Test terminé" and nb(lt["text"]) == "1 sur 1 réussi (100 %).",
+          S + "the last answer of a test ends it at once; the end screen all the same", lt)
+    check(cl["fixed"] == {"lists": [], "n": 4, "queue": ["perso:打印"], "ok": [["perso:安排", 3]], "ko": [["perso:复印", -1], ["perso:照片", 0]], "start": 0, "at": 0},
           S + "cleanTest keeps what is valid and repairs the rest", cl["fixed"])
-    check(cl["good"] == {"lists": ["perso"], "n": 6, "queue": ["perso:打印"], "ok": [["perso:安排", -1]], "ko": []}, S + "cleanTest keeps a valid test as it is", cl["good"])
+    check(cl["good"] == {"lists": ["perso"], "n": 6, "queue": ["perso:打印"], "ok": [["perso:安排", -1]], "ko": [], "start": 1700000000000, "at": 1700000000500},
+          S + "cleanTest keeps a valid test as it is (with when it began and its last answer)", cl["good"])
     check(cl["noTest"] is None and cl["garbage"] is None and cl["fresh"] is None
-          and cl["kept"] == {"lists": ["perso"], "n": 2, "queue": ["perso:打印"], "ok": [], "ko": [["perso:安排", 1]]},
+          and cl["kept"] == {"lists": ["perso"], "n": 2, "queue": ["perso:打印"], "ok": [], "ko": [["perso:安排", 1]], "start": 0, "at": 0},
           S + "normalizeState: test kept when valid, null otherwise", cl)
 
     ov = page.evaluate("() => document.documentElement.scrollWidth - window.innerWidth")
@@ -1087,6 +1108,14 @@ LINFO = """() => ({ go: document.querySelector('#learn-go').textContent, off: do
   info: document.querySelector('#learn-info').textContent })"""
 LBTN = """() => ({ shown: !document.querySelector('#learn-start').hidden, text: document.querySelector('#learn-start').textContent,
   back: document.querySelector('#done-back').classList.contains('primary') })"""
+SAVED = "() => ({ st: state.learn, ls: JSON.parse(localStorage.getItem('xingyinyi.v2')).learn || null })"
+PASSED = "(ids) => { const T = dayNum(); for (const id of [].concat(ids)) state.cards[id] = { b: 1, d: T + 1, t: T, s: T, r: 1, l: 0, kn: 1 }; save(); }"
+# Progrès: the learnings finished (the first one opened)
+HIST = """() => { const box = document.querySelector('#learn-hist'), first = box.querySelector(':scope > details');
+  if (first) first.open = true;
+  return { shown: !box.hidden, head: (box.querySelector('h3') || {}).textContent || '', older: !!box.querySelector('.older'),
+    items: [...box.querySelectorAll(':scope > details:not(.older) > summary')].map(s => s.textContent),
+    words: first ? [...first.querySelectorAll('p')].map(x => x.textContent) : [] }; }"""
 # the primary buttons shown in a part of the page
 PRIMARY = "(sel) => [...document.querySelectorAll(sel + ' .btn.primary')].filter(b => b.offsetParent !== null).map(b => b.textContent.trim())"
 
@@ -1136,8 +1165,29 @@ def run_learning(browser, errors, scheme):
         page.click("#learn-go")
         page.wait_for_function("() => study.mode === 'learn' && study.ready && !!study.cur")
 
-    def stop_to_line():
+    def pause():
+        """Pause in a learning: it waits, saved; the end screen says where it is."""
         page.click("#free-stop")
+        page.wait_for_function("() => study.mode === 'learn' && !study.learn && !document.querySelector('#done').hidden")
+        return page.evaluate(DONE)
+
+    def drop(where="#done-learn"):
+        """Abandonner l'apprentissage, confirmed; returns the question asked first."""
+        page.click(where + ' [data-learn="drop"]')
+        msg = nb(page.inner_text(where + " .confirm p"))
+        page.click(where + ' [data-learn="drop-yes"]')
+        page.wait_for_function("() => !state.learn")
+        return msg
+
+    def resume(where="#done-learn"):
+        page.click(where + ' [data-learn="resume"]')
+        page.wait_for_function("() => study.mode === 'learn' && study.ready && !!study.cur")
+        return ls()
+
+    def stop_to_line():
+        """Pause, then Abandonner l'apprentissage: back to the line, nothing saved."""
+        pause()
+        drop()
         page.wait_for_function("() => study.mode === 'line' && (study.ready || !document.querySelector('#done').hidden)")
 
     def loop_step(g, label):
@@ -1150,7 +1200,7 @@ def run_learning(browser, errors, scheme):
         want_note = "Apprentissage, tour %d : mot %d sur %d" % (rnd, j, n) + (", %d raté%s" % (miss, "s" if miss > 1 else "") if miss else "")
         ch, h, co = chips(), hints(), counts()
         check(ch == ["Apprentissage", want_chip, "Perso"] and not pre["kn"] and co == [[len(pre["line"]), "dans ce tour"]]
-              and h == ["un tour de plus", "réussi dans ce tour"] and nb(pre["note"]) == want_note and nb(pre["stop"]) == "Arrêter",
+              and h == ["un tour de plus", "réussi dans ce tour"] and nb(pre["note"]) == want_note and nb(pre["stop"]) == "Pause",
               S + "%s: chips (%s), header, hints and note in the round" % (label, want_chip), (ch, co, h, pre["note"], want_note))
         a = answer(page, g)
         post = ls()
@@ -1195,12 +1245,54 @@ def run_learning(browser, errors, scheme):
     check(len(st["pool"]) == 155 and ids != st["pool"][:20] and st["line"] == ids and st["got"] == [] and not st["check"]
           and st["round"] == 1 and page.evaluate("() => current") == "study" and counts() == [[20, "dans ce tour"]],
           S + "the 20 words are picked at random, in a random order; header: 20 in this round", (len(st["pool"]), counts()))
-    answer(page, 1)
-    answer(page, 0)
-    stop_to_line()
+    a1, a2 = answer(page, 1), answer(page, 0)
+    d = pause()
+    sv = page.evaluate(SAVED)
+    check(d["title"] == "Apprentissage en pause" and nb(d["text"]) == "Tour 1 : 20 mots, 2 vus dans ce tour, dont 1 réussi."
+          and nb(d["next"]) == "Tu peux le reprendre plus tard, même après avoir fermé l’appli." and d["more"] == "" and d["back"]
+          and page.is_hidden("#free-note") and counts() == [] and "2\xa0vus" in d["text"] and "1\xa0réussi" in d["text"],
+          S + "Pause in a round: the end screen says where the learning is (number and noun bound)", d)
+    check(sv["st"] == sv["ls"] and sv["st"]["pause"] is True and sv["st"]["ids"] == ids and sv["st"]["got"] == [a1] and len(sv["st"]["queue"]) == 18
+          and a1 not in sv["st"]["queue"] and a2 not in sv["st"]["queue"] and sv["st"]["start"] > 0 and sv["st"]["at"] >= sv["st"]["start"]
+          and ls()["snap"] == snap0,
+          S + "Pause: the learning saved where it was, in pause; cards and log untouched", sv["st"] and {k: v for k, v in sv["st"].items() if k != "ids"})
+    lb = page.evaluate(LBTN)
+    acts = page.evaluate("() => [...document.querySelectorAll('#done-learn [data-learn]')].map(b => b.dataset.learn)")
+    check(not lb["shown"] and not lb["back"] and page.evaluate(PRIMARY, "#done") == ["Reprendre l’apprentissage"] and acts == ["resume", "drop"],
+          S + "pause screen: Reprendre l’apprentissage (the one primary button), Abandonner; no Apprendre button", (lb, acts))
+    hs = page.evaluate("() => [...document.querySelectorAll('#done-learn .btn')].map(b => Math.round(b.getBoundingClientRect().height))")
+    check(min(hs) >= 34, S + "pause screen: touch targets of 34 px at least", hs)
+    shot(page, "seaux-%s-11-learn-pause" % scheme)
+    view("progress")
+    li = linfo()
+    check(li["info"].startswith("Apprentissage en pause. Tour 1 : 20 mots, 2 vus dans ce tour, dont 1 réussi. Il reprend là où tu l’as laissé.")
+          and li["info"].endswith("Pour en commencer un autre, abandonne d’abord celui-ci.") and page.is_hidden("#learn-go")
+          and page.evaluate(PRIMARY, "#view-progress") == ["Reprendre l’apprentissage"],
+          S + "Progrès: the learning in pause, Reprendre the one primary button, no Apprendre", (li, page.evaluate(PRIMARY, "#view-progress")))
+    shot(page, "seaux-%s-11-learn-pause-progres" % scheme)
+    r = page.evaluate("() => { const ids = [...state.learn.ids], ok = study.startLearn(); return [ok, study.mode, !!study.learn && [...study.learn.ids].join() === ids.join()]; }")
+    check(r == [True, "learn", True], S + "one learning at a time: Apprendre with one saved resumes it", r)
+    page.evaluate("() => study.stop()")
+    st = resume("#learn-box")
+    check(st["ids"] == ids and st["line"] == sv["st"]["queue"] and st["got"] == [a1] and st["round"] == 1 and page.evaluate("() => current") == "study"
+          and nb(st["note"]) == "Apprentissage, tour 1 : mot 3 sur 20, 1 raté" and "Apprentissage repris au tour 1, là où tu l’avais laissé." in nb(st["toast"])
+          and page.evaluate("() => state.learn.pause") is False and st["snap"] == snap0,
+          S + "Reprendre l’apprentissage (Progrès): the same round, the next word, no more in pause", (st["note"], st["toast"]))
+    pause()
+    page.click('#done-learn [data-learn="drop"]')
+    msg = nb(page.inner_text("#done-learn .confirm p"))
+    page.click('#done-learn [data-learn="cancel"]')
+    kept = page.evaluate("() => [!!state.learn, document.querySelectorAll('#done-learn [data-learn]').length]")
+    check(msg == "Abandonner l’apprentissage ? Tes seaux ne changent pas : ses mots restent au seau 0." and kept == [True, 2],
+          S + "Abandonner asks first; Garder l’apprentissage keeps it", (msg, kept))
+    start = page.evaluate("() => state.learn.start")
+    drop()
+    page.wait_for_function("() => study.mode === 'line' && (study.ready || !document.querySelector('#done').hidden)")
     st = ls()
-    check(st["mode"] == "line" and st["snap"] == snap0 and not st["noteShown"] and st["line"] == st["lineOf"],
-          S + "Arrêter in the loop: back to the line, nothing changed", st["mode"])
+    check(st["mode"] == "line" and st["snap"] == snap0 and not st["noteShown"] and st["line"] == st["lineOf"]
+          and page.evaluate(SAVED) == {"st": None, "ls": None} and page.evaluate("(t) => state.ended.includes(t)", start)
+          and "Apprentissage abandonné" in nb(st["toast"]) and page.evaluate("() => state.learnLog.length") == 0,
+          S + "Abandonner: back to the line, nothing changed, nothing saved, noted as over, not in the history", st["mode"])
 
     view("settings")
     vals = [page.inner_text("#learn-val")]
@@ -1322,7 +1414,7 @@ def run_learning(browser, errors, scheme):
     stop_to_line()
     st = ls()
     check(st["mode"] == "line" and st["snap"] == snap1 and not st["noteShown"] and st["line"] == st["lineOf"],
-          S + "Arrêter in the loop: back to the line, nothing changed", st["mode"])
+          S + "Pause and Abandonner in the loop: back to the line, nothing changed", st["mode"])
     # the words of the round leave their list while it runs: the round ends, nothing changed
     go_learn()
     answer(page, 1)
@@ -1359,16 +1451,18 @@ def run_learning(browser, errors, scheme):
     a = answer(page, 1)
     other = [i for i in ko if i != a][0]
     c_other = page.evaluate("(id) => state.cards[id]", other)
-    page.click("#free-stop")
-    d = done()
+    d = pause()
     more = nb(d["more"])
-    check(d["title"] == "Apprentissage arrêté" and nb(d["text"]) == "1 sur 1 réussi (100 %)." and "1 mot réussi passe au seau 1." in more
-          and "Aucun mot raté." in more and d["back"] and page.evaluate("(id) => state.cards[id].b", a) == 1,
-          S + "Arrêter in the last check: partial results", d)
+    check(d["title"] == "Apprentissage en pause" and nb(d["text"]) == "Dernier passage : 2 mots, 1 vérifié, dont 1 réussi."
+          and "1 mot réussi passe au seau 1." in more and "Aucun mot raté." in more and d["back"] and page.evaluate("(id) => state.cards[id].b", a) == 1,
+          S + "Pause in the last check: where it is, the answers so far", d)
     check(c_other == json.loads(snap1)[0][other] and page.evaluate("(id) => missed(id)", other),
-          S + "Arrêter in the last check: the word not checked stays as it was", c_other)
-    page.click("#done-back")
+          S + "Pause in the last check: the word not checked stays as it was", c_other)
+    msg = drop()
     page.wait_for_function("() => study.mode === 'line'")
+    check(msg == "Abandonner l’apprentissage ? Le mot déjà réussi au dernier passage reste au seau 1, les autres au seau 0."
+          and page.evaluate("(id) => state.cards[id].b", a) == 1 and page.evaluate("(id) => missed(id)", other),
+          S + "Abandonner in the last check: the word passed stays in bucket 1, the other one in bucket 0", msg)
 
     # ------------------------------------------------------------ one word left: the check at once, Arrêter before any answer
     view("progress")
@@ -1385,7 +1479,7 @@ def run_learning(browser, errors, scheme):
           S + "a single word learned: the last check at once", (st["toast"], counts()))
     stop_to_line()
     st = ls()
-    check(st["mode"] == "line" and st["snap"] == snap2, S + "Arrêter in the last check before any answer: back to the line, nothing changed", st["mode"])
+    check(st["mode"] == "line" and st["snap"] == snap2, S + "Pause and Abandonner in the last check before any answer: back to the line, nothing changed", st["mode"])
 
     # ------------------------------------------------------------ nothing left in bucket 0
     page.evaluate("""(id) => { const T = dayNum(); state.cards[id] = { ...state.cards[id], b: 1, d: T + 1, t: T }; delete state.cards[id].k;
@@ -1437,7 +1531,6 @@ def run_learning(browser, errors, scheme):
     stop_to_line()
 
     # ------------------------------------------------------------ the learning in progress is saved: closing the app loses nothing
-    SAVED = "() => ({ st: state.learn, ls: JSON.parse(localStorage.getItem('xingyinyi.v2')).learn || null })"
     page.evaluate(SEED_LEARN, W)
     go_learn()
     answer(page, 1)
@@ -1445,8 +1538,9 @@ def run_learning(browser, errors, scheme):
     st = ls()
     sv = page.evaluate(SAVED)
     check(sv["st"] == sv["ls"] and sv["st"]["ids"] == st["ids"] and sv["st"]["queue"] == st["line"] and sv["st"]["got"] == st["got"]
-          and sv["st"]["round"] == 1 and not sv["st"]["check"] and sv["st"]["res"] is None and len(st["line"]) == 3,
-          S + "saved after each answer: the words of the round left, the word on screen first", sv)
+          and sv["st"]["round"] == 1 and not sv["st"]["check"] and sv["st"]["res"] is None and len(st["line"]) == 3
+          and sv["st"]["pause"] is False and st["now"] - 10e3 < sv["st"]["at"] <= st["now"],
+          S + "saved after each answer: the words of the round left, the word on screen first, not in pause", sv)
     page.reload()
     wait_ready(page)
     page.wait_for_function("() => study.mode === 'learn' && study.ready")
@@ -1468,37 +1562,185 @@ def run_learning(browser, errors, scheme):
     check(st3["check"] and st3["line"] == sv["queue"] and nb(st3["note"]) == "Dernier passage : mot 2 sur 5"
           and "Apprentissage repris au dernier passage" in nb(st3["toast"]),
           S + "after a reload in the last check: its answer kept, the next word", (st3["line"], st3["note"], st3["toast"]))
-    page.click("#free-stop")
-    d = done()
-    sv = page.evaluate(SAVED)
-    check(d["title"] == "Apprentissage arrêté" and nb(d["text"]) == "1 sur 1 réussi (100 %)." and sv == {"st": None, "ls": None},
-          S + "Arrêter in the last check: its results, nothing saved any more", (d["title"], d["text"], sv))
-    page.click("#done-back")
-    page.wait_for_function("() => study.mode === 'line'")
-    # Arrêter in a round, or another mode started: the learning is over
-    page.evaluate(SEED_LEARN, W)
-    go_learn()
-    answer(page, 1)
-    stop_to_line()
-    check(page.evaluate(SAVED) == {"st": None, "ls": None}, S + "Arrêter in a round: nothing saved any more")
+    rnd = st3["round"]
+    lstart = page.evaluate("() => state.learn.start")
+    d = pause()
+    qc = page.evaluate("() => [...state.learn.queue]")
+    check(d["title"] == "Apprentissage en pause" and nb(d["text"]) == "Dernier passage : 5 mots, 1 vérifié, dont 1 réussi." and qc == sv["queue"],
+          S + "Pause in the last check after a reload: where it is", (d["text"], qc))
     page.reload()
     wait_ready(page)
-    check(page.evaluate("() => study.mode") == "line", S + "after a reload: the line, no learning")
+    page.wait_for_function("() => listsReady && (study.ready || !document.querySelector('#done').hidden)")
+    st4 = ls()
+    check(st4["mode"] == "line" and page.evaluate("() => !!state.learn && state.learn.pause")
+          and "Apprentissage en pause : reprends-le depuis Progrès." in nb(st4["toast"]),
+          S + "after a reload, a learning in pause waits: the line, a toast", (st4["mode"], st4["toast"]))
+    view("progress")
+    st5 = resume("#learn-box")
+    check(st5["check"] and st5["line"] == qc and nb(st5["note"]) == "Dernier passage : mot 2 sur 5"
+          and "Apprentissage repris au dernier passage, là où tu l’avais laissé." in nb(st5["toast"]),
+          S + "Reprendre after a reload: the last check where it was", (st5["note"], st5["toast"]))
+    n_hist = page.evaluate("() => state.learnLog.length")      # (the learnings finished before)
+    res = [answer(page, g) for g in (1, 0, 1, 1)]
+    d = done()
+    lg = page.evaluate("() => state.learnLog")
+    check(d["title"] == "Apprentissage terminé" and nb(d["text"]) == "4 sur 5 réussis (80 %)." and page.evaluate(SAVED) == {"st": None, "ls": None}
+          and len(lg) == n_hist + 1 and lg[0]["start"] == lstart and lg[0]["rounds"] == rnd and sorted(lg[0]["ok"]) == sorted([a] + [x for x, g in zip(res, (1, 0, 1, 1)) if g])
+          and lg[0]["ko"] == [res[1]] and lg[0]["at"] >= lstart and page.evaluate("(t) => state.ended.includes(t)", lstart),
+          S + "the learning resumed ends: Apprentissage terminé, in the history (words passed and missed, rounds)", (d["title"], lg))
+    view("progress")
+    h = page.evaluate(HIST)
+    n_ok = len(lg[0]["ok"])
+    check(h["shown"] and nb(h["head"]) == "%d apprentissages terminés" % len(lg) and len(h["items"]) == len(lg) and not h["older"]
+          and ", " in h["items"][0] and nb(h["items"][0]).endswith("5 mots en %d %s, %d réussis au dernier passage" % (rnd, "tour" if rnd == 1 else "tours", n_ok))
+          and h["words"] == ["Réussis\u202f: " + "、".join(HZ[x] for x in lg[0]["ok"]), "Ratés\u202f: " + HZ[res[1]]],
+          S + "Progrès: the learning finished in the history, opened on its words", h)
+    shot(page, "seaux-%s-15-learn-history" % scheme)
+    page.click('.tab[data-view="study"]')
+    page.click("#done-back")
+    page.wait_for_function("() => study.mode === 'line'")
+    # another mode started during a learning: the learning waits, Reprendre brings it back where it was
+    page.evaluate(SEED_LEARN, W)
     go_learn()
-    answer(page, 1)
+    b1 = answer(page, 1)
+    q0 = page.evaluate("() => [...state.learn.queue]")
+    view("progress")
+    li = linfo()
+    check(li["info"].startswith("Apprentissage en cours. Tour 1 : 5 mots, 1 vu dans ce tour, dont 1 réussi."),
+          S + "Progrès during a learning: Apprentissage en cours, where it is", li["info"])
+    page.click("#eval-go")
+    page.wait_for_function("() => study.mode === 'eval' && study.ready")
+    sv = page.evaluate(SAVED)
+    check(sv["st"] == sv["ls"] and sv["st"]["pause"] is True and sv["st"]["queue"] == q0 and "Apprentissage en pause : reprends-le depuis Progrès." in nb(page.inner_text("#toast")),
+          S + "an evaluation started during a learning: the learning waits in pause, where it was", sv["st"] and sv["st"]["queue"])
+    page.click("#free-stop")
+    page.wait_for_function("() => study.mode === 'line'")
+    view("progress")
+    st = resume("#learn-box")
+    check(st["line"] == q0 and st["got"] == [b1], S + "the evaluation over: Reprendre l’apprentissage, where it was", st["line"])
+    view("progress")
+    msg = drop("#learn-box")
+    page.wait_for_function("() => study.mode === 'line'")
+    check(msg == "Abandonner l’apprentissage ? Tes seaux ne changent pas : ses mots restent au seau 0." and page.is_visible("#learn-go")
+          and page.evaluate(SAVED) == {"st": None, "ls": None},
+          S + "Abandonner from Progrès while the learning is on screen: it ends, Apprendre is back", msg)
+    # a word passed elsewhere meanwhile (another device: build(keep)) leaves the learning; the card on screen stays
+    page.evaluate(SEED_LEARN, W)
+    go_learn()
+    st = ls()
+    y = st["line"][2]
+    page.evaluate(PASSED, y)
+    page.evaluate("() => study.build(true)")
+    st2 = ls()
+    check(y not in st2["ids"] and y not in st2["line"] and st2["cur"] == st["cur"] and len(st2["ids"]) == 4 and page.evaluate("() => study.ready"),
+          S + "a word passed elsewhere during a round leaves it; the card on screen stays", st2["ids"])
+    # passed in the line during the pause: it leaves the learning when it comes back
+    lids = st2["ids"]
+    pause()
+    x = lids[1]
+    page.evaluate(PASSED, x)
+    st = resume()
+    check(st["ids"] == [i for i in lids if i != x] and x not in st["line"]
+          and "1 mot n’en fait plus partie : réussi entre-temps, ou hors des listes actives." in nb(st["toast"]),
+          S + "a word passed elsewhere during the pause leaves the learning when it comes back", (st["ids"], st["toast"]))
+    pause()
+    page.evaluate(PASSED, lids)
+    lstart = page.evaluate("() => state.learn.start")
     view("progress")
     page.click("#eval-go")
-    page.wait_for_function("() => study.mode === 'eval'")
-    check(page.evaluate(SAVED) == {"st": None, "ls": None}, S + "an evaluation started: the learning left is dropped")
+    answer(page, 1)
     page.click("#free-stop")
+    page.wait_for_selector('#done-learn [data-learn="resume"]')
+    pb0 = page.evaluate(PRIMARY, "#done")
+    page.click('#done-learn [data-learn="resume"]')
+    page.wait_for_function("() => !state.learn")
+    check("Cet apprentissage est fini : ses mots ont été réussis entre-temps" in nb(page.inner_text("#toast")) and page.evaluate("() => study.mode") == "eval"
+          and page.evaluate("(t) => state.ended.includes(t)", lstart) and page.evaluate("() => state.learnLog.length") == len(lg)
+          and pb0 == ["Reprendre l’apprentissage"] and page.evaluate(PRIMARY, "#done") == ["Reprendre la file"],
+          S + "all its words passed elsewhere: Reprendre (end of an evaluation) ends the learning, not in the history; Reprendre la file primary again",
+          (page.inner_text("#toast"), pb0, page.evaluate(PRIMARY, "#done")))
+    page.click("#done-back")
+    page.wait_for_function("() => study.mode === 'line'")
+    # Pause right after the last answer of the last check: the learning is over all the same (end screen, history)
+    page.evaluate(SEED_LEARN, W)
+    go_learn()
+    while not ls()["check"]:
+        answer(page, 1)
+    while len(ls()["line"]) > 1:
+        answer(page, 1)
+    lstart = page.evaluate("() => state.learn.start")
+    fin = page.evaluate("""async () => { const cur = study.cur; prism.turn(1); study.grade(0); const then = [study.busy, state.learn];
+        study.stop(); await new Promise(r => setTimeout(r, 600));
+        return { cur, then, title: document.querySelector('#done-title').textContent, learn: state.learn, log: state.learnLog[0],
+          saved: normalizeState(JSON.parse(localStorage.getItem('xingyinyi.v2'))).learnLog[0] }; }""")
+    check(fin["then"] == [True, None] and fin["title"] == "Apprentissage terminé" and fin["learn"] is None and fin["log"]["start"] == lstart
+          and fin["log"]["ko"] == [fin["cur"]] and len(fin["log"]["ok"]) == 4 and fin["saved"] == fin["log"]
+          and page.evaluate("(t) => state.ended.includes(t)", lstart),
+          S + "the last answer of the last check ends the learning at once: Pause right after it shows Apprentissage terminé, the history has it", fin)
+    page.click("#done-back")
+    page.wait_for_function("() => study.mode === 'line'")
+    # words of lists not here yet (newer on another device): the learning on screen waits as saved, then comes back whole
+    page.evaluate(SEED_LEARN, W)
+    go_learn()
+    wt = page.evaluate("""() => { const id = study.queue[1], w = BYID.get(id), lb = listsBehind, rl = refreshLists;
+        let fetched = 0; refreshLists = () => { fetched++; }; listsChecked = 0;
+        listsBehind = () => true; BYID.delete(id);
+        study.build(true);
+        const t = { queue: [id, 'perso:不在'] }; testQueue(t);
+        const out = { mode: study.mode, paused: !study.learn, saved: state.learn.ids.includes(id), pause: state.learn.pause,
+          title: document.querySelector('#done-title').textContent, toast: document.querySelector('#toast').textContent,
+          resumed: study.resumeLearn('resume'), test: t.queue };
+        out.fetched = fetched; refreshLists = rl;
+        BYID.set(id, w); listsBehind = lb; out.id = id; return out; }""")
+    check(wt["mode"] == "learn" and wt["paused"] and wt["saved"] and wt["pause"] is True and wt["title"] == "Apprentissage en pause"
+          and "Des mots de cet apprentissage sont dans des listes pas encore arrivées sur cet appareil" in nb(wt["toast"])
+          and wt["resumed"] is False and wt["test"] == [wt["id"], "perso:不在"] and wt["fetched"] == 1,
+          S + "a word of a list not here yet: the learning waits as saved (not cut), Reprendre fetches the lists again, the test keeps it too", wt)
+    st = resume()
+    check(wt["id"] in st["ids"] and len(st["ids"]) == 5, S + "the lists here again: Reprendre, the learning whole", st["ids"])
+    # another learning in its place (another device), or moved back (a copy of the server)
+    answer(page, 1)
+    bk = page.evaluate("""() => { const b = state.learn, before = { learn: b, test: state.test };
+        state.learn = { ...b, queue: [...b.ids], got: [], at: b.at + 1 }; followShared(before);
+        return { toast: document.querySelector('#toast').textContent, line: [study.cur, ...study.queue], ids: [...state.learn.ids] }; }""")
+    check("L’apprentissage a changé sur un autre appareil : la suite du tour 1." in nb(bk["toast"]) and bk["line"] == bk["ids"],
+          S + "the learning on screen moved back elsewhere (a copy of the server): it follows, said so", bk)
+    rp = page.evaluate("""() => { const before = { learn: state.learn, test: state.test };
+        state.learn = { ...state.learn, start: state.learn.start + 1, at: Date.now() }; followShared(before);
+        return { paused: study.mode === 'learn' && !study.learn, toast: document.querySelector('#toast').textContent,
+          title: document.querySelector('#done-title').textContent, pause: state.learn.pause }; }""")
+    check(rp["paused"] and rp["title"] == "Apprentissage en pause" and rp["pause"] is True
+          and "Un autre apprentissage, commencé sur un autre appareil, remplace celui-ci" in nb(rp["toast"]),
+          S + "another learning in place of the one on screen: it waits on the pause screen, said so", rp)
+    # a pause screen redrawn by a sync does not scroll the view open
+    view("words")
+    sc = page.evaluate("""() => { const m = document.querySelector('#main'); m.scrollTop = 300; const was = m.scrollTop;
+        const before = { learn: state.learn, test: state.test }; state.learn = { ...state.learn, at: state.learn.at + 1, got: [] };
+        followShared(before); return [was, m.scrollTop, document.querySelector('#done-title').textContent]; }""")
+    check(sc[0] > 0 and sc[1] == sc[0] and sc[2] == "Apprentissage en pause", S + "the pause screen redrawn under Mots: the list keeps its scroll", sc)
+    view("study")
+    drop()
     page.wait_for_function("() => study.mode === 'line'")
     cl = page.evaluate("""() => [null, 5, { ids: 'x' }, { ids: ['a'], queue: [] },
         { ids: ['a', 'b'], queue: ['b', 'z'], got: ['a', 3], round: 'x', check: 1, res: { ok: [['a', 0], 7] } },
-        { ids: ['a'], queue: ['a'], round: 3, res: { ok: [['a', 1]] } }]
+        { ids: ['a'], queue: ['a'], round: 3, res: { ok: [['a', 1]] } }, { ids: ['a'], queue: ['a'], start: 17e11, at: '5', pause: 1 }]
         .map(x => normalizeState({ v: 2, sched: 1, settings: { delays: [1, 3] }, cards: {}, learn: x }).learn)""")
-    check(cl[:4] == [None] * 4 and cl[4] == {"ids": ["a", "b"], "got": ["a"], "round": 1, "check": True, "queue": ["b"], "res": {"ok": [["a", 0]], "ko": []}}
-          and cl[5] == {"ids": ["a"], "got": [], "round": 3, "check": False, "queue": ["a"], "res": None},
+    check(cl[:4] == [None] * 4 and cl[4] == {"ids": ["a", "b"], "got": ["a"], "round": 1, "check": True, "queue": ["b"], "res": {"ok": [["a", 0]], "ko": []},
+                                             "start": 0, "at": 0, "pause": False}
+          and cl[5] == {"ids": ["a"], "got": [], "round": 3, "check": False, "queue": ["a"], "res": None, "start": 0, "at": 0, "pause": False}
+          and cl[6] == {"ids": ["a"], "got": [], "round": 1, "check": False, "queue": ["a"], "res": None, "start": 1700000000000, "at": 5, "pause": True},
           S + "normalizeState: a saved learning cleaned, or dropped when it has nothing left", cl)
+    lg = page.evaluate("""() => { const e = i => ({ start: 1e12 + i, at: 1e12 + 10 * i, rounds: i % 4, ok: ['a' + i], ko: i % 2 ? ['b'] : [] });
+        const N = s => normalizeState({ v: 2, sched: 1, settings: { delays: [1, 3] }, cards: {}, ...s });
+        const big = N({ learnLog: Array.from({ length: 130 }, (_, i) => e(i)) }).learnLog;
+        return { n: big.length, first: big[0].start, last: big[99].start,
+          small: N({ learnLog: [e(1), e(1), null, { start: 'x', ok: ['q'] }, { start: 5, ok: [], ko: [] }, { start: 9, at: 'y', ok: ['z', 3], rounds: 'r' }, 'bad'] }).learnLog,
+          ended: N({ ended: [5, '7', 'x', 5, -2, 1e12, 3] }).ended, many: N({ ended: Array.from({ length: 60 }, (_, i) => i + 1) }).ended,
+          fresh: [freshState().learnLog, freshState().ended], none: [N({}).learnLog, N({}).ended] }; }""")
+    check(lg["n"] == 100 and lg["first"] == 10 ** 12 + 129 and lg["last"] == 10 ** 12 + 30
+          and lg["small"] == [{"start": 10 ** 12 + 1, "at": 10 ** 12 + 10, "rounds": 1, "ok": ["a1"], "ko": ["b"]}, {"start": 9, "at": 9, "rounds": 1, "ok": ["z"], "ko": []}]
+          and lg["ended"] == [10 ** 12, 7, 5, 3] and lg["many"] == list(range(60, 20, -1)) and lg["fresh"] == [[], []] and lg["none"] == [[], []],
+          S + "normalizeState: the history (100 newest, one line per learning, words needed) and the starts of those over (40 newest)", lg)
 
     # ------------------------------------------------------------ a word that changes id during a round
     page.evaluate(SEED_LEARN, W)
@@ -1509,18 +1751,32 @@ def run_learning(browser, errors, scheme):
           and cur not in rn["ids"] and nxt not in rn["ids"] and rn["got"] == ["perso:新"]
           and rn["saved"][:2] == ["perso:今", "perso:新"] and cur not in rn["saved"],
           S + "a word that changes id keeps its place in the round and its mark (renameInStudy)", rn)
-    page.click("#free-stop")
-    page.wait_for_function("() => study.mode === 'line'")
+    stop_to_line()
 
     page.evaluate(SEED_LEARN, W)
     go_learn()
     sl = page.evaluate(STOP_SLIDING)
-    check(not sl["readyThen"] and sl["mode"] == "line" and sl["cur"] and sl["shown"] == sl["cur"] and sl["ready"],
-          S + "Arrêter while the next card slides in: the card shown is the one of the line, ready to grade", sl)
+    check(not sl["readyThen"] and sl["mode"] == "learn" and sl["cur"] is None and sl["shown"] != sl["sliding"] and not sl["ready"]
+          and page.is_visible("#done") and page.is_hidden("#study-card"),
+          S + "Pause while the next card slides in: the pause screen, the card is not drawn over it", sl)
+    drop()
     page.wait_for_function("() => study.mode === 'line' && study.ready")
     rl = page.evaluate("""() => { const cur = study.cur; renameInStudy(cur, 'perso:今'); const a = study.cur; renameInStudy('perso:今', cur);
         return [cur, a, study.cur]; }""")
     check(rl[1] == "perso:今" and rl[2] == rl[0], S + "the line: the word on screen follows its new id (renameInStudy)", rl)
+    # a longer history: the five newest, the others folded
+    page.evaluate("""() => { const e = state.learnLog[0];
+        state.learnLog = cleanLearnLog(Array.from({ length: 7 }, (_, i) => ({ ...e, start: e.start - 1000 * (i + 1), at: e.at - 1000 * (i + 1) }))); save(); }""")
+    view("progress")
+    h7 = page.evaluate(HIST)
+    check(len(h7["items"]) == 5 and h7["older"] and nb(h7["head"]) == "7 apprentissages terminés"
+          and nb(page.inner_text("#learn-hist .older > summary")) == "2 autres, plus anciens",
+          S + "Progrès: a longer history shows the five newest, the others folded", h7)
+    ow = page.evaluate("""() => { const o = JSON.parse(localStorage.getItem('xingyinyi.v2')), n = state.learnLog.length;
+        delete o.learnLog; delete o.ended; o.learn = null; reloadState(JSON.stringify(o));
+        return [n, state.learnLog.length, state.ended.length > 0]; }""")
+    check(ow[0] == 7 and ow[1] == 7 and ow[2], S + "a window of a version from before saves: the history stays", ow)
+    view("study")
     ld = page.evaluate("() => [1, 2, 3, 10, 20, 30].map(k => longDate(dayNum() + k))")
     check(all(" " not in d.split(",")[0].split(" ", 1)[1] for d in ld) and all("\xa0" in d for d in ld),
           S + "dates: the day and the month kept together by a no-break space", ld)

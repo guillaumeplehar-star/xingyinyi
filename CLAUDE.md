@@ -25,7 +25,7 @@ compilation : `index.html` contient tout le HTML, le CSS et le JavaScript. C'est
 | `traits/`, `outils/traits.py` | Ordre des traits : `00.json`…`31.json` (caractère rangé par code % 32 → contours SVG des traits et lignes médianes, repère 1024 × 1024, y vers le haut, base à 900), `index.json` (version `v`), `ARPHICPL.TXT` (licence Arphic Public License, à garder telle quelle). Produits par `py outils\traits.py <graphics.txt>` depuis Make Me a Hanzi (github.com/skishore/makemeahanzi, fichier non gardé dans le dépôt) pour les caractères de `COVER`. |
 | `outils/cles.py` | Clés (部首) des caractères pour la recherche par clé : lit la base Unihan d'Unicode (`Unihan.zip` et `CJKRadicals.txt` de unicode.org, non gardés dans le dépôt ; licence Unicode) et réécrit la ligne `const CLES = …;` de `index.html` pour les caractères de `COVER` et de `decks/`. Formes de côté (`FORMS` : 亻 pour 人…) et traits des formes simplifiées (`STROKES` : 艹 3, 辶 3, 阝 2…) fixés dans l'outil. |
 | `outils/sync/` | Serveur de synchronisation des appareils : `worker.mjs` (Cloudflare Worker + base D1 liée sous le nom `DB`, un document versionné par code, 409 sur une version dépassée, une copie par jour, 30 au plus), `serveur_local.mjs` (le même avec `node:sqlite`, pour les tests et pour essayer), `LISEZMOI.md` (adresses ; mise en place : `LISEZMOI.md` principal, section 7.4). |
-| `tests/` | Tests Playwright (`test_seance.py`, `test_seaux.py`, `test_listes.py`, `test_dico.py`, `test_affichage.py` (onglet Affichage), `test_dessin.py` (recherche en dessinant et par clé), `test_sync.py` deux appareils et le serveur local, aides communes dans `commun.py`) et `test_serveur_sync.mjs` (le serveur seul, Node) ; `tests/donnees/decks` est une copie figée des listes d'origine, avec les anciens champs `mode`/`parJour` (ne pas la synchroniser avec `decks/` ni la modifier). |
+| `tests/` | Tests Playwright (`test_seance.py`, `test_seaux.py`, `test_listes.py`, `test_dico.py`, `test_affichage.py` (onglet Affichage), `test_dessin.py` (recherche en dessinant et par clé), `test_sync.py` deux appareils et le serveur local, avec le test et l'apprentissage partagés, aides communes dans `commun.py`) et `test_serveur_sync.mjs` (le serveur seul, Node) ; `tests/donnees/decks` est une copie figée des listes d'origine, avec les anciens champs `mode`/`parJour` (ne pas la synchroniser avec `decks/` ni la modifier). |
 | `LISEZMOI.md` | Guide de l'utilisateur, en français. À tenir à jour quand une fonction visible change. |
 
 ## Commandes (PowerShell : une commande par ligne, pas de `&&`)
@@ -89,7 +89,7 @@ l'iPhone : Réglages › Appli › Vérifier. Le téléphone peut lui aussi écr
   (`{v, doc}` : le dernier document échangé avec le serveur, base de la fusion), `xingyinyi.sync-pending` (empreintes
   `docHash` des derniers envois : un envoi reçu par le serveur dont la réponse s'est perdue devient la base, `ours`), `xingyinyi.avant-seaux` (`KEY_OLD` : copie brute de l'état d'avant les seaux, écrite une seule fois par
   `loadState` lors de la migration, lue par aucun code ; à garder pour pouvoir récupérer l'ancienne progression).
-- **État** : `{v:2, sched:1, settings, cards, edits, custom, lists, tel, listEdits, sent, decks, log, moved, test, learn}`. `custom` :
+- **État** : `{v:2, sched:1, settings, cards, edits, custom, lists, tel, listEdits, sent, decks, log, moved, test, learn, learnLog, ended}`. `custom` :
   mots créés sur le téléphone (définitions, ids `u-…` ; `c` copié pour l'ordinateur, `m` corrigé, en ms) ; `lists` :
   listes du téléphone `{id, nom, ids}` ; `tel` : ids de « Ajoutés ici » ; `listEdits[id] = {add, del}` : mots ajoutés à
   une liste de decks/ non figée ou retirés, en attente de publication ; `sent[id]` : ids qu'une liste du téléphone a
@@ -111,11 +111,21 @@ l'iPhone : Réglages › Appli › Vérifier. Le téléphone peut lui aussi écr
   r autres révisions, p mots sortis du premier tour}` ; une évaluation ou un test n'y écrit rien.
   `test` : le test complet en cours ou `null` (`cleanTest`, appelé par `normalizeState`) : `{lists choisies,
   n mots au départ, queue mots restants (celui à l'écran compris, retiré seulement une fois noté), ok, ko :
-  [id, seau avant la réponse, -1 = mot encore au premier tour]}`, enregistré après chaque réponse.
-  `learn` : l'apprentissage en cours ou `null` (`cleanLearn`) : `{ids, got, round, check, queue (mots restants, celui à
-  l'écran d'abord), res (réponses du dernier passage)}`, écrit par `learnSave` (début, chaque réponse, `build(keep)`),
-  repris au démarrage par `study.resumeLearn` (`useLists` « first »), effacé par `dropLearn` (écran de fin, Arrêter,
-  un autre mode lancé).
+  [id, seau avant la réponse, -1 = mot encore au premier tour], start (`newStart` : l'heure du début, jamais celle de
+  l'apprentissage ni d'un fini ; le même test sur chaque appareil ; un test ou un apprentissage d'une version d'avant en
+  reçoit un au chargement, `loadState`), at (dernière
+  réponse)}`, enregistré après chaque réponse ; fini (dès la dernière réponse, dans `grade` : `study.res` le garde pour
+  l'écran de fin) ou abandonné : `endTest`.
+  `learn` : l'apprentissage en cours ou en pause, ou `null` (`cleanLearn`) : `{ids, got, round, check, queue (mots
+  restants, celui à l'écran d'abord), res (réponses du dernier passage), start (comme le test), at (dernier changement),
+  pause}`, écrit par `learnSave` (début, chaque réponse, `build(keep)` ; `at` ne change qu'avec le contenu, sinon la
+  synchronisation repartirait sans fin) ; `pause` (propre à l'appareil, hors du document partagé) : en attente ici, pas
+  repris au démarrage ; sinon repris au démarrage par `study.resumeLearn("start")` (`useLists` « first ») ; fini (une
+  ligne dans `learnLog`, dès la dernière réponse du dernier passage : `closeLearn` dans `grade`), abandonné ou vidé :
+  `endLearn`. Un seul à la fois. `learnLog` : les apprentissages finis, le
+  plus récent d'abord, `{start, at (fin), rounds, ok, ko (ids réussis et ratés au dernier passage)}` (`cleanLearnLog`,
+  `LEARN_LOG_MAX` = 100 ; Progrès suit `state.moved` pour un id changé). `ended` : `start` des apprentissages et des tests
+  finis ou abandonnés (`noteEnded`, `ENDED_MAX` = 40), pour que la fusion des appareils ne les fasse pas revenir.
   Carte (absente = jamais vue) : `{b seau, d jour dû (seau ≥ 1 seulement), k clé de file =
   Date.now() au dernier × (seau 0 seulement ; seau 0 sans k = attend le premier tour), r nb de
   révisions, l oublis (× depuis un seau ≥ 1), t jour de la dernière révision, s jour de la
@@ -194,21 +204,33 @@ l'iPhone : Réglages › Appli › Vérifier. Le téléphone peut lui aussi écr
   rien ; `res = {ok, ko}` de paires `[id, seau avant]`), `"test"` (test complet : `testSheet` fait cocher
   les listes, actives au départ, sans toucher à `state.decks` ; `startTest(lists)` mélange tous leurs mots,
   vus ou non, dans `state.test` ; `resumeTest()` le reprend, même après un rechargement ; `res` = `state.test` ;
-  `build(keep)` garde ses listes même désactivées ; `testQueue` : un mot d'une liste qui n'est pas arrivée attend, un mot
-  disparu part une fois tous les fichiers là), `"learn"` (apprentissage :
+  `build(keep)` garde ses listes même désactivées et n'enregistre que si `testQueue` change la file ; `testQueue` : un mot
+  d'une liste qui n'est pas arrivée attend, un mot disparu part une fois les listes d'ici complètes et à jour,
+  `listsSettled`), `"learn"` (apprentissage :
   `startLearn` tire `learnSize` mots du seau 0 des listes actives, `learnPool` ; `study.learn = {ids, got, round,
   check}` ; tours sans `applyGrade` : chaque tour passe les `ids` une fois chacun, dans un ordre au hasard, √ → `got`
   (réussis dans ce tour) ; à la fin du tour, `endRound(last)` : tous dans `got` → `toCheck(last)` lance le dernier
   passage, noté comme la file (√ seau 1) ; sinon nouveau tour, `round + 1`, `got` vidé, nouvel ordre qui ne commence
   pas par la carte qu'on vient de voir, toast « Tour n : … » ; si la dernière carte d'un tour quitte les listes,
-  `build(keep)` clôt le tour), `"sens"`
+  `build(keep)` clôt le tour ; un mot sorti du seau 0 ailleurs entre-temps, sauf s'il a répondu au dernier passage, quitte
+  l'apprentissage, `learnKeeps` ; « Pause » (`stop()`) : `pauseLearn` l'enregistre avec `pause`, `study.learn = null`
+  (`learnLive()` faux) et l'écran de fin dit « Apprentissage en pause » (`learnText`) ; un autre mode lancé
+  (`startFree`, `startEval`, `startSens`, `resumeTest`) le met aussi en pause, avec un toast ; `resumeLearn(why)` :
+  `"start"`, `"resume"` (« Reprendre l'apprentissage » ; `startLearn` avec un apprentissage enregistré le reprend),
+  `"follow"` (un autre appareil ou une autre fenêtre l'a fait avancer : la carte à l'écran reste si elle vient en premier ;
+  pendant le délai d'une réponse, `busy`, seule la file change), `"back"` (de même, mais l'autre version est moins avancée :
+  copie du serveur) ; tous ses mots partis : `endLearn`, toast ; un mot d'une liste pas encore là (`listsSettled()` faux :
+  un fichier manque, ou un autre appareil a des listes plus récentes) : rien n'est retiré, `waitLearn(LEARN_WAIT)` met
+  la séance sur l'écran de pause (« Reprendre » relit les listes, `refreshLists`, au plus toutes les 15 s) (aussi dans `build(keep)`), comme un autre apprentissage arrivé à sa place ; fini :
+  `closeLearn` (`L.over`, `L.learnt`, ligne de `learnLog`) à la dernière réponse du dernier passage, sinon dans `showDone`
+  (vidé) ; « Pause » sur un apprentissage déjà fini montre sa fin), `"sens"`
   (nouveau sens : `startSens`, `sensPick(evalSize)` ; la file contient des objets `{id, face}`, lus par `qid` ;
   la carte part de `face`, que `redrawCurrent` garde ; × retire les autres sens du mot et fait passer ses √ du même
   test de `res.ok` à `res.ko` ; `spread` évite deux fois de suite le même mot, dans `sensPick` et après un × ; le
   sélecteur « D'abord » montre la face testée, verrouillé : `renderStartFace`). Note « i sur n » (test, sens, dernier
   passage) : n = réponses données + carte à l'écran + file. `stop()` (« Arrêter », « Pause »
-  en test) : une évaluation entamée montre ses résultats partiels, un test se met en pause (écran « Test en
-  pause »), sinon retour à la file (`res.cut` : questions restées sans réponse, « Test des sens arrêté »). `next()`
+  en test et en apprentissage) : une évaluation entamée montre ses résultats partiels, un test ou un apprentissage se
+  met en pause (écran « Test en pause », « Apprentissage en pause »), sinon retour à la file (`res.cut` : questions restées sans réponse, « Test des sens arrêté »). `next()`
   prend un jeton `tok` : une carte encore en train de glisser (170 ms) n'est pas dessinée si une autre a été demandée entre-temps. `grade(g)` : 0 = ×, 1 = √ (touches
   1 et 2) ; il n'y a plus de 3e note.
 - **Interface** : classe `Prism` (rotation 3D, `fit()` ajuste les tailles, `layout()` rétrécit la carte quand la hauteur manque avec un texte agrandi ; face 形 : cases 田字格 `.tzg`, phrase
@@ -261,8 +283,12 @@ l'iPhone : Réglages › Appli › Vérifier. Le téléphone peut lui aussi écr
   `.switch[data-deck]` Réviser et `.switch[data-show]` Afficher), `freeRowHTML` (mots sans liste).
   Mots : filtres `data-f` (`new` = `inPass`, `known` = seau ≥ max(1, dernier − 1)), `meterHTML`, `knHTML`
   (形音义 allumés selon `kn`, aussi sous la carte et dans `#kn-counts` de Progrès), `knText` (fiche du mot).
-  Progrès : sections Apprentissage (`#learn-go`, `#learn-info`) et Sens connus (`#kn-counts`, `#sens-go`,
-  `#sens-info`) ; écran de fin : `#learn-start`.
+  Progrès : sections Apprentissage (`#learn-go` caché tant qu'un apprentissage est enregistré, `#learn-info`, `#learn-box`,
+  `#learn-hist` : `renderLearnHist`, les cinq derniers apprentissages finis puis les autres repliés, chacun s'ouvre sur ses
+  mots) et Sens connus (`#kn-counts`, `#sens-go`, `#sens-info`) ; écran de fin : `#learn-start` ou `#done-learn`.
+  `renderLearnStart` : `learnBtnsHTML` dans `#done-learn` et `#learn-box` (`data-learn` = `resume`, `drop`, confirmation
+  `drop-yes`/`cancel`). Un seul bouton principal (`resumeLead`) : ce qui vient d'être mis en pause, sinon
+  l'apprentissage, sinon le test, sinon `#done-back` ou `#eval-go`.
 - **Écran d'ordinateur** (900 px de large et 500 de haut au moins : `WIDE = matchMedia(...)`, bloc CSS « computer screen » à
   la fin du `<style>` ; en dessous, et pour un téléphone couché, rien ne change) : `.app` en grille, `.top` en `display:
   contents` (`.brand` en haut du menu, `.top-r` compteurs et ＋), `.tabs` en menu à gauche (placé avant `<main>` dans la
@@ -311,13 +337,20 @@ l'iPhone : Réglages › Appli › Vérifier. Le téléphone peut lui aussi écr
   après le démarrage, en ligne : les 32 paquets, de nouveau quand `index.json` change de version).
 - **Synchronisation des appareils** (Réglages › `#sync-box`, `renderSync`, `renderSyncStatus`, `syncJoin`, `copiesSheet`) :
   `docOf(state)` donne le document partagé (pris comme après un rechargement, `normalizeState` : ce qu'il complète n'est pas
-  un changement ; tout sauf `DEVICE_SETTINGS` = `autoAudio`, `rate`, `theme`, `textSize`, `motion`, `compact`, `zhFont`, et sauf `test`, `learn`, le jeton GitHub ; `custom`, `lists`
-  en maps par id ; `listsAt`), `stateFromDoc` l'inverse, `applyDoc` l'applique (`recomputeDue` si les délais changent, `mergeTel`,
+  un changement ; tout sauf `DEVICE_SETTINGS` = `autoAudio`, `rate`, `theme`, `textSize`, `motion`, `compact`, `zhFont`, et sauf la `pause` de l'apprentissage (`sansPause`), le jeton GitHub ; `custom`, `lists`,
+  `learnLog` (par `start`) en maps par id ; `listsAt`), `stateFromDoc` l'inverse (un champ absent du document, version
+  d'avant ou copie du serveur, garde celui de l'appareil ; un apprentissage venu d'ailleurs est en pause ici), `applyDoc` l'applique (`recomputeDue` si les délais changent, `mergeTel`,
   `afterDeckChange`). `mergeDocs(base, ici, serveur)` : `mergeMap` (une clé changée d'un seul côté prend ce côté, même plus
   bas, suppression comprise ; changée des deux côtés : la règle de la collection, même à valeur égale), `mergeCard` (la
   progression la plus avancée, `cardAhead` : seau, puis `d`, `t`, `r` ; `r` et `l` additionnés depuis la base ; remise à zéro
   d'un côté et révision de l'autre : la carte reste), `mergeDay` (historique additionné), réglages absents d'un document (version d'avant) comptés à leur valeur de `DEFAULTS`, `mergeSet` (ids des listes : ajout
-  ou retrait d'un côté), réglages : ceux de l'appareil qui fusionne ; sans base (premier code sur un appareil) : maximum,
+  ou retrait d'un côté), apprentissage et test (`run` : changé d'un seul côté, ce côté ; des deux, `learnBoth`, le plus
+  avancé : dernier passage, puis tour, puis moins de mots restants, puis `at`, ou `testBoth`, toutes les réponses gardées,
+  celles d'ici d'abord, et les mots que personne n'a passés ; le côté qui a déjà toutes les réponses de l'autre est pris
+  tel quel, sinon deux fenêtres s'échangeraient l'ordre sans fin ; deux `start` différents : `laterRun`, le plus récent ;
+  abandonné d'un côté et avancé de l'autre : il reste, sauf si son `start` est dans `ended`, union des deux côtés),
+  `learnLog` (union, `capLog`), un champ absent d'un document (version d'avant) compté comme inchangé (`field`),
+  réglages : ceux de l'appareil qui fusionne ; sans base (premier code sur un appareil) : maximum,
   union, réglages du côté le plus avancé. `syncNow` : sans changement ici, `GET ?have=v` ; sinon `PUT {v de la base}` ; un 409
   apporte le document du serveur, fusion, nouvel envoi ; les changements faits pendant l'échange restent (`mergeDocs(local, now,
   …)`) ; `checkDoc` refuse un document d'une version plus récente (`SYNC_FMT`, `SCHED`). `syncSoon(ms, dirty)` (jamais plus
@@ -331,8 +364,12 @@ l'iPhone : Réglages › Appli › Vérifier. Le téléphone peut lui aussi écr
   `renameDoc` (les renommages `moved` appliqués à la base et aux deux côtés avant la fusion), `still()` (« Arrêter » ou un
   autre code pendant l'échange : rien n'est réécrit), `reloadState` (une autre fenêtre a enregistré : écouteur `storage`,
   `lastSaved`, et au début de `syncNow`), `listsSig`/`listsH` (empreinte du contenu des listes : `listsBehind` exige un
-  contenu différent et plus récent ; `noteLists` avant `applyDoc`), `tel` fusionné en trois voies (ordre stable), `test` et
-  `learn` gardés tels quels par `stateFromDoc`, manifeste `launch_handler` focus-existing. Serveur : versions = heure en ms
+  contenu différent et plus récent ; `noteLists` avant `applyDoc`), `tel` fusionné en trois voies (ordre stable),
+  `followShared(before)` (après `applyDoc` et `reloadState`, avant `afterDeckChange` : l'apprentissage ou le test à l'écran
+  suit l'état ; fini ou abandonné ailleurs : retour à la file avec un toast ; `study.res` relié au nouveau `state.test`),
+  `reloadState` garde, pour l'apprentissage ou le test à l'écran, le plus avancé des deux fenêtres (une fenêtre d'une
+  version d'avant, état sans `learnLog`, ne touche ni à eux ni à l'historique) ; `showDone` ne remonte le défilement que
+  dans Réviser, et `followShared` ne redessine un écran de pause que s'il a changé, manifeste `launch_handler` focus-existing. Serveur : versions = heure en ms
   (jamais réutilisées), `MAX_CODES` (5 par défaut, 403 au-delà), documents de 1 Mo au plus.
 - **Publication** : `publishGitHub` (API Git Data, un seul commit : trees, commits, refs ; jeton à
   accès fin, permission Contents en lecture et écriture ; nouvelles entrées de decks.json sans

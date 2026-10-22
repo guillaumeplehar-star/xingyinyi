@@ -6,7 +6,10 @@ Créer un code, le rejoindre (seules ses lettres et chiffres comptent), un mot c
 bas), un mot changé des deux côtés (le plus avancé, révisions additionnées), historique additionné, mots et listes du
 téléphone, suppressions, réglages (la voix reste à chaque appareil), listes plus anciennes sur un appareil, réponse du
 serveur perdue (rien compté deux fois), deux fenêtres sur l'ordinateur, mot du téléphone passé dans decks/ sur un appareil
-et révisé sur l'autre, arrêt pendant un échange, test complet en cours, ordre de « Ajoutés ici », hors ligne,
+et révisé sur l'autre, arrêt pendant un échange, test complet partagé (repris sur l'autre appareil, réponses des deux
+côtés gardées, abandon suivi), apprentissage partagé (en pause sur un appareil, repris sur l'autre, écran qui suit, le
+plus avancé en cas de conflit, abandon qui l'emporte), apprentissages terminés, document d'une version d'avant, règles
+de fusion de l'apprentissage et du test, ordre de « Ajoutés ici », hors ligne,
 synchronisation au démarrage et à la mise en arrière-plan, version plus récente refusée, copies du serveur, arrêt, code
 tapé que personne n'utilise, bouton Installer.
 Lancer depuis la racine du dépôt :  py tests\\test_sync.py      (demande Node 22.13 ou plus)
@@ -90,6 +93,45 @@ CARDS = "(ids) => Object.fromEntries(ids.map(id => [id, state.cards[id] ? { ...s
 GRADE = "([id, ok]) => { applyGrade(id, ok); save(); rebuildDeck(); }"
 FRESH = "(n) => lineOf(dayNum()).filter(id => inPass(id) && !id.startsWith('perso:')).slice(0, n)"   # words seen nowhere yet
 LOG = "() => { const d = state.log[dayNum()] || {}; return { n: d.n || 0, r: d.r || 0, p: d.p || 0 }; }"
+LINE = "() => [study.cur, ...study.queue].filter(Boolean)"
+TOAST = "() => document.querySelector('#toast').textContent"
+# mergeDocs, renameDoc, docOf and stateFromDoc on the learning and the test, in the page
+MERGES = """() => {
+  const L = (start, round, queue, at, more) => ({ ids: ['a', 'b', 'c'], got: [], round, check: false, queue, res: null, start, at, ...more });
+  const T = (start, ok, ko, queue, at) => ({ lists: ['hsk1'], n: 4, queue, ok, ko, start, at });
+  const D = x => ({ fmt: 1, sched: 1, settings: {}, cards: {}, log: {}, ...x });
+  const m = (b, l, r) => mergeDocs(b && D(b), D(l), D(r));
+  const base = L(100, 1, ['a', 'b', 'c'], 100), E = (s, w) => ({ start: s, at: s, rounds: 1, ok: [w], ko: [] });
+  const st = normalizeState(clone(state)); st.learn = L(100, 1, ['a'], 5, { pause: false });
+  const d = docOf(st);
+  return {
+    oneSide: m({ learn: base }, { learn: base }, { learn: L(100, 1, ['b', 'c'], 200) }).learn.queue,
+    further: [m({ learn: base }, { learn: L(100, 1, ['c'], 150) }, { learn: L(100, 1, ['b', 'c'], 300) }).learn.queue,
+              m({ learn: base }, { learn: L(100, 2, ['a', 'b', 'c'], 150) }, { learn: L(100, 1, ['c'], 300) }).learn.round,
+              m({ learn: base }, { learn: L(100, 3, ['a', 'b', 'c'], 150) }, { learn: L(100, 1, ['a'], 300, { check: true, res: { ok: [], ko: [] } }) }).learn.check],
+    newer: m({ learn: base }, { learn: L(300, 1, ['a', 'b', 'c'], 300) }, { learn: L(200, 1, ['c'], 400) }).learn.start,
+    dropped: m({ learn: base, ended: [] }, { learn: null, ended: [100] }, { learn: L(100, 1, ['c'], 300) }),
+    droppedNoMark: m({ learn: base }, { learn: null }, { learn: L(100, 1, ['c'], 300) }).learn.queue,
+    old: [m({ learn: base, learnLog: {} }, { learn: L(100, 1, ['c'], 300), learnLog: { 5: E(5, 'a') } }, {}).learn.queue,
+          m({ learn: base }, { learn: base }, {}).learn.queue, m(null, {}, {}).learn,
+          Object.keys(m({ learn: base, learnLog: { 5: E(5, 'a') } }, { learn: base, learnLog: { 5: E(5, 'a') } }, {}).learnLog)],
+    first: m(null, { learn: null }, { learn: base }).learn.start,
+    test: m({ test: T(7, [['x', 0]], [], ['y', 'z', 'w'], 1) }, { test: T(7, [['x', 0], ['y', 1]], [], ['z', 'w'], 2) }, { test: T(7, [['x', 0]], [['z', 0]], ['y', 'w'], 3) }).test,
+    testNewer: m({ test: T(7, [], [], ['y'], 1) }, { test: T(7, [['y', 0]], [], ['z'], 2) }, { test: T(9, [], [], ['q'], 3) }).test.start,
+    testOver: m({ test: T(7, [], [], ['y'], 1), ended: [] }, { test: T(7, [['y', 0]], [], ['z'], 2) }, { test: null, ended: [7] }).test,
+    swap: [testBoth(T(7, [['a', 0]], [], ['b', 'c'], 1), T(7, [['c', 0], ['a', 0]], [], ['b'], 2)).ok.map(p => p[0]),
+           testBoth(T(7, [['c', 0], ['a', 0]], [], ['b'], 2), T(7, [['a', 0]], [], ['b', 'c'], 1)).ok.map(p => p[0])],
+    log: Object.keys(m({ learnLog: { 1: E(1, 'a') } }, { learnLog: { 1: E(1, 'a'), 2: E(2, 'b') } }, { learnLog: { 1: E(1, 'a'), 3: E(3, 'c') } }).learnLog).sort(),
+    cap: Object.keys(m(null, { learnLog: Object.fromEntries(Array.from({ length: 70 }, (_, i) => [i + 1, E(i + 1, 'a')])) },
+      { learnLog: Object.fromEntries(Array.from({ length: 70 }, (_, i) => [i + 61, E(i + 61, 'b')])) }).learnLog).map(Number).sort((x, y) => x - y),
+    ended: m({ ended: [1] }, { ended: [1, 5] }, { ended: [1, 7] }).ended,
+    renamed: (() => { const x = renameDoc(D({ learn: L(100, 1, ['a', 'c'], 1, { got: ['a'], check: true, res: { ok: [['a', 0]], ko: [] } }),
+        test: T(7, [['a', 0]], [['b', 1]], ['a', 'c'], 1) }), { a: 'A', b: 'B' });
+      return [x.learn.ids, x.learn.got, x.learn.queue, x.learn.res.ok, x.test.queue, x.test.ok, x.test.ko]; })(),
+    pause: ['pause' in d.learn, stateFromDoc({ ...d, learn: { ...d.learn, start: 200 } }, st).learn.pause, stateFromDoc(d, st).learn.pause,
+            stateFromDoc((({ learn, test, learnLog, ended, ...x }) => x)(d), st).learn.start],
+  };
+}"""
 
 
 def main():
@@ -310,8 +352,29 @@ def main():
             B.evaluate(SYNC)
             A.evaluate(SYNC)
 
-            # ------------------------------------------------------------ a full test in progress
-            print("== test complet en cours")
+            # ------------------------------------------------------------ the merge rules of the learning and the test
+            print("== fusion de l'apprentissage et du test")
+            mg = A.evaluate(MERGES)
+            check(mg["oneSide"] == ["b", "c"] and mg["first"] == 100, "a learning moved on on one side only: that side (the first time too)", mg)
+            check(mg["further"] == [["c"], 2, True] and mg["newer"] == 300,
+                  "the same learning on both sides: the further one (fewer words left, later round, last check); two learnings: the newer", mg["further"])
+            check(mg["dropped"]["learn"] is None and mg["dropped"]["ended"] == [100] and mg["droppedNoMark"] == ["c"],
+                  "dropped on one side, moved on on the other: it stays dropped (noted as over), else it stays", mg["dropped"])
+            check(mg["old"] == [["c"], ["a", "b", "c"], None, ["5"]],
+                  "a document of a version from before (no learning, no history): what this device has stays", mg["old"])
+            check(mg["test"] == {"lists": ["hsk1"], "n": 4, "queue": ["w"], "ok": [["x", 0], ["y", 1]], "ko": [["z", 0]], "start": 7, "at": 3}
+                  and mg["testNewer"] == 9 and mg["testOver"] is None and mg["swap"] == [["c", "a"], ["c", "a"]],
+                  "the same test on both sides: every answer kept, the words neither answered left (the side that has them all as it is: two windows "
+                  "do not swap the order for ever); else the newer; over on one side: over", (mg["test"], mg["swap"]))
+            check(mg["log"] == ["1", "2", "3"] and mg["cap"] == list(range(31, 131)) and mg["ended"] == [7, 5, 1],
+                  "learnings finished: each side's, the 100 newest; learnings and tests over: both sides'", (mg["log"], mg["cap"][:3], mg["ended"]))
+            check(mg["renamed"] == [["A", "B", "c"], ["A"], ["A", "c"], [["A", 0]], ["A", "c"], [["A", 0]], [["B", 1]]],
+                  "a word moved to decks/: its new id in the learning and the test of the documents", mg["renamed"])
+            check(mg["pause"] == [False, True, False, 100],
+                  "the pause stays each device's own: a learning from elsewhere waits here; a document without one keeps this device's", mg["pause"])
+
+            # ------------------------------------------------------------ a full test, shared
+            print("== test complet partagé")
             A.evaluate("() => { showView('study'); study.startTest(['hsk1']); }")
             t1 = answer(A, 1)
             B.evaluate(GRADE, [B.evaluate(FRESH, 1)[0], True])
@@ -320,7 +383,143 @@ def main():
             t2 = answer(A, 0)
             t = A.evaluate("() => ({ ok: state.test.ok.map(p => p[0]), ko: state.test.ko.map(p => p[0]), same: study.res === state.test })")
             check(got["n"] >= 1 and t1 in t["ok"] and t2 in t["ko"] and t["same"], "progress arrives during a test: the test keeps every answer", (got, t))
-            A.evaluate("() => { state.test = null; save(); study.build(); }")
+            A.evaluate(SYNC)
+            B.evaluate(SYNC)
+            ta = A.evaluate("() => ({ start: state.test.start, queue: [...state.test.queue] })")
+            tb = B.evaluate("() => state.test && { start: state.test.start, ok: state.test.ok.map(p => p[0]), ko: state.test.ko.map(p => p[0]), queue: [...state.test.queue] }")
+            check(tb and tb["start"] == ta["start"] > 0 and tb["ok"] == [t1] and tb["ko"] == [t2] and tb["queue"] == ta["queue"] and B.evaluate("() => study.mode") == "line",
+                  "B has the test begun on A, with its answers (B stays on its line)", tb and tb["ok"])
+            B.click(".tab[data-view='progress']")
+            B.click('#test-box [data-test="resume"]')
+            B.wait_for_function("() => study.mode === 'test' && study.ready && !!study.cur")
+            x = B.evaluate("() => study.cur")
+            check(x == ta["queue"][0] == A.evaluate("() => study.cur"), "B resumes the test on the word A has on screen", x)
+            bx, by = answer(B, 1), answer(B, 0)            # B: the word on screen, and the next one
+            ax = answer(A, 0)                              # A meanwhile: the same word, missed
+            A.evaluate(SYNC)
+            B.evaluate(SYNC)                               # both answered: every answer kept (B's first for the word of both)
+            A.evaluate(SYNC)
+            sa = A.evaluate("() => ({ ok: state.test.ok.map(p => p[0]), ko: state.test.ko.map(p => p[0]), queue: state.test.queue, cur: study.cur, same: study.res === state.test })")
+            sb = B.evaluate("() => ({ ok: state.test.ok.map(p => p[0]), ko: state.test.ko.map(p => p[0]), queue: state.test.queue, cur: study.cur })")
+            check(bx == ax == x and sa["ok"] == sb["ok"] == [t1, x] and sa["ko"] == sb["ko"] == [t2, by] and sa["queue"] == sb["queue"]
+                  and by not in sa["queue"] and x not in sa["queue"],
+                  "the test answered on both: one test, every answer, the words left that neither answered", (sa["ok"], sa["ko"]))
+            check(sa["cur"] == sb["cur"] == sa["queue"][0] and sa["same"],
+                  "A, on screen: the word B answered meanwhile is skipped, the same word next on both", (sa["cur"], sb["cur"]))
+            B.click("#free-stop")
+            B.wait_for_selector('#done-test [data-test="drop"]')
+            B.click('#done-test [data-test="drop"]')
+            B.click('#done-test [data-test="drop-yes"]')
+            B.evaluate(SYNC)
+            A.evaluate(SYNC)
+            check(A.evaluate("() => [study.mode, state.test, state.ended.includes(%d)]" % ta["start"]) == ["line", None, True]
+                  and "Le test est fini ou a été abandonné sur un autre appareil." in nb(A.evaluate(TOAST)),
+                  "the test dropped on B: A, which had it on screen, goes back to its line", A.evaluate(TOAST))
+
+            # ------------------------------------------------------------ a learning, shared
+            print("== apprentissage partagé")
+            # (a word only A's newer lists have is passed first: not in the learning, which B could not show)
+            A.evaluate("() => { state.settings.learnSize = 5; if (BYID.has('perso:测试')) applyGrade('perso:测试', true); save(); }")
+            A.click(".tab[data-view='progress']")
+            A.click("#learn-go")
+            A.wait_for_function("() => study.mode === 'learn' && study.ready && !!study.cur")
+            l1 = [answer(A, 1), answer(A, 0)]
+            A.click("#free-stop")                          # Pause
+            A.wait_for_selector('#done-learn [data-learn="resume"]')
+            A.evaluate(SYNC)
+            la = A.evaluate("() => state.learn")
+            doc = server_doc(SURL, code)["data"]
+            check(doc["learn"] and "pause" not in doc["learn"] and doc["learn"]["start"] == la["start"] and doc["learn"]["queue"] == la["queue"]
+                  and la["got"] == [l1[0]] and len(la["queue"]) == 3,
+                  "the learning in pause goes to the server (its pause stays on A)", doc["learn"] and doc["learn"]["queue"])
+            B.evaluate(SYNC)
+            lb = B.evaluate("() => ({ learn: state.learn, mode: study.mode })")
+            check(lb["mode"] == "line" and lb["learn"]["start"] == la["start"] and lb["learn"]["queue"] == la["queue"] and lb["learn"]["pause"] is True,
+                  "B has A's learning, in pause: B stays on its line", lb)
+            B.click(".tab[data-view='progress']")
+            info = nb(B.text_content("#learn-info"))
+            check(info.startswith("Apprentissage en pause. Tour 1 : 5 mots, 2 vus dans ce tour, dont 1 réussi.")
+                  and "ici ou sur un autre appareil synchronisé" in info and B.is_hidden("#learn-go"),
+                  "B, Progrès: the learning begun on A, to resume", info)
+            B.click('#learn-box [data-learn="resume"]')
+            B.wait_for_function("() => study.mode === 'learn' && study.ready && !!study.cur")
+            check(B.evaluate(LINE) == la["queue"] and B.evaluate("() => [study.learn.round, [...study.learn.got]]") == [1, [l1[0]]],
+                  "B resumes it at the same round, on the same word", B.evaluate(LINE))
+            shot(B, "sync-07-apprentissage-repris")
+            l2 = answer(B, 1)
+            B.evaluate(SYNC)
+            A.evaluate(SYNC)
+            ta = nb(A.text_content("#done-text"))
+            check(A.evaluate("() => state.learn.queue") == B.evaluate("() => state.learn.queue") and ta == "Tour 1 : 5 mots, 3 vus dans ce tour, dont 2 réussis."
+                  and A.evaluate("() => state.learn.pause") is True,
+                  "A, on its pause screen: where B got to", ta)
+            A.click('#done-learn [data-learn="resume"]')
+            A.wait_for_function("() => study.mode === 'learn' && study.ready && !!study.cur")
+            check(A.evaluate(LINE) == B.evaluate(LINE), "A resumes it on the word B has on screen", A.evaluate(LINE))
+            l3 = answer(A, 1)
+            A.evaluate(SYNC)
+            B.evaluate(SYNC)                               # B, on screen, follows what A answered
+            fb = B.evaluate("() => ({ line: [study.cur, ...study.queue], mode: study.mode, ready: study.ready })")
+            check(fb["mode"] == "learn" and fb["ready"] and fb["line"] == A.evaluate(LINE) and l3 not in fb["line"]
+                  and "L’apprentissage a avancé sur un autre appareil : la suite du tour 1." in nb(B.evaluate(TOAST)),
+                  "B, on screen: the learning follows what A answered", (fb, B.evaluate(TOAST)))
+            # both answer between two syncs: the further one wins, on both
+            answer(A, 1)                                   # the last word of the round on A (a new round, its own order)
+            answer(B, 1)
+            answer(B, 1)                                   # B: the same, and one more in the new round
+            A.evaluate(SYNC)
+            B.evaluate(SYNC)
+            A.evaluate(SYNC)
+            fa, fb = A.evaluate("() => [state.learn.round, state.learn.queue, [study.cur, ...study.queue]]"), B.evaluate("() => [state.learn.round, state.learn.queue, [study.cur, ...study.queue]]")
+            check(fa == fb and fa[0] == 2 and len(fa[1]) == 4 and fa[2] == fa[1],
+                  "the learning moved on on both: the further one (B, one word more in round 2), on screen on both", (fa, fb))
+            # dropped on A while B answers: dropped on both
+            lstart = A.evaluate("() => state.learn.start")
+            answer(B, 1)
+            A.click(".tab[data-view='progress']")
+            A.click('#learn-box [data-learn="drop"]')
+            A.click('#learn-box [data-learn="drop-yes"]')
+            A.wait_for_function("() => !state.learn && study.mode === 'line'")
+            A.evaluate(SYNC)
+            B.evaluate(SYNC)
+            A.evaluate(SYNC)
+            check(B.evaluate("() => [study.mode, state.learn, state.ended.includes(%d)]" % lstart) == ["line", None, True]
+                  and "L’apprentissage est fini ou a été abandonné sur un autre appareil." in nb(B.evaluate(TOAST)) and A.evaluate("() => state.learn") is None,
+                  "dropped on A while B answered: dropped on both, B back to its line", B.evaluate(TOAST))
+            # a learning finished on A: in the history of both
+            A.click("#learn-go")
+            A.wait_for_function("() => study.mode === 'learn' && study.ready && !!study.cur")
+            while A.evaluate("() => study.mode === 'learn' && !!study.cur"):
+                answer(A, 1)
+            check(nb(A.text_content("#done-title")) == "Apprentissage terminé", "A finishes a learning", A.text_content("#done-title"))
+            B.evaluate("() => { state.learnLog = cleanLearnLog([...state.learnLog, { start: 1000, at: 2000, rounds: 2, ok: [lineOf(dayNum())[0]], ko: [] }]); save(); }")
+            A.evaluate(SYNC)
+            B.evaluate(SYNC)
+            A.evaluate(SYNC)
+            ha, hb = A.evaluate("() => state.learnLog.map(e => e.start)"), B.evaluate("() => state.learnLog.map(e => e.start)")
+            B.click(".tab[data-view='progress']")
+            check(ha == hb and len(ha) == 2 and ha[1] == 1000 and nb(B.text_content("#learn-hist h3")) == "2 apprentissages terminés",
+                  "learnings finished on each device: in the history of both", (ha, hb))
+            # an older version of the app writes the document without them: nothing lost
+            A.evaluate("() => { showView('study'); study.startLearn(); }")
+            A.wait_for_function("() => study.mode === 'learn' && study.ready && !!study.cur")
+            answer(A, 1)
+            A.evaluate(SYNC)
+            d = server_doc(SURL, code)
+            keep = {k: d["data"][k] for k in ("learn", "learnLog", "ended")}
+            server_put(SURL, code, d["v"], {k: v for k, v in d["data"].items() if k not in ("learn", "test", "learnLog", "ended")})
+            A.evaluate(SYNC)
+            B.evaluate(SYNC)
+            d2 = server_doc(SURL, code)["data"]
+            check(all(d2.get(k) == v for k, v in keep.items()) and B.evaluate("() => state.learn && state.learn.queue") == keep["learn"]["queue"],
+                  "a document written by an older version (no learning, no history): the devices put them back", list(d2))
+            A.click("#free-stop")
+            A.wait_for_selector('#done-learn [data-learn="drop"]')
+            A.click('#done-learn [data-learn="drop"]')
+            A.click('#done-learn [data-learn="drop-yes"]')
+            A.wait_for_function("() => !state.learn && study.mode === 'line'")
+            A.evaluate(SYNC)
+            B.evaluate(SYNC)
 
             # ------------------------------------------------------------ « Ajoutés ici » on both sides
             print("== ordre de « Ajoutés ici »")
