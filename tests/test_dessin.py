@@ -12,6 +12,12 @@ from playwright.sync_api import sync_playwright
 
 from commun import check, serve, fresh_copy, new_page, wait_ready, shot, finish, nb
 
+# key panel helpers: a character's line [pinyin, sense or words, strokes] (the hidden ", " before each taken off), the key of
+# a character shown, elements each below the one before
+KEYS = """const kline = b => ['.p', '.f', '.ks'].map(s => b.querySelector(s).textContent.replace(/^, /, ''));
+    const show = ch => keysRender(CLES.findIndex(k => Object.values(k[3]).some(cs => cs.includes(ch))));
+    const below = els => els.every((e, i) => !i || e.getBoundingClientRect().top >= els[i - 1].getBoundingClientRect().bottom - 1);"""
+
 # The medians of every 7th character, drawn as a hand would (the same distortions as when the recognizer was tuned):
 # each stroke moved and resized a little, the whole stretched, sheared and turned, the points wobbling; then the strokes
 # shuffled, a third of them reversed, some joined to the one before. level 0: only the order, directions and joins.
@@ -178,48 +184,47 @@ def main():
         check(bar[0] <= 0 and bar[1] >= 120 and len(set(map(tuple, bar[2]))) == 1, "the search bar holds the field, the pen, 部 and Ajouter, all aligned", bar)
         page.click("#keys-open")
         page.wait_for_selector("#keypad:not([hidden])")
-        keys = page.evaluate("""() => { const marks = [...document.querySelectorAll('#keys-list .kn')].map(m => +m.textContent);
-            const groups = [...document.querySelectorAll('#keys-list .kgroup')], top = e => e.getBoundingClientRect().top;
+        keys = page.evaluate("""() => { """ + KEYS + """ const marks = [...document.querySelectorAll('#keys-list .kt')].map(m => +m.textContent);
+            const groups = [...document.querySelectorAll('#keys-list .kgroup')];
             return { n: document.querySelectorAll('#keys-list [data-key]').length, marks, sorted: marks.every((m, i) => !i || m > marks[i - 1]),
-                     lines: groups.length === marks.length && groups.every((g, i) => !i || top(g) >= groups[i - 1].getBoundingClientRect().bottom),
+                     lines: groups.length === marks.length && below(groups),
                      pad: document.querySelector('#drawpad').hidden, wide: (m => m.scrollWidth - m.clientWidth)(document.querySelector('#main')) }; }""")
         check(keys["n"] > 150 and keys["sorted"] and keys["marks"][0] == 1 and keys["lines"] and keys["pad"] and keys["wide"] <= 0,
               "部: the keys, a line per number of strokes (1, 2, 3…); the drawing pad closed", keys)
         shot(page, "dessin-04-cles")
         page.fill("#q", "ren")
         page.click('#keys-list [data-key] >> text="讠"')
-        chars = page.evaluate("""async () => { const lines = [...document.querySelectorAll('#keys-list .kline')], l = document.querySelector('#keys-list');
-            const n = lines.map(b => parseInt(b.querySelector('.ks').textContent.replace(/\\D+/g, ' ').trim()));
-            const line = ch => (b => b && [b.querySelector('.kp').textContent, b.querySelector('.ks').textContent.replace(/[\\s\\u202f\\u00a0,]+/g, ' ').trim()])(l.querySelector(`.kline[data-ch="${ch}"]`));
+        chars = page.evaluate("""async () => { """ + KEYS + """ const lines = [...document.querySelectorAll('#keys-list .kline')], l = document.querySelector('#keys-list');
+            const n = lines.map(b => +kline(b)[2].match(/\d+/)[0]), at = ch => kline(l.querySelector(`.kline[data-ch="${ch}"]`));
             const drawn = await Promise.all(lines.slice(0, 12).map(async (b, i) => ((await strokesOf(b.dataset.ch)) || [[]])[0].length === n[i]));
             return { list: lines.map(b => b.dataset.ch), sorted: n.every((x, i) => !i || x >= n[i - 1]), drawn: drawn.every(Boolean),
-                     ren: line('认'), shuo: line('说'), back: !document.querySelector('#keys-back').hidden,
-                     each: lines.every((b, i) => !i || b.getBoundingClientRect().top >= lines[i - 1].getBoundingClientRect().bottom - 1),
+                     ren: at('认'), shuo: at('说'), back: !document.querySelector('#keys-back').hidden, each: below(lines),
                      full: lines.every(b => b.getBoundingClientRect().width >= l.clientWidth - 30), wide: l.scrollWidth - l.clientWidth,
                      dict: lines.every(b => DECK.some(w => w.h.includes(b.dataset.ch))) }; }""")
         check("认" in chars["list"] and "说" in chars["list"] and chars["sorted"] and chars["drawn"] and chars["back"] and chars["dict"]
-              and chars["ren"] == ["rèn", "4 traits"] and chars["shuo"][1] == "9 traits" and "shuō" in chars["shuo"][0],
+              and nb(chars["ren"][0]) == "rèn" and nb(chars["ren"][2]) == "4 traits" and nb(chars["shuo"][2]) == "9 traits" and "shuō" in chars["shuo"][0],
               "the key 讠: its characters (认, 说…), from the fewest strokes, as many as in their stroke order, all in the dictionary", chars)
         check(chars["each"] and chars["full"] and chars["wide"] <= 0, "phone: one line per character, across the list", chars)
-        lines = page.evaluate("""() => { const out = {}; for (const ch of ['草', '子', '西', '长']) {
-            keyAt = CLES.findIndex(k => Object.values(k[3]).some(cs => cs.includes(ch))); keysRender();
-            const b = document.querySelector(`.kline[data-ch="${ch}"]`);
-            out[ch] = [b.querySelector('.kp').textContent, b.querySelector('.kf').textContent.replace(/^, /, ''), b.querySelector('.ks').textContent.replace(/[\\s\\u202f\\u00a0,]+/g, ' ').trim()]; }
-            const zhang = DECK.filter(w => w.h === '长'), first = out['长'][0].split(' / ')[0];
-            out.zhang = (zhang.find(w => pinyinText(w.p) === first) || {}).f;
+        lines = page.evaluate("""() => { """ + KEYS + """ const out = {};
+            for (const ch of ['草', '子', '西', '长', '一']) { show(ch); out[ch] = kline(document.querySelector(`.kline[data-ch="${ch}"]`)); }
+            const first = out['长'][0].split(' / ')[0];
+            out.zhang = (DECK.find(w => w.h === '长' && pinyinText(w.p) === first) || {}).f;
             out.alone = DECK.some(w => w.h === '子');
-            out.sense = firstSense('suffixe (椅子 = chaise ; 桌子 = table) ; autre');
-            keyAt = CLES.findIndex(k => k[1] === '讠'); keysRender(); return out; }""")
-        check(lines["草"][2] == "9 traits" and lines["子"][0] == "zǐ" and not lines["alone"] and lines["西"][0] == "xī"
-              and sorted(lines["长"][0].split(" / ")) == ["cháng", "zhǎng"] and lines["zhang"].startswith(lines["长"][1])
-              and lines["sense"] == "suffixe (椅子 = chaise ; 桌子 = table)",
-              "a line: strokes as taught (草 9, not Unihan's 10), the readings without a neutral tone beside the same toned "
-              "syllable (子 zǐ, 西 xī), the sense of the first reading (长), a sense not cut inside brackets", lines)
-        zi = page.evaluate("""() => { const w = { id: 'u-zi', h: '子', p: 'zi', f: 'suffixe de nom (椅子 = chaise ; 桌子 = table) ; autre' };
-            DECK.push(w); keyAt = CLES.findIndex(k => k[1] === '子'); keysRender();
-            const b = document.querySelector('.kline[data-ch="子"]'), out = [b.querySelector('.kp').textContent, b.querySelector('.kf').textContent.replace(/^, /, '')];
-            DECK.pop(); keyAt = CLES.findIndex(k => k[1] === '讠'); keysRender(); return out; }""")
-        check(zi == ["zi / zǐ", "suffixe de nom (椅子 = chaise ; 桌子 = table)"],
+            out.senses = senses('suffixe (椅子 = chaise ; 桌子 = table) ; autre；encore');
+            const one = (c, ws) => kline(new DOMParser().parseFromString(keyCharHTML(c, 1, ws, ''), 'text/html').body.firstChild)[0];
+            const zher = [{ h: '这儿', p: 'zhèr' }];
+            out.made = [one('这', zher), one('儿', zher), one('一', [{ h: '一', p: 'yī', f: 'un' }, { h: '一起', p: 'yìqǐ' }, { h: '一样', p: 'yíyàng' }])];
+            keysRender(CLES.findIndex(k => k[1] === '讠')); return out; }""")
+        check(nb(lines["草"][2]) == "9 traits" and lines["子"][0] == "zǐ" and not lines["alone"] and lines["西"][0] == "xī" and lines["一"][0] == "yī"
+              and sorted(lines["长"][0].split(" / ")) == ["cháng", "zhǎng"] and lines["zhang"].startswith(lines["长"][1]),
+              "a line: strokes as taught (草 9, not Unihan's 10), no tone given by the word beside the character's own (子 zǐ, 西 xī, "
+              "一 yī), the sense of the first reading (长)", lines)
+        check(lines["made"] == ["zhè", "", "yī"] and lines["senses"] == ["suffixe (椅子 = chaise ; 桌子 = table)", "autre", "encore"],
+              "这儿 zhèr: zhè for 这, nothing for its 儿; 一起 yìqǐ, 一样 yíyàng: 一 yī; senses cut at ; or ； outside brackets",
+              lines["made"] + lines["senses"])
+        zi = page.evaluate("""() => { """ + KEYS + """ DECK.push({ id: 'u-zi', h: '子', p: 'zi', f: 'suffixe de nom (椅子 = chaise ; 桌子 = table) ; autre' });
+            show('子'); const out = kline(document.querySelector('.kline[data-ch="子"]')); DECK.pop(); keysRender(CLES.findIndex(k => k[1] === '讠')); return out; }""")
+        check(nb(zi[0]) == "zi / zǐ" and nb(zi[1]) == "suffixe de nom (椅子 = chaise ; 桌子 = table)",
               "子 a word alone (neutral zi): its reading first, even neutral, and its sense, then zǐ of the other words", zi)
         shot(page, "dessin-05-cle-yan")
         page.click('#keys-list [data-ch="认"]')

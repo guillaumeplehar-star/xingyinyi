@@ -132,7 +132,8 @@ l'iPhone : Réglages › Appli › Vérifier. Le téléphone peut lui aussi écr
   première, kn sens connus : bits `1 << face` de départ des cartes réussies, 1 形 caractère, 2 音 pinyin, 4 义
   traduction ; un × le remet à 0}`. `normalizeState` donne `kn = 1 << startFace` (形 si « au hasard ») aux
   cartes de seau ≥ 1 dont `kn` manque ou vaut 0 (passées avant les sens, ou par une ancienne version encore ouverte). L'ancien champ `f` (jour du dernier raté) n'est plus écrit et `normalizeState` l'efface.
-  Mot : `h` caractères, `p` pinyin, `f` sens (séparés par `;`), `n` note, `s` texte lu par la voix,
+  Mot : `h` caractères, `p` pinyin, `f` sens (séparés par `;` ou `；` hors parenthèses : `senses`, pour la carte, Mots, la
+  fiche, la recherche par clé, `senseKey`, `mergeTel`), `n` note, `s` texte lu par la voix,
   `e`, `ep`, `ef` (exemple, son pinyin, sa traduction), plus `id`, `home` (liste du fichier qui le définit, `null` pour
   un mot du téléphone, avec `phone: true`), `o` (ligne), `lists` (ses listes, dans l'ordre de `LISTS`).
 - **Migrations** (`normalizeState`, aussi appelée par la restauration d'une sauvegarde) : état
@@ -163,7 +164,7 @@ l'iPhone : Réglages › Appli › Vérifier. Le téléphone peut lui aussi écr
   ou chiffres), `wordIndex`. `deckOn`/`deckShown` (interrupteurs d'une liste), `onLine(w)` (mot d'une liste active :
   file, évaluation, apprentissage…), `mainList(w)` (sa première liste active : étiquette sous la carte, `listOf`),
   `shownWord`, `editable(L)` (pas figée), `setInList`/`inList`, `sameWords(h, p, not, loose)` (même lecture, sinon
-  notée autrement : `sameReading`, 一/不 sans ton propre ; `loose` : un ton neutre vaut aussi tout ton, ce qui peut être
+  notée autrement : `sameReading`, 一/不 sans ton propre, `TONELESS` ; `loose` : un ton neutre vaut aussi tout ton, ce qui peut être
   un autre mot, à confirmer par le sens), `senseFits` (deux traductions ont un sens commun, `senseKey`), `bestSame(h, p, f)`
   (import et formulaire : la même lecture, parmi des homographes celui du même sens ; une lecture qui ne diffère que par
   un ton neutre seulement avec le même sens : 东西 dōngxī « est et ouest » n'est pas 东西 dōngxi), `tidyPinyin` (pinyin en
@@ -237,7 +238,8 @@ l'iPhone : Réglages › Appli › Vérifier. Le téléphone peut lui aussi écr
   `.form-ex`, bouton `[data-trace-form]` « Traits » (`traceForm` : chaque caractère tracé dans sa case par un `traceSVG`
   posé sur la police, `.tz-tr`, la police cachée par `.tzg.tracing`) et `[data-steps]` « Décomposer » (`showSteps` :
   feuille avec `renderTraits` en révision, défilement jusqu'à `#sheet-traits` dans la fiche du mot) ; face 音 : pinyin du mot,
-  phrase en pinyin `.sound-ex` par `markPinyin` qui souligne les syllabes du mot sans tenir compte des tons,
+  phrase en pinyin `.sound-ex` par `markPinyin` qui souligne les syllabes du mot sans tenir compte des tons (syllabe de
+  chaque caractère : `alignHan`, un 儿 collé en …r partage celle d'avant),
   boutons `[data-say]` « Mot » et `[data-say-ex]` « Phrase », ou « Écouter » seul sans exemple), bandeau 例
   (`slipHTML`, `renderSlip`, `revealSlip` ; en révision il montre la phrase en caractères et, sous
   « Traduction », sa traduction seulement ; la fiche du mot, mode `full`, y ajoute le pinyin), vues `study`/`words`/`progress`/`display`/`settings`,
@@ -326,13 +328,15 @@ l'iPhone : Réglages › Appli › Vérifier. Le téléphone peut lui aussi écr
   requête au bout de 20 s.
 - **Caractère par sa clé** (Mots, bouton `#keys-open` 部, `#keypad`) : `CLES` (ligne écrite par `outils\cles.py` : `[numéro
   du Kangxi (' : forme simplifiée), formes montrées (la première en grand), traits de la clé, {traits du caractère : caractères}]`,
-  triée par traits de la clé), `keysRender` (`keyAt` null : les clés, une ligne `.kgroup` par nombre de traits (marque `.kn`,
-  clés dans `.kkeys`), 阝 « 右 »/« 左 » ; sinon les caractères de la clé, `#keys-list.chars`, une ligne `.kline` chacun par
-  `keyCharHTML` : caractère, lectures (celle du mot qu'il fait seul d'abord, puis les plus fréquentes dans les mots qui le
-  contiennent ; un ton neutre n'est pas montré à côté de la même syllabe avec un ton, ni le r de 这儿, ni une majuscule),
-  sens de ce mot seul pour la première lecture (`firstSense` : jusqu'au premier `;` hors parenthèses), sinon les mots les
-  plus courts qui le contiennent, nombre de traits ; du moins au plus de traits, les plus employés d'abord ; en colonnes sur
-  l'ordinateur ; seulement les clés et caractères des mots de `DECK`), `keysOpen` (la case
+  triée par traits de la clé), `keysRender(at)` (pose `keyAt` ; null : les clés, une ligne `.kgroup` par nombre de traits
+  (marque `.kt`, clés dans `.kkeys`), 阝 « 右 »/« 左 » ; sinon les caractères de la clé, `#keys-list.chars`, une ligne
+  `.kline` chacun par `keyCharHTML` (règles communes avec `.wrow`, sans le mode compact ; `content-visibility` : les lignes
+  cachées ne sont pas mises en page) : caractère, lectures (celles du mot qu'il fait seul d'abord, puis les plus fréquentes
+  dans les mots qui le contiennent, syllabe par `alignHan` : un 儿 collé en …r n'en a pas, 这儿 zhèr donne zhè ; un ton venu
+  du mot, neutre ou de 一/不 (`TONELESS`), n'est pas montré à côté de la même syllabe avec le sien ; sans majuscule), sens de
+  ce mot seul pour la première lecture (`senses`, `zhWrap`), sinon les mots les plus courts qui le contiennent, nombre de
+  traits ; du moins au plus de traits, les plus employés d'abord ; en colonnes sur l'ordinateur ; seulement les clés et
+  caractères des mots de `DECK`), `keysOpen` (la case
   de dessin se ferme : un panneau à la fois), `bindKeys`. Un caractère choisi passe par `searchAdd` (comme un dessiné), puis
   les clés reviennent. Dessin : `guessChars(…, 50)` dans `pad.top`, `pad.n` montrés (10, puis 10 de plus par `#pad-more`).
 - **Ordre des traits** (fiche du mot, `#sheet-traits`) : `renderTraits(el, mot)` (chaque caractère CJK une fois),

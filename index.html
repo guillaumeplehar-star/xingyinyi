@@ -223,7 +223,8 @@ main{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .senses{list-style:none;margin:0;padding:0;align-self:stretch;display:flex;flex-direction:column;gap:.35em;font-size:var(--fs,19px);line-height:1.35}
 .senses li{display:flex;gap:.4em;text-wrap:pretty}
 .senses .no{flex:none;font-family:var(--zh);color:var(--grid);font-size:.95em;line-height:1.42}
-.senses .zhi{font-family:var(--zh);font-size:1.08em}
+.zhi{font-family:var(--zh)}
+.senses .zhi{font-size:1.08em}
 .note{align-self:stretch;margin:.7em 0 0;font-size:calc(13px * var(--tz,1));color:var(--pencil);display:flex;gap:6px;align-items:baseline}
 .tag{flex:none;font-family:var(--zh);font-size:calc(13px * var(--tz,1));color:var(--grid);border:1px solid var(--grid);border-radius:3px;padding:0 3px;line-height:1.3}
 
@@ -338,23 +339,14 @@ main{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .keys-list{display:flex;flex-direction:column;gap:6px;max-height:min(46vh,420px);overflow-y:auto;overscroll-behavior:contain;outline:none}
 .kgroup{display:flex;align-items:flex-start;gap:8px}
 .kgroup + .kgroup{border-top:1px solid var(--rule);padding-top:6px}
-.kgroup .kn{flex:none;width:30px;min-height:42px;display:grid;place-items:center;border-radius:7px;background:var(--bg);
-  color:var(--pencil);font-family:var(--ui);font-size:calc(13px * var(--tz,1));font-variant-numeric:tabular-nums}
+.kt{flex:none;width:30px;min-height:42px;display:grid;place-items:center;border-radius:7px;background:var(--bg);
+  color:var(--pencil);font-size:calc(13px * var(--tz,1))}
 .kkeys{flex:1;min-width:0;display:flex;flex-wrap:wrap;gap:5px}
 .kkeys button{appearance:none;position:relative;min-width:42px;min-height:42px;padding:2px 6px;border:1px solid var(--rule);border-radius:8px;
   background:var(--bg);color:var(--ink);font-family:var(--zh);font-size:calc(23px * var(--tz,1));line-height:1.1}
 .kkeys button small{position:absolute;right:2px;bottom:1px;font-size:calc(11px * var(--tz,1));line-height:1;color:var(--faint)}
-/* the characters of a key: one line each, its readings, its sense or words that have it, its strokes */
+/* the characters of a key: one line each (rules shared with .wrow below), in columns when there is room */
 .keys-list.chars{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(320px,100%),1fr));gap:0 20px;align-content:start}
-.kline{appearance:none;width:100%;min-height:54px;padding:5px 4px;border:0;border-bottom:1px solid var(--rule);background:none;color:var(--ink);
-  text-align:left;display:grid;grid-template-columns:auto minmax(0,1fr) auto;column-gap:12px;align-items:center}
-.kline .kc{min-width:1.15em;text-align:center;font-family:var(--zh);font-size:calc(30px * var(--tz,1));line-height:1.15}
-.kline .kc.sysfont{font-family:var(--zh-sys)}
-.kline .km{min-width:0;display:flex;flex-direction:column}
-.kline .kp{font-size:calc(15px * var(--tz,1));line-height:1.3}
-.kline .kf{font-size:calc(13px * var(--tz,1));line-height:1.3;color:var(--pencil);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.kline .kf [lang]{font-family:var(--zh)}
-.kline .ks{font-size:calc(13px * var(--tz,1));color:var(--pencil);white-space:nowrap;font-variant-numeric:tabular-nums}
 .searchbar input{flex:1;min-width:0;border:1.5px solid var(--rule);background:var(--page);border-radius:12px;padding:9px 12px;font-size:max(16px, calc(16px * var(--tz,1)))}
 .ltabs{display:flex;gap:18px;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid var(--rule);margin:0 0 10px;padding:0 2px}
 .ltabs::-webkit-scrollbar{display:none}
@@ -368,13 +360,17 @@ main{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .filters button{appearance:none;border:1px solid var(--rule);background:none;border-radius:999px;padding:4px 11px;font-size:calc(13px * var(--tz,1));color:var(--pencil);white-space:nowrap}
 .filters button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--page)}
 .list{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule)}
-.wrow{appearance:none;border:0;border-bottom:1px solid var(--rule);background:none;width:100%;text-align:left;padding:9px 2px;
+.wrow,.kline{appearance:none;border:0;border-bottom:1px solid var(--rule);background:none;width:100%;text-align:left;padding:9px 2px;
   display:grid;grid-template-columns:minmax(64px,auto) 1fr auto;column-gap:12px;align-items:center}
 .wrow .h{font-family:var(--zh);font-size:calc(24px * var(--tz,1));line-height:1.1;white-space:nowrap}
 .wrow .h.sysfont{font-family:var(--zh-sys)}
-.wrow .m{min-width:0;display:flex;flex-direction:column}
-.wrow .p{font-size:calc(15px * var(--tz,1));line-height:1.25}
-.wrow .f{font-size:calc(13px * var(--tz,1));color:var(--pencil);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wrow .m,.kline .m{min-width:0;display:flex;flex-direction:column}
+.wrow .p,.kline .p{font-size:calc(15px * var(--tz,1));line-height:1.25}
+.wrow .f,.kline .f{font-size:calc(13px * var(--tz,1));color:var(--pencil);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* (the lines out of sight are not laid out: a key has up to 170 characters) */
+.kline{grid-template-columns:auto minmax(0,1fr) auto;min-height:54px;padding:5px 4px;content-visibility:auto;contain-intrinsic-block-size:auto 54px}
+.kline .kc{min-width:1.15em;text-align:center;font-size:calc(30px * var(--tz,1));line-height:1.15}
+.kline .ks{font-size:calc(13px * var(--tz,1));color:var(--pencil);white-space:nowrap}
 .wrow .r{display:flex;flex-direction:column;align-items:flex-end;gap:3px}
 .wrow .dk{font-size:calc(11px * var(--tz,1));color:var(--faint);white-space:nowrap}
 .wrow .km{display:flex;align-items:center;gap:6px}
@@ -1040,7 +1036,7 @@ const SYLL = new Set(("chuang shuang zhuang biang chang cheng chong chuai chuan 
 const LEGACY = ["阿姨","啊","矮","爱好","安静","把","班","搬","办法","办公室","半","帮忙","包","饱","北方","被","鼻子","比较","比赛","笔记本","必须","变化","别人","冰箱","不但","而且","菜单","参加","草","层","差","超市","衬衫","成绩","城市","迟到","除了","船","春","词典","聪明","打扫","打算","带","担心","蛋糕","当然","地","灯","地方","地铁","地图","电梯","电子邮件","东","冬","动物","短","段","锻炼","多么","饿","耳朵","发","发烧","发现","方便","放","放心","分","附近","复习","干净","感冒","感兴趣","刚才","个子","根据","跟","更","公斤","公园","故事","刮风","关","关系","关心","关于","国家","过","过去","还是","害怕","黑板","后来","护照","花","画","坏","欢迎","还","环境","换","黄河","回答","会议","或者","几乎","机会","极","记得","季节","检查","简单","见面","健康","讲","教","角","脚","接","街道","节目","节日","结婚","结束","解决","借","经常","经过","经理","久","旧","句子","决定","可爱","渴","刻","客人","空调","口","哭","裤子","筷子","蓝","老","离开","礼物","历史","脸","练习","辆","聊天","了解","邻居","留学","楼","绿","马","马上","满意","帽子","米","面包","明白","拿","奶奶","南","难","难过","年级","年轻","鸟","努力","爬山","盘子","胖","皮鞋","啤酒","瓶子","其实","其他","奇怪","骑","起飞","起来","清楚","请假","秋","裙子","然后","热情","认为","认真","容易","如果","伞","上网","生气","声音","世界","试","瘦","叔叔","舒服","树","数学","刷牙","双","水平","司机","太阳","特别","疼","提高","体育","甜","条","同事","同意","头发","突然","图书馆","腿","完成","碗","万","忘记","为","为了","位","文化","西","习惯","洗手间","洗澡","夏","先","相信","香蕉","向","像","小心","校长","新闻","新鲜","信用卡","行李箱","熊猫","需要","选择","要求","爷爷","一般","一边","一定","一共","一会儿","一样","一直","以前","音乐","银行","饮料","应该","影响","用","游戏","有名","又","遇到","元","愿意","月亮","越","站","张","长","着急","照顾","照片","照相机","只","只有","才","中间","中文","终于","种","重要","周末","主要","注意","自己","自行车","总是","嘴","最后","最近","作业"];
 const IS_PWA = true;
 const XH = 0.5078;
-const BUILD = "22 octobre 2026 à 22 h 15";
+const BUILD = "22 octobre 2026 à 22 h 56";
 
 /* ---------- utilities ---------- */
 const $ = (s, r = document) => r.querySelector(s);
@@ -1561,7 +1557,7 @@ function mergeTel() {
     for (const L of BASE) if (L.dico) out.push(L.id);
     return out;
   };
-  const key = pyKey, first = f => String(f || "").split(/[;；]/)[0].trim().toLowerCase();
+  const key = pyKey, first = f => (senses(f)[0] || "").toLowerCase();
   for (const t of [...state.custom]) {
     const ds = homes(t).map(lid => (defsIn.get(lid) || new Map()).get(t.h) || []);
     // the same reading: in a file where it may have been published, else in an HSK list (one word only)
@@ -1918,10 +1914,20 @@ function triSVG(k) {
   return '<svg class="tri" viewBox="0 0 20 19" aria-hidden="true">' +
     sides.map((d, i) => `<path d="${d}"${i === k ? ' class="on"' : ""}/>`).join("") + "</svg>";
 }
+function senses(f) {                              // the senses of a translation: cut at ; outside brackets (« suffixe (椅子 = chaise ; 孩子 = enfant) »)
+  const s = String(f || ""), out = [];
+  let depth = 0, from = 0;
+  for (let i = 0; i <= s.length; i++) {
+    if ("(（".includes(s[i])) depth++;
+    else if (")）".includes(s[i])) depth--;
+    else if (i === s.length || (";；".includes(s[i]) && depth <= 0)) { out.push(s.slice(from, i).trim()); from = i + 1; }
+  }
+  return out.filter(Boolean);
+}
+const zhWrap = s => esc(frTypo(s)).replace(/([㐀-鿿～][㐀-鿿～…]*)/g, '<span class="zhi">$1</span>');   // the Chinese of a French text in its font
 function senseItems(w) {
-  const parts = String(w.f || "").split(/\s*;\s*/).map(s => s.trim()).filter(Boolean);
+  const parts = senses(w.f);
   const mask = s => (w.h ? s.split(w.h).join("～") : s);
-  const zhWrap = s => esc(frTypo(s)).replace(/([㐀-鿿～][㐀-鿿～…]*)/g, '<span class="zhi">$1</span>');
   if (!parts.length) return '<li><span>—</span></li>';
   return parts.map((s, i) => `<li>${parts.length > 1 ? `<span class="no">${CIRCLED[i] || "•"}</span>` : ""}<span>${zhWrap(mask(s))}</span></li>`).join("");
 }
@@ -2092,6 +2098,16 @@ function markHead(e, h) {
   if (!h || !e.includes(h)) return esc(e);
   return e.split(h).map(esc).join(`<mark>${esc(h)}</mark>`);
 }
+function alignHan(zh, syl) {
+  // the syllable of each character (syl: syllables through fold); a 儿 glued as …r shares the one before; null if they
+  // do not line up
+  const pos = [];
+  for (const c of zh) {
+    const k = pos.length ? pos[pos.length - 1] : -1;
+    pos.push(c === "儿" && k >= 0 && syl[k] !== "er" && syl[k].endsWith("r") && pos[pos.length - 2] !== k ? k : k + 1);
+  }
+  return pos.length && pos[pos.length - 1] === syl.length - 1 ? pos : null;
+}
 function markPinyin(ep, p, e, h) {
   // The sentence's pinyin with the word's syllables underlined, compared without tones (一 and 不 change theirs).
   // With the sentence in characters (e, h), each occurrence of the word is placed by its position among the
@@ -2104,12 +2120,8 @@ function markPinyin(ep, p, e, h) {
   const runs = [];                                 // [first, last] syllable of each underlined occurrence
   const zh = [...String(e || "")].filter(c => HAN.test(c));
   if (h && zh.length) {
-    const pos = [];                                // syllable of each character; a 儿 glued as …r shares the one before
-    for (const c of zh) {
-      const k = pos.length ? pos[pos.length - 1] : -1;
-      pos.push(c === "儿" && k >= 0 && syl[k] !== "er" && syl[k].endsWith("r") && pos[pos.length - 2] !== k ? k : k + 1);
-    }
-    if (pos.length && pos[pos.length - 1] === syl.length - 1) {
+    const pos = alignHan(zh, syl);
+    if (pos) {
       const hw = [...h].filter(c => HAN.test(c));
       for (let i = 0; i + hw.length <= zh.length; i++) {
         if (zh.slice(i, i + hw.length).join("") !== hw.join("")) continue;
@@ -2836,7 +2848,7 @@ function renderDeckTabs() {
 }
 let wlist = [], wshown = 0, wmore = null;           // the rows of the Mots tab, drawn a few at a time
 function wordRowHTML(w, tones) {
-  const first = String(w.f || "").split(/\s*;\s*/)[0];
+  const first = senses(w.f)[0] || "";
   let where = "";
   if (wdeck === "all") {
     const ls = w.lists.filter(deckShown), L = LISTBYID.get(ls[0] || w.lists[0]);
@@ -3403,26 +3415,28 @@ function bindPad() {
    large, the others small: 亻 then 人), strokes of the key, {strokes of the character: characters}], sorted by the key's
    strokes. Only the keys and characters of words of the dictionary are shown. */
 let keyAt = null;                                  // the key whose characters are shown (index in CLES), null: the keys
-function keysRender() {
-  const list = $("#keys-list"), have = new Set(DECK.flatMap(w => [...(w.h || "")]));
+function keysRender(at = keyAt) {
+  keyAt = at;
+  const list = $("#keys-list");
   let html = "";
   if (keyAt === null) {
-    const rows = new Map();                        // a line per number of strokes
+    const have = new Set(DECK.flatMap(w => [...(w.h || "")])), rows = new Map();   // a line per number of strokes
     CLES.forEach(([num, forms, n, by], i) => {
       if (!Object.values(by).some(cs => [...cs].some(c => have.has(c)))) return;
       const side = num === "163" ? ["右", " (à droite)"] : num === "170" ? ["左", " (à gauche)"] : [forms.slice(1), ""];
       rows.set(n, (rows.get(n) || "") + `<button type="button" data-key="${i}" lang="zh-Hans" aria-label="${esc(`Clé ${forms[0]}${side[1]}, ${plural(n, "trait", "traits")}`)}">` +
         `${esc(forms[0])}${side[0] ? `<small>${esc(side[0])}</small>` : ""}</button>`);
     });
-    for (const [n, keys] of rows) html += `<div class="kgroup"><span class="kn" aria-hidden="true">${n}</span><div class="kkeys">${keys}</div></div>`;
+    for (const [n, keys] of rows) html += `<div class="kgroup"><span class="kt num" aria-hidden="true">${n}</span><div class="kkeys">${keys}</div></div>`;
     $("#keys-hint").textContent = frTypo("Choisis la clé du caractère (rangées par nombre de traits), puis le caractère.");
   } else {
-    const [, forms, , by] = CLES[keyAt];
-    const chars = Object.entries(by).flatMap(([n, cs]) => [...cs].filter(c => have.has(c)).map(c => [c, +n]));
-    const words = new Map(chars.map(([c]) => [c, []]));
+    const [, forms, , by] = CLES[keyAt], words = new Map();
+    for (const cs of Object.values(by)) for (const c of cs) words.set(c, []);
     for (const w of DECK) for (const c of new Set(w.h || "")) { const ws = words.get(c); if (ws) ws.push(w); }
-    chars.sort((a, b) => a[1] - b[1] || words.get(b[0]).length - words.get(a[0]).length);   // the most used first
-    html = chars.map(([c, n]) => keyCharHTML(c, n, words.get(c))).join("");
+    const tones = state.settings.toneColors ? " tones" : "";
+    html = Object.entries(by).flatMap(([n, cs]) => [...cs].map(c => [c, +n, words.get(c)])).filter(x => x[2].length)
+      .sort((a, b) => a[1] - b[1] || b[2].length - a[2].length)   // the most used first
+      .map(([c, n, ws]) => keyCharHTML(c, n, ws, tones)).join("");
     $("#keys-hint").textContent = frTypo(`Clé ${forms[0]} : ses caractères, du moins au plus de traits. Touche le bon : il s’ajoute à la recherche.`);
   }
   list.classList.toggle("chars", keyAt !== null);
@@ -3430,58 +3444,45 @@ function keysRender() {
   list.innerHTML = html;
   list.scrollTop = 0;
 }
-function firstSense(f) {                           // up to the first ; outside brackets (« suffixe (椅子 = chaise ; 桌子 = table) »)
-  const s = String(f || "");
-  let depth = 0;
-  for (let i = 0; i < s.length; i++) {
-    if ("(（".includes(s[i])) depth++;
-    else if (")）".includes(s[i])) depth--;
-    else if (s[i] === ";" && depth <= 0) return s.slice(0, i).trim();
-  }
-  return s.trim();
-}
-// a character of a key, on its line: its readings (that of the word it makes alone first, then the most frequent in the
+// a character of a key, on its line: its readings (those of the word it makes alone first, then the most frequent in the
 // words that have it), the sense of the word it makes alone, else the shortest words that have it, and its strokes
-function keyCharHTML(c, n, ws) {
-  const alone = ws.filter(w => w.h === c), reads = new Map();
-  const add = (key, html, tone, one) => {
-    const r = reads.get(key) || { key, html, tone, n: 0, one: false };
-    r.n++; r.one = r.one || one; reads.set(key, r);
-  };
+function keyCharHTML(c, n, ws, tones) {
+  const reads = new Map(), toneless = TONELESS.includes(c);
   for (const w of ws) {
-    const p = String(w.p || "").toLowerCase();       // (长城 Chángchéng: cháng)
-    if (w.h === c) { add(pinyinText(p), pinyinHTML(p), 0, true); continue; }
-    const toks = parsePinyin(p).filter(t => !t.sep), hs = [...w.h];
-    if (toks.length !== hs.length) continue;
-    const t = toks[hs.indexOf(c)];
-    if (t.s !== "r") add(t.s, sylHTML([t], 0), t.t, false);   // (the r of 这儿 zhèr: not a reading of 儿)
+    const hs = [...w.h].filter(x => HAN.test(x)), i = hs.indexOf(c), alone = w.h === c ? w : null;
+    for (const p of String(w.p || "").toLowerCase().split("/")) {   // (长城 Chángchéng: cháng; 正当 zhèngdàng / zhèngdāng)
+      const toks = parsePinyin(p).filter(t => !t.sep), pos = alignHan(hs, toks.map(t => fold(t.s)));
+      if (!pos || (c === "儿" && i && pos[i - 1] === pos[i])) continue;   // a 儿 glued as …r: no reading of its own
+      const t = pos[i + 1] === pos[i] ? { ...toks[pos[i]], s: toks[pos[i]].s.slice(0, -1) } : toks[pos[i]];   // 这儿 zhèr: zhè
+      const r = reads.get(t.s) || { f: fold(t.s), html: sylHTML([t], 0), neutral: t.t === 5 || toneless, n: 0, w: null };
+      r.n++; r.w = r.w || alone; reads.set(t.s, r);
+    }
   }
-  // a neutral tone in a word (东西 dōngxi) is not shown beside the same syllable with its tone
-  const toned = new Set([...reads.values()].filter(r => r.tone !== 5).map(r => fold(r.key)));
-  const shown = [...reads.values()].filter(r => r.one || r.tone !== 5 || !toned.has(fold(r.key)))
-    .sort((a, b) => b.one - a.one || b.n - a.n).slice(0, 3);
-  const one = alone.find(w => shown.length && pinyinText(String(w.p || "").toLowerCase()) === shown[0].key) || alone[0];   // (the first reading's)
-  const sense = one ? esc(frTypo(firstSense(one.f)))
-    : ws.slice().sort((a, b) => [...a.h].length - [...b.h].length).slice(0, 3).map(w => `<span lang="zh-Hans">${esc(w.h)}</span>`).join(", ");
-  return `<button type="button" class="kline" data-ch="${esc(c)}"><span class="kc${covered(c) ? "" : " sysfont"}" lang="zh-Hans">${esc(c)}</span>` +
-    `<span class="km"><span class="sr">, </span><span class="kp${state.settings.toneColors ? " tones" : ""}">${shown.map(r => r.html).join(" / ")}</span>` +
-    `<span class="kf"><span class="sr">, </span>${sense}</span></span><span class="ks"><span class="sr">, </span>${plural(n, "trait", "traits")}</span></button>`;
+  // a tone from the word (东西 dōngxi, 一起 yìqǐ) is not shown beside the same syllable with its own
+  const all = [...reads.values()], kept = new Set(all.filter(r => r.w || !r.neutral).map(r => r.f));
+  const shown = all.filter(r => r.w || !r.neutral || !kept.has(r.f)).sort((a, b) => !!b.w - !!a.w || b.n - a.n).slice(0, 3);
+  const one = shown[0] && shown[0].w;            // the word alone of the first reading
+  const sense = one ? zhWrap(senses(one.f)[0] || "")
+    : ws.slice().sort((a, b) => [...a.h].length - [...b.h].length).slice(0, 3).map(w => `<span class="zhi" lang="zh-Hans">${esc(w.h)}</span>`).join(", ");
+  return `<button type="button" class="kline" data-ch="${esc(c)}"><span class="kc zh${covered(c) ? "" : " sysfont"}" lang="zh-Hans">${esc(c)}</span>` +
+    `<span class="m"><span class="sr">, </span><span class="p${tones}">${shown.map(r => r.html).join(" / ")}</span>` +
+    `<span class="f"><span class="sr">, </span>${sense}</span></span><span class="ks num"><span class="sr">, </span>${plural(n, "trait", "traits")}</span></button>`;
 }
 function keysOpen(open) {
   $("#keypad").hidden = !open;
   $("#keys-open").setAttribute("aria-expanded", String(open));
-  if (open) { padOpen(false); keyAt = null; keysRender(); }
+  if (open) { padOpen(false); keysRender(null); }
 }
 function bindKeys() {
   $("#keys-open").addEventListener("click", () => keysOpen($("#keypad").hidden));
-  $("#keys-back").addEventListener("click", () => { keyAt = null; keysRender(); $("#keys-list").focus(); });
+  $("#keys-back").addEventListener("click", () => { keysRender(null); $("#keys-list").focus(); });
   $("#keys-list").addEventListener("click", e => {
     const k = e.target.closest("[data-key]");
-    if (k) { keyAt = +k.dataset.key; keysRender(); if (!e.detail) $("#keys-list").focus(); return; }
+    if (k) { keysRender(+k.dataset.key); if (!e.detail) $("#keys-list").focus(); return; }
     const b = e.target.closest("[data-ch]"); if (!b) return;
     const ch = b.dataset.ch;
     searchAdd(ch);
-    keyAt = null; keysRender();                    // the keys again, for the next character
+    keysRender(null);                              // the keys again, for the next character
     $("#keys-hint").textContent = frTypo(`« ${ch} » ajouté à la recherche ; choisis la clé du caractère suivant.`);
     if (!e.detail) $("#keys-list").focus();
   });
@@ -3675,7 +3676,7 @@ function bindForm(body, w, onSave) {
     const h = $("#f-h", body).value.trim(), hint = $("#f-hh", body);
     const same = h && !w.id ? DECK.filter(x => x.h === h) : [];
     hint.hidden = !same.length;
-    hint.innerHTML = same.length ? `Déjà dans le dictionnaire${NB}:<span class="dupl">${same.slice(0, 4).map(x => `<span>${esc(x.h)} ${esc(pinyinText(x.p))} (${esc(String(x.f || "").split(/\s*;\s*/)[0])})</span>` +
+    hint.innerHTML = same.length ? `Déjà dans le dictionnaire${NB}:<span class="dupl">${same.slice(0, 4).map(x => `<span>${esc(x.h)} ${esc(pinyinText(x.p))} (${esc(senses(x.f)[0] || "")})</span>` +
       (ls && ls.value && (ls.value === "__new" || !inList(ls.value, x.id)) ? `<button type="button" class="btn small" data-take="${esc(x.id)}">Ajouter celui-ci à la liste</button>` : "")).join("")}</span>` : "";
   };
   body.addEventListener("click", e => {
@@ -3736,12 +3737,13 @@ function setInList(listId, wordId, on) {
 }
 function editableLists() { return LISTS.filter(editable); }
 function sylls(p) { return parsePinyin(p).filter(t => t.s).map(t => [fold(t.s), t.t || 5]); }
+const TONELESS = "一不";                          // characters with no tone of their own: the word gives it (一起 yìqǐ)
 function sameReading(h, a, b, loose) {
   // one reading noted two ways: 一 and 不 have no tone of their own (yīqǐ = yìqǐ). loose: a neutral tone also matches any
   // tone, which may be the same word (朋友 péngyou, péngyǒu) or another one (东西 dōngxi « chose », dōngxī « est et ouest »)
   const x = sylls(a), y = sylls(b), c = [...h];
   return x.length === y.length && x.every(([s, t], i) => s === y[i][0]
-    && (t === y[i][1] || c[i] === "一" || c[i] === "不" || !!loose && (t === 5 || y[i][1] === 5)));
+    && (t === y[i][1] || TONELESS.includes(c[i]) || !!loose && (t === 5 || y[i][1] === 5)));
 }
 function sameWords(h, p, not, loose) {
   // the words of the dictionary with these characters and this reading (noted the same way, else another way);
@@ -3752,11 +3754,11 @@ function sameWords(h, p, not, loose) {
   return strict.length ? strict : c.filter(x => sameReading(h, x.p, p, loose));
 }
 function senseKey(f) {                             // the first sense of a translation, to compare two of them
-  return String(f || "").split(/[;；]/)[0].replace(/\(.*?\)|（.*?）/g, "").replace(/[:=].*$/, "").toLowerCase()
+  return (senses(f)[0] || "").replace(/\(.*?\)|（.*?）/g, "").replace(/[:=].*$/, "").toLowerCase()
     .normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, " ").trim();
 }
 function senseFits(f, g) {                         // two translations share a sense
-  const keys = x => String(x || "").split(/[;；]/).map(senseKey).filter(Boolean), mine = keys(f);
+  const keys = x => senses(x).map(senseKey).filter(Boolean), mine = keys(f);
   return keys(g).some(s => mine.some(m => m === s || (m.length > 3 && s.length > 3 && (m.includes(s) || s.includes(m)))));
 }
 function bestSame(h, p, f) {
