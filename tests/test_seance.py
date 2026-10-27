@@ -532,6 +532,16 @@ def main():
               "Réglages in columns")
         shots("pc-04-reglages")
         page.click(".tab[data-view='study']")
+        # a click of the mouse: left of the card's middle turns 形 → 义 → 音, right of it 形 → 音 → 义
+        st = page.evaluate("() => { const r = document.querySelector('#stage').getBoundingClientRect(); return [r.left, r.top, r.width, r.height]; }")
+        y = st[1] + st[3] * 0.12
+        faces = [page.evaluate("() => prism.face")]
+        for part in (0.25, 0.25, 0.75, 0.75, 0.75):
+            page.mouse.click(st[0] + st[2] * part, y)
+            faces.append(page.evaluate("() => prism.face"))
+        first = faces[0]
+        check(faces == [first, (first - 1) % 3, (first - 2) % 3, (first - 1) % 3, first, (first + 1) % 3],
+              "a click on the left half of the card turns it 形 → 义 → 音, on the right half 形 → 音 → 义", faces)
         page.evaluate("() => showSteps(prism.root, BYID.get(study.cur))")
         page.wait_for_selector("#sheet:not([hidden]) #sheet-traits")
         side = page.evaluate("() => { const s = document.querySelector('#sheet'); return { dock: s.classList.contains('dock'), panel: s.querySelector('.panel').getBoundingClientRect().left, w: innerWidth }; }")

@@ -531,8 +531,11 @@ de la barre d’adresse). L’appli s’ouvre alors dans sa propre fenêtre, dep
 marche hors ligne et se met à jour comme sur l’iPhone. Sur un écran large, les sections passent dans
 un menu à gauche ; en révision, la carte s’agrandit et l’exemple et les réponses se rangent à côté ;
 dans Mots, la fiche d’un mot s’ouvre à côté de la liste, qui reste utilisable ; Progrès et Réglages
-tiennent sur deux colonnes. Une fenêtre étroite reprend la mise en page du téléphone. Au clavier :
-**Espace** tourne la carte, **1** et **2** notent × et √, **A** lit le mot, **E** la phrase.
+tiennent sur deux colonnes. Une fenêtre étroite reprend la mise en page du téléphone. À la souris, un
+clic sur la **moitié droite** de la carte la tourne dans le sens 形 › 音 › 义, un clic sur la **moitié gauche**
+dans l’autre sens (形 › 义 › 音) ; sur un écran tactile, un toucher tourne toujours dans le premier sens, et
+glisser le doigt choisit le sens. Au clavier : **Espace** tourne la carte (**→** et **←** : les deux sens),
+**1** et **2** notent × et √, **A** lit le mot, **E** la phrase.
 
 ### 7.3 Synchroniser l’iPhone et l’ordinateur
 

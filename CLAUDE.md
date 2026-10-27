@@ -234,7 +234,8 @@ l'iPhone : Réglages › Appli › Vérifier. Le téléphone peut lui aussi écr
   met en pause (écran « Test en pause », « Apprentissage en pause »), sinon retour à la file (`res.cut` : questions restées sans réponse, « Test des sens arrêté »). `next()`
   prend un jeton `tok` : une carte encore en train de glisser (170 ms) n'est pas dessinée si une autre a été demandée entre-temps. `grade(g)` : 0 = ×, 1 = √ (touches
   1 et 2) ; il n'y a plus de 3e note.
-- **Interface** : classe `Prism` (rotation 3D, `fit()` ajuste les tailles, `layout()` rétrécit la carte quand la hauteur manque avec un texte agrandi ; face 形 : cases 田字格 `.tzg`, phrase
+- **Interface** : classe `Prism` (rotation 3D ; un clic de souris à gauche du milieu de `root` tourne en arrière, 形 义 音, à droite
+  et au toucher en avant, 形 音 义 ; glisser et les flèches choisissent le sens ; `fit()` ajuste les tailles, `layout()` rétrécit la carte quand la hauteur manque avec un texte agrandi ; face 形 : cases 田字格 `.tzg`, phrase
   `.form-ex`, bouton `[data-trace-form]` « Traits » (`traceForm` : chaque caractère tracé dans sa case par un `traceSVG`
   posé sur la police, `.tz-tr`, la police cachée par `.tzg.tracing`) et `[data-steps]` « Décomposer » (`showSteps` :
   feuille avec `renderTraits` en révision, défilement jusqu'à `#sheet-traits` dans la fiche du mot) ; face 音 : pinyin du mot,
