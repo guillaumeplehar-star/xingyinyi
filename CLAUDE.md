@@ -225,7 +225,7 @@ l'iPhone : Réglages › Appli › Vérifier. Le téléphone peut lui aussi écr
   la séance sur l'écran de pause (« Reprendre » relit les listes, `refreshLists`, au plus toutes les 15 s) (aussi dans `build(keep)`), comme un autre apprentissage arrivé à sa place ; fini :
   `closeLearn` (`L.over`, `L.learnt`, ligne de `learnLog`) à la dernière réponse du dernier passage, sinon dans `showDone`
   (vidé) ; « Pause » sur un apprentissage déjà fini montre sa fin), `"sens"`
-  (nouveau sens : `startSens`, `sensPick(evalSize)` ; la file contient des objets `{id, face}`, lus par `qid` ;
+  (nouveau sens : `startSens`, `sensPick(evalSize)` : les mots des seaux les plus élevés d'abord, au hasard dans un même seau ; la file contient des objets `{id, face}`, lus par `qid` ;
   la carte part de `face`, que `redrawCurrent` garde ; × retire les autres sens du mot et fait passer ses √ du même
   test de `res.ok` à `res.ko` ; `spread` évite deux fois de suite le même mot, dans `sensPick` et après un × ; le
   sélecteur « D'abord » montre la face testée, verrouillé : `renderStartFace`). Note « i sur n » (test, sens, dernier

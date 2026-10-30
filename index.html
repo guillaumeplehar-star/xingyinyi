@@ -1036,7 +1036,7 @@ const SYLL = new Set(("chuang shuang zhuang biang chang cheng chong chuai chuan 
 const LEGACY = ["阿姨","啊","矮","爱好","安静","把","班","搬","办法","办公室","半","帮忙","包","饱","北方","被","鼻子","比较","比赛","笔记本","必须","变化","别人","冰箱","不但","而且","菜单","参加","草","层","差","超市","衬衫","成绩","城市","迟到","除了","船","春","词典","聪明","打扫","打算","带","担心","蛋糕","当然","地","灯","地方","地铁","地图","电梯","电子邮件","东","冬","动物","短","段","锻炼","多么","饿","耳朵","发","发烧","发现","方便","放","放心","分","附近","复习","干净","感冒","感兴趣","刚才","个子","根据","跟","更","公斤","公园","故事","刮风","关","关系","关心","关于","国家","过","过去","还是","害怕","黑板","后来","护照","花","画","坏","欢迎","还","环境","换","黄河","回答","会议","或者","几乎","机会","极","记得","季节","检查","简单","见面","健康","讲","教","角","脚","接","街道","节目","节日","结婚","结束","解决","借","经常","经过","经理","久","旧","句子","决定","可爱","渴","刻","客人","空调","口","哭","裤子","筷子","蓝","老","离开","礼物","历史","脸","练习","辆","聊天","了解","邻居","留学","楼","绿","马","马上","满意","帽子","米","面包","明白","拿","奶奶","南","难","难过","年级","年轻","鸟","努力","爬山","盘子","胖","皮鞋","啤酒","瓶子","其实","其他","奇怪","骑","起飞","起来","清楚","请假","秋","裙子","然后","热情","认为","认真","容易","如果","伞","上网","生气","声音","世界","试","瘦","叔叔","舒服","树","数学","刷牙","双","水平","司机","太阳","特别","疼","提高","体育","甜","条","同事","同意","头发","突然","图书馆","腿","完成","碗","万","忘记","为","为了","位","文化","西","习惯","洗手间","洗澡","夏","先","相信","香蕉","向","像","小心","校长","新闻","新鲜","信用卡","行李箱","熊猫","需要","选择","要求","爷爷","一般","一边","一定","一共","一会儿","一样","一直","以前","音乐","银行","饮料","应该","影响","用","游戏","有名","又","遇到","元","愿意","月亮","越","站","张","长","着急","照顾","照片","照相机","只","只有","才","中间","中文","终于","种","重要","周末","主要","注意","自己","自行车","总是","嘴","最后","最近","作业"];
 const IS_PWA = true;
 const XH = 0.5078;
-const BUILD = "27 octobre 2026 à 11 h 18";
+const BUILD = "30 octobre 2026 à 11 h 57";
 
 /* ---------- utilities ---------- */
 const $ = (s, r = document) => r.querySelector(s);
@@ -2221,8 +2221,11 @@ function spread(items, prev) {
   }
   return out;
 }
-function sensPick(n) {                              // n words known in one or two ways, each with every way it lacks
-  return spread(shuffle(shuffle(sensPool()).slice(0, n).flatMap(id => [0, 1, 2].filter(f => !(knOf(id) & (1 << f))).map(face => ({ id, face })))), null);
+function sensPick(n) {
+  // n words known in one or two ways, those of the highest buckets first (at random among one bucket's), each with every
+  // way it lacks, in any order
+  const ids = shuffle(sensPool()).sort((a, b) => bucketOf(b) - bucketOf(a)).slice(0, n);
+  return spread(shuffle(ids.flatMap(id => [0, 1, 2].filter(f => !(knOf(id) & (1 << f))).map(face => ({ id, face })))), null);
 }
 function evalPick(n) {
   // Words already met, taken in turn from every bucket so that each one is represented, then shuffled.
@@ -2981,7 +2984,7 @@ function renderProgress() {
   const sp = words.filter(w => knOf(w.id) && knOf(w.id) !== 7).length;
   $("#sens-go").disabled = !sp;
   $("#sens-info").textContent = frTypo(sp > 1
-    ? `Le test prend au hasard jusqu’à ${plural(Math.min(sp, state.settings.evalSize), "mot", "mots")} connus dans un ou deux sens et les teste dans ceux qui leur manquent. √ : le sens devient connu ; × : le mot retourne au seau 0 et perd tous ses sens.`
+    ? `Le test prend jusqu’à ${plural(Math.min(sp, state.settings.evalSize), "mot", "mots")} connus dans un ou deux sens, ceux des seaux les plus élevés d’abord, et les teste dans ceux qui leur manquent. √ : le sens devient connu ; × : le mot retourne au seau 0 et perd tous ses sens.`
     : sp ? "Un seul mot est connu dans un ou deux sens : le test le pose dans ceux qui lui manquent. √ : le sens devient connu ; × : le mot retourne au seau 0 et perd tous ses sens."
     : "Aucun mot n’est connu dans un ou deux sens pour l’instant.");
 

@@ -1891,7 +1891,7 @@ def run_sens(browser, errors, scheme):
     info = nb(page.inner_text("#sens-info"))
     check(kncounts() == [["Par le caractère", 3], ["Par le pinyin", 4], ["Par la traduction", 2], ["Les trois", 1]]
           and not page.evaluate("() => document.querySelector('#sens-go').disabled")
-          and info.startswith("Le test prend au hasard jusqu’à 4 mots connus dans un ou deux sens"),
+          and info.startswith("Le test prend jusqu’à 4 mots connus dans un ou deux sens, ceux des seaux les plus élevés d’abord"),
           S + "Progrès: ways known, Tester un nouveau sens offered for 4 words", (kncounts(), info))
     pb = page.evaluate(PRIMARY, "#view-progress")
     hs = page.evaluate("() => ['#learn-go', '#sens-go'].map(s => Math.round(document.querySelector(s).getBoundingClientRect().height))")
@@ -1907,6 +1907,17 @@ def run_sens(browser, errors, scheme):
     for i, f in two:
         tw.setdefault(i, []).append(f)
     check(len(tw) == 2 and all(sorted(fs) == MISSING[i] for i, fs in tw.items()), S + "sensPick(2): two words, each with all its missing ways", two)
+    # the highest buckets first (W0 and W5 are in bucket 2, W1 and W3 in bucket 1), at random among one bucket's words
+    pri = page.evaluate("""([W0, W1, W3, W5]) => { let top = 0, mid = 0, a = 0, b = 0;
+        for (let i = 0; i < 200; i++) {
+          const two = new Set(sensPick(2).map(x => x.id)), three = new Set(sensPick(3).map(x => x.id));
+          if (two.size === 2 && two.has(W0) && two.has(W5)) top++;
+          if (three.size === 3 && three.has(W0) && three.has(W5)) mid++;
+          if (three.has(W1)) a++; if (three.has(W3)) b++;
+        }
+        return { top, mid, a, b, all: new Set(sensPick(20).map(x => x.id)).size }; }""", [W[0], W[1], W[3], W[5]])
+    check(pri["top"] == 200 and pri["mid"] == 200 and 40 < pri["a"] < 160 and pri["a"] + pri["b"] == 200 and pri["all"] == 4,
+          S + "sensPick: the words of the highest buckets first, a tie in one bucket drawn at random, all of them when n is larger", pri)
     check(dr["adj"] == 0, S + "sensPick: never the same word twice in a row when it can be avoided (%d draws out of 300 had it)" % dr["adj"], dr["ex"])
 
     # ------------------------------------------------------------ the test

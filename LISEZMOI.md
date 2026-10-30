@@ -453,8 +453,9 @@ dans la liste Mots (形音义, allumés quand le sens est connu), dans la fiche 
 pendant la révision et dans Progrès › Sens connus. Les mots déjà au seau 1 ou plus avant cette
 version comptent comme connus par la face de départ réglée à ce moment-là.
 
-**Tester un nouveau sens** (Progrès › Sens connus) prend au hasard jusqu’à 20 mots (le nombre de
-l’évaluation) connus dans un ou deux sens, et les pose dans chacun des sens qui leur manquent :
+**Tester un nouveau sens** (Progrès › Sens connus) prend jusqu’à 20 mots (le nombre de
+l’évaluation) connus dans un ou deux sens, ceux des seaux les plus élevés d’abord (au hasard parmi ceux
+d’un même seau), et les pose dans chacun des sens qui leur manquent :
 la carte part alors de la face à tester (le sélecteur « D’abord » la montre, sans changer ton réglage). Un √ ajoute ce sens sans toucher aux seaux ; un ×
 renvoie le mot au seau 0, lui fait perdre tous ses sens, même ceux gagnés pendant ce test, et
 retire ses autres sens du test Le bilan compte alors comme ratés les sens qu’il venait de gagner.
