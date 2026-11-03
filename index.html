@@ -610,6 +610,32 @@ input[type=range]{width:120px;accent-color:var(--accent)}
 .hsk-miss:last-of-type{border-bottom:1px solid var(--rule)}
 .hsk-miss summary{cursor:pointer;padding:9px 0;font-size:calc(14px * var(--tz,1))}
 .hsk-miss summary .zh{font-size:calc(16px * var(--tz,1))}
+/* word order: the fiches (a sheet), the rule of a sentence in its correction */
+.hsk-rule{margin:10px 0 0}
+.hsk-rule .btn{text-align:left}
+.hsk-part b .zh{font-size:1.1em}
+.hsk-where .fn .zh{color:inherit;font-size:1.1em;margin:0}
+.fiche-tag{margin:0 0 10px;font-family:var(--zh);font-size:calc(26px * var(--tz,1));line-height:1.3;color:var(--grid)}
+.fiche-schema{margin:0 0 14px;padding:10px 12px;border:1px solid var(--rule);border-radius:12px;background:var(--page)}
+.fiche-schema .slots{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 6px}
+.slot{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;padding:4px 8px 3px;border:1.5px solid var(--rule);border-radius:8px;background:var(--bg)}
+.slot .zh{font-size:calc(21px * var(--tz,1));line-height:1.3}
+.slot small{font-size:calc(12px * var(--tz,1));line-height:1.2;color:var(--pencil);white-space:nowrap}
+.slot.on{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.slot.on small{color:var(--accent)}
+.fiche-p{margin:0 0 10px;font-size:calc(15px * var(--tz,1));line-height:1.5;text-wrap:pretty}
+.fiche-p .zh,.fiche .hsk-fr .zh{font-size:1.12em}
+.fiche-ex{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--rule)}
+.fiche-ex .hsk-t{flex:1;min-width:0;margin:0}
+.fiche-ex .speak{flex:none;padding:6px 9px}
+.fiche-trap{padding:8px 0;border-bottom:1px solid var(--rule)}
+.fiche-trap p{margin:0}
+.fiche-trap .ko,.fiche-trap .ok{display:flex;gap:8px;align-items:baseline;font-size:calc(19px * var(--tz,1));line-height:1.45}
+.fiche-trap .mk{flex:none;width:1em;font-weight:700;text-align:center}
+.fiche-trap .ko .mk{color:var(--pen)}
+.fiche-trap .ok .mk{color:var(--accent)}
+.fiche-trap s{color:var(--pencil);text-decoration-color:var(--pen);text-decoration-thickness:2px}
+.fiche-trap .hsk-fr{margin-top:2px}
 
 /* ---------- sheet ---------- */
 .sheet{position:fixed;inset:0;z-index:20;display:flex;flex-direction:column;justify-content:flex-end}
@@ -1149,7 +1175,7 @@ const SYLL = new Set(("chuang shuang zhuang biang chang cheng chong chuai chuan 
 const LEGACY = ["阿姨","啊","矮","爱好","安静","把","班","搬","办法","办公室","半","帮忙","包","饱","北方","被","鼻子","比较","比赛","笔记本","必须","变化","别人","冰箱","不但","而且","菜单","参加","草","层","差","超市","衬衫","成绩","城市","迟到","除了","船","春","词典","聪明","打扫","打算","带","担心","蛋糕","当然","地","灯","地方","地铁","地图","电梯","电子邮件","东","冬","动物","短","段","锻炼","多么","饿","耳朵","发","发烧","发现","方便","放","放心","分","附近","复习","干净","感冒","感兴趣","刚才","个子","根据","跟","更","公斤","公园","故事","刮风","关","关系","关心","关于","国家","过","过去","还是","害怕","黑板","后来","护照","花","画","坏","欢迎","还","环境","换","黄河","回答","会议","或者","几乎","机会","极","记得","季节","检查","简单","见面","健康","讲","教","角","脚","接","街道","节目","节日","结婚","结束","解决","借","经常","经过","经理","久","旧","句子","决定","可爱","渴","刻","客人","空调","口","哭","裤子","筷子","蓝","老","离开","礼物","历史","脸","练习","辆","聊天","了解","邻居","留学","楼","绿","马","马上","满意","帽子","米","面包","明白","拿","奶奶","南","难","难过","年级","年轻","鸟","努力","爬山","盘子","胖","皮鞋","啤酒","瓶子","其实","其他","奇怪","骑","起飞","起来","清楚","请假","秋","裙子","然后","热情","认为","认真","容易","如果","伞","上网","生气","声音","世界","试","瘦","叔叔","舒服","树","数学","刷牙","双","水平","司机","太阳","特别","疼","提高","体育","甜","条","同事","同意","头发","突然","图书馆","腿","完成","碗","万","忘记","为","为了","位","文化","西","习惯","洗手间","洗澡","夏","先","相信","香蕉","向","像","小心","校长","新闻","新鲜","信用卡","行李箱","熊猫","需要","选择","要求","爷爷","一般","一边","一定","一共","一会儿","一样","一直","以前","音乐","银行","饮料","应该","影响","用","游戏","有名","又","遇到","元","愿意","月亮","越","站","张","长","着急","照顾","照片","照相机","只","只有","才","中间","中文","终于","种","重要","周末","主要","注意","自己","自行车","总是","嘴","最后","最近","作业"];
 const IS_PWA = true;
 const XH = 0.5078;
-const BUILD = "3 novembre 2026 à 19 h 51";
+const BUILD = "3 novembre 2026 à 21 h 39";
 
 /* ---------- utilities ---------- */
 const $ = (s, r = document) => r.querySelector(s);
@@ -1436,17 +1462,19 @@ function normalizeState(s) {
   return st;
 }
 function cleanHskLog(a) {
-  // The HSK exercises done, the newest first: {start, at (its end), k (the part practised, or "exam"), ok and ko (the
-  // questions passed and missed), pts (a mock exam: listening, reading and writing, over 100 each)}; HSK_LOG_MAX at most.
+  // The HSK exercises done, the newest first: {start, at (its end), k (the part practised, or "exam"), g (writing 1: the
+  // fiche of word order practised), ok and ko (the questions passed and missed), pts (a mock exam: listening, reading and
+  // writing, over 100 each)}; HSK_LOG_MAX at most.
   const met = new Set(), pts = p => [0, 1, 2].map(i => Math.max(0, Math.min(100, Math.round(+(Array.isArray(p) ? p[i] : 0)) || 0)));
   return (Array.isArray(a) ? a : []).filter(e => e && typeof e === "object" && stamp(e.start) && (e.k === "exam" || HSK_KEYS.includes(e.k)))
-    .map(e => ({ start: stamp(e.start), at: stamp(e.at) || stamp(e.start), k: e.k, ok: strs(e.ok), ko: strs(e.ko), ...(e.k === "exam" ? { pts: pts(e.pts) } : {}) }))
+    .map(e => ({ start: stamp(e.start), at: stamp(e.at) || stamp(e.start), k: e.k, ...(e.k === "w1" && e.g && typeof e.g === "string" ? { g: e.g } : {}),
+      ok: strs(e.ok), ko: strs(e.ko), ...(e.k === "exam" ? { pts: pts(e.pts) } : {}) }))
     .filter(e => (e.ok.length || e.ko.length) && !met.has(e.start) && met.add(e.start))
     .sort((x, y) => y.at - x.at || y.start - x.start).slice(0, HSK_LOG_MAX);
 }
 function cleanHskRun(x) {
   // The HSK exercise in progress on this device, or null: {kind ("part": a practice of the part k; "exam": a mock exam),
-  // k, start, at (its last change), pages (the questions in order: {k, id, perm (the order of its answers or blocks on
+  // k, g (writing 1: the sentences of a fiche of word order only), start, at (its last change), pages (the questions in order: {k, id, perm (the order of its answers or blocks on
   // screen), c and cands (w2: the character hidden, the ones offered)}), ans (question -> answer), i (the page on screen),
   // chk (a practice: the pages already corrected), sec (a mock exam: its section), ends (when the section's time is up,
   // ms), left (its time left while paused), pause, done (the results on screen)}.
@@ -1456,7 +1484,8 @@ function cleanHskRun(x) {
     .map(p => ({ k: p.k, id: p.id, ...(Array.isArray(p.perm) ? { perm: nums(p.perm) } : {}), ...(Number.isInteger(p.c) ? { c: p.c } : {}), ...(Array.isArray(p.cands) ? { cands: strs(p.cands) } : {}) }));
   if (!pages.length) return null;
   const exam = x.kind === "exam";
-  return { kind: exam ? "exam" : "part", k: HSK_KEYS.includes(x.k) ? x.k : pages[0].k, start: stamp(x.start) || Date.now(), at: stamp(x.at), pages,
+  const k = HSK_KEYS.includes(x.k) ? x.k : pages[0].k;
+  return { kind: exam ? "exam" : "part", k, ...(!exam && k === "w1" && x.g && typeof x.g === "string" ? { g: x.g } : {}), start: stamp(x.start) || Date.now(), at: stamp(x.at), pages,
     ans: x.ans && typeof x.ans === "object" && !Array.isArray(x.ans) ? x.ans : {}, i: Math.max(0, Math.min(pages.length - 1, Math.round(+x.i) || 0)),
     chk: [...new Set(nums(x.chk))], sec: Math.max(0, Math.min(2, Math.round(+x.sec) || 0)), ends: stamp(x.ends), left: stamp(x.left), pause: !!x.pause, done: !!x.done };
 }
@@ -5073,7 +5102,8 @@ async function updateApp() {
    part, each corrected at once. A mock exam: the three sections in a row, the listening at the voice's pace (each
    recording twice), the reading and the writing timed, a score over 300 (each section over 100, without the pictures).
    state.hskRun: the exercise in progress, this device's own (a mock exam pauses when the view or the app is left);
-   state.hskLog: the results, shared (the questions least done come first). */
+   state.hskLog: the results, shared (the questions least done come first). Word order: a fiche per rule (HSK.fiches,
+   hskFiche), its sentences those of writing 1 with g = its id, practised alone (run.g). */
 const HSK_PARTS = {
   e2: { sec: 0, zh: "听力 第二部分", nom: "Vrai ou faux", d: "Une phrase entendue, une phrase écrite : dis si elle est juste.", n: 10, first: 11 },
   e3: { sec: 0, zh: "听力 第三部分", nom: "Dialogue court", d: "Deux répliques, puis une question : choisis la réponse.", n: 10, first: 21 },
@@ -5089,14 +5119,16 @@ const HSK_PRACTICE = 10, HSK_WAIT = 8000, HSK_PASS = 180, LETTERS = "ABCDEF";
 // pace: the factor of every wait (the tests shorten them); tok: the page or recording on screen (a callback of an older one
 // does nothing); heard: where the listening is; pad: the strokes of writing part 2
 const hsk = { pace: 1, tok: 0, timer: 0, clock: 0, heard: "", pad: { strokes: [], cur: null, id: null, seq: 0, top: [] } };
-let HSK = null, HSK_BY = new Map(), hskLoading = null;   // exos/hsk3.json, its questions by id, the promise of its loading
+// exos/hsk3.json, its questions by id, its fiches of word order by id (in their order), the promise of its loading
+let HSK = null, HSK_BY = new Map(), HSK_FICHES = new Map(), hskLoading = null;
 function hskLoad() {
   if (HSK) return Promise.resolve(HSK);
   if (!hskLoading) hskLoading = fetch("exos/hsk3.json", { cache: "no-cache" }).then(r => (r.ok ? r.json() : null)).catch(() => null).then(d => {
     hskLoading = null;
     if (!d || typeof d !== "object") return null;
-    HSK = d; HSK_BY = new Map();
+    HSK = d; HSK_BY = new Map(); HSK_FICHES = new Map();
     for (const k of HSK_KEYS) for (const it of Array.isArray(d[k]) ? d[k] : []) if (it && it.id) HSK_BY.set(it.id, it);
+    for (const f of Array.isArray(d.fiches) ? d.fiches : []) if (f && f.id && f.nom) HSK_FICHES.set(f.id, f);
     return HSK;
   });
   return hskLoading;
@@ -5140,7 +5172,9 @@ function hskWord(h) {                              // the word h of the dictiona
 }
 
 /* the questions */
-function hskPool(k) { return k === "w2" ? w2Words().map(w => ({ id: "w2:" + w.id, w })) : HSK && Array.isArray(HSK[k]) ? HSK[k].filter(it => it && it.id) : []; }
+function hskPool(k, g) {                           // the questions of part k (g: writing 1, those of the fiche g)
+  return k === "w2" ? w2Words().map(w => ({ id: "w2:" + w.id, w })) : HSK && Array.isArray(HSK[k]) ? HSK[k].filter(it => it && it.id && (!g || it.g === g)) : [];
+}
 function hskQids(p) { return HSK_PARTS[p.k].group ? [0, 1, 2, 3, 4].map(j => p.id + "." + j) : [p.id]; }   // its questions (five for reading 1 and 2)
 function hskItem(p) { return p.k === "w2" ? w2Make(BYID.get(p.id.slice(3)), p.c) : HSK_BY.get(p.id) || null; }
 function hskSeen() {                               // question -> its last answer: true passed, false missed
@@ -5163,11 +5197,12 @@ function hskPage(k, it) {
   }
   return p;
 }
-function hskPick(k, n) {
-  // n questions of part k (by fives for reading 1 and 2): those never asked first, then those missed the last time
+function hskPick(k, n, g) {
+  // n questions of part k (by fives for reading 1 and 2; g: of the fiche g): those never asked first, then those missed
+  // the last time
   const seen = hskSeen(), want = HSK_PARTS[k].group ? Math.ceil(n / 5) : n, out = [];
   const rank = it => { const r = hskQids({ k, id: it.id }).map(q => seen.get(q)); return r.every(x => x === undefined) ? 0 : r.includes(false) ? 1 : 2; };
-  const pool = shuffle(hskPool(k)).map(it => [rank(it), it]).sort((a, b) => a[0] - b[0]);
+  const pool = shuffle(hskPool(k, g)).map(it => [rank(it), it]).sort((a, b) => a[0] - b[0]);
   for (const [, it] of pool) {
     const p = hskPage(k, it);
     if (p) out.push(p);
@@ -5206,21 +5241,21 @@ function hskNums(run, i) {
 const hskNumText = ns => (ns.length > 1 ? `${ns[0]}–${ns[ns.length - 1]}` : String(ns[0]));
 
 /* an exercise: begun, paused, finished */
-function hskBegin(kind, k) {                       // a mock exam paused asks first: it would be lost
+function hskBegin(kind, k, g) {                    // a mock exam paused asks first: it would be lost
   const run = state.hskRun;
   if (run && !run.done && run.kind === "exam") {
-    $("#hsk-confirm").innerHTML = `<div class="confirm"><p>${esc(frTypo("L’examen blanc en pause sera abandonné. Commencer quand même ?"))}</p><div class="btnrow"><button type="button" class="btn danger" data-hsk="begin-yes" data-kind="${kind}" data-k="${k || ""}">Commencer</button><button type="button" class="btn" data-hsk="cancel">Garder l’examen blanc</button></div></div>`;
+    $("#hsk-confirm").innerHTML = `<div class="confirm"><p>${esc(frTypo("L’examen blanc en pause sera abandonné. Commencer quand même ?"))}</p><div class="btnrow"><button type="button" class="btn danger" data-hsk="begin-yes" data-kind="${kind}" data-k="${k || ""}" data-g="${esc(g || "")}">Commencer</button><button type="button" class="btn" data-hsk="cancel">Garder l’examen blanc</button></div></div>`;
     $("#hsk-confirm .confirm").scrollIntoView({ block: "nearest", behavior: "smooth" });
     return;
   }
-  hskStart(kind, k);
+  hskStart(kind, k, g);
 }
-function hskStart(kind, k) {
-  const pages = kind === "exam" ? HSK_KEYS.flatMap(x => hskPick(x, HSK_PARTS[x].n)) : hskPick(k, HSK_PRACTICE);
+function hskStart(kind, k, g) {
+  const pages = kind === "exam" ? HSK_KEYS.flatMap(x => hskPick(x, HSK_PARTS[x].n)) : hskPick(k, HSK_PRACTICE, g);
   if (!pages.length) { toast("Pas encore de question pour cette partie."); return; }
   let t = Date.now();
   while (state.hskLog.some(e => e.start === t)) t++;
-  state.hskRun = { kind, k: kind === "exam" ? pages[0].k : k, start: t, at: t, pages, ans: {}, i: 0, chk: [], sec: HSK_PARTS[pages[0].k].sec, ends: 0, left: 0, pause: false, done: false };
+  state.hskRun = { kind, k: kind === "exam" ? pages[0].k : k, ...(kind !== "exam" && g ? { g } : {}), start: t, at: t, pages, ans: {}, i: 0, chk: [], sec: HSK_PARTS[pages[0].k].sec, ends: 0, left: 0, pause: false, done: false };
   hskTime(state.hskRun);
   save(); renderHsk(true);
 }
@@ -5241,7 +5276,7 @@ function hskFinish() {
   const T = hskTally(run, hskCounted(run));
   if (!T.n) { state.hskRun = null; save(); renderHsk(); return; }   // a practice stopped before its first answer
   run.done = true; run.at = Date.now(); run.ends = 0; run.left = 0; run.pause = false;
-  const e = { start: run.start, at: run.at, k: run.kind === "exam" ? "exam" : run.k, ok: T.ok, ko: T.ko };
+  const e = { start: run.start, at: run.at, k: run.kind === "exam" ? "exam" : run.k, ...(run.g ? { g: run.g } : {}), ok: T.ok, ko: T.ko };
   if (run.kind === "exam") e.pts = hskPoints(run);
   state.hskLog = cleanHskLog([e, ...state.hskLog.filter(x => x.start !== run.start)]);
   save(); renderHsk();
@@ -5390,16 +5425,22 @@ function renderHskHome() {
     `<div class="btnrow">${paused ? `<button type="button" class="btn primary" data-hsk="resume">Reprendre l’examen blanc</button><button type="button" class="btn" data-hsk="drop">Abandonner</button>` : `<button type="button" class="btn primary" data-hsk="exam">Commencer un examen blanc</button>`}</div><div id="hsk-confirm"></div></div>`;
   h += `<div class="section"><h2>Par partie</h2><p class="sub">${esc(frTypo(`${HSK_PRACTICE} questions, chacune corrigée tout de suite ; celles que tu n’as pas encore faites d’abord.`))}</p><ul class="hsk-parts">` +
     HSK_KEYS.map(k => {
-      const P = HSK_PARTS[k], qs = hskPool(k).flatMap(it => hskQids({ k, id: it.id })), done = qs.filter(q => seen.has(q)).length, last = state.hskLog.find(e => e.k === k);
+      const P = HSK_PARTS[k], qs = hskPool(k).flatMap(it => hskQids({ k, id: it.id })), done = qs.filter(q => seen.has(q)).length, last = state.hskLog.find(e => e.k === k && !e.g);
       return `<li><button type="button" class="hsk-part" data-part="${k}"${qs.length ? "" : " disabled"}><span class="m"><span class="pz" lang="zh-Hans">${P.zh}</span><b>${esc(P.nom)}</b><small>${esc(frTypo(P.d))}</small></span>` +
         `<span class="r num">${last ? `${last.ok.length}/${last.ok.length + last.ko.length}` : ""}<small>${qs.length ? `${done} sur ${qs.length} faites` : k === "w2" && !listsReady ? "listes en chargement" : "aucune question"}</small></span></button></li>`;
     }).join("") + `</ul></div>`;
+  if (HSK_FICHES.size) h += `<div class="section"><h2>Ordre des mots</h2><p class="sub">${esc(frTypo("Une fiche par règle de grammaire, puis ses phrases à remettre dans l’ordre, comme au HSK (écriture, partie 1)."))}</p><ul class="hsk-parts">` +
+    [...HSK_FICHES.values()].map(f => {
+      const S = hskFicheStats(f.id, seen);
+      return `<li><button type="button" class="hsk-part" data-fiche="${esc(f.id)}"><span class="m"><span class="pz" lang="zh-Hans">${esc(f.tag)}</span><b>${hskFr(f.nom)}</b></span>` +
+        `<span class="r num">${S.last ? `${S.last.ok.length}/${S.last.ok.length + S.last.ko.length}` : ""}<small>${S.done} sur ${S.n} faites</small></span></button></li>`;
+    }).join("") + `</ul><div class="btnrow"><button type="button" class="btn" data-part="w1">Toutes les règles mélangées</button></div></div>`;
   const wm = state.settings.hskWrite;
   h += `<div class="section"><h2>Écriture, partie 2</h2><p class="explain" id="lbl-hskw" style="margin:0 0 10px">${esc(frTypo("À la main : tu dessines le caractère, comme sur le papier de l’examen. Au clavier : tu le choisis parmi des caractères qui se prononcent pareil, comme à l’examen sur ordinateur."))}</p>` +
     `<div class="seg opt" role="radiogroup" aria-labelledby="lbl-hskw">${[["main", "À la main"], ["clavier", "Au clavier"]].map(([v, t]) => `<button type="button" role="radio" data-hskw="${v}" aria-checked="${wm === v}">${t}</button>`).join("")}</div></div>`;
   if (state.hskLog.length) h += `<div class="section"><h2>Derniers résultats</h2><ul class="hsk-log">${state.hskLog.slice(0, 10).map(e => {
-    const sum = e.pts ? e.pts.reduce((a, b) => a + b, 0) : 0;
-    return `<li><b>${esc(e.k === "exam" ? "Examen blanc" : HSK_PARTS[e.k].nom)}</b><span class="num">${e.k === "exam" ? `${sum}/300` : `${e.ok.length}/${e.ok.length + e.ko.length}`}</span>` +
+    const sum = e.pts ? e.pts.reduce((a, b) => a + b, 0) : 0, f = e.g && HSK_FICHES.get(e.g);
+    return `<li><b>${esc(e.k === "exam" ? "Examen blanc" : HSK_PARTS[e.k].nom)}${f ? ` <span class="zh" lang="zh-Hans">${esc(f.tag)}</span>` : ""}</b><span class="num">${e.k === "exam" ? `${sum}/300` : `${e.ok.length}/${e.ok.length + e.ko.length}`}</span>` +
       `<small>${esc(frTypo(whenText(e.at) + (e.pts ? ` ; écoute ${e.pts[0]}, lecture ${e.pts[1]}, écriture ${e.pts[2]}${sum >= HSK_PASS ? " : réussi" : ""}` : "")))}</small></li>`;
   }).join("")}</ul></div>`;
   $("#hsk-home").innerHTML = h;
@@ -5408,7 +5449,7 @@ function renderHskPage(fresh) {
   // fresh: a page just opened (its recording plays, the view goes to its top); else redrawn after an answer
   const run = state.hskRun, p = run.pages[run.i], it = hskItem(p), P = HSK_PARTS[p.k], exam = run.kind === "exam";
   if (fresh) { hskQuiet(); hsk.heard = ""; }
-  $("#hsk-where").innerHTML = `<span class="zh" lang="zh-Hans">${P.zh}</span>${esc(P.nom + (exam ? " · examen blanc" : ""))}`;
+  $("#hsk-where").innerHTML = hskWhere(run) || `<span class="zh" lang="zh-Hans">${P.zh}</span>${esc(P.nom + (exam ? " · examen blanc" : ""))}`;
   const stop = $("#hsk-stop"); stop.hidden = false; stop.textContent = exam ? "Pause" : "Arrêter";
   const a = document.activeElement, sig = b => JSON.stringify({ ...b.dataset }), focus = a && $("#hsk-page").contains(a) && a.tagName === "BUTTON" ? sig(a) : null;
   $("#hsk-page").innerHTML = (it ? hskQHTML(run, p, it) : `<p class="explain">${esc("Cette question n’existe plus.")}</p>`) + hskNavHTML(run, p, it);
@@ -5470,7 +5511,8 @@ function hskNavHTML(run, p, it) {
   if (!exam) {
     if (run.chk.includes(i) || !it) return `<div class="btnrow"><button type="button" class="btn primary" data-hsk="next">${i === run.pages.length - 1 ? "Voir le résultat" : "Question suivante"}</button></div>`;
     return `<div class="btnrow">${P.group || p.k === "w1" ? `<button type="button" class="btn primary" data-hsk="check">Vérifier</button>` : ""}` +
-      `${p.k === "w1" ? `<button type="button" class="btn" data-hsk="clear">Effacer</button>` : ""}${p.k === "w2" ? `<button type="button" class="btn" data-hsk="idk">Je ne sais pas</button>` : ""}</div>`;
+      `${p.k === "w1" ? `<button type="button" class="btn" data-hsk="clear">Effacer</button>` : ""}${p.k === "w2" ? `<button type="button" class="btn" data-hsk="idk">Je ne sais pas</button>` : ""}` +
+      `${run.g && HSK_FICHES.has(run.g) ? `<button type="button" class="btn" data-fiche="${esc(run.g)}">La fiche</button>` : ""}</div>`;
   }
   if (P.sec === 0) return `<div class="btnrow"><button type="button" class="btn" data-hsk="next">Question suivante</button></div>`;
   const idx = run.pages.map((q, x) => x).filter(x => HSK_PARTS[run.pages[x].k].sec === run.sec);
@@ -5508,8 +5550,12 @@ function hskCorrHTML(run, p, it) {
     const mark = (z, n) => { const at = x.at - start(n); return at >= 0 && at < z.length ? esc(z.slice(0, at)) + `<mark>${esc(x.mot)}</mark>` + esc(z.slice(at + x.mot.length)) : esc(z); };
     return `<div class="hsk-gq">${hskT(x, mark)}${!hskEmpty(a) && a !== x.mot ? yours(`Ta réponse : ${a}`) : ""}</div>`;
   }).join("") + lbl("Les mots") + hskWordsHTML(it.mots);
-  if (p.k === "w1") return hskT(it) + (it.alt ? lbl("Juste aussi") + it.alt.map(s => `<p class="zh" lang="zh-Hans">${esc(s)}</p>`).join("") : "") +
-    (Array.isArray(mine) && mine.length && !hskRight(p, 0, mine) ? yours(`Ta phrase : ${mine.map(b => it.blocs[b]).join("")}`) : "");
+  if (p.k === "w1") {
+    const f = it.g && HSK_FICHES.get(it.g);
+    return hskT(it) + (it.alt ? lbl("Juste aussi") + it.alt.map(s => `<p class="zh" lang="zh-Hans">${esc(s)}</p>`).join("") : "") +
+      (Array.isArray(mine) && mine.length && !hskRight(p, 0, mine) ? yours(`Ta phrase : ${mine.map(b => it.blocs[b]).join("")}`) : "") +
+      (f ? `<p class="hsk-rule"><button type="button" class="btn small" data-fiche="${esc(f.id)}"><span>${esc(frTypo("La règle : "))}${hskFr(f.nom)}</span></button></p>` : "");   // (one flex item)
+  }
   if (p.k === "w2") return hskT({ zh: it.zh, py: it.w.ep, fr: it.w.ef }, z => esc(z.slice(0, it.at)) + `<mark>${esc(it.ch)}</mark>` + esc(z.slice(it.at + 1))) +
     (!hskEmpty(mine) && mine !== it.ch ? yours(`Ta réponse : ${mine}`) : "") + lbl("Le mot") + hskWordsHTML([it.w.h], it.w);
   return "";
@@ -5522,7 +5568,7 @@ function hskGist(p, it) {                          // a few characters of a ques
 function renderHskEnd() {
   const run = state.hskRun, exam = run.kind === "exam", pages = hskCounted(run), T = hskTally(run, pages), P = HSK_PARTS[run.k];
   hskQuiet();
-  $("#hsk-where").innerHTML = exam ? esc("Examen blanc") : `<span class="zh" lang="zh-Hans">${P.zh}</span>${esc(P.nom)}`;
+  $("#hsk-where").innerHTML = exam ? esc("Examen blanc") : hskWhere(run) || `<span class="zh" lang="zh-Hans">${P.zh}</span>${esc(P.nom)}`;
   $("#hsk-stop").hidden = true; $("#hsk-clock").hidden = true;
   let h = "";
   if (exam) {
@@ -5539,8 +5585,49 @@ function renderHskEnd() {
     const it = hskItem(p);
     return `<details class="hsk-miss"><summary>${hskNumText(hskNums(run, run.pages.indexOf(p)))}. ${esc(HSK_PARTS[p.k].nom)} <span class="zh" lang="zh-Hans">${esc(hskGist(p, it))}</span></summary>${hskCorrHTML(run, p, it)}</details>`;
   }).join("") : `<p class="explain">Aucune erreur.</p>`;
-  h += `<div class="btnrow">${exam ? "" : `<button type="button" class="btn primary" data-hsk="again">Encore ${HSK_PRACTICE} questions</button>`}<button type="button" class="btn${exam ? " primary" : ""}" data-hsk="home">Retour aux exercices</button></div>`;
+  const f = run.g && HSK_FICHES.get(run.g);
+  h += `<div class="btnrow">${exam ? "" : `<button type="button" class="btn primary" data-hsk="again">${f ? "Recommencer" : `Encore ${HSK_PRACTICE} questions`}</button>`}` +
+    `${f ? `<button type="button" class="btn" data-fiche="${esc(f.id)}">La fiche</button>` : ""}<button type="button" class="btn${exam ? " primary" : ""}" data-hsk="home">Retour aux exercices</button></div>`;
   $("#hsk-page").innerHTML = h;
+}
+
+/* word order: a fiche per rule ({id, tag, nom, schemas: [{slots: [[zh, role, 1 = the rule's]], zh, py, fr}], txt, ex,
+   pieges: [{ko, zh, py, fr}]}), its sentences those of writing 1 with g = its id */
+function hskFr(s) {                                // a French text of a fiche (**bold**), its Chinese in the Chinese font
+  return esc(frTypo(s)).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>")
+    .replace(/[㐀-鿿][㐀-鿿…、-〿！-？]*/g, m => `<span class="zh" lang="zh-Hans">${m}</span>`);
+}
+function hskFicheStats(id, seen = hskSeen()) {     // its sentences, those done, its last practice
+  const qs = hskPool("w1", id).map(it => it.id);
+  return { n: qs.length, done: qs.filter(q => seen.has(q)).length, last: state.hskLog.find(e => e.k === "w1" && e.g === id) || null };
+}
+function hskWhere(run) {                           // the top of a practice of a fiche: its words, its name
+  const f = run.g && HSK_FICHES.get(run.g);
+  return f ? `<span class="zh" lang="zh-Hans">${esc(f.tag)}</span><span class="fn">${hskFr(f.nom)}</span>` : "";
+}
+function hskFiche(id) {
+  // the fiche in a sheet: its pattern, its rule, examples (heard), mistakes; « S’entraîner » (or, an exercise under way:
+  // back to it)
+  const f = HSK_FICHES.get(id);
+  if (!f) return;
+  const tones = state.settings.toneColors ? " tones" : "", run = state.hskRun, busy = !!run && !run.done && !run.pause, S = hskFicheStats(id);
+  const say = t => (tts.ok ? `<button type="button" class="speak" data-fsay="${esc(t)}" aria-label="Écouter la phrase">${SPEAKER}</button>` : "");
+  let h = `<div class="fiche"><p class="fiche-tag" lang="zh-Hans">${esc(f.tag)}</p>` + (f.schemas || []).map(s => `<div class="fiche-schema"><div class="slots">${s.slots.map(([zh, r, on]) =>
+    `<span class="slot${on ? " on" : ""}"><span class="zh" lang="zh-Hans">${esc(zh)}</span>${r ? `<small>${esc(r)}</small>` : ""}</span>`).join("")}</div>` +
+    `${s.py ? `<p class="hsk-py${tones}">${pinyinHTML(s.py)}</p>` : ""}<p class="hsk-fr">${esc(frTypo(s.fr))}</p></div>`).join("");
+  h += (f.txt || []).map(p => `<p class="fiche-p">${hskFr(p)}</p>`).join("");
+  h += `<h3 class="exh">Exemples</h3>` + (f.ex || []).map(x => `<div class="fiche-ex">${hskT(x)}${say(x.zh)}</div>`).join("");
+  h += `<h3 class="exh">Attention</h3>` + (f.pieges || []).map(x => `<div class="fiche-trap"><p class="ko"><span class="mk" aria-hidden="true">×</span><span class="sr">Faux : </span><s class="zh" lang="zh-Hans">${esc(x.ko)}</s></p>` +
+    `<p class="ok"><span class="mk" aria-hidden="true">√</span><span class="sr">Juste : </span><span class="zh" lang="zh-Hans">${esc(x.zh)}</span></p><p class="hsk-fr">${hskFr(x.fr)}</p></div>`).join("");
+  h += `<h3 class="exh">S’entraîner</h3><p class="sub">${esc(frTypo(`${plural(S.n, "phrase", "phrases")} à remettre dans l’ordre, ${S.done ? `${S.done} déjà faite${S.done > 1 ? "s" : ""}` : "aucune encore faite"}` +
+    (S.last ? ` ; la dernière fois : ${S.last.ok.length} sur ${S.last.ok.length + S.last.ko.length}.` : ".")))}</p>` +
+    `<div class="btnrow">${busy ? `<button type="button" class="btn primary" data-fgo="">Retour à l’exercice</button>` : `<button type="button" class="btn primary" data-fgo="${esc(id)}"${S.n ? "" : " disabled"}>S’entraîner</button>`}</div></div>`;
+  openSheet(frTypo(f.nom), h, body => body.addEventListener("click", e => {
+    const b = e.target.closest("button");
+    if (!b) return;
+    if (b.dataset.fsay !== undefined) tts.say(b.dataset.fsay, b);
+    else if (b.dataset.fgo !== undefined) { closeSheet(); if (b.dataset.fgo) hskBegin("part", "w1", b.dataset.fgo); }
+  }), true);
 }
 
 /* answers and buttons */
@@ -5565,13 +5652,13 @@ function hskAnswer(b) {
 function hskAct(a, b) {
   const run = state.hskRun, p = run && !run.done ? run.pages[run.i] : null, box = id => $(id) || { innerHTML: "" };
   if (a === "exam") hskBegin("exam");
-  else if (a === "begin-yes") hskStart(b.dataset.kind, b.dataset.k || undefined);
+  else if (a === "begin-yes") hskStart(b.dataset.kind, b.dataset.k || undefined, b.dataset.g || undefined);
   else if (a === "cancel") box("#hsk-confirm").innerHTML = "";
   else if (a === "resume") hskResume();
   else if (a === "drop") box("#hsk-confirm").innerHTML = `<div class="confirm"><p>${esc(frTypo("Abandonner l’examen blanc ? Ses réponses ne seront pas gardées."))}</p><div class="btnrow"><button type="button" class="btn danger" data-hsk="drop-yes">Abandonner</button><button type="button" class="btn" data-hsk="cancel">Garder l’examen blanc</button></div></div>`;
   else if (a === "drop-yes" || a === "home") { state.hskRun = null; save(); renderHsk(); }
   else if (a === "reload") renderHsk();
-  else if (a === "again") hskStart("part", run.k);
+  else if (a === "again") hskStart("part", run.k, run.g);
   else if (!p) return;
   else if (a === "stop") { if (run.kind === "exam") hskPause(); else hskFinish(); }
   else if (a === "next") hskGo(1);
@@ -5612,6 +5699,7 @@ function bindHsk() {
     if (!b || b.disabled) return;
     const run = state.hskRun;
     if (b.dataset.part) hskBegin("part", b.dataset.part);
+    else if (b.dataset.fiche) hskFiche(b.dataset.fiche);
     else if (b.dataset.hskw) { state.settings.hskWrite = b.dataset.hskw; save(); renderHskHome(); }
     else if (b.dataset.hsk) hskAct(b.dataset.hsk, b);
     else if (b.dataset.go !== undefined && run) { run.i = +b.dataset.go; hskSaved(); renderHsk(true); }

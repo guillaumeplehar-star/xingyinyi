@@ -18,7 +18,7 @@ Ce que contient le dossier :
 | `decks/` | les listes de mots : c’est là que tu ajoutes et corriges des mots |
 | `decks/decks.json` | la liste des listes : nom, fichier, active ou non ; leur ordre est celui du premier tour |
 | `outils/decks.py` | vérifier une liste, ajouter un mot, compléter le pinyin |
-| `exos/hsk3.json`, `outils/exos.py` | les exercices au format du HSK 3 (onglet HSK), et l’outil qui en ajoute |
+| `exos/hsk3.json`, `outils/exos.py` | les exercices au format du HSK 3 et les fiches sur l’ordre des mots (onglet HSK), et l’outil qui en ajoute |
 | `fonts/` | polices LXGW WenKai et Andika (licence libre, voir `fonts/OFL.txt`) |
 | `CLAUDE.md`, `tests/`, `outils/version_appli.py` | pour faire évoluer l’appli avec Claude Code (section 9) |
 
@@ -168,8 +168,8 @@ et télécharge une voix de bonne qualité.
   il sera fini à ton rythme, le rythme à tenir avant l’examen, le nombre de mots dans chaque seau
   et les révisions prévues sur la semaine. C’est aussi là que tu lances un **apprentissage**, une **évaluation**, un
   **test complet**, un test **nouveau sens** ou un **entraînement libre** (section 5).
-- **HSK** : les questions du HSK 3, partie par partie ou en examen blanc chronométré (section 5,
-  « Les exercices HSK »).
+- **HSK** : les questions du HSK 3, partie par partie ou en examen blanc chronométré, et des fiches
+  sur l’ordre des mots avec leurs phrases à remettre dans l’ordre (section 5, « Les exercices HSK »).
 - **Affichage** : le **thème** (Automatique, qui suit le mode clair ou sombre de l’appareil, Cahier, Papier blanc,
   Sépia, Contraste élevé, Tableau noir, Nuit ; un aperçu montre l’effet), la **taille du texte** (petit à très grand :
   listes, fiches, réglages et textes de la carte ; l’en-tête et le menu gardent la leur), la **liste des mots
@@ -522,6 +522,18 @@ de l’examen, puis tu le touches parmi ceux que l’appli reconnaît (comme pou
 section 2) ; **Au clavier**, tu le choisis parmi des caractères qui se prononcent pareil, comme à
 l’examen sur ordinateur, où l’on tape le pinyin.
 
+**Ordre des mots** : une fiche par règle de grammaire, dans l’ordre où on les apprend : quand et où
+avant le verbe, les questions, les adverbes, la négation et les verbes modaux, les prépositions,
+plusieurs verbes à la suite, ce qui précise un nom, 了 过 着, 得, le résultat et la direction, la
+durée et le nombre de fois, 把, 被, la comparaison, 是……的, les mots qui vont par deux et les verbes
+séparables. Touche une règle : sa fiche montre une phrase type découpée en cases (en couleur, celles
+de la règle), l’explication, des exemples à écouter avec leur pinyin et leur traduction, et les
+fautes à éviter. **S’entraîner** lance dix phrases de cette règle à remettre dans l’ordre, celles
+que tu n’as pas encore faites d’abord ; **La fiche** la rouvre pendant l’exercice, et à la
+correction de toute phrase d’ordre des mots (examen blanc compris), **La règle** ouvre la sienne.
+**Toutes les règles mélangées** reprend la partie 1 de l’écriture. Chaque règle garde son dernier
+résultat et le nombre de ses phrases déjà faites.
+
 L’écoute passe par les voix chinoises de l’appareil : une voix d’homme et une de femme s’il en a
 deux, sinon la même voix plus grave ou plus aiguë. Sur l’iPhone, d’autres voix se téléchargent dans
 Réglages › Accessibilité › Contenu énoncé › Voix › Chinois. La vitesse est celle de Réglages › Voix.
@@ -531,15 +543,17 @@ donne le pinyin juste.
 Les exercices ne changent rien aux seaux. Les derniers résultats passent d’un appareil à l’autre
 avec la synchronisation (section 7.3) ; l’exercice en cours reste sur l’appareil où il a commencé.
 
-Les questions (184 au départ) sont originales, écrites avec les seuls caractères des niveaux 1 à 3.
-Pour en ajouter, écris un lot dans le format décrit en tête de `outils/exos.py`, puis :
+Les questions (360 au départ, dont 180 phrases à remettre dans l’ordre) et les 17 fiches sont
+originales, écrites avec les seuls caractères des niveaux 1 à 3. Pour en ajouter, ou pour ajouter une
+fiche et ses phrases, écris un lot dans le format décrit en tête de `outils/exos.py`, puis :
 
 ```powershell
 py outils\exos.py ajouter mon-lot.txt
 ```
 
-La commande ajoute le pinyin, contrôle tout (caractères, réponses, blocs) et écrit dans
-`exos/hsk3.json` ; publie ensuite comme pour une liste.
+La commande ajoute le pinyin, contrôle tout (caractères, réponses, blocs, phrases en double, fiches)
+et écrit dans `exos/hsk3.json` ; une fiche de même nom remplace l’ancienne. Publie ensuite comme pour
+une liste.
 
 
 ## 6. Ajouter une liste (par exemple le nouveau HSK 3.0)

@@ -77,10 +77,14 @@ def main():
         counts = {k: len(DATA[k]) for k in ("e2", "e3", "e4", "l1", "l2", "l3", "w1")}
         check(all(counts[k] >= 10 for k in ("e2", "e3", "e4", "l3")) and counts["l1"] >= 2 and counts["l2"] >= 2 and counts["w1"] >= 5,
               "exos/hsk3.json holds a mock exam at least", counts)
+        fiches = DATA["fiches"]
+        per = {f["id"]: sum(1 for x in DATA["w1"] if x.get("g") == f["id"]) for f in fiches}
+        check(len(fiches) >= 15 and min(per.values()) >= 5, "fiches of word order, five sentences each at least", per)
 
         print("home")
         open_hsk(page)
-        check(page.locator(".hsk-part").count() == 8, "eight parts (the listening without its pictures)", page.locator(".hsk-part").count())
+        check(page.locator(".hsk-part[data-part]").count() == 8, "eight parts (the listening without its pictures)", page.locator(".hsk-part[data-part]").count())
+        check(page.locator(".hsk-part[data-fiche]").count() == len(fiches), "a row per fiche of word order", page.locator(".hsk-part[data-fiche]").count())
         rows = nb(page.inner_text("#hsk-home .hsk-parts"))
         check("0 sur 30 faites" in rows and "Caractère d’après son pinyin" in rows, "each part with its questions done", rows[:200])
         check("Examen le" in nb(page.inner_text("#hsk-home")), "the exam's date and the days left", page.inner_text("#hsk-home")[:300])
@@ -234,6 +238,72 @@ def main():
         page.wait_for_selector("#hsk-page .hsk-score")
         page.click('#hsk-page [data-hsk="home"]')
 
+        print("word order: a fiche, then its sentences")
+        f = next(x for x in fiches if x["id"] == "ba")
+        mine = {x["id"] for x in DATA["w1"] if x.get("g") == "ba"}
+        page.click('.hsk-part[data-fiche="ba"]')
+        page.wait_for_selector("#sheet:not([hidden]) .fiche")
+        body = nb(page.inner_text("#sheet-body"))
+        check(nb(page.inner_text("#sheet-title")) == f["nom"], "the fiche's name on top", page.inner_text("#sheet-title"))
+        check(page.locator("#sheet-body .slot").count() == sum(len(s["slots"]) for s in f["schemas"]) and page.locator("#sheet-body .slot.on").count() >= 1,
+              "its pattern in boxes, the rule's marked", page.locator("#sheet-body .slot").count())
+        check(page.locator("#sheet-body .fiche-ex").count() == len(f["ex"]) and f["ex"][0]["py"].split(" ")[0] in body and f["ex"][0]["fr"].split(" ")[0] in body,
+              "its examples with their pinyin and translation", body[:200])
+        check(page.locator("#sheet-body .fiche-trap").count() == len(f["pieges"]) and page.locator("#sheet-body .fiche-trap s").first.inner_text() == f["pieges"][0]["ko"],
+              "its mistakes, struck out, then right")
+        check(page.locator("#sheet-body .fiche-p .zh").count() > 0, "the Chinese of its text in the Chinese font")
+        page.evaluate("() => { __said.length = 0; }")
+        page.click("#sheet-body .fiche-ex [data-fsay]")
+        check(page.evaluate("() => __said.map(s => s.text)") == [f["ex"][0]["zh"]], "an example heard", page.evaluate("() => __said"))
+        no_overflow(page, "fiche")
+        shot(page, "hsk-fiche")
+        page.click('#sheet-body [data-fgo="ba"]')
+        page.wait_for_selector("#hsk-run:not([hidden]) #hsk-page .hsk-pool")
+        run = page.evaluate("() => ({ g: state.hskRun.g, ids: state.hskRun.pages.map(p => p.id), k: state.hskRun.k })")
+        check(run["g"] == "ba" and run["k"] == "w1" and set(run["ids"]) <= mine and len(run["ids"]) == min(10, len(mine)),
+              "S’entraîner: ten sentences of this fiche only", run)
+        check(f["tag"] in page.inner_text("#hsk-where"), "the fiche on top of the practice", page.inner_text("#hsk-where"))
+        page.click('#hsk-page [data-fiche="ba"]')        # the fiche again, from the exercise
+        page.wait_for_selector("#sheet:not([hidden]) .fiche")
+        check(page.locator('#sheet-body [data-fgo=""]').inner_text() == "Retour à l’exercice", "from the exercise: back to it")
+        page.click('#sheet-body [data-fgo=""]')
+        check(page.is_hidden("#sheet") and page.evaluate("() => state.hskRun.i") == 0, "the exercise where it was")
+        c = page.evaluate(CUR)
+        order, rest = [], c["it"]["zh"].rstrip("。？！")
+        while rest:
+            b = next(i for i, x in enumerate(c["it"]["blocs"]) if rest.startswith(x) and i not in order)
+            order.append(b)
+            rest = rest[len(c["it"]["blocs"][b]):]
+        for b in order:
+            page.click('#hsk-page .bloc[data-in="%d"]' % b)
+        page.click('#hsk-page [data-hsk="check"]')
+        page.wait_for_selector("#hsk-page .hsk-corr")
+        check(page.inner_text("#hsk-page .hsk-verdict") == "Juste" and page.locator('#hsk-page .hsk-rule [data-fiche="ba"]').count() == 1,
+              "corrected, with the rule to see again")
+        page.click("#hsk-stop")
+        page.wait_for_selector("#hsk-page .hsk-score")
+        e = page.evaluate("() => state.hskLog[0]")
+        check(e["k"] == "w1" and e.get("g") == "ba" and e["ok"] == [c["id"]] and not e["ko"], "the result kept with its fiche", e)
+        check(page.locator('#hsk-page [data-hsk="again"]').inner_text() == "Recommencer" and page.locator('#hsk-page [data-fiche="ba"]').count() == 1,
+              "at the end: Recommencer, La fiche")
+        page.click('#hsk-page [data-hsk="again"]')
+        page.wait_for_selector("#hsk-page .hsk-pool")
+        again = page.evaluate("() => ({ g: state.hskRun.g, first: state.hskRun.pages.map(p => p.id) })")
+        check(again["g"] == "ba" and c["id"] not in again["first"], "Recommencer: the same fiche, the sentence done last", again)
+        page.click("#hsk-stop")
+        page.wait_for_selector("#hsk-home .hsk-part")
+        row = nb(page.inner_text('.hsk-part[data-fiche="ba"]'))
+        check("1/1" in row and ("1 sur %d faites" % len(mine)) in row, "the fiche shows its last score", row)
+        check(f["tag"] in page.inner_text("#hsk-home .hsk-log"), "the last results name the fiche", page.inner_text("#hsk-home .hsk-log")[:200])
+        w1row = nb(page.inner_text('.hsk-part[data-part="w1"]'))
+        own = page.evaluate("() => { const e = state.hskLog.find(e => e.k === 'w1' && !e.g); return e.ok.length + '/' + (e.ok.length + e.ko.length); }")
+        check(own in w1row and "2 sur %d faites" % len(DATA["w1"]) in w1row, "writing 1: its own last score, every sentence done", w1row)
+        page.click('#hsk-home [data-part="w1"].btn')    # every rule mixed
+        page.wait_for_selector("#hsk-page .hsk-pool")
+        check(page.evaluate("() => state.hskRun.g === undefined && state.hskRun.k === 'w1'"), "Toutes les règles mélangées: writing 1")
+        page.click("#hsk-stop")
+        page.wait_for_selector("#hsk-home .hsk-part")
+
         print("practice: a character from its pinyin, on the keyboard")
         page.click('[data-hskw="clavier"]')
         check(page.evaluate("() => state.settings.hskWrite") == "clavier", "Au clavier chosen")
@@ -377,12 +447,22 @@ def main():
             hskRun: { kind: 'part', pages: [{ k: 'nope', id: 'x' }] } });
             return [s.hskLog.length, s.hskLog.find(e => e.k === 'exam').pts, s.hskRun, s.settings.hskWrite]; }""")
         check(clean == [2, [100, 0, 0], None, "main"], "normalizeState cleans the results and the exercise", clean)
+        kept = page.evaluate("""() => { const s = normalizeState({ v: 2, sched: 1, settings: { delays: [1, 3] },
+            hskLog: [{ start: 5, k: 'w1', g: 'ba', ok: ['w1-002'], ko: [] }, { start: 6, k: 'e2', g: 'ba', ok: ['e2-001'], ko: [] }],
+            hskRun: { kind: 'part', k: 'w1', g: 'ba', pages: [{ k: 'w1', id: 'w1-002', perm: [1, 0, 2, 3] }] } });
+            return [s.hskLog.find(e => e.k === 'w1').g, 'g' in s.hskLog.find(e => e.k === 'e2'), s.hskRun.g]; }""")
+        check(kept == ["ba", False, "ba"], "the fiche kept in the results and the exercise (writing 1 only)", kept)
 
         print("dark theme, computer")
         page.evaluate("() => { state.settings.theme = 'dark'; applyLook(state.settings); }")
         start_part(page, "l3")
         shot(page, "hsk-texte-sombre")
         page.click("#hsk-stop")
+        page.wait_for_selector("#hsk-home .hsk-part")
+        page.click('.hsk-part[data-fiche="bi"]')
+        page.wait_for_selector("#sheet:not([hidden]) .fiche")
+        shot(page, "hsk-fiche-sombre")
+        page.keyboard.press("Escape")
         page.evaluate("() => { state.settings.theme = 'auto'; applyLook(state.settings); }")
         ctx.close()
 

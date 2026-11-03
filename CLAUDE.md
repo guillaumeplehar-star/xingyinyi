@@ -19,8 +19,8 @@ compilation : `index.html` contient tout le HTML, le CSS et le JavaScript. C'est
 | `fonts/` | Sous-ensembles de LXGW WenKai (police `"WK"`, environ 3 040 caractères : HSK 2.0 niveaux 1-6 et HSK 3.0) et d'Andika (police `"AndikaX"`, latin). Licence OFL. |
 | `decks/` | Les listes de mots : `decks.json` et un `.tsv` par liste. Source de vérité, modifiée par Guillaume, par toi, et par le téléphone (publication via l'API GitHub). |
 | `outils/decks.py` | `verifier` (renvois, mots définis deux fois…), `ajouter`, `completer` (pinyin automatique, demande pypinyin), `nouvelle-liste`. |
-| `exos/hsk3.json` | Exercices de l'onglet HSK, au format du HSK 3 (2.0) sans les images : parties `e2` (vrai ou faux), `e3`, `e4` (dialogues), `l1` (phrases qui vont ensemble, par 5), `l2` (mot à placer, 6 mots et 5 phrases), `l3` (petit texte), `w1` (ordre des mots) ; une question par ligne, chaque texte `{zh, py, fr}`. Questions originales, caractères HSK 1-3 seulement (plus 王). |
-| `outils/exos.py` | `verifier` (structure, caractères, réponses, blocs), `ajouter <lot.txt>` (lot rédigé au format décrit en tête du fichier : pinyin ajouté par `pinyin_auto`, contrôle, écriture de `exos/hsk3.json`), `completer` (pinyin manquant). |
+| `exos/hsk3.json` | Exercices de l'onglet HSK, au format du HSK 3 (2.0) sans les images : parties `e2` (vrai ou faux), `e3`, `e4` (dialogues), `l1` (phrases qui vont ensemble, par 5), `l2` (mot à placer, 6 mots et 5 phrases), `l3` (petit texte), `w1` (ordre des mots ; `g` : la fiche de la phrase), `fiches` (ordre des mots, une par règle : `{id, tag, nom, schemas: [{slots: [[zh, rôle, 1 = la règle]], zh, py, fr}], txt, ex, pieges: [{ko, zh, py, fr}]}`) ; une question ou une fiche par ligne, chaque texte `{zh, py, fr}`. Questions originales, caractères HSK 1-3 seulement (plus 王). |
+| `outils/exos.py` | `verifier` (structure, caractères, réponses, blocs, phrases en double, fiches : rubriques, cinq phrases au moins, `g` connu), `ajouter <lot.txt>` (lot rédigé au format décrit en tête du fichier, `## w1 <fiche>` et `## fiche <id>` compris, une fiche de même id remplacée : pinyin ajouté par `pinyin_auto`, contrôle, écriture de `exos/hsk3.json`), `completer` (pinyin manquant). Relire le pinyin produit (noms propres, 觉 de 睡觉, mots coupés). |
 | `outils/hsk/` | Production des listes HSK 4-6 (2.0) et HSK 1-6 (3.0, programme 2026) : sources sous licence MIT, `inventaire.py`, `lots.py`, `revue.py`, `controle.py`, `assembler.py`, `consignes.md` (rédaction et relecture par agents), `LISEZMOI.md` ; `travail/` est ignoré par git. |
 | `outils/pinyin_auto.py`, `lexique_*.tsv`, `syllabes.txt`, `caracteres_hsk1-3.txt` | Pinyin automatique aux conventions des manuels ; liste des caractères HSK 1-3. |
 | `outils/version_appli.py` | À lancer après toute modification de l'appli (voir plus bas). |
@@ -40,12 +40,12 @@ py tests\test_listes.py                # listes du téléphone, publication GitH
 py tests\test_dico.py                  # dictionnaire : renvois, mot de plusieurs listes, Afficher, partage, publication
 py tests\test_affichage.py             # Affichage : thèmes, taille du texte, police, grille, pinyin en chiffres, tons, animations
 py tests\test_dessin.py                # Mots : caractère dessiné (reconnaissance sans ordre des traits), au doigt et à la souris
-py tests\test_hsk.py                   # HSK : chaque partie, examen blanc (pause, reprise, temps), synchronisation des résultats, hors ligne
+py tests\test_hsk.py                   # HSK : chaque partie, fiches d'ordre des mots, examen blanc (pause, reprise, temps), synchronisation des résultats, hors ligne
 py tests\test_sync.py                  # deux appareils synchronisés par le serveur local (demande Node 22.13 ou plus)
 node tests\test_serveur_sync.mjs       # le serveur de synchronisation seul
 node outils\sync\serveur_local.mjs     # le serveur de synchronisation sur http://localhost:8787
 py outils\decks.py verifier            # contrôle de decks/
-py outils\exos.py verifier             # contrôle de exos/hsk3.json ; « ajouter <lot.txt> » pour un nouveau lot de questions
+py outils\exos.py verifier             # contrôle de exos/hsk3.json ; « ajouter <lot.txt> » pour un nouveau lot de questions ou de fiches
 py outils\version_appli.py             # après une modification de index.html, sw.js, des icônes ou des polices
 py outils\traits.py <graphics.txt>     # refaire traits/ (ordre des traits), ARPHICPL.TXT à côté de graphics.txt
 py outils\cles.py <dossier Unihan> <CJKRadicals.txt>   # refaire CLES (clés des caractères) dans index.html
@@ -362,11 +362,12 @@ l'iPhone : Réglages › Appli › Vérifier. Le téléphone peut lui aussi écr
   `#hsk-page`) : le HSK 3 (2.0) sans les images (écoute, partie 1). `HSK_PARTS` (par partie : section `sec` 0 écoute, 1
   lecture, 2 écriture, nom chinois et français, `n` questions à l'examen, `first` son premier numéro au HSK, `group` : cinq
   questions par page pour `l1`, `l2`), `HSK_KEYS` (défini avant `loadState`), `HSK_SECS` (temps : lecture 30 min, écriture
-  15, écoute au rythme de la voix). `hskLoad` (`exos/hsk3.json` une fois, `HSK`, `HSK_BY` par id). `w2` vient des listes
+  15, écoute au rythme de la voix). `hskLoad` (`exos/hsk3.json` une fois, `HSK`, `HSK_BY` par id, `HSK_FICHES`). `w2` vient des listes
   `hsk1`-`hsk3` : `w2Words`, `w2Make(w, c)` (le c-ième caractère du mot caché dans sa phrase, sa syllabe par `alignHan` sur
   `ep` ; pas d'un 儿 collé), `w2Same` (homophones au ton près, pour « Au clavier »). Une page `{k, id, perm (ordre des
   réponses ou des blocs à l'écran), c, cands}` (`hskPage`), ses questions `hskQids` (`id`, ou `id.0`…`id.4`), `hskItem`.
-  `hskPick(k, n)` : jamais posées d'abord, puis ratées la dernière fois (`hskSeen`, d'après `hskLog`), au hasard entre égales.
+  `hskPick(k, n, g)` : jamais posées d'abord, puis ratées la dernière fois (`hskSeen`, d'après `hskLog`), au hasard entre égales
+  (`g` : les phrases `w1` de la fiche `g` seulement, `hskPool(k, g)`).
   Réponses dans `run.ans` (`e2` booléen, `e3`/`e4`/`l3` indice de la réponse d'origine, `l1` indice de la paire, `l2` le mot,
   `w1` les indices des blocs dans l'ordre choisi, `w2` le caractère ; `""` : « Je ne sais pas ») ; `hskRight` (`w1` : la
   phrase ou une de ses `alt`, sans ponctuation finale), `hskTally`, `hskPoints` (chaque section sur 100). `state.hskRun`
@@ -385,7 +386,13 @@ l'iPhone : Réglages › Appli › Vérifier. Le téléphone peut lui aussi écr
   `renderHskPage`, `hskQHTML`, `hskNavHTML`, `hskCorrHTML` (texte entendu ou lu avec `hskT` : pinyin et traduction ligne à
   ligne ; mots de `l2` par `hskWordsHTML`/`hskWord`), `hskAnswer` (`l1`/`l2` : une lettre ne va qu'à une phrase), `hskAct`
   (`data-hsk`), `hskKey` (A, B, C ou 1, 2, 3 ; Entrée), `bindHsk`. `hskLog` (`cleanHskLog`, `HSK_LOG_MAX` = 200) :
-  `{start, at, k (partie ou "exam"), ok, ko, pts}`. Les exercices ne touchent pas aux seaux.
+  `{start, at, k (partie ou "exam"), g, ok, ko, pts}`. Les exercices ne touchent pas aux seaux. Ordre des mots : section
+  « Ordre des mots » de l'accueil (`.hsk-part[data-fiche]`, `hskFicheStats` : phrases faites, dernier résultat ; « Toutes
+  les règles mélangées » = `w1`), `hskFiche(id)` (feuille : `tag`, schémas en cases `.slot` (`.on` : la règle), `txt` par
+  `hskFr` (`**gras**`, le chinois dans la police chinoise), exemples écoutés (`data-fsay`), fautes `.fiche-trap`,
+  « S'entraîner » `data-fgo` → `hskBegin("part", "w1", g)`, ou « Retour à l'exercice » pendant un exercice) ; `run.g` et
+  `hskLog[].g` (`w1` seulement, gardés par `cleanHskRun`/`cleanHskLog`), `hskWhere` (en-tête), bouton « La fiche »
+  (`data-fiche`) pendant l'exercice et à la fin, « La règle » dans la correction de toute phrase `w1` qui a un `g`.
 - **Synchronisation des appareils** (Réglages › `#sync-box`, `renderSync`, `renderSyncStatus`, `syncJoin`, `copiesSheet`) :
   `docOf(state)` donne le document partagé (pris comme après un rechargement, `normalizeState` : ce qu'il complète n'est pas
   un changement ; tout sauf `DEVICE_SETTINGS` = `autoAudio`, `rate`, `theme`, `textSize`, `motion`, `compact`, `zhFont`, et sauf la `pause` de l'apprentissage (`sansPause`), le jeton GitHub ; `custom`, `lists`,

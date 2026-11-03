@@ -48,8 +48,24 @@ ligne vide, chaque texte suivi de « | » et de sa traduction ; les lignes qui c
     那家 / 宾馆 / 离机场 / 很远。 | Cet hôtel est loin de l’aéroport.
     ou …。
 
+    ## w1 ba                                (des phrases de la fiche « ba » : onglet HSK › Ordre des mots)
+
+Une fiche de grammaire sur l'ordre des mots (« ## fiche <id> », jusqu'au « ## » suivant ; une même id remplace la fiche) :
+
+    ## fiche ba
+    tag : 把                                (en tête de la fiche, en caractères)
+    nom : 把 : ce qu’on fait de quelque chose
+    schéma : 我 (sujet) / *把 / *门 (la chose) / 关 (verbe) / 上了 (résultat) | J’ai fermé la porte.
+    Un paragraphe d'explication, sur une ou plusieurs lignes ; **gras** ; une ligne vide entre deux paragraphes.
+    例 请把你的护照给我。 | Donne-moi ton passeport, s’il te plaît.
+    × 我把门关。 → 我把门关上了。 | Après 把, le verbe ne reste pas seul.
+
+(schéma : les cases d'une phrase, « * » pour celles de la règle, leur rôle entre parenthèses ; 例 : un exemple ; × : une
+faute, sa correction et pourquoi.)
+
 Contrôles : caractères du HSK 1 à 3 seulement (outils/caracteres_hsk1-3.txt, plus le nom de famille 王), structure de
-chaque partie, réponse unique et valide, blocs qui redonnent la phrase, pinyin et traduction présents.
+chaque partie, réponse unique et valide, blocs qui redonnent la phrase, phrase en double, pinyin et traduction présents ;
+fiches : rubriques présentes, cinq phrases au moins, et chaque phrase rattachée à une fiche qui existe.
 Sortie : une ligne par problème ; code 1 s'il y en a.
 """
 import io
@@ -82,19 +98,19 @@ def lexicon():
 
 def load():
     if not os.path.exists(FILE):
-        return {"v": 1, **{k: [] for k in PARTS}}
+        return {"v": 1, **{k: [] for k in PARTS + ["fiches"]}}
     data = json.load(io.open(FILE, encoding="utf-8"))
-    for k in PARTS:
+    for k in PARTS + ["fiches"]:
         data.setdefault(k, [])
     return data
 
 
 def dump(data):
-    # one question per line: a change shows as one line in git
-    out = ['{"v": %d,' % data.get("v", 1)]
-    for n, k in enumerate(PARTS):
+    # one question (or fiche) per line: a change shows as one line in git
+    out, keys = ['{"v": %d,' % data.get("v", 1)], PARTS + ["fiches"]
+    for n, k in enumerate(keys):
         rows = ["  " + json.dumps(it, ensure_ascii=False, separators=(",", ":")) for it in data.get(k, [])]
-        out.append(' "%s": [' % k + ("\n" + ",\n".join(rows) + "\n " if rows else "") + "]" + ("," if n < len(PARTS) - 1 else ""))
+        out.append(' "%s": [' % k + ("\n" + ",\n".join(rows) + "\n " if rows else "") + "]" + ("," if n < len(keys) - 1 else ""))
     out.append("}")
     os.makedirs(os.path.dirname(FILE), exist_ok=True)
     io.open(FILE, "w", encoding="utf-8", newline="\n").write("\n".join(out) + "\n")
@@ -224,33 +240,91 @@ def parse_block(part, lines, where):
     raise ValueError("partie inconnue : %s" % part)
 
 
+SLOT = re.compile(r"^(\*)?(.+?)(?:\s*\(([^()]+)\))?$")
+
+
+def parse_fiche(fid, lines, where):
+    # a grammar fiche: {id, tag, nom, schemas: [{slots: [[zh, role, 1 = the rule's]], zh, fr}], txt: [paragraphs],
+    # ex: [{zh, fr}], pieges: [{ko, zh (right), fr (why)}]}
+    f, para = {"id": fid, "tag": "", "nom": "", "schemas": [], "txt": [], "ex": [], "pieges": []}, []
+
+    def close():
+        if para:
+            f["txt"].append(" ".join(para))
+            para.clear()
+    for line in lines + [""]:
+        key = re.match(r"^(tag|nom|schéma)\s*:\s*(.+)$", line)
+        if not line:
+            close()
+        elif key:
+            close()
+            if key.group(1) == "schéma":
+                t = split_text(key.group(2), where)
+                slots = []
+                for s in t["zh"].split(" / "):
+                    m = SLOT.match(s.strip())
+                    slots.append([m.group(2).strip(), (m.group(3) or "").strip(), 1 if m.group(1) else 0])
+                f["schemas"].append({"slots": slots, "zh": "".join(s[0] for s in slots), "fr": t["fr"]})
+            else:
+                f[key.group(1)] = key.group(2).strip()
+        elif line.startswith("例 "):
+            close()
+            f["ex"].append(split_text(line[2:], where))
+        elif line.startswith("× "):
+            close()
+            t = split_text(line[2:], where)
+            if " → " not in t["zh"]:
+                raise ValueError("%s : « × faute → correction | pourquoi »" % where)
+            ko, ok = t["zh"].split(" → ", 1)
+            f["pieges"].append({"ko": ko.strip(), "zh": ok.strip(), "fr": t["fr"]})
+        else:
+            para.append(line)
+    return f
+
+
 def read_batch(path):
-    part, blocks, cur, start = None, [], [], 0
+    # [(part, item)]: a fiche is ("fiche", fiche); a sentence of writing 1 under « ## w1 <fiche> » gets g = the fiche
+    part, g, blocks, cur, start = None, None, [], [], 0
+
+    def close():
+        if cur:
+            blocks.append((part, g, list(cur), start))
+            cur.clear()
     for n, raw in enumerate(io.open(path, encoding="utf-8-sig"), 1):
         line = raw.strip()
         if line.startswith("##"):
-            if cur:
-                blocks.append((part, cur, start))
-                cur = []
-            part = line[2:].split()[0].strip()
-            if part not in PARTS:
-                raise ValueError("ligne %d : partie inconnue « %s » (%s)" % (n, part, " ".join(PARTS)))
+            close()
+            words = line[2:].split()
+            part, g = words[0], words[1] if len(words) > 1 else None
+            if part not in PARTS + ["fiche"] or (part == "fiche" and not g) or (g and part not in ("w1", "fiche")):
+                raise ValueError("ligne %d : « %s » : ## %s, ## w1 <fiche> ou ## fiche <id>" % (n, line, ", ## ".join(PARTS)))
+            start = n + 1
             continue
         if line.startswith("#"):
             continue
+        if part == "fiche":                         # a fiche: every line up to the next « ## », blank ones included
+            cur.append(line)
+            continue
         if not line:
-            if cur:
-                blocks.append((part, cur, start))
-                cur = []
+            close()
             continue
         if part is None:
             raise ValueError("ligne %d : « ## partie » manque avant la première question" % n)
         if not cur:
             start = n
         cur.append(line)
-    if cur:
-        blocks.append((part, cur, start))
-    return [(part, parse_block(part, lines, "%s, ligne %d" % (os.path.basename(path), start))) for part, lines, start in blocks]
+    close()
+    out = []
+    for part, g, lines, start in blocks:
+        where = "%s, ligne %d" % (os.path.basename(path), start)
+        if part == "fiche":
+            out.append(("fiche", parse_fiche(g, [x for x in lines], where)))
+            continue
+        it = parse_block(part, lines, where)
+        if g:
+            it["g"] = g
+        out.append((part, it))
+    return out
 
 
 def next_id(data, part):
@@ -327,6 +401,41 @@ def problems(data):
                         bad(it, "« %s » n'est pas fait des mêmes blocs" % a)
                 if len(set(blocs)) != len(blocs):
                     bad(it, "deux blocs identiques")
+                if it.get("g") is not None and it["g"] not in {f.get("id") for f in data.get("fiches", [])}:
+                    bad(it, "fiche « %s » inconnue" % it["g"])
+    met = {}
+    for it in data.get("w1", []):
+        if it.get("zh") in met:
+            bad(it, "même phrase que %s" % met[it["zh"]])
+        met.setdefault(it.get("zh"), it.get("id"))
+    fids = set()
+    for f in data.get("fiches", []):
+        fid = f.get("id", "")
+        if not re.match(r"^[a-z0-9-]+$", fid) or fid in fids:
+            bad(f, "identifiant de fiche manquant, invalide ou en double")
+        fids.add(fid)
+        for k in ("tag", "nom"):
+            if not f.get(k):
+                bad(f, "« %s » manque" % k)
+        if not f.get("schemas") or not f.get("txt") or len(f.get("ex", [])) < 2 or not f.get("pieges"):
+            bad(f, "il faut un schéma, un paragraphe, deux exemples et une faute au moins")
+        for s in f.get("schemas", []):
+            if len(s.get("slots", [])) < 2 or s.get("zh") != "".join(x[0] for x in s.get("slots", [])):
+                bad(f, "schéma « %s » : deux cases au moins, qui redonnent la phrase" % s.get("zh"))
+        loose = [f.get("tag", ""), f.get("nom", "")] + f.get("txt", []) + [p.get("ko", "") for p in f.get("pieges", [])] + \
+            [x[0] for s in f.get("schemas", []) for x in s.get("slots", [])]
+        odd = sorted({c for t in loose for c in t if HAN.match(c) and c not in chars})
+        if odd:
+            bad(f, "caractères hors du HSK 1-3 : %s" % "".join(odd))
+        for where, t in texts(f):
+            odd = sorted({c for c in t.get("zh", "") if HAN.match(c) and c not in chars})
+            if odd:
+                bad(f, "%s : caractères hors du HSK 1-3 : %s" % (where, "".join(odd)))
+            if not t.get("fr") or not t.get("py"):
+                bad(f, "%s : traduction ou pinyin manquant" % where)
+        n = sum(1 for it in data.get("w1", []) if it.get("g") == fid)
+        if n < 5:
+            bad(f, "%d phrase(s) seulement (## w1 %s) : cinq au moins" % (n, fid))
     return out
 
 
@@ -341,7 +450,7 @@ def cmd_verifier():
     out = problems(data)
     for line in out:
         print(line)
-    counts = ", ".join("%s %d" % (k, len(data[k])) for k in PARTS)
+    counts = ", ".join("%s %d" % (k, len(data[k])) for k in PARTS + ["fiches"])
     print("%s : %s ; %s" % (os.path.relpath(FILE, REPO), counts, "aucun problème" if not out else "%d problème(s)" % len(out)))
     return 1 if out else 0
 
@@ -350,6 +459,14 @@ def cmd_ajouter(path):
     data, lex = load(), lexicon()
     batch = read_batch(path)
     for part, it in batch:
+        if part == "fiche":                         # a fiche of the same id: replaced, at its place
+            fill_pinyin(it, lex)
+            at = next((i for i, f in enumerate(data["fiches"]) if f.get("id") == it["id"]), None)
+            if at is None:
+                data["fiches"].append(it)
+            else:
+                data["fiches"][at] = it
+            continue
         it = {"id": next_id(data, part), **it}
         fill_pinyin(it, lex)
         data[part].append(it)
@@ -366,7 +483,7 @@ def cmd_ajouter(path):
 
 def cmd_completer():
     data, lex = load(), lexicon()
-    n = sum(fill_pinyin(it, lex) for k in PARTS for it in data[k])
+    n = sum(fill_pinyin(it, lex) for k in PARTS + ["fiches"] for it in data[k])
     dump(data)
     print("pinyin rempli : %d texte(s)" % n)
     return cmd_verifier()
