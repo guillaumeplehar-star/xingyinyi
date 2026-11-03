@@ -18,6 +18,7 @@ Ce que contient le dossier :
 | `decks/` | les listes de mots : c’est là que tu ajoutes et corriges des mots |
 | `decks/decks.json` | la liste des listes : nom, fichier, active ou non ; leur ordre est celui du premier tour |
 | `outils/decks.py` | vérifier une liste, ajouter un mot, compléter le pinyin |
+| `exos/hsk3.json`, `outils/exos.py` | les exercices au format du HSK 3 (onglet HSK), et l’outil qui en ajoute |
 | `fonts/` | polices LXGW WenKai et Andika (licence libre, voir `fonts/OFL.txt`) |
 | `CLAUDE.md`, `tests/`, `outils/version_appli.py` | pour faire évoluer l’appli avec Claude Code (section 9) |
 
@@ -167,6 +168,8 @@ et télécharge une voix de bonne qualité.
   il sera fini à ton rythme, le rythme à tenir avant l’examen, le nombre de mots dans chaque seau
   et les révisions prévues sur la semaine. C’est aussi là que tu lances un **apprentissage**, une **évaluation**, un
   **test complet**, un test **nouveau sens** ou un **entraînement libre** (section 5).
+- **HSK** : les questions du HSK 3, partie par partie ou en examen blanc chronométré (section 5,
+  « Les exercices HSK »).
 - **Affichage** : le **thème** (Automatique, qui suit le mode clair ou sombre de l’appareil, Cahier, Papier blanc,
   Sépia, Contraste élevé, Tableau noir, Nuit ; un aperçu montre l’effet), la **taille du texte** (petit à très grand :
   listes, fiches, réglages et textes de la carte ; l’en-tête et le menu gardent la leur), la **liste des mots
@@ -481,6 +484,62 @@ le résultat seau par seau (« Nouveaux » pour les mots pas encore vus) et les 
 **S’entraîner librement** (dans Progrès ou à la fin de la file) mélange les mots déjà vus des
 listes actives (tous leurs mots s’il y en a moins de 5) : tes réponses ne changent rien aux
 seaux. Un mot raté revient à la fin de l’entraînement. **Arrêter** ramène à la file.
+
+### Les exercices HSK
+
+L’onglet **HSK** reprend l’examen du HSK 3 (format 2.0) sans ses questions à images (écoute,
+partie 1). Ses huit parties :
+
+| Partie | Ce que tu fais |
+|---|---|
+| 听力 2, vrai ou faux | tu entends une phrase ; une autre, écrite après ★, est-elle juste ? |
+| 听力 3, dialogue court | deux répliques puis une question, entendues ; tu choisis la réponse A, B ou C |
+| 听力 4, dialogue long | de même, avec quatre ou cinq répliques |
+| 阅读 1, phrases qui vont ensemble | cinq phrases et leurs cinq réponses mélangées : une lettre par phrase |
+| 阅读 2, mot à placer | six mots, cinq phrases ou petits dialogues à trou : un mot par trou, un mot reste |
+| 阅读 3, petit texte | un texte court, une question après ★, trois réponses |
+| 书写 1, ordre des mots | tu touches les blocs dans l’ordre de la phrase (touche un bloc placé pour le retirer) |
+| 书写 2, caractère d’après son pinyin | une phrase d’exemple des listes HSK 1 à 3, un caractère caché sous son pinyin |
+
+**Par partie** : dix questions, celles que tu n’as jamais faites d’abord, puis celles ratées la
+dernière fois. Chacune est corrigée tout de suite : la bonne réponse, et tout le texte entendu ou
+lu, avec son pinyin et sa traduction. À l’écoute, l’enregistrement passe une fois ; **Réécouter**
+le repasse. **Arrêter** montre le résultat des questions déjà faites. Au clavier de l’ordinateur :
+A, B, C (ou 1, 2, 3) pour répondre, Entrée pour la question suivante.
+
+**Examen blanc** : les trois parties à la suite, avec les numéros du HSK (11 à 80). L’écoute passe
+chaque enregistrement deux fois, laisse 8 secondes pour répondre, puis passe d’elle-même à la
+question suivante. La lecture dure 30 minutes et l’écriture 15 : tu vas d’une question à l’autre,
+la grille des numéros montre celles auxquelles tu as répondu, et **Finir la lecture** passe à
+l’écriture sans attendre la fin du temps. Pas de correction avant la fin : chaque partie est alors
+notée sur 100 (sans les 10 questions à images), il faut 180 points sur 300 pour réussir, et
+**À revoir** déplie la correction de chaque question ratée. **Pause** arrête l’examen et son temps ;
+il s’arrête aussi quand tu changes d’onglet ou quittes l’appli. **Reprendre l’examen blanc** le
+continue, même après avoir fermé l’appli.
+
+**Écriture, partie 2** : **À la main**, tu dessines le caractère dans la case, comme sur le papier
+de l’examen, puis tu le touches parmi ceux que l’appli reconnaît (comme pour chercher en dessinant,
+section 2) ; **Au clavier**, tu le choisis parmi des caractères qui se prononcent pareil, comme à
+l’examen sur ordinateur, où l’on tape le pinyin.
+
+L’écoute passe par les voix chinoises de l’appareil : une voix d’homme et une de femme s’il en a
+deux, sinon la même voix plus grave ou plus aiguë. Sur l’iPhone, d’autres voix se téléchargent dans
+Réglages › Accessibilité › Contenu énoncé › Voix › Chinois. La vitesse est celle de Réglages › Voix.
+Une voix de synthèse lit parfois mal un caractère à plusieurs lectures (还, 得…) : la correction
+donne le pinyin juste.
+
+Les exercices ne changent rien aux seaux. Les derniers résultats passent d’un appareil à l’autre
+avec la synchronisation (section 7.3) ; l’exercice en cours reste sur l’appareil où il a commencé.
+
+Les questions (184 au départ) sont originales, écrites avec les seuls caractères des niveaux 1 à 3.
+Pour en ajouter, écris un lot dans le format décrit en tête de `outils/exos.py`, puis :
+
+```powershell
+py outils\exos.py ajouter mon-lot.txt
+```
+
+La commande ajoute le pinyin, contrôle tout (caractères, réponses, blocs) et écrit dans
+`exos/hsk3.json` ; publie ensuite comme pour une liste.
 
 
 ## 6. Ajouter une liste (par exemple le nouveau HSK 3.0)

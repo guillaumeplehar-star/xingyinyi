@@ -9,7 +9,8 @@
 
 Le service worker change donc dès que l'appli change : les téléphones affichent alors
 « Nouvelle version de l'appli prête » au lieu de garder l'ancienne copie.
-Inutile après une simple modification des listes de mots (decks/) : elles se mettent à jour seules.
+Inutile après une simple modification des listes de mots (decks/) ou des exercices HSK (exos/) : ils se mettent
+à jour seuls.
 """
 import hashlib
 import json
@@ -54,7 +55,9 @@ def main():
     fonts = sorted("fonts/" + f for f in os.listdir(os.path.join(ROOT, "fonts")) if f.endswith(".woff2"))
     config = json.loads(read(os.path.join(ROOT, "decks", "decks.json")))
     decks = ["decks/decks.json"] + ["decks/" + l["fichier"] for l in config.get("listes", []) if l.get("fichier")]
-    extra = fonts + list(dict.fromkeys(decks))
+    folder = os.path.join(ROOT, "exos")             # les exercices HSK (onglet HSK)
+    exos = sorted("exos/" + f for f in os.listdir(folder) if f.endswith(".json")) if os.path.isdir(folder) else []
+    extra = fonts + list(dict.fromkeys(decks)) + exos
     missing = [rel for rel in core if not os.path.exists(os.path.join(ROOT, rel))]
     if missing:
         sys.exit("Fichiers de l'appli introuvables : " + ", ".join(missing))

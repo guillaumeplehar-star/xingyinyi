@@ -55,7 +55,7 @@ def main():
         page.goto(url)
         wait_ready(page)
         tabs = page.evaluate("() => [...document.querySelectorAll('.tab')].map(t => t.dataset.view)")
-        check(tabs == ["study", "words", "progress", "display", "settings"], "a fifth tab, Affichage, before Réglages", tabs)
+        check(tabs == ["study", "words", "progress", "hsk", "display", "settings"], "Affichage before Réglages, after HSK", tabs)
         bar = page.evaluate("() => [...document.querySelectorAll('.tab')].map(t => { const b = t.getBoundingClientRect(); return [b.left, b.right, t.scrollWidth <= t.clientWidth]; })")
         check(all(b[2] for b in bar) and bar[-1][1] <= 390, "the five tabs fit the phone's width", bar)
         look = page.evaluate(LOOK_JS)

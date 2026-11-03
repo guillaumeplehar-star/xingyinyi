@@ -19,13 +19,15 @@ compilation : `index.html` contient tout le HTML, le CSS et le JavaScript. C'est
 | `fonts/` | Sous-ensembles de LXGW WenKai (police `"WK"`, environ 3 040 caractères : HSK 2.0 niveaux 1-6 et HSK 3.0) et d'Andika (police `"AndikaX"`, latin). Licence OFL. |
 | `decks/` | Les listes de mots : `decks.json` et un `.tsv` par liste. Source de vérité, modifiée par Guillaume, par toi, et par le téléphone (publication via l'API GitHub). |
 | `outils/decks.py` | `verifier` (renvois, mots définis deux fois…), `ajouter`, `completer` (pinyin automatique, demande pypinyin), `nouvelle-liste`. |
+| `exos/hsk3.json` | Exercices de l'onglet HSK, au format du HSK 3 (2.0) sans les images : parties `e2` (vrai ou faux), `e3`, `e4` (dialogues), `l1` (phrases qui vont ensemble, par 5), `l2` (mot à placer, 6 mots et 5 phrases), `l3` (petit texte), `w1` (ordre des mots) ; une question par ligne, chaque texte `{zh, py, fr}`. Questions originales, caractères HSK 1-3 seulement (plus 王). |
+| `outils/exos.py` | `verifier` (structure, caractères, réponses, blocs), `ajouter <lot.txt>` (lot rédigé au format décrit en tête du fichier : pinyin ajouté par `pinyin_auto`, contrôle, écriture de `exos/hsk3.json`), `completer` (pinyin manquant). |
 | `outils/hsk/` | Production des listes HSK 4-6 (2.0) et HSK 1-6 (3.0, programme 2026) : sources sous licence MIT, `inventaire.py`, `lots.py`, `revue.py`, `controle.py`, `assembler.py`, `consignes.md` (rédaction et relecture par agents), `LISEZMOI.md` ; `travail/` est ignoré par git. |
 | `outils/pinyin_auto.py`, `lexique_*.tsv`, `syllabes.txt`, `caracteres_hsk1-3.txt` | Pinyin automatique aux conventions des manuels ; liste des caractères HSK 1-3. |
 | `outils/version_appli.py` | À lancer après toute modification de l'appli (voir plus bas). |
 | `traits/`, `outils/traits.py` | Ordre des traits : `00.json`…`31.json` (caractère rangé par code % 32 → contours SVG des traits et lignes médianes, repère 1024 × 1024, y vers le haut, base à 900), `index.json` (version `v`), `ARPHICPL.TXT` (licence Arphic Public License, à garder telle quelle). Produits par `py outils\traits.py <graphics.txt>` depuis Make Me a Hanzi (github.com/skishore/makemeahanzi, fichier non gardé dans le dépôt) pour les caractères de `COVER`. |
 | `outils/cles.py` | Clés (部首) des caractères pour la recherche par clé : lit la base Unihan d'Unicode (`Unihan.zip` et `CJKRadicals.txt` de unicode.org, non gardés dans le dépôt ; licence Unicode) et réécrit la ligne `const CLES = …;` de `index.html` pour les caractères de `COVER` et de `decks/` ; le nombre de traits d'un caractère vient de `traits/` (Unihan compte 艹, 辶… comme les formes anciennes : 草 10 au lieu de 9), sinon traits de la clé + traits restants. Formes de côté (`FORMS` : 亻 pour 人…) et traits des formes simplifiées (`STROKES` : 艹 3, 辶 3, 阝 2…) fixés dans l'outil. |
 | `outils/sync/` | Serveur de synchronisation des appareils : `worker.mjs` (Cloudflare Worker + base D1 liée sous le nom `DB`, un document versionné par code, 409 sur une version dépassée, une copie par jour, 30 au plus), `serveur_local.mjs` (le même avec `node:sqlite`, pour les tests et pour essayer), `LISEZMOI.md` (adresses ; mise en place : `LISEZMOI.md` principal, section 7.4). |
-| `tests/` | Tests Playwright (`test_seance.py`, `test_seaux.py`, `test_listes.py`, `test_dico.py`, `test_affichage.py` (onglet Affichage), `test_dessin.py` (recherche en dessinant et par clé), `test_sync.py` deux appareils et le serveur local, avec le test et l'apprentissage partagés, aides communes dans `commun.py`) et `test_serveur_sync.mjs` (le serveur seul, Node) ; `tests/donnees/decks` est une copie figée des listes d'origine, avec les anciens champs `mode`/`parJour` (ne pas la synchroniser avec `decks/` ni la modifier). |
+| `tests/` | Tests Playwright (`test_seance.py`, `test_seaux.py`, `test_listes.py`, `test_dico.py`, `test_affichage.py` (onglet Affichage), `test_dessin.py` (recherche en dessinant et par clé), `test_hsk.py` (onglet HSK, voix factice), `test_sync.py` deux appareils et le serveur local, avec le test et l'apprentissage partagés, aides communes dans `commun.py`) et `test_serveur_sync.mjs` (le serveur seul, Node) ; `tests/donnees/decks` est une copie figée des listes d'origine, avec les anciens champs `mode`/`parJour` (ne pas la synchroniser avec `decks/` ni la modifier). |
 | `LISEZMOI.md` | Guide de l'utilisateur, en français. À tenir à jour quand une fonction visible change. |
 
 ## Commandes (PowerShell : une commande par ligne, pas de `&&`)
@@ -38,10 +40,12 @@ py tests\test_listes.py                # listes du téléphone, publication GitH
 py tests\test_dico.py                  # dictionnaire : renvois, mot de plusieurs listes, Afficher, partage, publication
 py tests\test_affichage.py             # Affichage : thèmes, taille du texte, police, grille, pinyin en chiffres, tons, animations
 py tests\test_dessin.py                # Mots : caractère dessiné (reconnaissance sans ordre des traits), au doigt et à la souris
+py tests\test_hsk.py                   # HSK : chaque partie, examen blanc (pause, reprise, temps), synchronisation des résultats, hors ligne
 py tests\test_sync.py                  # deux appareils synchronisés par le serveur local (demande Node 22.13 ou plus)
 node tests\test_serveur_sync.mjs       # le serveur de synchronisation seul
 node outils\sync\serveur_local.mjs     # le serveur de synchronisation sur http://localhost:8787
 py outils\decks.py verifier            # contrôle de decks/
+py outils\exos.py verifier             # contrôle de exos/hsk3.json ; « ajouter <lot.txt> » pour un nouveau lot de questions
 py outils\version_appli.py             # après une modification de index.html, sw.js, des icônes ou des polices
 py outils\traits.py <graphics.txt>     # refaire traits/ (ordre des traits), ARPHICPL.TXT à côté de graphics.txt
 py outils\cles.py <dossier Unihan> <CJKRadicals.txt>   # refaire CLES (clés des caractères) dans index.html
@@ -53,7 +57,9 @@ dans la console ; captures d'écran dans `tests/sortie/captures` (ignoré par gi
 
 `version_appli.py` met à jour `const BUILD` (date affichée dans Réglages) et `VERSION` dans `sw.js`.
 Sans lui, les téléphones gardent l'ancienne version en cache sans afficher « Nouvelle version prête ».
-Une simple modification de `decks/` n'en a pas besoin : l'appli relit les listes à l'ouverture.
+Il réécrit aussi `EXTRA` de `sw.js` (polices, fichiers de `decks.json`, `exos/*.json` : gardés hors ligne dès l'installation).
+Une simple modification de `decks/` ou de `exos/` n'en a pas besoin : l'appli relit les listes à l'ouverture, et
+les exercices à la première ouverture de l'onglet HSK (réseau d'abord).
 
 Publier : `git add -A`, `git commit -m "…"`, `git push` ; GitHub Pages met une à deux minutes. Sur
 l'iPhone : Réglages › Appli › Vérifier. Le téléphone peut lui aussi écrire dans le dépôt : fais
@@ -89,7 +95,8 @@ l'iPhone : Réglages › Appli › Vérifier. Le téléphone peut lui aussi écr
   (`{v, doc}` : le dernier document échangé avec le serveur, base de la fusion), `xingyinyi.sync-pending` (empreintes
   `docHash` des derniers envois : un envoi reçu par le serveur dont la réponse s'est perdue devient la base, `ours`), `xingyinyi.avant-seaux` (`KEY_OLD` : copie brute de l'état d'avant les seaux, écrite une seule fois par
   `loadState` lors de la migration, lue par aucun code ; à garder pour pouvoir récupérer l'ancienne progression).
-- **État** : `{v:2, sched:1, settings, cards, edits, custom, lists, tel, listEdits, sent, decks, log, moved, test, learn, learnLog, ended}`. `custom` :
+- **État** : `{v:2, sched:1, settings, cards, edits, custom, lists, tel, listEdits, sent, decks, log, moved, test, learn, learnLog, ended, hskLog, hskRun}`
+  (les deux derniers : onglet HSK, `cleanHskLog`, `cleanHskRun`, voir Exercices HSK). `custom` :
   mots créés sur le téléphone (définitions, ids `u-…` ; `c` copié pour l'ordinateur, `m` corrigé, en ms) ; `lists` :
   listes du téléphone `{id, nom, ids}` ; `tel` : ids de « Ajoutés ici » ; `listEdits[id] = {add, del}` : mots ajoutés à
   une liste de decks/ non figée ou retirés, en attente de publication ; `sent[id]` : ids qu'une liste du téléphone a
@@ -100,7 +107,8 @@ l'iPhone : Réglages › Appli › Vérifier. Le téléphone peut lui aussi écr
   dernier seau, `topBucket()` ; 1 à 9 délais), `evalSize` (mots par évaluation et par test « nouveau sens »,
   20, de 5 à 100), `learnSize` (mots par apprentissage, 20, de 5 à 50),
   `startFace`, `autoAudio`, `rate`, `toneColors`, `exDetails` (traduction de l'exemple ouverte d'office
-  sous la carte), `exOnForm` (phrase sur les faces : caractères sur 形, pinyin sur 音 ; le nom est resté), `exam` ; Affichage :
+  sous la carte), `exOnForm` (phrase sur les faces : caractères sur 形, pinyin sur 音 ; le nom est resté), `exam`, `hskWrite`
+  (HSK, écriture partie 2 : `main` dessinée, `clavier` choisie parmi des homophones) ; Affichage :
   `theme` (`auto`, `light` Cahier, `paper`, `sepia`, `contrast`, `dark` Tableau noir, `night`), `textSize` (`s`, `m`, `l`,
   `xl`), `zhFont` (`kai`, `hei`, `song`), `grid` (`tian`, `mi`, `none`), `pinyinNum`, `tonePalette` (`app`, `pleco`, `mdbg` ;
   « Aucune » = `toneColors` faux), `motion` (`auto`, `full`, `reduce`), `compact` ; `normalizeState` remet une valeur inconnue
@@ -243,7 +251,7 @@ l'iPhone : Réglages › Appli › Vérifier. Le téléphone peut lui aussi écr
   chaque caractère : `alignHan`, un 儿 collé en …r partage celle d'avant),
   boutons `[data-say]` « Mot » et `[data-say-ex]` « Phrase », ou « Écouter » seul sans exemple), bandeau 例
   (`slipHTML`, `renderSlip`, `revealSlip` ; en révision il montre la phrase en caractères et, sous
-  « Traduction », sa traduction seulement ; la fiche du mot, mode `full`, y ajoute le pinyin), vues `study`/`words`/`progress`/`display`/`settings`,
+  « Traduction », sa traduction seulement ; la fiche du mot, mode `full`, y ajoute le pinyin), vues `study`/`words`/`progress`/`hsk`/`display`/`settings`,
   bouton ＋ de l'en-tête (`#btn-new`) et recherche sans résultat → `addSheet` (`prefillFrom`),
   feuilles (`openSheet`, `wordSheet` qui indique le seau), `toast(msg, ms, hold)` (applique `frTypo` ; `hold` garde un message important
   à l'écran, le dernier message arrivé entre-temps s'affiche ensuite).
@@ -323,8 +331,9 @@ l'iPhone : Réglages › Appli › Vérifier. Le téléphone peut lui aussi écr
   retournées et liées : `test_dessin.py` mesure le résultat (le bon caractère premier, ou parmi les dix). Case `pad` en `<canvas>`
   (`#pad` ; un SVG rendait l'iPhone tout blanc dès le premier toucher) : `padInk` (canvas à la taille de la case en pixels de
   l'écran, encre du thème = `color` de `#pad`, trait de 2,8 % de la case), `padLine` (un trait, ou pendant le geste sa seule
-  partie nouvelle ; un point seul : un rond), `padDraw` (tout redessiné ; aussi par un `ResizeObserver` et, au changement de
-  thème, un `MutationObserver` sur `data-theme`/`data-mode`) ; `strokes` en fractions de la case ; `at` rend null si la case
+  partie nouvelle ; un point seul : un rond), `padDraw(c, P)` (tout redessiné ; aussi par un `ResizeObserver` et, au changement de
+  thème, un `MutationObserver` sur `data-theme`/`data-mode`, pour `#pad` et `#hsk-pad`) ; `bindDraw(c, P, onEnd)` : les gestes,
+  partagés avec la case de l'écriture du HSK (`hsk.pad`) ; `strokes` en fractions de la case ; `at` rend null si la case
   n'a pas de taille ; `touchmove` sans défilement (Safari) ; `strokes`, `cur`, `id` : un seul doigt à
   la fois, un `pointercancel` n'en laisse rien ; `seq`/`shown` : dernière proposition affichée), `padDraw`, `padGuess`
   (« Chargement… » tant que les formes ne sont pas prêtes), `padClear`, `padOpen`, `bindPad`. Un caractère touché remplace
@@ -349,10 +358,38 @@ l'iPhone : Réglages › Appli › Vérifier. Le téléphone peut lui aussi écr
   la ligne médiane de chaque trait découpée par son contour, `.ta` ; une case par étape, `use.t-done`/`t-new`/`t-todo`),
   `traceTraits` (« Animer » : `strokeDashoffset` trait après trait, rien si mouvement réduit), `prefetchTraits` (5 s
   après le démarrage, en ligne : les 32 paquets, de nouveau quand `index.json` change de version).
+- **Exercices HSK** (onglet `hsk`, `#view-hsk` : `#hsk-home`, `#hsk-run` avec `#hsk-where`, `#hsk-clock`, `#hsk-stop`,
+  `#hsk-page`) : le HSK 3 (2.0) sans les images (écoute, partie 1). `HSK_PARTS` (par partie : section `sec` 0 écoute, 1
+  lecture, 2 écriture, nom chinois et français, `n` questions à l'examen, `first` son premier numéro au HSK, `group` : cinq
+  questions par page pour `l1`, `l2`), `HSK_KEYS` (défini avant `loadState`), `HSK_SECS` (temps : lecture 30 min, écriture
+  15, écoute au rythme de la voix). `hskLoad` (`exos/hsk3.json` une fois, `HSK`, `HSK_BY` par id). `w2` vient des listes
+  `hsk1`-`hsk3` : `w2Words`, `w2Make(w, c)` (le c-ième caractère du mot caché dans sa phrase, sa syllabe par `alignHan` sur
+  `ep` ; pas d'un 儿 collé), `w2Same` (homophones au ton près, pour « Au clavier »). Une page `{k, id, perm (ordre des
+  réponses ou des blocs à l'écran), c, cands}` (`hskPage`), ses questions `hskQids` (`id`, ou `id.0`…`id.4`), `hskItem`.
+  `hskPick(k, n)` : jamais posées d'abord, puis ratées la dernière fois (`hskSeen`, d'après `hskLog`), au hasard entre égales.
+  Réponses dans `run.ans` (`e2` booléen, `e3`/`e4`/`l3` indice de la réponse d'origine, `l1` indice de la paire, `l2` le mot,
+  `w1` les indices des blocs dans l'ordre choisi, `w2` le caractère ; `""` : « Je ne sais pas ») ; `hskRight` (`w1` : la
+  phrase ou une de ses `alt`, sans ponctuation finale), `hskTally`, `hskPoints` (chaque section sur 100). `state.hskRun`
+  (`cleanHskRun` ; propre à l'appareil, hors du document partagé, gardé par `stateFromDoc` et par `reloadState` quand l'onglet
+  HSK est à l'écran) : `kind` `part` (dix questions, `HSK_PRACTICE`, chacune corrigée tout de suite, `chk` ; `l1`, `l2`, `w1`
+  par « Vérifier ») ou `exam` (`hskStart` : toutes les parties dans l'ordre du HSK ; écoute : chaque enregistrement deux fois,
+  `HSK_WAIT` pour répondre, question suivante d'elle-même ; lecture et écriture : `ends`, `hskClock` chaque seconde, page
+  libre dans la section, grille `.hsk-sheet` (classe `fait`, pas `done`, déjà prise), « Finir la lecture » `hskNextSec`) ;
+  `hskPause` (examen seulement : `left`, au moins 1 ms) quand on quitte l'onglet (`showView`) ou l'appli (`visibilitychange`),
+  `hskResume`, `hskFinish` (une ligne de `hskLog`, `done` : `renderHskEnd`, corrections repliées). `hskSpeak` (voix de
+  l'appareil : `hskVoices`, homme `MALE_VOICE`, femme `tts.voice` ; sans l'une, l'autre plus grave ou plus aiguë par
+  `pitch` ; `said` garde les énoncés, une garde de temps si leur fin se perd), `hskListen` (examen deux fois, exercice une,
+  « Réécouter »), `hsk.tok` (une page ou un enregistrement remplacé n'agit plus), `hskQuiet`, `hsk.pace` (facteur de toutes
+  les attentes : les tests le réduisent). Sans voix (`tts.ok` faux), le texte s'affiche. `renderHsk(fresh)` (`fresh` : page
+  qui s'ouvre, son enregistrement part ; sinon redessinée après une réponse, le focus clavier gardé), `renderHskHome`,
+  `renderHskPage`, `hskQHTML`, `hskNavHTML`, `hskCorrHTML` (texte entendu ou lu avec `hskT` : pinyin et traduction ligne à
+  ligne ; mots de `l2` par `hskWordsHTML`/`hskWord`), `hskAnswer` (`l1`/`l2` : une lettre ne va qu'à une phrase), `hskAct`
+  (`data-hsk`), `hskKey` (A, B, C ou 1, 2, 3 ; Entrée), `bindHsk`. `hskLog` (`cleanHskLog`, `HSK_LOG_MAX` = 200) :
+  `{start, at, k (partie ou "exam"), ok, ko, pts}`. Les exercices ne touchent pas aux seaux.
 - **Synchronisation des appareils** (Réglages › `#sync-box`, `renderSync`, `renderSyncStatus`, `syncJoin`, `copiesSheet`) :
   `docOf(state)` donne le document partagé (pris comme après un rechargement, `normalizeState` : ce qu'il complète n'est pas
   un changement ; tout sauf `DEVICE_SETTINGS` = `autoAudio`, `rate`, `theme`, `textSize`, `motion`, `compact`, `zhFont`, et sauf la `pause` de l'apprentissage (`sansPause`), le jeton GitHub ; `custom`, `lists`,
-  `learnLog` (par `start`) en maps par id ; `listsAt`), `stateFromDoc` l'inverse (un champ absent du document, version
+  `learnLog` et `hskLog` (par `start`) en maps par id ; `listsAt` ; pas `hskRun`), `stateFromDoc` l'inverse (un champ absent du document, version
   d'avant ou copie du serveur, garde celui de l'appareil ; un apprentissage venu d'ailleurs est en pause ici), `applyDoc` l'applique (`recomputeDue` si les délais changent, `mergeTel`,
   `afterDeckChange`). `mergeDocs(base, ici, serveur)` : `mergeMap` (une clé changée d'un seul côté prend ce côté, même plus
   bas, suppression comprise ; changée des deux côtés : la règle de la collection, même à valeur égale), `mergeCard` (la
@@ -363,7 +400,7 @@ l'iPhone : Réglages › Appli › Vérifier. Le téléphone peut lui aussi écr
   celles d'ici d'abord, et les mots que personne n'a passés ; le côté qui a déjà toutes les réponses de l'autre est pris
   tel quel, sinon deux fenêtres s'échangeraient l'ordre sans fin ; deux `start` différents : `laterRun`, le plus récent ;
   abandonné d'un côté et avancé de l'autre : il reste, sauf si son `start` est dans `ended`, union des deux côtés),
-  `learnLog` (union, `capLog`), un champ absent d'un document (version d'avant) compté comme inchangé (`field`),
+  `learnLog` et `hskLog` (union, `capLog`), un champ absent d'un document (version d'avant) compté comme inchangé (`field`),
   réglages : ceux de l'appareil qui fusionne ; sans base (premier code sur un appareil) : maximum,
   union, réglages du côté le plus avancé. `syncNow` : sans changement ici, `GET ?have=v` ; sinon `PUT {v de la base}` ; un 409
   apporte le document du serveur, fusion, nouvel envoi ; les changements faits pendant l'échange restent (`mergeDocs(local, now,
@@ -431,7 +468,7 @@ l'iPhone : Réglages › Appli › Vérifier. Le téléphone peut lui aussi écr
 
 ## Vérifier un changement
 
-1. `py tests\test_seance.py` (dont l'écran d'ordinateur, 1366 × 768), `py tests\test_seaux.py`, `py tests\test_listes.py`, `py tests\test_dico.py`, `py tests\test_affichage.py`, `py tests\test_dessin.py` et, si la
+1. `py tests\test_seance.py` (dont l'écran d'ordinateur, 1366 × 768), `py tests\test_seaux.py`, `py tests\test_listes.py`, `py tests\test_dico.py`, `py tests\test_affichage.py`, `py tests\test_dessin.py`, `py tests\test_hsk.py` et, si la
    synchronisation change, `py tests\test_sync.py` et `node tests\test_serveur_sync.mjs` ; ajoute un test
    pour toute nouvelle fonction. Tout changement du planning (seaux, file, évaluation, migration)
    passe par `tests/test_seaux.py`.
