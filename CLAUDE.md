@@ -320,10 +320,12 @@ l'iPhone : Réglages › Appli › Vérifier. Le téléphone peut lui aussi écr
   `shapesReady`, `shapesMissing` : un paquet absent est redemandé quand la case se rouvre, `padOpen` ; tout est refait quand
   `traits/` change de version), `guessChars(S, strokes, k)` (les k plus proches au cosinus, petite pénalité par trait de plus
   ou de moins ; un trait sans longueur compte comme un point). Réglages choisis sur les médianes déformées, mélangées,
-  retournées et liées : `test_dessin.py` mesure le résultat (le bon caractère premier, ou parmi les dix). Case `pad` en SVG
-  (`#pad` : une `polyline` par trait, en fractions de la case, à l'encre du thème, `pointer-events: none` : un toucher tombe
-  toujours sur `#pad`, jamais sur une ligne que `padDraw` refait ; un nouveau trait s'ajoute sans refaire les autres ; `at`
-  rend null si la case n'a pas de taille ; `touchmove` sans défilement (Safari) ; `strokes`, `cur`, `id` : un seul doigt à
+  retournées et liées : `test_dessin.py` mesure le résultat (le bon caractère premier, ou parmi les dix). Case `pad` en `<canvas>`
+  (`#pad` ; un SVG rendait l'iPhone tout blanc dès le premier toucher) : `padInk` (canvas à la taille de la case en pixels de
+  l'écran, encre du thème = `color` de `#pad`, trait de 2,8 % de la case), `padLine` (un trait, ou pendant le geste sa seule
+  partie nouvelle ; un point seul : un rond), `padDraw` (tout redessiné ; aussi par un `ResizeObserver` et, au changement de
+  thème, un `MutationObserver` sur `data-theme`/`data-mode`) ; `strokes` en fractions de la case ; `at` rend null si la case
+  n'a pas de taille ; `touchmove` sans défilement (Safari) ; `strokes`, `cur`, `id` : un seul doigt à
   la fois, un `pointercancel` n'en laisse rien ; `seq`/`shown` : dernière proposition affichée), `padDraw`, `padGuess`
   (« Chargement… » tant que les formes ne sont pas prêtes), `padClear`, `padOpen`, `bindPad`. Un caractère touché remplace
   dans `#q` ce qui n'est pas en caractères et s'y ajoute (`searchAdd`, `renderWords`), la case se vide, le message le dit (au clavier, le

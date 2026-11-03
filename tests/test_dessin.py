@@ -167,9 +167,12 @@ def main():
             c.dispatchEvent(new PointerEvent('pointercancel', o)); return [before, pad.strokes.length, pad.id]; }""")
         check(cancel[1] == cancel[0] and cancel[2] is None, "a touch taken by the system (pointercancel): no stroke left", cancel)
         page.evaluate("() => { state.settings.theme = 'dark'; applyLook(state.settings); }")
-        ink = page.evaluate("() => getComputedStyle(document.querySelector('#pad polyline')).stroke")
+        ink = page.evaluate("""() => { const c = document.querySelector('#pad'), g = c.getContext('2d'), st = pad.strokes[pad.strokes.length - 1];
+            const p = st[Math.floor(st.length / 2)], d = g.getImageData(Math.round(p[0] * c.width), Math.round(p[1] * c.height), 1, 1).data;
+            return [getComputedStyle(c).color, `rgb(${d[0]}, ${d[1]}, ${d[2]})`, d[3], c.width === Math.round(c.getBoundingClientRect().width * devicePixelRatio)]; }""")
         page.evaluate("() => { state.settings.theme = 'auto'; applyLook(state.settings); }")
-        check(ink == "rgb(227, 234, 225)", "the strokes in the theme's ink, changed with it (Tableau noir)", ink)
+        check(ink[0] == ink[1] == "rgb(227, 234, 225)" and ink[2] == 255 and ink[3],
+              "the strokes in the theme's ink, drawn again with it (Tableau noir), on a canvas as sharp as the screen", ink)
         page.click("#pad-clear")
         # the grid of Affichage on the pad too
         page.evaluate("() => { state.settings.grid = 'mi'; applyLook(state.settings); }")
